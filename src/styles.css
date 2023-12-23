@@ -1,0 +1,80 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
+
+:root {
+  --main-color: #B7121A;
+  --button-color:#FF6B00;
+  --option-color:#FFC09C;
+  --footer-color:#000000
+}
+.display-flex {
+  display: flex;
+  flex-wrap: wrap; 
+}
+.flex-1 {
+  flex: 1;
+  padding-left: 5px;
+  /* Set a minimum width for smaller screens */
+  min-width: 100px;
+}
+@media screen and (max-width: 768px) {
+  .flex-1 {
+    flex-basis: 50%; /* Two fields per row */
+    max-width: 50%;
+  }
+}
+
+/* Adjust field sizes for smaller screens */
+@media screen and (max-width: 480px) {
+  .flex-1 {
+    flex-basis: 100%; /* One field per row */
+    max-width: 100%;
+  }
+}
+.flex-2 {
+  flex: 2;
+}
+
+.flex-3 {
+  flex: 3;
+}
+
+.flex-4 {
+  flex: 4;
+}
+
+.flex-5 {
+  flex: 5;
+}
+
+.flex-6 {
+  flex: 6;
+}
+
+.flex-7 {
+  flex: 7;
+}
+
+.flex-8 {
+  flex: 8;
+}
+
+.flex-9 {
+  flex: 9;
+}
+
+.flex-10 {
+  flex: 10;
+}
+
+.flex-11 {
+  flex: 11;
+}
+
+.flex-12 {
+  flex: 12;
+}

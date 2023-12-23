@@ -1,0 +1,150 @@
+{
+    "pageHeading": "Update Profile",
+    "formType": "simple",
+    "addEditMode": "page",
+    "keyField": "model_no",
+    "form": {
+      "collectionName": "product",
+      "getDataEndPoint": "product/filter/model_no",
+      "fields": [
+        {
+          "fieldGroupClassName": "display-flex",
+  
+          "fieldGroup": [
+            {
+                "type": "input",
+                "key": "Name",
+                "className": "flex-2",
+                "props": {
+                  "label": "Name",
+                  "labelPropTemplate": "{{Name}",
+                
+                  "labelProp": "Name",
+                  "valueProp": "model_family"
+                }
+              },
+              {
+                "type": "input",
+                "key": "email",
+                "className": "flex-2",
+                "props": {
+                  "label": "email",
+                  "labelPropTemplate": "{{email}",
+                
+                  "labelProp": "Email",
+                  "valueProp": "email"
+                }
+              },
+              {
+                "type": "input",
+                "key": "mobile number",
+                "className": "flex-2",
+                "props": {
+                  "label": "Mobile Number",
+                  "labelPropTemplate": "{{Mobile Number}",
+                
+                  "labelProp": "Mobile NUmber",
+                  "valueProp": "Mobile Number"
+                }
+              }
+          ]
+        },
+        {
+          "fieldGroupClassName": "display-flex",
+          "fieldGroup": [
+            {
+                "type": "date-input",
+                "key": "dob",
+                "className": "flex-2",
+                "props": {
+                  "label": "Date of Birth",
+                 
+                
+                  "labelProp": "Dob",
+                  "valueProp": "Dob"
+                }
+              }, {
+                "type": "input",
+                "key": "father's Name",
+                "className": "flex-2",
+                "props": {
+                  "label": "Fathers Name",
+                 
+                
+                  "labelProp": "Fathers Name",
+                  "valueProp": "Fathers Name"
+                }
+              },
+              {
+                "type": "input",
+                "key": "Address",
+                "className": "flex-2",
+                "props": {
+                  "label": "Address",
+                 
+                
+                  "labelProp": "Address",
+                  "valueProp": "Address"
+                }
+              },
+              {
+                "type": "image-input",
+                "key": "Upload Adhar",
+                "className": "flex-2",
+                "props": {
+                  "label": "Upload Adhar",
+                 
+                
+                  "labelProp": "Upload Adhar",
+                  "valueProp": "Upload Adhar"
+                }
+              },
+              {
+                "type": "image-input",
+                "key": "Upload Certificate",
+                "className": "flex-2",
+                "props": {
+                  "label": "Upload Certificate",
+                 
+                
+                  "labelProp": "Upload Certificate",
+                  "valueProp": "Upload Certificate"
+                }
+              },
+              {
+                "type": "select",
+                "key": "select business category",
+                "className": "flex-2",
+                "props": {
+                  "label": "select business category",
+                 
+                
+                  "labelProp": "select business category",
+                  "valueProp": "select business category"
+                }
+              },
+              {
+                "type": "select",
+                "key": "select Sub category",
+                "className": "flex-2",
+                "props": {
+                  "label": "select Sub category",
+                 
+                
+                  "labelProp": "select Sub category",
+                  "valueProp": "select Sub category"
+                }
+              }
+
+              
+
+
+
+          ]
+        }
+    
+       
+      ]
+    }
+  }
+  
