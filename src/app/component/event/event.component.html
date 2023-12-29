@@ -1,0 +1,417 @@
+<!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic expedita suscipit, non doloribus, illo rerum nesciunt inventore ratione praesentium corporis, ea qui soluta mollitia. Totam vero fugiat voluptate dolorum minus?</p> -->
+<!-- <button-input (found)="onButtonInputFound($event)"></button-input> -->
+
+<!-- todo Input and button --> 
+<div style="display: flex; align-items: center; width: 100%">
+  <form [formGroup]="searchFormGroup" style="flex: 1;">
+    <mat-form-field style="width: 90%;">
+      <mat-label>
+        Search User
+      </mat-label>
+      <input formControlName="search_user" matInput type="text" [matAutocomplete]="auto"/>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+        <mat-option *ngFor="let user of filteredOptions" [value]="user.first_name">
+          {{ user.first_name }}
+        </mat-option>
+      </mat-autocomplete>
+      
+    </mat-form-field>
+  </form>
+  <div style="display: flex; align-items: center; flex-direction: column; text-align: center;">
+
+   
+  
+    <button matTooltip="Add" mat-mini-fab style="
+      background-color: #5C6BC0;
+      color: white;
+      height: 30px;
+      width: 30px;
+      font-size: 9px;
+      line-height: 3;
+      vertical-align: middle;
+    "
+    (click)="ChangesFunc('save')">
+      <mat-icon>add</mat-icon>
+    </button>
+    <label style="margin-bottom: 10px;">
+      Create New User
+    </label>
+  </div>
+  
+</div>  
+
+
+ 
+
+<div *ngIf="CreateUser">  
+  <form [formGroup]="eventFormGroup" >
+  <div class="row">
+    <div class="column1">
+ 
+      <div style="margin-right: 20px;padding-left: 10%;"> 
+        <label class="hoverable" >
+        <img [src]="url ? url : ''"   formControlName="user_photo"><br>
+ 
+          <div class="hover-text">user Profile</div>
+          <div class="background"></div>
+          <input id="fileInput" type='file' style="display: none;" (change)="onFileSelected($event)" (change)="handleFileUpload($event)">
+        </label> 
+      </div> 
+      <br>
+      <br> 
+     <div style="display: flex; align-items: center;"> 
+        <mat-chip-list formGroupName="user_role" vertical="true">
+          <mat-chip-option *ngFor="let category of ['Delegates', 'Speaker', 'TeamMember', 'Buyer']"
+                          [selected]="eventFormGroup.get('user_role.' + category)!.value"
+                          (click)="updateCategoryValue(category, !eventFormGroup.get('user_role.' + category)!.value)">
+            {{ category }}
+          </mat-chip-option>
+        </mat-chip-list>
+        
+
+      </div>
+     
+      
+      
+      
+      
+    </div>
+    <div class="column">
+      <div style="margin-left: 20px;">
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="firstName"  formControlName="first_name">
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="last_name">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Mobile Number</mat-label>
+          <input matInput formControlName="mobile_number">
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Organization Name</mat-label>
+          <input matInput formControlName="organization_name">
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="male">Male</mat-option>
+            <mat-option value="female">Female</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="fullDescription"></textarea>
+        </mat-form-field>
+    
+        <div style="display: flex; justify-content: flex-end; width: 100%">
+          <button style="margin: 5px" mat-button (click)="diaglogbox(); eventFormGroup.reset()">
+            Cancel
+          </button>
+    
+          <button style="margin: 5px" mat-button color="primary" (click)="eventFormGroup.reset()">
+            Reset
+          </button>
+    
+          <button style="margin: 5px; background: rgb(59, 146, 155)" mat-raised-button (click)="saveForm()">
+            {{ butText }}
+          </button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</form>
+
+</div>
+
+ <!-- <ButtonInput ></ButtonInput> -->
+<!--   
+
+  <a
+    mat-fab
+    extended
+    (click)="CreatenewUser()"
+    style="margin-left: auto; height: 36px"
+  >
+    <mat-icon>add</mat-icon>
+    
+  </a> -->
+
+<!-- <div *ngIf="SpeakerDetails">
+  <p>Our Speaker:</p>
+
+  <div class="chip" *ngFor="let speaker of childData">
+    <img  src="{{ speaker.imageUrl }}" alt="Contact Person" />
+    {{ speaker.username }}
+    <a mat-icon-button  class="remove-button"  (click)="remove(speaker)" >
+      <mat-icon>cancel</mat-icon>
+    </a>
+  </div>
+</div> -->
+
+<!--  
+<mat-form-field class="example-chip-list">
+  <mat-chip-grid #chipGrid aria-label="Enter fruits">
+    <mat-chip-listbox  *ngFor="let speaker of childData">
+      <mat-chip-row [editable]="true" (removed)="remove(speaker)">
+        <mat-chip>
+          <img [src]="speaker.imageUrl" alt="Contact Person" />
+          {{ speaker.username }}
+        </mat-chip>
+        <button matChipRemove [attr.aria-label]="'remove ' + speaker.username">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-listbox>
+  </mat-chip-grid>
+</mat-form-field> -->
+
+<!-- <formly-form [model]="model" [fields]="inputField" [options]="options1" [form]="form"></formly-form>
+<p>
+  Today's item: {{formData}}
+</p> -->
+<!-- <mat-chip
+*ngFor="let country of countries"
+[selectable]="selectable"
+[removable]="removable"
+(removed)="remove(country)"
+>
+{{country.name}}
+<mat-icon matChipRemove *ngIf="removable">Ab</mat-icon>
+</mat-chip> -->
+<!-- todo User Details Get  -->
+
+<!-- 
+<mat-form-field>
+  <input
+    type="text"
+    matInput
+    #autoCompleteInput
+    [formControl]="selectControl"
+    [matAutocomplete]="auto" 
+  />
+  <mat-icon matPrefix>search</mat-icon>
+  <mat-icon matSuffix *ngIf="search.searchText" class="searchIcon">close</mat-icon>
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let op of filteredOptions" [value]="op[valueProp]">
+      {{ op[labelProp] }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field> -->
+
+<!-- todo Create a User -->
+
+
+
+<!-- <mat-form-field appearance="outline" style="width: 100%;">
+  <mat-label>{{ to.label }}</mat-label>
+  <input
+    matInput
+    [matAutocomplete]="auto"
+    [formControl]="formControl"
+    [placeholder]="to.placeholder"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+      {{ option[to.labelProp] }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field> -->
+
+<!-- <ng-container style="display: flex; justify-content: flex-end" id="#submitbutton"> -->
+
+<!--   
+  <ng-container style="display: flex; justify-content: flex-end" id="submitbutton">
+
+
+
+
+  <button
+    style="margin: 5px; background: rgb(59, 146, 155);border-radius: 25px;"
+    mat-raised-button
+    (click)="NumberUser()"
+  >
+    Submit
+  </button>
+</ng-container>
+ -->
+
+<!-- <ng-container *ngIf="SearchUser">
+  <div class="wrapper centered" style="width: 70%">
+    <div class="profile" *ngFor="let user of data1" style="height: 30%">
+      <img [src]="imageUrl" class="thumbnail" />
+
+      <h1>{{ user.name }}</h1>
+       
+      <p style="text-align: center; justify-content: center">
+        {{ user.fullDescription }}
+      </p>
+      <button type="button" class="btn" (click)="showProfile(user, imageUrl)">
+        {{searchbutText}}
+      </button>
+      <br /><br />
+    </div>
+  </div>
+</ng-container> -->
+<!--  
+  <ng-container *ngIf="CreateUser" >
+    <div
+      style="
+        flex: 1;
+        margin-right: 30px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+      "
+    >
+      <p>Profile Photo</p>
+      <img
+        [src]="imageUrl"
+        alt="Profile Image"
+        class="image--cover"
+        type="file"
+      />
+
+      <br /><br />
+      <form [formGroup]="checkbox">
+        <h4>Select Role for the Event:</h4>
+        <mat-chip-listbox aria-label="Fish selection" multiple>
+          <mat-chip-option color="blue">Delegates</mat-chip-option>
+          <mat-chip-option color="yellow">Speaker</mat-chip-option>
+          <mat-chip-option color="accent" >Team Member</mat-chip-option>
+          <mat-chip-option color="warn">Buyer</mat-chip-option>
+        </mat-chip-listbox>
+      </form>
+    </div>
+
+    <div style="flex: 1; padding: 20px">
+      <form [formGroup]="form" style="width: 100%">domrlky 
+        <formly-form
+          [model]="model"
+          [fields]="inputFields"
+          [options]="options"
+          [form]="form"
+        ></formly-form>
+
+        
+        <div style="display: flex; justify-content: flex-end; width: 100%">
+          <button style="margin: 5px" mat-button (click)="CreateUser=false; form.reset()">
+            Cancel
+          </button>
+          
+          <button style="margin: 5px" mat-button   color="primary" (click)="this.form.reset()">
+            Reset
+          </button>
+          <button style="margin: 5px; background: rgb(59, 146, 155)" mat-raised-button (click)="saveForm()">
+            {{ butText }}
+          </button> 
+           
+
+        </div>
+        
+      </form>
+    </div>
+  </ng-container> -->
+
+<!--    
+  {
+    "username": "g",
+    "emailId": "g",
+    "mobile_number": "g",
+    "gender": "male",
+    "profileDescription": "g",
+    "speaker":["Delegates"],
+    "UserImage":""
+  } -->
+<!-- <ng-container *ngIf="ShowGrid">
+  <ag-grid-angular
+    style="width: 100%; height: calc(100vh - 250px); flex: 1 1 auto"
+    class="ag-theme-alpine"
+    [defaultColDef]="defaultColDef"
+    [columnDefs]="columnDefs"
+    [rowData]="listData"
+    [gridOptions]="gridOptions"
+    [context]="context"
+    [rowSelection]="'single'"
+    [components]="components"
+    [animateRows]="true"
+    [singleClickEdit]="true"
+    (selectionChanged)="onSelectionChanged($event)"
+    (gridReady)="onGridReady($event)"
+  ></ag-grid-angular>
+</ng-container> -->
+
+
+
+
+<!-- 
+ 
+<div class="image-container">
+  style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%; position: relative; cursor: pointer;"
+  (click)="fileInput.click()"
+>
+  <input
+    type="file"
+    #fileInput
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;"
+    (change)="onSelectFile($event)"
+  />
+  <img
+    [src]="selectedImage || ''"
+    
+    style="width: 100%; height: 100%; object-fit: cover;"
+  />
+</div>
+
+  -->
+
+<!-- 
+
+  <input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload()">
+  <div id="circle">
+    <img id="uploadedImage" src="{{imageUrl}}" alt="Uploaded Image">
+  </div>
+
+
+  <img [src]="imageUrl" class="thumbnail" />
+
+
+
+  <div>
+
+
+
+
+
+
+
+  </div> -->
+  <!-- <formly-field-logo></formly-field-logo> -->
+  <!-- <div fxLayoutAlign="center center"style="justify-content: space-between;">
+    <label class="hoverable" for="fileInput">
+      <img src="{{url}}">
+       
+      <div class="background"></div>
+      <input id="fileInput" type='file' (change)="handleFileUpload()" (change)="onSelectFile($event)">
+    </label>
+
+  </div> -->
+<!-- </div> -->
+<!-- 
+<input type="hidden" 
+[formControl]="thisFormControl"
+[formlyAttributes]="field"
+/> -->

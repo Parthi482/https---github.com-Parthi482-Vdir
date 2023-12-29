@@ -1,8 +1,8 @@
 import { FieldType, } from '@ngx-formly/core';
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
-import * as geolib from 'geolib';
+import { Component, ElementRef, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import * as geolib from 'geolib'; 
 import { FormControl } from '@angular/forms';
-import { LocationService } from '../service/location-service';
+import { LocationService, Maps } from '../service/location-service';
 interface Entry {
   place: google.maps.places.PlaceResult;
   marker: google.maps.Marker;
@@ -80,8 +80,9 @@ type Components = typeof place.address_components;
 
 
   </style>
+  
   <div *ngIf="show== true" class="button-container">
-  <input 
+  <input  matInput
     placeholder={{field.props.label}}
     autocorrect="off"
     autocapitalize="off"
@@ -91,17 +92,23 @@ type Components = typeof place.address_components;
     [formControl]="FormControl"  
   [formlyAttributes]="field"
     #search
+    style="height: 40px;"
   />
-  <button (click)="searchLocation()" class="custom-button">Search</button>
+
+  <button style="margin: 5px;text-align:center; padding-left:15px;height: 40px; width:100px" (click)="searchLocation()" class="custom-button">Search</button>
 </div>
 
-
 <div class="map" #map></div>
+
 
   `
 })
 
 export class Location extends FieldType<any>  {
+  
+@Input('Latlog') latlong:any []=[]; 
+@Input('Flag') mapShowFlag:boolean=true
+
   @ViewChild('search')
   public searchElementRef!: ElementRef;
   public geoCoder!: any;
@@ -115,12 +122,9 @@ export class Location extends FieldType<any>  {
   private map!: google.maps.Map;
   private geocoder!: google.maps.Geocoder;
 
-  constructor(locationService: LocationService, private ngZone: NgZone) {
+  constructor(private locationService: LocationService, private ngZone: NgZone) {
     super();
-    locationService.api.then((maps:any) => {
-      this.initAutocomplete(maps);
-      this.initMap(maps);
-    });
+  
     // this.geocoder = new google.maps.Geocoder();
 
   }
@@ -129,10 +133,22 @@ export class Location extends FieldType<any>  {
     return this.formControl as FormControl;
   }
 
+  ngOnInit(){
+    this.locationService.api.then((maps) => {
+    this.map = new maps.Map(this.mapElementRef.nativeElement, {
+      zoom: 10,
+      center: new maps.LatLng(this.latlong[0], this.latlong[1]),
+    });
+      
+      this.initAutocomplete(maps);
+      this.initMap(maps);
+    });
+    console.log(this.latlong);
+    
+  }
 
 
-
-  initAutocomplete(maps: any) {
+  initAutocomplete(maps: Maps) {
 
     this.show = this.field.showsearchbar
     let autocomplete = new maps.places.Autocomplete(
@@ -149,7 +165,8 @@ export class Location extends FieldType<any>  {
 
   }
 
-  initMap(maps: any) {
+
+  initMap(maps: Maps) {
     this.show = this.field.showsearchbar
     let center
     let location = this?.model[this?.field.key]

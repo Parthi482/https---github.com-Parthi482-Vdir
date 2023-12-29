@@ -52,6 +52,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import {  DragDropModule } from '@angular/cdk/drag-drop';
+import { TokenInterceptor } from 'src/interceptor/tokenInceptor';
 
 const MY_DATE_FORMATS = {
   parse: {
@@ -141,6 +142,13 @@ const appearance: any = {
 
   providers: [
     DatePipe,
-  ]
+    // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
 })
 export class ComponentModule { }

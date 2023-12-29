@@ -12,13 +12,13 @@ export class ApiService {
   private details: any; // Remove the duplicate declaration of 'value'
 
   // private baseUrl: string = 'http://10.0.0.157:7071/';
-  private baseUrl: string ='http://10.0.0.123:7000/'
+  // private baseUrl: string ='http://10.0.0.123:7000/'
 
-  // private baseUrl: string = 'http://127.0.0.1:7000/';
+  private baseUrl: string = 'http://127.0.0.1:7000/';
   public getWsBaseUrl() {
 
-    return 'http://10.0.0.123:7000/'
-    // return 'http://127.0.0.1:7000/'
+    // return 'http://10.0.0.123:7000/'
+    return 'http://127.0.0.1:7000/'
 
   }
   constructor(private http: HttpClient, private router: Router) {

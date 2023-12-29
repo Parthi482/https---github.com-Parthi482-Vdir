@@ -1,12 +1,13 @@
 
 import { Component, EventEmitter, Input, Output, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService } from 'src/app/service/dialog.service';
+import { FormService } from 'src/app/service/form.service';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { DialogService } from 'src/app/service/dialog.service';
-import { FormService } from 'src/app/service/form.service';
 import { HelperService } from 'src/app/service/helper.service';
+import { v4 } from 'uuid';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class DynamicFormComponent {
   @Input('model') model: any = {}
   @Output('onClose') onClose = new EventEmitter<any>();
   butonflag: boolean = false;
-
+  stepper:boolean =  false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -46,15 +47,21 @@ export class DynamicFormComponent {
   ngOnInit() {
     
     this.paramsSubscription = this.route.params.subscribe(params => {
+
       if (params['form']) {
         this.formName = params['form'];
-       }
+        if (this.formName != "event"){
+          this.stepper = true
+          this.form.addControl("_id",new FormControl('v4()'))
+          this.model['_id']=v4()
+        }
+      }
       if (params['id'] != undefined) {
         this.id = params['id']
-      
-    }
+      }
       this.initLoad()
     })
+      
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -66,8 +73,35 @@ export class DynamicFormComponent {
   }
 
   frmSubmit(event:any) {
-   console.log("working");
-  this.formService.saveFormData(this).then((result: any) => {
+
+    if (!this.form.valid) {
+    //   function collectInvalidLabels(controls: any, invalidLabels: string = ''): string {
+    //     for (const key in controls) {
+    //         if (controls.hasOwnProperty(key)) {
+    //             const control = controls[key];
+        
+    //             if (control instanceof FormGroup) {
+    //                 invalidLabels += collectInvalidLabels(control.controls);
+    //             } else if (control instanceof FormControl && control.status === 'INVALID') {
+    //                 // Access the label property assuming it exists in the control
+    //                 invalidLabels +=controls[key]._fields[0].props.label + ",";
+    //             }else if(control instanceof FormArray && control.status === 'INVALID'){
+    //               invalidLabels +=controls[key]._fields[0].props.label + ",";
+    //             }
+    //         }
+    //     }
+    //     return invalidLabels;
+    // }
+    
+    const invalidLabels:any = this.helperService.getDataValidatoion(this.form.controls);
+      this.dialogService.openSnackBar("Error in " + invalidLabels, "OK");
+     this.form.markAllAsTouched();
+      this.butonflag=false
+      return ;
+    }
+// if(this.form.valid){
+
+        this.formService.saveFormData(this).then((result: any) => {
           console.log(result);
           if (result != undefined) {
             this.goBack(result)
@@ -75,7 +109,7 @@ export class DynamicFormComponent {
         this.butonflag=true
           }
         })
-  
+    // }
     
   }
 

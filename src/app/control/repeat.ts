@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FieldArrayType } from '@ngx-formly/core';
 
 @Component({
@@ -7,6 +7,9 @@ import { FieldArrayType } from '@ngx-formly/core';
     <div style="margin-bottom: 1rem;">
       <legend *ngIf="props.label" style="font-weight: bold;">{{ props.label }}</legend>
       <p *ngIf="props.description">{{ props.description }}</p>
+
+    
+
 
       <div *ngFor="let field of field.fieldGroup; let i = index" style="display: flex; align-items: baseline; margin-bottom: 0.5rem;">
         <formly-field style="flex: 1;" [field]="field"></formly-field>
@@ -20,4 +23,19 @@ import { FieldArrayType } from '@ngx-formly/core';
     </div>
   `,
 })
-export class RepeatTypeComponent extends FieldArrayType {}
+export class RepeatTypeComponent extends FieldArrayType implements OnInit{
+  constructor() {
+    super();
+  }
+  ngOnInit(): void {
+    // Add an initial item only if the field.fieldGroup is empty
+    if (!this.field.fieldGroup || this.field.fieldGroup.length === 0) {
+      this.add();
+    }
+
+    console.warn(this.form);
+  }
+
+
+
+}

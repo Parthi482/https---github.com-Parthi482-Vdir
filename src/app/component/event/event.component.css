@@ -1,0 +1,308 @@
+* {
+  box-sizing: border-box;
+}
+.image--cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  
+    object-fit: cover;
+    object-position: center right;
+  }
+
+
+
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+  }
+  
+  .title {
+    color: grey;
+    font-size: 18px;
+  }
+   
+  a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+  }
+
+
+
+ 
+img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.hoverable {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  height: 150px;
+  width: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+}
+
+.hoverable .hover-text {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-size: 10px;
+}
+
+.hoverable .background {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.hoverable:hover .hover-text {
+  display: block;
+}
+
+.hoverable:hover .background {
+  display: block;
+}
+
+#fileInput{
+  display: none;
+}
+
+label {
+  margin-bottom: 30px;
+} 
+
+/*  
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+    */
+    .centered {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    } 
+  .wrapper {
+    width: 320px;
+    height: 540px;
+    background: #FDFEFF;
+    transition: background .6s ease;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  }
+  .wrapper .profile {
+    text-align: center; /* Center the content horizontally */
+  }
+  
+  .wrapper .profile .btn {
+    color: #fff;
+    width: 130px;
+    height: 42px;
+    outline: none;
+    border: none;
+    display: block;
+    font-weight: 300;
+    margin: 0 auto; /* Center the button horizontally */
+    cursor: pointer;
+    text-align: center;
+    justify-content: center;
+    border-radius: 70px;
+    box-shadow: 0 13px 26px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
+    background: linear-gradient(to bottom right, #007BFF, #00BFFF); /* Blue linear gradient */
+  }
+  
+  
+  .wrapper h1 {
+    width: 130px;
+    height: 42px;
+    display: block;
+    font-weight: 300;
+    margin: 0 auto; /* Center the h1 element horizontally */
+    text-align: center;
+  }
+
+
+
+
+
+/* 
+  .wrapper .profile .btn {
+    color: #fff;
+    width: 130px;
+    height: 42px;
+    outline: none;
+    border: none;
+    display: block;
+    
+    font-weight: 300;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+    text-align: center;
+    justify-content: center;
+    border-radius: 70px;
+    box-shadow: 0 13px 26px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
+    background: linear-gradient(to bottom right, #C90A6D, #FF48A0);
+  } 
+  .wrapper h1{
+    
+    width: 130px;
+    height: 42px;
+    display: block;
+    font-weight: 300;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    
+  } */
+  .wrapper .profile p {
+    text-align: center; /* Center the text */
+    margin-left: auto;
+    margin-right: auto;
+  }
+   
+  .wrapper .profile .thumbnail {
+    width: 124px;
+    height: 124px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.5em;
+    border-radius: 100%;
+    box-shadow: 0 13px 26px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* .wrapper .profile .name {
+    color: #2D354A;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .wrapper .profile .title {
+    color: #7C8097;
+    font-size: .75em;
+    font-weight: 300;
+    text-align: center;
+    padding-top: .5em;
+    padding-bottom: .7em;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+   */
+  /* .wrapper .profile .description {
+    color: #080911;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 1.3em;
+  } */
+  #submitbutton{
+    text-align: right;
+      
+      padding: 20px;
+  }
+ 
+.chip {
+display: inline-block;
+padding: 0 25px;
+height: 50px;
+font-size: 16px;
+line-height: 50px;
+border-radius: 25px;
+background-color: #f1f1f1;
+}
+
+.chip img {
+float: left;
+margin: 0 10px 0 -25px;
+height: 50px;
+width: 50px;
+border-radius: 50%;
+}
+ 
+.remove-button {
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  /* Add any other styling as needed */
+}
+.icon{
+  margin-bottom: 20px;
+ 
+   }
+
+
+   #circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+
+  #uploadedImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+.image-container {
+  width: 100px; /* Set your desired width */
+  height: 100px; /* Set your desired height */
+  border-radius: 50%; /* Make it a circle by setting border-radius to 50% */
+  overflow: hidden; /* Hide overflowing content beyond the circle */
+}
+
+.image-container img {
+  width: 100%; /* Make the image fill the container */
+  height: 100%; /* Make the image fill the container */
+  object-fit: cover; /* Ensure the image covers the entire container */
+}
+
+
+
+.column1{
+  float: left;
+  width: 40%;
+  padding: 10px;
+  height: 100%;  
+}
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 100%; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+/* .row:after {
+  content: "";
+  height: 100%;
+  display: table;
+  clear: both;
+} */
+.row {
+  display: flex;
+}

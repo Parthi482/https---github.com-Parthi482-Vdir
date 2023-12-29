@@ -13,10 +13,42 @@ import { DefaultComponent } from './shared/layout-event/default/default.componen
 import { DatatableComponent } from './component/datatable/datatable.component';
 import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.component';
 import { AuthGuardService } from './service/auth-guard.service';
+import { EventScreenComponent } from './component/event-screen/event-screen.component';
+import { ScreenComponent } from './component/screen/screen.component';
 
 //import { MapComponent } from './shared/layout/map/map.component';
 
 const routes: Routes = [
+
+  {
+    path: 'events',
+    component: DashLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: EventScreenComponent,
+      },
+    ],
+  },
+  
+  {path: "event-details",
+  component: DashLayoutComponent,
+  
+  children: [
+   {
+    path: "",
+    component: ScreenComponent,
+   },
+   {
+    path: ":id",
+    component:ScreenComponent
+   },
+  ],
+  },
+
+
+
+
   {
     path: 'auth',
     component: AuthLayoutComponent,

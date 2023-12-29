@@ -23,11 +23,15 @@ import { DateTimeInput } from "./datetime-input";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { NgxMatDatetimePickerModule } from "@angular-material-components/datetime-picker";
 import { NgxMatMomentModule } from "@angular-material-components/moment-adapter";
-
+// import { Editor } from 'ngx-editor';
+import { NgxEditorModule } from 'ngx-editor';
 import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { NgxMatTimepickerModule } from "ngx-mat-timepicker";
-import { NgSelectModule } from "@ng-select/ng-select";
+import { FileUploadModule } from "ng2-file-upload";
+import { NgSelectModule } from "@ng-select/ng-select"; 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+// import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 import { LabelView } from "./label";
 import { FileInput } from "./file-input";
@@ -42,8 +46,16 @@ import { MatPrefixInput } from "./mat-prefix-input";
 import { PasswordInput } from "./password-input";
 import { CustomPopupInput } from "./custompopup-input";
 import { TimeInput } from "./timepicker";
-import { Location } from "./location";
+import { GoogleMapsModule } from "@angular/google-maps"; 
+import { NgxMatIntlTelInputComponent } from "ngx-mat-intl-tel-input";
 import { BrowserModule } from "@angular/platform-browser";
+import {
+  ArrayTodateStringPipe,
+  ArrayToStringPipe,
+  LastIndexPipe,
+  SumPipe,
+} from "../pipe/arraytostring";
+
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { FormlyFieldSelectAutocomplete } from "./select-autocomplete.type";
 import { MapComponent } from "./map";
@@ -65,6 +77,19 @@ import { CarsoalComponent } from './carsoal.component';
 import { FormlyFieldInputTextEnterKey } from "./inputcheck";
 import { MatStepperModule } from '@angular/material/stepper';
 import { FormlyFieldStepper } from "./stepper";
+
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { EventComponent } from "../component/event/event.component";  
+import {  CarouselInput } from "./carousel-input";
+import { CdkDrag, CdkDropList } from "@angular/cdk/drag-drop";
+import { CarouselComponentInput } from "./carousel-component-input";
+import { ImageComponent } from "./image.component";
+import { EventScreenComponent } from "../component/event-screen/event-screen.component";
+import { Image1Component } from "./image1.component";
+import { ScreenComponent } from "../component/screen/screen.component";
+import { CheckboxComponent } from './checkbox.input';
+import { LocationComponent } from "../component/screen/locations.component"; 
+import { Location } from "./location";
 
 
 export function minLengthValidationMessage(err: any, field: FormlyFieldConfig) {
@@ -140,7 +165,7 @@ export function required(err: any, field: FormlyFieldConfig) {
 }
 
 const lang = "en-US";
-const formlyConfig:any = {
+const formlyConfig = {
   wrappers: [{ name: "addons", component: PrefixInput }],
   extensions: [{ name: "addons", extension: { onPopulate: addonsExtension } }],
 
@@ -191,7 +216,7 @@ const formlyConfig:any = {
     {
       name: 'input-text-enterkey',
       component: FormlyFieldInputTextEnterKey
-    },
+    }, 
     { name: "select-input", component: SelectInput,
       validationMessages: [
         { name: "required", message: required },
@@ -215,7 +240,7 @@ const formlyConfig:any = {
       ],
     },
     
-    { name: "html-input", component: HtmlInput },
+    { name: "html-input", component: HtmlInput }, 
     // {
     //   name: "multiselect-input",
     //   component: MultiSelectInput,
@@ -286,10 +311,13 @@ const formlyConfig:any = {
       ],
     },
     { name: "file-input", component: FileInput },
+    // { name: "file-input", component: FileInput },
+    { name: "checkbox-input-field", component: CheckboxComponent },
+
     { name: "fieldset", component: FormlyFieldset },
     { name: "image-input", component: ImageInput },
     { name: "autoId-input", component: AutogenerateId }, // input text entry key
-    { name: "button-input", component: ButtonInput },
+    { name: "button-input", component: ButtonInput }, 
     { name: "password-input", component: PasswordInput },
     { name: "matprefix-input", component: MatPrefixInput,
       validationMessages: [
@@ -312,7 +340,11 @@ const formlyConfig:any = {
         { name: "pattern", message: patternValidationMessage },
       ],
     },
-
+    { name: "carousel-input", component: CarouselInput },
+    {
+name:"carousel-component-input",Component:CarouselComponentInput
+    },
+    { name: "location", component: Location },
     { name: "select-autocomplete", component: FormlyFieldSelectAutocomplete,
       validationMessage: [
         { name: "required", message: required },
@@ -335,18 +367,19 @@ const formlyConfig:any = {
        
       ],
     },
+    // { name: 'autocomplete-input', component: AutoComplete },
+   
     { name: "custompopup-input", component: CustomPopupInput },
-    { name: "time-input", component: TimeInput },
-    { name: "location", component: Location },
+    { name: "time-input", component: TimeInput }, 
     { name: "toogle", component: tooglebutton },
     { name: "card", component: Card },
-    { name: "patch-work", component: patchWork },
+    { name: "patch-work", component: patchWork }, 
     { name: "radio-button", component: radiobutton },
     { name: "repeat", component: RepeatTypeComponent },
     { name: "chips", component: Chips },
     { name: "muti-image", component: FormlyMultiImageUpload },
     {name:"stepper",component:FormlyFieldStepper},
-
+      
   ],
 }; 
 
@@ -354,7 +387,8 @@ const formlyConfig:any = {
   declarations: [
     Tab,
     FileInput,
-    HtmlInput,
+    CheckboxComponent,
+    HtmlInput, 
     LabelView,
     MultiSelectInput,
     SelectInput,
@@ -362,8 +396,13 @@ const formlyConfig:any = {
     DateTimeInput,
     MapComponent,
     ImageInput,
+    CarouselInput,
+    CarouselComponentInput,
     AutogenerateId,
     ButtonInput,
+    LocationComponent,
+    
+    FormlyFieldStepper,
     DateInput,
     Nestedform,
     PrefixInput,
@@ -379,18 +418,29 @@ const formlyConfig:any = {
     Location,
     LogoComponent,
     tooglebutton,
-    Card,
+    Card, 
     patchWork,
-    Chips,
+    Chips, 
+
     FormlyFieldStepper,
-    CarsoalComponent,FormlyFieldInputTextEnterKey
+    CarsoalComponent,
+    FormlyFieldInputTextEnterKey,
+    EventComponent,  
+    EventScreenComponent,
+    ImageComponent,
+    Image1Component,
+    ScreenComponent,
   ],
+
   imports: [
     BrowserModule,
+    DragDropModule,
     CommonModule,
     MatCardModule,
     MatTabsModule,
     MatDatepickerModule,
+    NgSelectModule,
+    NgxEditorModule,
     MatAutocompleteModule,
     MatButtonModule,
     NgxMatDatetimePickerModule,
@@ -401,6 +451,7 @@ const formlyConfig:any = {
     AgGridModule,
     MatDatepickerModule,
     ReactiveFormsModule,
+    CdkDropList, CdkDrag,
     FormlyMatDatepickerModule,
     FormlyModule.forRoot(formlyConfig),
     FormsModule,
@@ -418,43 +469,61 @@ const formlyConfig:any = {
     MatNativeDateModule,
     FormlyMatDatepickerModule,
     MatCheckboxModule,
-    // NgxMatTimepickerModule.setLocale(lang),
+    NgxMatTimepickerModule.setLocale(lang),
+    FileUploadModule,
     NgSelectModule,
     NgxMatTimepickerModule,
+    GoogleMapsModule,
+    NgxMatIntlTelInputComponent,
     MatDatepickerModule,
     NgxMatTimepickerModule,
     MatIconModule,
     MatSlideToggleModule,
     NgxMatDatetimePickerModule,
-    MatStepperModule,
+    // MatStepperModule,
+    MatAutocompleteModule, 
+    MatSidenavModule, 
   ],
   exports: [
     Tab,
     FileInput,
-    HtmlInput,
+    CheckboxComponent,
+    HtmlInput, 
     LabelView,
     MultiSelectInput,
     SelectInput,
     DateTimeInput,
-    ImageInput,FormlyFieldInputTextEnterKey,
+    ImageInput,    CarouselInput
+    ,FormlyFieldInputTextEnterKey,
     AutogenerateId,
     RepeatTypeComponent,
     ButtonInput,
+    FormlyFieldSelectAutocomplete,
+    Location,
     Nestedform,
     PrefixInput,
     DateInput,
     MatPrefixInput,
     PasswordInput,
     CustomPopupInput,
-    TimeInput,
-    Location,
+    TimeInput, 
     LogoComponent,
     OnlyDecimalDirective,
-    CarsoalComponent,
+    CarsoalComponent, 
     patchWork,
-    FormlyFieldSelectAutocomplete,
+    CarouselComponentInput,
     MapComponent,
     CustomDecimalInputType,
+    FormlyFieldStepper, 
+    ImageComponent,
+    Image1Component, 
+  ],
+  providers: [
+    ArrayTodateStringPipe,
+    ArrayToStringPipe,
+    LastIndexPipe,
+    SumPipe,
+    { provide: LOCALE_ID, useValue: lang },
   ],
 })
 export class ControlModule {}

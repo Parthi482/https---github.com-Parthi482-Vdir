@@ -1,5 +1,5 @@
 {
-  "pageHeading": "Event Creation",
+  "pageHeading": "Event",
   "formType": "simple",
   "editMode": "page",
   "screenEditMode": "page",
@@ -23,7 +23,7 @@
                   {
                     "type": "input",
                     "key": "event_name",
-                    "className": "flex-1",
+                    "className": "flex-3",
                     "props": {
                       "label": "Event Name",
                       "placeholder": "Enter the name of your event",
@@ -32,19 +32,26 @@
                     }
                   },
 
+				  {
+					"key": "event_mode",
+					"type": "select",
+                    "className": "flex-2",
+
+					"templateOptions": {
+					  "label": "Event Mode",
+					  "options": [
+						{ "value": "online", "label": "Online" },
+						{ "value": "offline", "label": "Offline" }
+					  ]
+					}
+				  },
+				  
+				  
                   {
-                    "type": "select",
-                    "key": "event_type",
-                    "className": "flex-1",
-                    "props": {
-                      "label": "Event Type",
-                      "placeholder": "Event Type",
-                      "options": [
-                        { "label": "Single", "value": "single" },
-                        { "label": "Recurring Event", "value": "recurring" }
-                      ],
-                      "required": true
-                    }
+                    "type": "checkbox-input-field",
+                    "className": "flex-2",
+
+                    "key": "basic_details.is_mandatory"
                   }
                 ]
               },
@@ -52,68 +59,47 @@
                 "fieldGroupClassName": "display-flex",
                 "fieldGroup": [
                   {
-                    "label": "Start Time",
-                    "type": "date-input",
-                    "key": "start_time",
+                    "type": "input",
+                    "key": "basic_details.Maximum_of_participants:",
                     "className": "flex-6",
                     "props": {
-                      "label": "Start Time",
-                      "placeholder": "Start Time",
-                      "type": "date",
+                      "label": "Maximum of participants:",
+                      "placeholder": "Maximum of participants",
+
                       "required": true
                     }
                   },
                   {
-                    "key": "start_time_duration",
-                    "type": "time-input",
+                    "label": "Start Date",
+                    "type": "datetime-input",
+                    "key": "basic_details.start_date",
                     "className": "flex-6",
                     "props": {
-                      "placeholder": "start Time",
+                      "label": "Start Date",
+                      "placeholder": "Start Date",
+
                       "required": true
                     }
                   },
 
                   {
-                    "label": "End Time",
-                    "type": "date-input",
-                    "key": "end_time",
+                    "label": "End Date",
+                    "type": "datetime-input",
+                    "key": "basic_details.end_date",
                     "className": "flex-6",
                     "props": {
-                      "label": "End Time",
-                      "placeholder": "End Time",
-                      "type": "date",
-                      "required": true
-                    }
-                  },
-                  {
-                    "key": "end_time_duration",
-                    "type": "time-input",
-                    "className": "flex-6",
-                    "props": {
-                      "placeholder": "end Time",
+                      "label": "End Date",
+                      "placeholder": "End Date",
 
                       "required": true
                     }
                   }
                 ]
               },
+
               {
                 "fieldGroupClassName": "display-flex",
                 "fieldGroup": [
-                  {
-                    "type": "select",
-                    "key": "event_mode",
-                    "className": "flex-6",
-                    "props": {
-                      "label": "Event Model",
-
-                      "options": [
-                        { "label": "Venue", "value": "venue" },
-                        { "label": "Online", "value": "online" }
-                      ]
-                    }
-                  },
-
                   {
                     "type": "html-input",
                     "key": "event_description",
@@ -125,81 +111,43 @@
                   }
                 ]
               },
-
               {
                 "fieldGroupClassName": "display-flex",
                 "fieldGroup": [
-                  {
-                    "type": "input",
-                    "key": "location_name",
-                    "className": "flex-6",
-                    "props": {
-                      "label": "location Name",
-                      "required": true
-                    },
-                    "expressions": {
-                      "hide": "!['venue'].includes(model.event_mode)"
-                    }
-                  },
-                  {
-                    "type": "input",
-                    "key": "Address",
-                    "className": "flex-6",
-                    "props": {
-                      "label": "address",
-                      "required": true
-                    },
-                    "expressions": {
-                      "hide": "!['venue'].includes(model.event_mode)"
-                    }
-                  },
-                  {
-                    "type": "input",
-                    "key": "street_name",
-                    "className": "flex-6",
-                    "props": {
-                      "label": "street Name",
+					{
+						"type": "location",
+						"key": "basic_details.location",
+						"className": "flex-2",
+						"showsearchbar": true,
+						"draggable": true,
+						"props": {
+						  "label": "Add location",
+						  "placeholder": "add location"
+						}
+						 
+					  }
+ 				  
 
-                      "required": true
-                    },
-                    "expressions": {
-                      "hide": "!['venue'].includes(model.event_mode)"
-                    }
-                  }
+                  
                 ]
               }
             ]
           },
 
           {
-            "props": { "label": "Event Image" },
-
+            "props": { "label": "logo / banner" },
+            "fieldGroupClassName": "display-flex",
             "fieldGroup": [
               {
-                "type": "image-input",
-                "key": "event_logo",
-
-                "refId": "id",
-                "bind_key": "employee_id",
-
-                "details_type": "idimage",
+                "type": "carousel-input",
+                "key": "event_images",
+                "className": "flex-6",
+                "refId": "_id",
+                "role": "event",
+                "bind_key": "_id",
                 "props": {
-                  "refId": "employee_id",
-                  "label": "Event Logo",
-                  "required": true
-                }
-              },
-              {
-                "type": "image-input",
-                "key": "event_banner",
-
-                "refId": "id",
-                "bind_key": "employee_id",
-                "details_type": "idimage",
-                "props": {
-                  "refId": "employee_id",
-                  "label": "Event Banner",
-                  "required": true
+                  "refId": "_id",
+                  "label": "Event Banner"
                 }
               }
             ]
@@ -226,7 +174,7 @@
                       "props": {
                         "label": "Contact Name",
                         "placeholder": "Contact Name",
-                        
+
                         "required": true
                       }
                     },
@@ -246,7 +194,6 @@
                 {
                   "fieldGroupClassName": "display-flex",
                   "fieldGroup": [
-                    
                     {
                       "type": "input",
                       "key": "phone_number",
@@ -256,48 +203,51 @@
                         "placeholder": "Phone Number",
                         "required": true
                       }
-                    } 
+                    },
+                    {
+                      "type": "input",
+                      "key": "user_role",
+                      "className": "flex-1",
+                      "props": {
+                        "label": "User Designation",
+                        "placeholder": "User Designation",
+                        "required": true
+                      }
+                    }
                   ]
                 }
               ]
             }
           },
           {
-            "props": { "label": "Speaker Details" },
-            "fieldGroupClassName": "display-flex",
+            "props": { "label": "Event participants" },
 
             "fieldGroup": [
               {
                 "fieldGroupClassName": "display-flex",
                 "fieldGroup": [
-                  
-
                   {
-                    "key": "_id",
-                    "type": "select-autocomplete",
-                    "templateOptions": {
-                      "label": "Autocomplete Field",
-                      "placeholder": "Start typing to search...",
-                      "optionsDataSource": {
-                        "collectionName": "user",
-                        "filter": {}
-                      },
-                      "labelProp": "name",
-                      "valueProp": "_id",
-                      "onValueChangeUpdate": {
-                        "key": "anotherFieldToUpdate",
-                        "labelProp": "additionalInfo"
-                      }
-                    }
-                  },{
-                    "className": "flex-12",
                     "type": "button-input",
-                    "key": "speaker_id",
-                    "props": {
-                      "label": "Add Speaker",
-                      "attributes": "speaker"
-                    },
-                    "Value": "create_speaker"
+                    "key": "event_participant",
+                    "array": true,
+                    "collectionName": "event_participants",
+                    "props": [
+                      {
+                        "label": "Speaker",
+                        "attributes": "Speaker",
+                        "type": "Speaker"
+                      },
+                      {
+                        "label": "Team Member",
+                        "attributes": "Team Member",
+                        "type": "TeamMember"
+                      },
+                      {
+                        "label": "Organizer",
+                        "attributes": "Organizer",
+                        "type": "Delegates"
+                      }
+                    ]
                   }
                 ]
               }
@@ -305,79 +255,117 @@
           },
 
           {
-            "props": { "label": "Team Member" },
-
-            "fieldGroup": [
-              {
-                "key": "team_member_id",
-                "type": "grid",
-                "className": "ag-theme-balham",
-                "collectionName": "projectteam",
-
-                "props": {
-                  "showbutton": true,
-                  "height": "200px",
-                  "gridOptions": {
-                    "rowHeight": 42,
-                    "columnDefs": [
-                      {
-                        "headerName": " Project Name",
-                        "field": "projectname",
-                        "sortable": true,
-                        "filter": "agTextColumnFilter"
-                      },
-                      {
-                        "headerName": "Project Team Id",
-                        "field": "teamid",
-                        "sortable": true,
-                        "filter": "agTextColumnFilter"
-                      },
-                      {
-                        "headerName": " Project Team Name",
-                        "field": "teamname",
-                        "sortable": true,
-                        "filter": "agTextColumnFilter"
-                      },
-                      {
-                        "headerName": "Project Team Description",
-                        "field": "teamdes",
-                        "sortable": true,
-                        "filter": "agTextColumnFilter"
-                      },
-
-                      {
-                        "headerName": "Updated On",
-                        "field": "updated_on",
-                        "sortable": true,
-                        "filter": "agDateColumnFilter",
-                        "type": "date"
-                      },
-                      {
-                        "headerName": "Updated By",
-                        "field": "updated_by",
-                        "sortable": true,
-                        "filter": "agDateColumnFilter"
-                      },
-                      {
-                        "headerName": "Status",
-                        "field": "status",
-                        "sortable": true,
-                        "filter": "agTextColumnFilter"
-                      },
-                      {
-                        "type": "rightAligned",
-                        "headerName": "Actions",
-                        "cellRenderer": "buttonRenderer",
-                        "cellRendererParams": {
-                          "onClick": "this.onBtnClick1.bind(this)",
-                          "label": "Click 1"
-                        }
+            "props": {
+              "label": "Agenda Details",
+              "required": true
+            },
+            "key": "agenda_details",
+            "type": "repeat",
+            "fieldArray": {
+              "fieldGroupClassName": "row",
+              "fieldGroup": [
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "type": "input",
+                      "key": "agenda_details.session_name",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Session Name",
+                        "placeholder": "Enter the Session Name",
+                        "required": true
                       }
-                    ]
-                  }
+                    },
+                    {
+                      "label": "Theme or Short Description",
+                      "type": "input",
+                      "key": "agenda_details.short_description",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Theme or Short Description",
+                        "placeholder": "Theme or Short Description",
+                        "required": true
+                      }
+                    } 
+                  ]
+                },
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "label": "Choose Session Start Date & Time",
+                      "type": "datetime-input",
+                      "key": "agenda_details.session_start_time",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Choose Session Start Date & Time",
+                        "placeholder": "Choose Session Start Date & Time",
+
+                        "required": true
+                      }
+                    },
+                    {
+                      "label": "Choose Session End Date & Time",
+                      "type": "datetime-input",
+                      "key": "agenda_details.session_end_time",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Choose Session End Date & Time",
+                        "placeholder": "Choose Session End Date & Time",
+
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "label": "Session Link",
+                      "type": "input",
+                      "key": "agenda_details.session_link",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Session Link",
+                        "placeholder": "Session Link",
+                        "type": "input"
+                        
+                      },
+                      "hideExpression": "model.agenda_details.agenda_mode !== 'online'"
+                    },
+                    {
+                      "label": "Youtube Link",
+                      "type": "input",
+                      "key": "youtube_link",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Youtube Link",
+                        "placeholder": "Youtube Link",
+                        "type": "input"
+                      
+                      },
+                      "hideExpression": "model.agenda_details.agenda_mode !== 'online'"
+                    }
+                  ]
+                },
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "type": "html-input",
+                      "key": "agenda_description",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Agenda Description",
+                        "disabled": false
+                      }
+                    }
+                  ]
                 }
-              }
-            ]
+              ]
+            }
           }
         ]
       }

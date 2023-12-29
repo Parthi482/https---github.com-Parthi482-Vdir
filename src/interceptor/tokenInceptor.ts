@@ -1,76 +1,33 @@
-// import { Injectable } from '@angular/core';
-// import {
-//   HttpRequest,
-//   HttpHandler,
-//   HttpEvent,
-//   HttpInterceptor,
-//   HttpErrorResponse
-// } from '@angular/common/http';
-// import { Observable, catchError, throwError } from 'rxjs';
-
-// import { Router } from '@angular/router';
-// import { ApiService } from 'src/app/service/search.service';
-
-// @Injectable()
-// export class TokenInterceptor implements HttpInterceptor {
-
-//   constructor(private auth : ApiService , private router : Router) {}
-
-//   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-//     // const myToken = 
-
-  
-//       request = request.clone({ headers: request.headers.set('OrgId', "pms") });
-  
-//       // if(myToken){
-//         request = request.clone({
-//           setHeaders : { Authorization :`Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE1MjI5ODQsImlhdCI6MTcwMTQzNjU4NCwiaWQiOiJzYW5qYXkxMjNzYW5qYXkxMkBnbWlhbC5jb20iLCJyb2xlIjoiQWRtaW4iLCJ1b19pZCI6InBtcyIsInVvX3R5cGUiOiJwbXMifQ.z8dvKCvMgb1QV0Bdrk3B-e9LNaGFTsYd3kBJyem9APU"`}  //"Bearer"+myToken
-//         })
-//       // }
-//       console.log(request);
-      
-//     return next.handle(request)
-//     .pipe(
-//       catchError((err: any)=>{
-//         if(err instanceof HttpErrorResponse){
-//           if(err.status === 401){
-//             this.router.navigate(['/login']);
-//           }
-//         }
-//         return throwError(()=>new Error("Some other error occurred"))
-//       })
-//     );
-//   }
-// }
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-
+// import { HelperService } from './helper.service.ts';
 import { catchError, map } from 'rxjs/operators';
-import { DialogService } from 'src/app/service/dialog.service';
+// import { DialogService } from './dialog.service';
+import { environment } from 'src/environments/environment';
 import { HelperService } from 'src/app/service/helper.service';
-
+import { DialogService } from 'src/app/service/dialog.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   //  selectedOrgId: string = 'amsort'
 
-  selectedOrgId: string = sessionStorage.getItem("selectedOrgId") || ''
+selectedOrgId: string = sessionStorage.getItem("selectedOrgId") || environment.OrgId
 
   constructor(public helperService: HelperService, private dialogService: DialogService) {
     this.helperService.selectedOrgId.subscribe((id:any)=>{
-      this.selectedOrgId = 'pms'
+      this.selectedOrgId = id
       // this.selectedOrgId = 'amsort'
     })
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // if (this.selectedOrgId) {
-      request = request.clone({ headers: request.headers.set('OrgId', "pms") });
-    // }
+    if (this.selectedOrgId) {
+      request = request.clone({ headers: request.headers.set('OrgId', this.selectedOrgId) });
+    }
     request = request.clone({
       setHeaders: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE1MjQ1ODAsImlhdCI6MTcwMTQzODE4MCwiaWQiOiJzYW5qYXkxMjNzYW5qYXkxMkBnbWlhbC5jb20iLCJyb2xlIjoiQWRtaW4iLCJ1b19pZCI6InBtcyIsInVvX3R5cGUiOiJwbXMifQ.lBhMTdejVUkXBNfs8LawtGbFt40ct1BCRhFjtZ1DjAU`
+        Authorization: `Bearer ${this.helperService.getToken()}`
       }
     });
     return next.handle(request).pipe(
