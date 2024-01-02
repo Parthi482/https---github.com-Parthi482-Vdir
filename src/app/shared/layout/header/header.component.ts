@@ -33,10 +33,10 @@ city:IDropdownSettings = {
   limitSelection:1,
   allowSearchFilter: true,
 };
+
 cityList:any[] = [];
   constructor( private route:ActivatedRoute ,private router:Router , private auth : ApiService,private sharedService: SharedService){
-  
-
+   
    }
    
    isSearchDropdownOpen: boolean = false;

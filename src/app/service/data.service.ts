@@ -88,7 +88,7 @@ export class DataService {
  * @ID Dynamic pass of _id or any Primary key 
  */
   public getDataById(collectionName: any, id: any) {
-    return this.http.get(this.getWsBaseUrl() +"entities/"+ collectionName + '/' + id);
+    return this.http.get(this.getWsBaseUrl() +"entities1/"+ collectionName + '/' + id);
   }
 
 /**
@@ -117,7 +117,7 @@ export class DataService {
 
 
   public getDataByFilter(collectionName: any,data:any) {
-    return this.http.post(this.getWsBaseUrl() +"entities/filter/"+ collectionName,data);
+    return this.http.post(this.getWsBaseUrl() +"entities1/filter/"+ collectionName,data);
   }
 
   public login(data: any) {
@@ -132,7 +132,7 @@ export class DataService {
  * @Data Any TYPE of Data
  */
   public save(collectionName: any,data: any,) {
-    return this.http.post(this.getWsBaseUrl()+"entities/"+`${collectionName}`, data);
+    return this.http.post(this.getWsBaseUrl()+"entities1/"+`${collectionName}`, data);
   }
 
   public dataSetPreview(data:any){
@@ -219,7 +219,7 @@ public lookupTreeData(collection_name:any,project_id:any){
  */
 //! need to change the data before the
   public update(collectionName: any, id ?: any,data?:any) {   
-      return this.http.put(this.getWsBaseUrl() +"entities/"+ `${collectionName}` + `/${id}`, data);
+      return this.http.put(this.getWsBaseUrl() +"entities1/"+ `${collectionName}` + `/${id}`, data);
   }
   public acl_update(collectionName: any,data?:any){
     return this.http.put(this.getWsBaseUrl() +"entities/"+ `${collectionName}` , data);

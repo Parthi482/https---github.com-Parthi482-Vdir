@@ -162,7 +162,7 @@ a:hover {
   <!-- </div>  -->
 
 <div style="display: flex; flex-direction: row;">
-  <img [src]="defaultlogoImage ? defaultlogoImage : '../../assets/images/banner.png'" alt="Logo Image" style="width: 200px; height: 200px;object-fit: scale-down; border-radius: 50%; margin: 15px; padding-left: 15px; position: absolute; bottom: 0; left: 0;">
+  <img [src]="defaultlogoImage ? defaultlogoImage : '../../assets/images/banner.png'" alt="Logo Image" style="border: none;background-color:white;width: 200px; height: 200px;object-fit: cover; padding:8px;border-radius: 50%; margin: 15px; padding-left: 15px; position: absolute; bottom: 0; left: 0;">
   <input type='file' style="width: 200px; height: 200px; border-radius: 50%; opacity: 0; margin: 15px; padding-left: 15px; position: absolute; bottom: 0%; left: 0;" (change)="onFileSelected($event)">
 </div>
  
@@ -239,7 +239,7 @@ eventId:any
 
   ngOnInit(): void {
 
-    this.defaultBannerImage = "../../assets/images/newbanner.jpg" 
+    this.defaultBannerImage = "../../assets/images/audience-1853662_1920.jpg" 
     this.dropImage = "./../assets/images/drop.jpg" ;
     this.eventId = this.form.value._id;
     console.log(this.eventId);

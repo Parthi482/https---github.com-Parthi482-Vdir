@@ -8,7 +8,10 @@ import { Router } from '@angular/router';
 })
 export class HeaderAdminComponent {
 
-  constructor(private router: Router){}
+  constructor(private router: Router){
+ 
+    
+  }
   isLoggedIn = true;
   isLoggedOut = false;
 

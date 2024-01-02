@@ -87,6 +87,8 @@ constructor( private router:Router) {
 docBasePath: string=environment?.ImageBaseUrl
 
 ngOnInit() {
+  console.log("Insert");
+  
   this.width = this.width ?? 800;
   this.height = this.height ?? 900;
 
@@ -113,50 +115,36 @@ console.log(_id);
     this.router.navigate(["event-details/"+_id])
 
 }
-} 
 
+} 
 // {
-//   _id: '97e742d3-9f06-4225-afab-8b9db0f84119',
-//   agenda_details: [
-//     {
-//       agenda_description: 'sdgsdgsdg',
-//       agenda_details: {
-//         agenda_mode: 'online',
-//         session_link: 'sdgsdg',
-//         session_name: 'fgdg',
-//         session_start_time: '2023-12-27T07:51:32.833Z',
-//         short_description: 'fdgfdg'
-//       },
-//       agenda_detailssession_end_time: '2023-12-27T07:51:36.354Z',
-//       youtube_link: 'sdgsdg'
-//     }
-//   ],
-//   basic_details: {
-//     'Maximum_of_participants:': '46',
-//     end_date: '2023-12-27T07:50:54.970Z',
-//     event_name: 'vdv',
-//     is_mandatory: true,
-//     meeting_link: 'vsdv',
-//     start_date: '2023-12-27T07:50:40.858Z'
+//   "Description": "event",
+//   "Location": "teynampet",
+//   "_id": "e74918dbd-bf7b-4ba6-9eeb-8e9c68d533f5",
+//   "address1": "chennai",
+//   "companyId": "GOK9148",
+//   "coordinates": {
+//       "Latitude": 80.24896840000001,
+//       "Longitude": 13.0384444
 //   },
-//   contact_details: [
-//     {
-//       contact_email: 'dfbfdb',
-//       contact_name: 'dfbdfb',
-//       phone_number: 'dfbdfbdf',
-//       user_role: 'dfbdf'
-//     }
-//   ],
-//   created_by: 'sanjay123sanjay12@gmial.com',
-//   created_on: '2023-12-27T07:51:42.824Z',
-//   event_banner: [
-//     {
-//       _id: '09e6fe17c42346328ea1152bb7111efa',
-//       file_name: 'Screenshot from 2023-09-25 15-15-19__2023-12-16-16-00-45.png',
-//       folder: 'event_banner',
-//       ref_id: 'undefined',
-//       size: 117607,
-//       storage_name: 
-//         'event_banner/undefined/Screenshot from 2023-09-25 15-15-19__2023-12-16-16-00-45__2023-12-27-13-21-08.png',
-//       uploaded_by: 'sanjay123sanjay12@gmial.com'
-//     },
+//   "duration": "02:00",
+//   "enddate": "2023-12-31",
+//   "eventBanner": "https://seekers.sgp1.digitaloceanspaces.com/event/2023/11/e878bacfa-5ad2-4da3-874d-a374af748bb7/goku6.jpg",
+//   "eventLogo": "https://seekers.sgp1.digitaloceanspaces.com/event/2023/11/eb5b297b3-d5ee-4215-a11c-bed3f7eb1de2/2023-02-02 (1).png",
+//   "eventName": "DIGITAL MARKETING 2024",
+//   "event_id": "ee68316c9-5641-40fe-bda8-3d541dc49899",
+//   "isRegisterMandatory": false,
+//   "mode": "ON",
+//   "opening": 80,
+//   "phoneNumber": "9789789789",
+//   "primaryContact": {
+//       "contactName": "srinath",
+//       "email": "sri@gmail.com",
+//       "phoneNumber": "6382620091",
+//       "role": "SDD"
+//   },
+//   "startdate": "2023-12-31",
+//   "status1": "open",
+//   "time1": "23:12",
+//   "update_on": "2023-11-29T07:04:16.767Z"
+// }

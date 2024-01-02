@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dash-layout',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./dash-layout.component.css']
 })
 export class DashLayoutComponent {
-
+  ishow:boolean = false
+  constructor(  private route: ActivatedRoute,){ 
+    this.route.params.subscribe((params:any) => {
+      console.log(params);
+      
+        if (params == "event-details"){
+          this.ishow = true
+        }
+  })
+  }
 }

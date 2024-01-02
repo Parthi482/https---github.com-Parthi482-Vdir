@@ -53,7 +53,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import {  DragDropModule } from '@angular/cdk/drag-drop';
 import { TokenInterceptor } from 'src/interceptor/tokenInceptor';
-
+import { EventLandingComponent } from './event-landing/event-landing.component';  
 const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -80,6 +80,7 @@ const appearance: any = {
     DynamicFilterComponent,
     ActionButtonComponent,
     MyLinkRendererComponent,
+    EventLandingComponent,
   ],
   imports: [
     NgSelectModule,
@@ -130,6 +131,11 @@ const appearance: any = {
     MatGridListModule,
     MatExpansionModule,
     MatSlideToggleModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatDatepickerModule, 
   ],
 
 

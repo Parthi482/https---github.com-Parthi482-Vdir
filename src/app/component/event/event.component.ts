@@ -116,7 +116,9 @@ eventFormGroup!: FormGroup;
     private formService: FormService,
     private sanitizer: DomSanitizer
   ) {
-
+    this.initEventFormGroup();
+  }
+  private initEventFormGroup(): void {
     this.eventFormGroup = this.formBuilder.group({
       first_name: ['', [Validators.required, Validators.minLength(3)]],
       event_id: [''],
@@ -125,7 +127,7 @@ eventFormGroup!: FormGroup;
       gender: [''],
       description: [''],
       organization_name: [''],
-      fullDescription:[''],
+      fullDescription: [''],
       edit: [''],
       index: [''],
       user_role: this.formBuilder.group({
@@ -139,18 +141,7 @@ eventFormGroup!: FormGroup;
       user_id: [''],
       userFileData: [''],
     });
-
-
-
-
-
-
-
-
-
-    // super()
   }
-
   // eventFormGroup = new FormGroup({
   //   first_name: new FormControl("", [
   //     Validators.required,

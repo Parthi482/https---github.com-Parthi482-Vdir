@@ -70,7 +70,7 @@ export class TokenInterceptor implements HttpInterceptor {
     // }
     request = request.clone({
       setHeaders: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE1MjQ1ODAsImlhdCI6MTcwMTQzODE4MCwiaWQiOiJzYW5qYXkxMjNzYW5qYXkxMkBnbWlhbC5jb20iLCJyb2xlIjoiQWRtaW4iLCJ1b19pZCI6InBtcyIsInVvX3R5cGUiOiJwbXMifQ.lBhMTdejVUkXBNfs8LawtGbFt40ct1BCRhFjtZ1DjAU`
+        Authorization: `Bearer ${this.helperService.getToken()}`
       }
     });
     return next.handle(request).pipe(
