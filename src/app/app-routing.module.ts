@@ -11,8 +11,7 @@ import { JobDetailsComponent } from './dashboard/job-details/job-details.compone
 import { LocationComponent } from './shared/layout/location/location.component';
 import { DefaultComponent } from './shared/layout-event/default/default.component';
 import { DatatableComponent } from './component/datatable/datatable.component';
-import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.component';
-import { AuthGuardService } from './service/auth-guard.service';
+import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.component'; 
 import { EventScreenComponent } from './component/event-screen/event-screen.component';
 import { ScreenComponent } from './component/screen/screen.component';
 

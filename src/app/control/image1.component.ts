@@ -53,7 +53,8 @@ import { environment } from 'src/environments/environment';
 .card-body:hover:before {
   transform: scale(2.15);
 }
-  </style>
+  </style> 
+  
   <div class="card-body" (click)="my(event)"  style="background-image: url({{bannerImage}});height:400px;
    background-repeat: no-repeat;background-size: cover;">
 <div class="text-center" style="float: left;margin-top: 10vh" >

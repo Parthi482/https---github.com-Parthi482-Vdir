@@ -375,6 +375,17 @@ eventFormGroup!: FormGroup;
     this.initForm();
 
     this.getNames();
+  
+
+    this.dataService.getDataById("event","e74918dbd-bf7b-4ba6-9eeb-8e9c68d533f5").subscribe((res:any)=>{
+       
+      let response = res.data[0]
+        console.log(response);
+        
+  })
+
+
+
     this.curentEventID = sessionStorage.getItem("event_id");
     // this.eventFormGroup.reset()
     // this.EventIDGen("")

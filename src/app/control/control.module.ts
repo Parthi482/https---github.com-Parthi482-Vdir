@@ -21,7 +21,7 @@ import { MultiSelectInput } from "./multiselect-input";
 import { SelectInput } from "./select-input";
 import { DateTimeInput } from "./datetime-input";
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { NgxMatDatetimePickerModule } from "@angular-material-components/datetime-picker";
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from "@angular-material-components/datetime-picker";
 import { NgxMatMomentModule } from "@angular-material-components/moment-adapter";
 // import { Editor } from 'ngx-editor';
 import { NgxEditorModule } from 'ngx-editor';
@@ -32,6 +32,7 @@ import { FileUploadModule } from "ng2-file-upload";
 import { NgSelectModule } from "@ng-select/ng-select"; 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 // import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { CalendarModule } from 'primeng/calendar';
 
 import { LabelView } from "./label";
 import { FileInput } from "./file-input";
@@ -48,7 +49,7 @@ import { CustomPopupInput } from "./custompopup-input";
 import { TimeInput } from "./timepicker";
 import { GoogleMapsModule } from "@angular/google-maps"; 
 import { NgxMatIntlTelInputComponent } from "ngx-mat-intl-tel-input";
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule } from "@angular/platform-browser";  
 import {
   ArrayTodateStringPipe,
   ArrayToStringPipe,
@@ -90,6 +91,8 @@ import { ScreenComponent } from "../component/screen/screen.component";
 import { CheckboxComponent } from './checkbox.input';
 import { LocationComponent } from "../component/screen/locations.component"; 
 import { Location } from "./location";
+import { ColorPickerInputComponent } from "./color-picker";
+// import { ColorPickerInputComponent } from "./colourpicker";
 
 
 export function minLengthValidationMessage(err: any, field: FormlyFieldConfig) {
@@ -379,7 +382,11 @@ name:"carousel-component-input",Component:CarouselComponentInput
     { name: "chips", component: Chips },
     { name: "muti-image", component: FormlyMultiImageUpload },
     {name:"stepper",component:FormlyFieldStepper},
-      
+    { name: 'color-picker-input', component: ColorPickerInputComponent,validationMessages: [
+      { name: 'required', message: 'This field is required' }
+    ],},
+    { name: 'datetime_input', component: DateTimeInput },
+
   ],
 }; 
 
@@ -429,7 +436,8 @@ name:"carousel-component-input",Component:CarouselComponentInput
     EventScreenComponent,
     ImageComponent,
     Image1Component,
-    ScreenComponent,
+    ScreenComponent, 
+    ColorPickerInputComponent
   ],
 
   imports: [
@@ -483,6 +491,16 @@ name:"carousel-component-input",Component:CarouselComponentInput
     // MatStepperModule,
     MatAutocompleteModule, 
     MatSidenavModule, 
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatInputModule,
+
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    CalendarModule
   ],
   exports: [
     Tab,
@@ -516,7 +534,8 @@ name:"carousel-component-input",Component:CarouselComponentInput
     CustomDecimalInputType,
     FormlyFieldStepper, 
     ImageComponent,
-    Image1Component, 
+    Image1Component,  
+    ColorPickerInputComponent 
   ],
   providers: [
     ArrayTodateStringPipe,

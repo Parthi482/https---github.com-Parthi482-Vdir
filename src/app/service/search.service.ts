@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router'; // Import Router from '@angular/router'
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs/internal/Observable';
+import { DataService } from './data.service';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,18 +23,57 @@ export class ApiService {
     return 'http://127.0.0.1:7000/'
 
   }
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router,  private dataservice: DataService) {
     this.userPayLoad = this.decodeToken();
   }
+//todo 
+  GetByID(Collection:any,Column:any,Value:any,data?:any){ 
 
-  GetByID(Collection:any,Column:any,Value:any,data?:any){
+    
+  const filterCondition1 = {
+      filter: [
+        {
+          clause: "AND",
+          conditions: [{ column: Column, operator: "EQUALS", value:  Value }],
+        },
+      ],
+    };
+  
     // console.log(data);
     if(data=='true'){
+ 
       return this.http.get(`${this.baseUrl+Collection+'/'+Column+'/'+Value+'/'+data}`);
+      // return this.getData(Collection,filterCondition1)
     }else{
+      // return this.getData(Collection,filterCondition1)
       return this.http.get(`${this.baseUrl+Collection+'/'+Column+'/'+Value}`);
     }
+ 
+    
    }
+
+
+
+
+
+
+
+
+
+   getData(Collection: string, filterCondition1: any): Observable<any> {
+    return this.dataservice.getDataByFilter(Collection, filterCondition1).pipe(
+      map((data: any) => {
+        let response = data.data[0];
+        return response;
+      })
+    );
+  }
+  
+
+
+
+
+  //  GetByID
 
   login(loginObj: any) {
     return  this.http.post(`${this.baseUrl}auth/login`, loginObj);

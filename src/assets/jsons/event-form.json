@@ -58,6 +58,7 @@
               {
                 "fieldGroupClassName": "display-flex",
                 "fieldGroup": [
+                  
                   {
                     "type": "input",
                     "key": "basic_details.Maximum_of_participants:",

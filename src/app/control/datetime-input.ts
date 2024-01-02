@@ -5,49 +5,31 @@ import { ThemePalette } from '@angular/material/core';
 
 import { FieldType } from '@ngx-formly/core';
 import * as moment from 'moment';
- 
+
 @Component({
   selector: 'datetime-input',
   template: `
-  <mat-form-field style="width:100%">
-  <mat-label>{{field.props!['label']}}</mat-label>
-  <input matInput [ngxMatDatetimePicker]="picker " [placeholder]="placeholder"  [formControl]="FormControl"  
-  [min]="minDate" [max]="maxDate"  [readonly]="field.props?.readonly || false" [required]="required"/>
-  <mat-error *ngIf="required">This field is required</mat-error>
-  <mat-datepicker-toggle matSuffix  [for]="$any(picker)" ></mat-datepicker-toggle>
-  <ngx-mat-datetime-picker #picker [hideTime]="hideTime" [disabled]="field.props?.readonly || false" 
-  [showSpinners]="showSpinners" [showSeconds]="showSeconds" [touchUi]="touchUi"
-     [enableMeridian]="enableMeridian" [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
-     [color]="color"></ngx-mat-datetime-picker>
-   
-    </mat-form-field> 
+
+<p>{{this.field.props?.label}}</p>
+<div style='margin:5px 5px;top:0px'>
+  <p-calendar id="customCalendar"  [(ngModel)]="selected_date"  class="max-w-full"  dateFormat="dd/mm/yy"  hourFormat='12' min [formControl]="formControl" [formlyAttributes]="field" [(ngModel)]="date" [showTime]="true" [showIcon]="true" [style]="{ height: '100%', width: '100%' }">label</p-calendar>
+  </div>
 
 `,
 })
-export class DateTimeInput extends FieldType implements AfterViewInit, OnInit {
+export class DateTimeInput extends FieldType<any> implements AfterViewInit, OnInit {
 
-
+  date: Date[] | undefined;
   @ViewChild('picker') picker: any;
 
-  public date!: moment.Moment;
-  public disabled = false;
-  public showSpinners = true;
-  public showSeconds = false;
-  public touchUi = false;
-  public enableMeridian = true;
-  public minDate!: Date
-  public maxDate!: Date
-  public stepHour = 1;
-  public stepMinute = 1;
-  public stepSecond = 1;
-  public color: ThemePalette = 'primary';
-  public defaultTime = [new Date().setHours(0, 0, 0, 0)]
+  // public date!: moment.Moment;
   hideTime = false
-  placeholder: any
-  required: any
+  placeholder:any
+  required:any
+  currentField:any
+  selected_date!:any
   ngAfterViewInit(): void {
   }
-
 
   public get FormControl() {
     return this.formControl as FormControl;
@@ -56,15 +38,21 @@ export class DateTimeInput extends FieldType implements AfterViewInit, OnInit {
     super();
   }
   ngOnInit(): void {
-    this.required = this.field.props?.required
-    this.placeholder = this.field.props?.placeholder
-    // this.hideTime = this.field.props?.['hideTime'] || false
-    // this.minDate=new Date()
-    // if(this.field.props?.['hide_past_date']==true){
-    //   this.minDate=new Date()
-    // }
-    this.minDate = moment().toDate();
+    debugger
+    this.required=this.field.props?.required
+    this.placeholder=this.field.props?.placeholder
+    this.currentField = this.field
+    this.selected_date = new Date(this.model[this.field.key])
+    if (this.currentField.parentKey!= "") {
+      debugger
+      (this.field.hooks as any).afterViewInit = (f: any) => {
+      let field =  this.currentField.parentKey
+        const parentControl = this.form.get(field)
+        parentControl?.valueChanges.subscribe((val: any) => {
+         // this.minFromDate = val
+        })
 
-    this.hideTime = this.field.props?.['hideTime'] || false
+      }
+    }
   }
 }

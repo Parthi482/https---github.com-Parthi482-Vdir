@@ -21,12 +21,10 @@ import { Router } from '@angular/router';
       <div style="height: 150px"></div>
 
       <div style="text-align-last: end; width: 100%">
-        <button mat-button *ngIf="index !== 0" matStepperPrevious>Back</button>
-        <button mat-button *ngIf="index !== 0" (click)="stepper.reset()">Reset</button>
-
-        <!-- Conditionally show the Next or Submit button -->
+        <button mat-button *ngIf="index !== 0" matStepperPrevious>Back step</button>
+         
         <button matStepperNext mat-raised-button type="button" *ngIf="!last" [disabled]="!isValid(step)">
-          Next
+          Next step
         </button>
 
         <button mat-raised-button type="button" *ngIf="last" [disabled]="!isValid(step)" (click)="SubmitData()">
