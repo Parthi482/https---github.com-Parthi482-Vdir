@@ -1,7 +1,7 @@
  
 
 
-<nav class="navbar navbar-expand-lg navbar-light " style="background-color:brown">
+<!-- <nav class="navbar navbar-expand-lg navbar-light " style="background-color:brown">
   <img id="ani3" src="assets/image/vdirectory-small-logo.png"  alt="Logo" width="100" height="60" style="width: 140px;" class="d-inline-block align-text-top">
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
@@ -28,7 +28,7 @@
     </ul>
 
   </div>
-</nav>
+</nav> -->
 
 <!-- <div class="carousel-container">
   <div class="banner">
@@ -67,9 +67,13 @@
   </ngx-slick-carousel>
 </div> -->
 <div class="containers" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-  
+  <div *ngFor="let images of EventImages">
+
+    <img [src]="docBasePath+images.storage_name" alt="event_banner" style="width: 100%; height: 500px; object-fit: cover;">
+  </div>
   
   <img src="../../assets/images/audience-1853662_1920.jpg" alt="event_banner" style="width: 100%; height: 500px; object-fit: cover;">
+  <!-- EventImages -->
   <div class="bottom-div" *ngIf="show"> 
     <div  class="counter"> 
     {{ days }} 
@@ -86,7 +90,7 @@
 <div  style="margin:50px;display: flex; justify-content: center; align-items: center; flex-direction: column;" >
  <div *ngFor="let basicdata of event_basic">
 
-  <h2>About a Event</h2>
+  <h2>About event</h2>
  
   <p>{{basicdata.event_description}}</p>
 
