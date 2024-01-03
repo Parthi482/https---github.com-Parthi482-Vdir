@@ -67,12 +67,12 @@
   </ngx-slick-carousel>
 </div> -->
 <div class="containers" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-  <div *ngFor="let images of EventImages">
+  <div *ngFor="let images of EventImages" style="width: 100%; height: 500px">
 
     <img [src]="docBasePath+images.storage_name" alt="event_banner" style="width: 100%; height: 500px; object-fit: cover;">
   </div>
   
-  <img src="../../assets/images/audience-1853662_1920.jpg" alt="event_banner" style="width: 100%; height: 500px; object-fit: cover;">
+  <!-- <img src="../../assets/images/audience-1853662_1920.jpg" alt="event_banner" style="width: 100%; height: 500px; object-fit: cover;"> -->
   <!-- EventImages -->
   <div class="bottom-div" *ngIf="show"> 
     <div  class="counter"> 
