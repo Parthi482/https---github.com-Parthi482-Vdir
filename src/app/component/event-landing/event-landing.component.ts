@@ -34,7 +34,7 @@ export class EventLandingComponent implements OnInit {
 
   
   navigate(data:any) {
-    this.router.navigate(["event-details/"+data._id]) 
+    this.router.navigate(["event-details/"+"b692fffa-c59c-405b-83be-72fc99634521"]) 
       
   }
 

@@ -352,7 +352,7 @@ export class EventComponent {
   start(data: any, event: any) {
     debugger
     let id = data._id
-    this.router.navigate(["event-details/" + id])
+    // this.router.navigate(["event-details/" + id])
   }
 
   formatMonthInNumber(dateString: any) {

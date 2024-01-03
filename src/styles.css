@@ -305,3 +305,8 @@ ul.has-error {
   font-size: 30px;
   margin-left: 85%;
 }
+
+.card {
+  border-color: transparent !important;
+  border-radius: initial !important;
+}

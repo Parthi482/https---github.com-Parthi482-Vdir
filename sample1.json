@@ -3,16 +3,15 @@
     "agenda_details": [
         {
             "agenda_description": "dsgdsgds",
-            "agenda_details": {
-                "session_link": "dsgsdg",
-                "session_name": "Testing Data",
-                "session_start_time": "2023-12-29T04:35:51.223Z",
-                "short_description": "Testing Data short_description"
-            },
             "session_end_time": "2023-12-29T04:35:53.871Z",
+            "session_link": "dsgsdg",
+            "session_name": "Testing Data",
+            "session_start_time": "2023-12-29T04:35:51.223Z",
+            "short_description": "Testing Data short_description",
             "youtube_link": "sdgds"
         }
     ],
+
     "basic_details": {
         "Maximum_of_participants:": 34,
         "end_date": "2023-12-29T04:34:59.591Z",
