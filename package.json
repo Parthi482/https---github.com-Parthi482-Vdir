@@ -64,6 +64,7 @@
         "ngx-mat-intl-tel-input": "^5.0.0",
         "ngx-mat-timepicker": "^17.0.1",
         "ngx-material-timepicker": "^13.1.1",
+        "ngx-slick-carousel": "^17.0.0",
         "ngx-social-login": "^6.0.1",
         "pdfmake": "^0.2.7",
         "primeicons": "^6.0.1",

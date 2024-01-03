@@ -93,6 +93,7 @@ import { LocationComponent } from "../component/screen/locations.component";
 import { Location } from "./location";
 import { ColorPickerInputComponent } from "./color-picker";
 import { LayoutsModule } from "../shared/layout-event/layouts.module";
+import { SlickCarouselModule } from "ngx-slick-carousel";
 // import { ColorPickerInputComponent } from "./colourpicker";
 
 
@@ -481,6 +482,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
         { provide: LOCALE_ID, useValue: lang },
     ],
     imports: [
+      SlickCarouselModule,
         BrowserModule,
         DragDropModule,
         CommonModule,

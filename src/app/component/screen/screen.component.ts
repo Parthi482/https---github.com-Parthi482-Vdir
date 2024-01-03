@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ScreenComponent implements OnInit {
   name = 'Angular';
-  public isCollapsed = true;
+  public isCollapsed = true; 
 
 
   navigate() {
@@ -74,133 +74,173 @@ export class ScreenComponent implements OnInit {
 
     });
 
-    this.getData()
+    // this.getData()
  
   }
+
+  days1 = [
+    {
+      title: 'Day 1. February 12, 2019',
+      sessions: [
+        { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
+       
+      ]
+    },
+    {
+      title: 'Day 2. February 13, 2019',
+      sessions: [
+        { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
+         
+      ]
+    }
+ ];
+ slickCarouselConfig = {
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  dots: true,
+  infinite: true,
+  autoplay: true,
+  autoplaySpeed: 2000
+};
+
 
   ngOnInit() {
 
-    this.calculateTimeRemaining();
-    this.startCountdown();
+    // this.calculateTimeRemaining();
+    // this.startCountdown();
 
-    this.startCarousel()
+    // this.startCarousel()
   }
-  UserData: any[] = []
-  // sessionName:any[]=[]
-  // description:any[]=[]
-  AgendaData: any[] = []
-  location: any = {};
-  start: any
-  // starttime:any[]=[]
-  agenda_details: any[] = []
+
+
+
+  // currentIndex = 0;
  
-  getData() {
-    debugger
+
+  showNext() {
+    this.currentIndex = (this.currentIndex + 1) % this.days1.length;
+  }
+
+  showPrevious() {
+    this.currentIndex = (this.currentIndex - 1 + this.days1.length) % this.days1.length;
+  }
+
+  // UserData: any[] = []
+  // // sessionName:any[]=[]
+  // // description:any[]=[]
+  // AgendaData: any[] = []
+  // location: any = {};
+  // start: any
+  // // starttime:any[]=[]
+  // agenda_details: any[] = []
+ 
+  // getData() {
+  //   debugger
      
-    this.auth.getbyid("event", this.id).subscribe((res: any) => {
+  //   this.auth.getbyid("event", this.id).subscribe((res: any) => {
    
-      res.agenda_details.forEach((agenda_details: any) => {
+  //     res.agenda_details.forEach((agenda_details: any) => {
 
-        this.agenda_details.push(agenda_details.agenda_details)
+  //       this.agenda_details.push(agenda_details.agenda_details)
 
-      });
+  //     });
 
-      this.startdate = res.basic_details.start_date
+  //     this.startdate = res.basic_details.start_date
      
-      res.event_banner.forEach((element: any) => {
+  //     res.event_banner.forEach((element: any) => {
 
-        let data: any = environment.ImageBaseUrl + element.storage_name
+  //       let data: any = environment.ImageBaseUrl + element.storage_name
       
-        this.data1.push(data)
+  //       this.data1.push(data)
 
 
-      });
+  //     });
  
 
-    })
+  //   })
  
-  }
+  // }
  
-  private convertToDate(dateString: string): Date | null {
-    const parsedDate = new Date(dateString);
+  // private convertToDate(dateString: string): Date | null {
+  //   const parsedDate = new Date(dateString);
 
-    // Check if the parsed date is a valid date
-    if (!isNaN(parsedDate.getTime())) {
-      return parsedDate;
-    } else {
-      console.error('Invalid date string:', dateString);
-      return null;
-    }
-  }
+  //   // Check if the parsed date is a valid date
+  //   if (!isNaN(parsedDate.getTime())) {
+  //     return parsedDate;
+  //   } else {
+  //     console.error('Invalid date string:', dateString);
+  //     return null;
+  //   }
+  // }
 
 
 
-  formatDate(dateString: string): string {
+  // formatDate(dateString: string): string {
 
-    const parsedDate = new Date(dateString);
+  //   const parsedDate = new Date(dateString);
 
-    const formattedDate = this.datePipe.transform(parsedDate, 'EEE, MMM dd, yyyy HH:mm:ss');
+  //   const formattedDate = this.datePipe.transform(parsedDate, 'EEE, MMM dd, yyyy HH:mm:ss');
 
-    return formattedDate || dateString; // Return the original string if formatting fails
-  }
+  //   return formattedDate || dateString; // Return the original string if formatting fails
+  // }
 
   // const response = res.data[0].response[0];
   // this.speakerData.push(response);
   // this.UserData.push(response);
   // this.description = res.agenda_details.short_description;
 
-  eventParticipant(data: any[]) {
-    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+  // eventParticipant(data: any[]) {
+  //   console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
 
 
-    const observables = data.map(iterator => {
-      const filterCondition = {
-        filter: [
-          { clause: "AND", conditions: [{ column: "_id", operator: "EQUALS", value: iterator }] }
-        ]
-      };
+  //   const observables = data.map(iterator => {
+  //     const filterCondition = {
+  //       filter: [
+  //         { clause: "AND", conditions: [{ column: "_id", operator: "EQUALS", value: iterator }] }
+  //       ]
+  //     };
 
-      return this.dataservice.getDataByFilter("event_participants", filterCondition);
-    });
+  //     return this.dataservice.getDataByFilter("event_participants", filterCondition);
+  //   });
 
-    forkJoin(observables).subscribe((responses: any[]) => {
-      responses.forEach(res => {
-        const response = res.data[0].response[0];
-        console.log(response);
+  //   forkJoin(observables).subscribe((responses: any[]) => {
+  //     responses.forEach(res => {
+  //       const response = res.data[0].response[0];
+  //       console.log(response);
 
-        this.speakerData.push(response);
-        this.UserData.push(response);
-      });
+  //       this.speakerData.push(response);
+  //       this.UserData.push(response);
+  //     });
 
-      let dat = this.getMemberData();
-      console.log(dat);
+  //     let dat = this.getMemberData();
+  //     console.log(dat);
 
-    });
-  }
-
-
-
-  type: string[] = ["TeamMember", "Speaker"];
-
-  getMemberData() {
-
-    return this.UserData.filter(res => {
-      const userRole = res.user_role;
-      return userRole && this.type.some(role => userRole.hasOwnProperty(role) && userRole[role] === true);
-    });
-  }
+  //   });
+  // }
 
 
 
-  Participant(type: any): any[] {
-    return this.UserData.filter(res => res.user_role && res.user_role.hasOwnProperty(type) && res.user_role[type] === true);
-  }
+  // type: string[] = ["TeamMember", "Speaker"];
 
-  getLocation(data: any) {
-    if (data.location) {
+  // getMemberData() {
 
-    }
-  }
+  //   return this.UserData.filter(res => {
+  //     const userRole = res.user_role;
+  //     return userRole && this.type.some(role => userRole.hasOwnProperty(role) && userRole[role] === true);
+  //   });
+  // }
+
+
+
+  // Participant(type: any): any[] {
+  //   return this.UserData.filter(res => res.user_role && res.user_role.hasOwnProperty(type) && res.user_role[type] === true);
+  // }
+
+  // getLocation(data: any) {
+  //   if (data.location) {
+
+  //   }
+  // }
 
   // Participant(type: any): any[] { 
   //   return this.event_participants.filter(res => res.user_role && res.user_role.hasOwnProperty(type) && res.user_role[type] === true);
@@ -208,178 +248,74 @@ export class ScreenComponent implements OnInit {
 
 
 
-  openDrawer(item: any): void {
-    this.data = item; // Set the selected item
-    this.drawer.open();
-  }
+  // openDrawer(item: any): void {
+  //   this.data = item; // Set the selected item
+  //   this.drawer.open();
+  // }
 
-  closeDrawer(): void {
-    this.drawer.close();
-  }
+  // closeDrawer(): void {
+  //   this.drawer.close();
+  // }
   // fun1001(){
   //   this.router.navigateByUrl('auth/register')
   // }
-  routeFunction() {
-    this.router.navigateByUrl(`dashboard/event-list/${this.id}`)
-  }
-  fun1998() {
-    this.router.navigateByUrl(`/sidescreen`)
-  }
+//   routeFunction() {
+//     this.router.navigateByUrl(`dashboard/event-list/${this.id}`)
+//   }
+//   fun1998() {
+//     this.router.navigateByUrl(`/sidescreen`)
+//   }
 
-  ngOnDestroy() {
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
-    }
-    this.stopCountdown();
-  }
+//   ngOnDestroy() {
+//     if (this.timerSubscription) {
+//       this.timerSubscription.unsubscribe();
+//     }
+//     this.stopCountdown();
+//   }
 
-  startCarousel() {
-    this.timerSubscription = interval(3000).subscribe(() => {
-      // this.showNextSlide();
-    });
+//   startCarousel() {
+//     this.timerSubscription = interval(3000).subscribe(() => {
+//       // this.showNextSlide();
+//     });
 
-  }
+//   }
 
-  showNextSlide() {
-    if (this.currentIndex === this.bannerImage.length - 1) {
-      this.currentIndex = 0;
-    } else {
-      this.currentIndex++;
-    }
-    this.cf.detectChanges();
-  }
-  startCountdown() {
-    this.countdownSubscription = interval(1000).subscribe(() => {
-      this.calculateTimeRemaining();
-    });
-  }
+//   showNextSlide() {
+//     if (this.currentIndex === this.bannerImage.length - 1) {
+//       this.currentIndex = 0;
+//     } else {
+//       this.currentIndex++;
+//     }
+//     this.cf.detectChanges();
+//   }
+//   startCountdown() {
+//     this.countdownSubscription = interval(1000).subscribe(() => {
+//       this.calculateTimeRemaining();
+//     });
+//   }
 
-  stopCountdown() {
-    if (this.countdownSubscription) {
-      this.countdownSubscription.unsubscribe();
-    }
-  }
+//   stopCountdown() {
+//     if (this.countdownSubscription) {
+//       this.countdownSubscription.unsubscribe();
+//     }
+//   }
 
 
 
-  calculateTimeRemaining() {
-    const currentDate = new Date();
-    const timeDifference = this.targetDate.getTime() - currentDate.getTime();
+//   calculateTimeRemaining() {
+//     const currentDate = new Date();
+//     const timeDifference = this.targetDate.getTime() - currentDate.getTime();
 
-    if (timeDifference > 0) {
-      this.timeRemaining = timeDifference / 1000;
+//     if (timeDifference > 0) {
+//       this.timeRemaining = timeDifference / 1000;
 
-      this.days = Math.floor(this.timeRemaining / 86400);
-      this.hours = Math.floor((this.timeRemaining % 86400) / 3600);
-      this.minutes = Math.floor((this.timeRemaining % 3600) / 60);
-      this.seconds = Math.floor(this.timeRemaining % 60);
-    } else {
-      this.timeRemaining = this.days = this.hours = this.minutes = this.seconds = null;
-    }
-  }
+//       this.days = Math.floor(this.timeRemaining / 86400);
+//       this.hours = Math.floor((this.timeRemaining % 86400) / 3600);
+//       this.minutes = Math.floor((this.timeRemaining % 3600) / 60);
+//       this.seconds = Math.floor(this.timeRemaining % 60);
+//     } else {
+//       this.timeRemaining = this.days = this.hours = this.minutes = this.seconds = null;
+//     }
+//   }
 }
-
-
-// {
-//   Description: 'event',
-//   Location: 'teynampet',
-//   _id: 'e74918dbd-bf7b-4ba6-9eeb-8e9c68d533f5',
-//   address1: 'chennai',
-//   companyId: 'GOK9148',
-//   coordinates: { Latitude: 80.24896840000001, Longitude: 13.0384444 },
-//   duration: '02:00',
-//   enddate: '2023-12-31',
-//   eventBanner: 
-//     'https://seekers.sgp1.digitaloceanspaces.com/event/2023/11/e878bacfa-5ad2-4da3-874d-a374af748bb7/goku6.jpg',
-//   eventLogo: 
-//     'https://seekers.sgp1.digitaloceanspaces.com/event/2023/11/eb5b297b3-d5ee-4215-a11c-bed3f7eb1de2/2023-02-02 (1).png',
-//   eventName: 'DIGITAL MARKETING 2024',
-//   event_id: 'ee68316c9-5641-40fe-bda8-3d541dc49899',
-//   isRegisterMandatory: false,
-//   mode: 'ON',
-//   opening: 80,
-//   phoneNumber: '9789789789',
-//   primaryContact: {
-//     contactName: 'srinath',
-//     email: 'sri@gmail.com',
-//     phoneNumber: '6382620091',
-//     role: 'SDD'
-//   },
-//   startdate: '2023-12-31',
-//   status1: 'open',
-//   time1: '23:12',
-//   update_on: '2023-11-29T07:04:16.767Z'
-// }
-
-
-
-
-
-// {
-//   _id: 'b692fffa-c59c-405b-83be-72fc99634521',
-//   agenda_details: [
-//     {
-//       agenda_description: 'dsgdsgds',
-//       agenda_details: {
-//         session_link: 'dsgsdg',
-//         session_name: 'sdgsd',
-//         session_start_time: '2023-12-29T04:35:51.223Z',
-//         short_description: 'gdsgds'
-//       },
-//       agenda_detailssession_end_time: '2023-12-29T04:35:53.871Z',
-//       youtube_link: 'sdgds'
-//     }
-//   ],
-//   basic_details: {
-//     'Maximum_of_participants:': 34,
-//     end_date: '2023-12-29T04:34:59.591Z',
-//     location: { lat: 80.25032279999999, lng: 13.0404524 },
-//     start_date: '2023-12-29T04:34:55.567Z'
-//   },
-//   contact_details: [
-//     {
-//       contact_email: 'fdsfd',
-//       contact_name: 'dsdfsd',
-//       phone_number: 'dsfsdfsd',
-//       user_role: 'sdfsdf'
-//     }
-//   ],
-//   created_by: 'sanjay123sanjay12@gmial.com',
-//   created_on: '2023-12-29T04:35:58.387Z',
-//   event_banner: [
-//     {
-//       _id: { Subtype: 4, Data: 'fjRCv5xSSimZCZqVJkFetg==' },
-//       file_name: 'Screenshot from 2023-09-25 15-15-19__2023-12-16-16-00-45.png',
-//       folder: 'event_banner',
-//       ref_id: 'undefined',
-//       size: 117607,
-//       storage_name: 
-//         'event_banner/undefined/Screenshot from 2023-09-25 15-15-19__2023-12-16-16-00-45__2023-12-29-10-05-27.png',
-//       uploaded_by: 'sanjay123sanjay12@gmial.com'
-//     },
-//     {
-//       _id: { Subtype: 4, Data: 'XS3N8eT9SLeb8DtVx+YdTA==' },
-//       file_name: 'Screenshot from 2023-11-17 16-19-02__2023-11-22-19-10-44.png',
-//       folder: 'event_banner',
-//       ref_id: 'undefined',
-//       size: 139096,
-//       storage_name: 
-//         'event_banner/undefined/Screenshot from 2023-11-17 16-19-02__2023-11-22-19-10-44__2023-12-29-10-05-27.png',
-//       uploaded_by: 'sanjay123sanjay12@gmial.com'
-//     }
-//   ],
-//   event_description: 'dfgfgfdg',
-//   event_image: {
-//     _id: { Subtype: 4, Data: 'tPGINrsLTz+Ude24CR1eMw==' },
-//     file_name: 'HD-wallpaper-asta-anime-black-black-clover-demon.jpg',
-//     folder: 'event_logo',
-//     ref_id: 'undefined',
-//     size: 75197,
-//     storage_name: 
-//       'event_logo/undefined/HD-wallpaper-asta-anime-black-black-clover-demon__2023-12-29-10-05-14.jpg',
-//     uploaded_by: 'sanjay123sanjay12@gmial.com'
-//   },
-//   event_mode: 'online',
-//   event_name: 'fsdf',
-//   event_participants: [ { Subtype: 4, Data: 'HtxM0q4ARDuIjEo45fyrfA==' } ]
-// }
+ 

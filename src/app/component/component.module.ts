@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormlyMatCheckboxModule } from '@ngx-formly/material/checkbox';
@@ -83,6 +83,7 @@ const appearance: any = {
     EventLandingComponent,
   ],
   imports: [
+    SlickCarouselModule,
     NgSelectModule,
     MatStepperModule,
     AppRoutingModule,
