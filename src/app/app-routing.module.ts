@@ -14,7 +14,7 @@ import { DatatableComponent } from './component/datatable/datatable.component';
 import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.component'; 
 import { EventScreenComponent } from './component/event-screen/event-screen.component';
 import { ScreenComponent } from './component/screen/screen.component';
-import { EventLandingComponent } from './component/event-landing/event-landing.component';
+import { EventLandingComponent } from './component/event-landing/event-landing.component'; 
 
 //import { MapComponent } from './shared/layout/map/map.component';
 
@@ -29,7 +29,7 @@ const routes: Routes = [
         component: EventScreenComponent,
       },
     ],
-  },
+  }, 
   {
     path:"eventlanding",
     component: EventLandingComponent,

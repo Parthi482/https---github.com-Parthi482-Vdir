@@ -94,6 +94,7 @@ import { Location } from "./location";
 import { ColorPickerInputComponent } from "./color-picker";
 import { LayoutsModule } from "../shared/layout-event/layouts.module";
 import { SlickCarouselModule } from "ngx-slick-carousel";
+import { CounterComponent } from './counter.component';
 // import { ColorPickerInputComponent } from "./colourpicker";
 
 
@@ -388,12 +389,13 @@ name:"carousel-component-input",Component:CarouselComponentInput
       { name: 'required', message: 'This field is required' }
     ],},
     { name: 'datetime_input', component: DateTimeInput },
-
+    {name:"counter-input",Component:CounterComponent},
   ],
 }; 
 
 @NgModule({
     declarations: [
+      CounterComponent,
         Tab,
         FileInput,
         CheckboxComponent,
@@ -472,7 +474,8 @@ name:"carousel-component-input",Component:CarouselComponentInput
         FormlyFieldStepper,
         ImageComponent,
         Image1Component,
-        ColorPickerInputComponent
+        ColorPickerInputComponent,
+        CounterComponent
     ],
     providers: [
         ArrayTodateStringPipe,
