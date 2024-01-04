@@ -10,6 +10,6 @@ export class HeaderEventComponent {
   constructor( private route:ActivatedRoute ,private router:Router ){
    }
   fun1000(){
-    this.router.navigateByUrl('admin/event')
+    // this.router.navigateByUrl('admin/event')
   }
 }

@@ -40,14 +40,14 @@ export class EventLandingComponent implements OnInit {
 
 
 
-
+// basic_details.start_date
   ngOnInit() {
     this.getUpcomingDates();
     const filterCondition1 = {
       filter: [
         {
           clause: "AND",
-          conditions: [{ column: "update_on", operator: "EQUALS", value: "2023-11-29T07:04:16.767+00:00" ,type:"time.Time"}],
+          conditions: [{ column: "event_name", operator: "GREATERTHANOREQUAL", value: "2024-01-06T04:34:55.567+00:00" ,type:"date"}],
         },
       ],
     };

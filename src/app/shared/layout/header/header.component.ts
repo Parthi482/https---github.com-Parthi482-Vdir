@@ -253,7 +253,7 @@ func13(){
   this.router.navigateByUrl('/companies')
 }
 func111(){
-  this.router.navigateByUrl('admin/event')
+  this.router.navigateByUrl('eventlanding')
 }
 signOut() {
   console.log(this.deatils);

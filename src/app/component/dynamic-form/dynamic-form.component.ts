@@ -119,6 +119,8 @@ export class DynamicFormComponent {
   }
 
   initLoad() {
+    console.warn(this);
+    
     this.formService.LoadInitData(this)
   }
   // goBack(data?: any) {

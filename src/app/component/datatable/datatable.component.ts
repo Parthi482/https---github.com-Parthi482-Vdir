@@ -20,6 +20,8 @@ import {
   GridReadyEvent,
   IDatasource,
   IGetRowsParams,
+  IServerSideDatasource,
+  IServerSideGetRowsParams,
   KeyCreatorParams,
   MenuItemDef,
   ProcessGroupHeaderForExportParams,
@@ -163,129 +165,132 @@ export class DatatableComponent implements OnInit {
         this.pageHeading = config.pageHeading;
         this.screenEditMode = config.screenEditMode || "popup"; // screenEditMode is type used for POP up And PAge Screen
         this.fields = [];
+        console.log(this.config.columnDefs);
+        
         this.columnDefs = this.config.columnDefs; // Thus  for AG Grid columnDefs
   
-        // this.columnDefs.forEach((e: any) => {
-        //   if (e.type == "datetime" || e.type == "date") {
-        //     e.valueGetter = (params: any) => {
-        //       if (params.data && params.data[e.field]) {
-        //         return moment(params.data[e.field]).format(
-        //           e.format || "DD-MM-YYYY "
-        //         );
-        //       }
-        //       return moment().format(e.format || "DD-MM-YYYY "); //? set curent date
-        //     };
-        //   }
-        //   if(e.type == "name" ){
-        //     e.valueGetter = (params: any) => {
-        //       return  params.data["first_name"]+" "+params.data["last_name"]
-        //     }
-        //   }
-        //   if(e.type=="role"){
-        //     // ! know lock is Done
-        //     console.log(e.value!==this.helperService.getRole());
+        this.columnDefs.forEach((e: any) => {
+          if (e.type == "datetime" || e.type == "date") {
+            e.valueGetter = (params: any) => {
+              if (params.data && params.data[e.field]) {
+                return moment(params.data[e.field]).format(
+                  e.format || "DD-MM-YYYY "
+                );
+              }
+              return moment().format(e.format || "DD-MM-YYYY "); //? set curent date
+            };
+          }
+          if(e.type == "name" ){
+            e.valueGetter = (params: any) => {
+              return  params.data["first_name"]+" "+params.data["last_name"]
+            }
+          }
+          if(e.type=="role"){
+            // ! know lock is Done
+            console.log(e.value!==this.helperService.getRole());
             
-        //     if(e.value!==this.helperService.getRole()){
-        //       e.lockVisible=true
-        //       // lockVisible: true,
-        //       e.hide=true
+            if(e.value!==this.helperService.getRole()){
+              e.lockVisible=true
+              // lockVisible: true,
+              e.hide=true
 
-        //       // hide:true
-        //     }
-        //   }
-        //   if (e.type == "color") {
-        //     e.cellStyle = (params: any) => {
-        //       return { color: "blue" };
-        //     };
-        //   }
+              // hide:true
+            }
+          }
+          if (e.type == "color") {
+            e.cellStyle = (params: any) => {
+              return { color: "blue" };
+            };
+          }
          
-        //   if (e.width) {
-        //     e["width"] = e.width;
-        //   }
-        //   if (e.type == "set_Filter" && e.filter == "agSetColumnFilter") {
-        //     if (e.Diffkey == true) {
-        //       e.filterParams = {
-        //         values: (params: any) => {
-        //           let filter:any={
-        //             start: 0,
-        //             end: 1000,
-        //             filter: this.filterQuery,
-        //           }
-        //           if(this.allFilter!==undefined){
-        //           filter=this.allFilter;
-        //           }
-        //           this.DataService.getDataByFilter(this.collectionName, filter).subscribe((xyz: any) => {
-        //             const apidata = xyz.data[0].response;
-        //             const uniqueArray = Array.from(
-        //               new Map( apidata.map((obj: any) => [obj[e.field], obj])).values()
-        //             );
-        //             params.success(uniqueArray);
-        //           });
-        //         },
-        //         keyCreator: (params: KeyCreatorParams) => {
-        //           return [params.value[e.keyCreator], e.keyCreator, true];
-        //         },
-        //         valueFormatter: (params: any) => {
-        //           return params.value[e.field];
-        //         },
-        //       };
-        //     } else {
-        //       e.filterParams = {
-        //         values: (params: any) => {
-        //           let filter:any={
-        //             start: 0,
-        //             end: 1000,
-        //             filter: this.filterQuery,
-        //           }
-        //           if(this.allFilter!==undefined){
-        //           filter=this.allFilter;
-        //           }
-        //           this.DataService.getDataByFilter(this.collectionName,filter).subscribe((xyz: any) => {
-        //             const apidata = xyz.data[0].response
-        //               .map((result: any) => {
-        //                 let val = result[e.field];
-        //                 if (val !== undefined) {
-        //                   return val;
-        //                 }
-        //               })
-        //               .filter((val: any) => val !== undefined); // Filter out undefined values
-        //             params.success(apidata);
-        //           });
-        //         },
-        //       };
-        //     }
-        //   }
-        //   //if the object in nested array
-        //   if (e.type == "set_Filter" && e.filter == "agSetColumnFilter" &&e.object_type == "nested_array") {
-        //     debugger;
-        //     e.filterParams = {
-        //       values: (params: any) => {
-        //         let filter:any={
-        //           start: 0,
-        //           end: 1000,
-        //           filter: this.filterQuery,
-        //         }
-        //         if(this.allFilter!==undefined){
-        //         filter=this.allFilter;
-        //         }
-        //         this.DataService.getDataByFilter(this.collectionName,filter).subscribe((xyz: any) => {
-        //           const apidata = xyz.data[0].response
-        //             .map((result: any) => {
-        //               //let val = result[e.field];
-        //               let val = e.field
-        //                 .split(".")
-        //                 .reduce((o: any, i: any) => o[i], result);
-        //               if (val !== undefined) {
-        //                 return val;
-        //               }
-        //             })
-        //             .filter((val: any) => val !== undefined); // Filter out undefined values
-        //           params.success(apidata);
-        //         });
-        //       },
-        //     };
-        //   }
-        // });
+          if (e.width) {
+            e["width"] = e.width;
+          }
+          if (e.type == "set_Filter" && e.filter == "agSetColumnFilter") {
+            if (e.Diffkey == true) {
+              e.filterParams = {
+                values: (params: any) => {
+                  let filter:any={
+                    start: 0,
+                    end: 1000,
+                    filter: this.filterQuery,
+                  }
+                  if(this.allFilter!==undefined){
+                  filter=this.allFilter;
+                  }
+                  this.DataService.getDataByFilter(this.collectionName, filter).subscribe((xyz: any) => {
+                    const apidata = xyz.data[0].response;
+                    const uniqueArray = Array.from(
+                      new Map( apidata.map((obj: any) => [obj[e.field], obj])).values()
+                    );
+                    params.success(uniqueArray);
+                  });
+                },
+                keyCreator: (params: KeyCreatorParams) => {
+                  return [params.value[e.keyCreator], e.keyCreator, true];
+                },
+                valueFormatter: (params: any) => {
+                  return params.value[e.field];
+                },
+              };
+            } else {
+              e.filterParams = {
+                values: (params: any) => {
+                  let filter:any={
+                    start: 0,
+                    end: 1000,
+                    filter: this.filterQuery,
+                  }
+                  if(this.allFilter!==undefined){
+                  filter=this.allFilter;
+                  }
+                  this.DataService.getDataByFilter(this.collectionName,filter).subscribe((xyz: any) => {
+                    const apidata = xyz.data[0].response
+                      .map((result: any) => {
+                        let val = result[e.field];
+                        if (val !== undefined) {
+                          return val;
+                        }
+                      })
+                      .filter((val: any) => val !== undefined); // Filter out undefined values
+                    params.success(apidata);
+                  });
+                },
+              };
+            }
+          }
+          //if the object in nested array
+          if (e.type == "set_Filter" && e.filter == "agSetColumnFilter" &&e.object_type == "nested_array") {
+            debugger;
+            e.filterParams = {
+              values: (params: any) => {
+                let filter:any={
+                  start: 0,
+                  end: 1000,
+                  filter: this.filterQuery,
+                }
+                if(this.allFilter!==undefined){
+                filter=this.allFilter;
+                }
+                this.DataService.getDataByFilter(this.collectionName,filter).subscribe((xyz: any) => {
+                  const apidata = xyz.data[0].response
+                    .map((result: any) => {
+                      //let val = result[e.field];
+                      let val = e.field
+                        .split(".")
+                        .reduce((o: any, i: any) => o[i], result);
+                      if (val !== undefined) {
+                        return val;
+                      }
+                    })
+                    .filter((val: any) => val !== undefined); // Filter out undefined values
+                  params.success(apidata);
+                });
+              },
+            };
+          }
+        });
+
         console.log(this.columnDefs);
         
         this.isConfigLoaded = true;
@@ -300,9 +305,9 @@ export class DatatableComponent implements OnInit {
    */
   getList(filterQuery?: any, sort?: any) {
     //! DEfenie this for GridAPi Should not be undefined
-    if (this?.gridApi !== undefined) {
-      const datasource = {
-        getRows: async (params: any) => {
+    if (this.gridApi !== undefined) {
+      const datasource:IServerSideDatasource = {
+        getRows: async (params: IServerSideGetRowsParams) => {
           let obj: any = {
             start: params.request.startRow,
             end: params.request.endRow,
@@ -310,8 +315,7 @@ export class DatatableComponent implements OnInit {
             sort: params.request.sortModel,
           };
 
-          this.DataService.makeFiltersConditions(obj).then(
-            (filtercondition: any) => {
+          this.DataService.makeFiltersConditions(obj).then((filtercondition: any) => {
               let filter = filtercondition.filter;
               filtercondition.filter = [];
               if (this.filterQuery !== undefined && filterQuery !== undefined) {
@@ -335,38 +339,35 @@ export class DatatableComponent implements OnInit {
                 filtercondition.sort = sort;
               }
              this.allFilter=filtercondition
-              this.DataService.getDataByFilter(
-                this.collectionName ,
-                filtercondition
-              ).subscribe(async (xyz: any) => {
+              this.DataService.getDataByFilter(this.collectionName ,filtercondition).subscribe(async (xyz: any) => {
                 console.log(xyz);
-                
                 this.gridApi.sizeColumnsToFit();
                 if (await xyz) {
-
                   if (xyz?.data[0]?.pagination[0]?.totalDocs !== undefined) {
                     this.gridApi.hideOverlay()
-
                     this.listData = xyz.data[0].response;
-                    params.successCallback(
-                      xyz.data[0].response,
-                      xyz.data[0].pagination[0].totalDocs
+                    let data:any={
+                      rowData:xyz.data[0].response ,
+                      rowCount:xyz.data[0].pagination[0].totalDocs
+                    }
+                    params.success(
+                      data
                     );
                   } else {
                     this.gridApi.showNoRowsOverlay();
-
-                    params.successCallback(
-                    [],0)
-                    // params.failCallback();
-                    // let data:any =[{flag:true}]
-                    // params.successCallback(data,1)
-                  }
+                    params.success(
+                      {
+                        rowData:[],
+                        rowCount:0
+                      })
+                   }
                 } else {
-                  // params.failCallback();
                   this.gridApi.showNoRowsOverlay();
-
-                  params.successCallback(
-                    [],0)
+                  params.success(
+                    {
+                      rowData:[],
+                      rowCount:0
+                    })
                 }
               });
             }

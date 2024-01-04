@@ -54,36 +54,47 @@ export class FormService {
  * @ctrl This is Total content from the parent componet.
  */
   LoadInitData(ctrl: any) {
+
+    if (ctrl.id) {
+      console.log(ctrl);
+      
+      ctrl.collectionName = ctrl.formName
+      this.LoadData(ctrl).subscribe((res: any) => {
+        console.log(ctrl,"existing data loaded")
+        this.LoadConfig(ctrl)
+      })
+    } else {
+      this.LoadConfig(ctrl)
+    }
     
+    // debugger
+    // this.httpclient.get("assets/jsons/" + ctrl.formName + "-" + "form.json").subscribe(async (config: any) => {
+    //   ctrl.config = config
+    //   ctrl.model = config.model ? config.model : ctrl.model;
+    //   ctrl.pageHeading = config.pageHeading
+    //   ctrl.collectionName = config.form.collectionName
+    //   // ctrl.model = config.model ? config.model : {};
+    //   ctrl.mode = config.addEditMode ? config.addEditMode : 'popup' 
+    //   ctrl.id = ctrl.model[config.keyField]  || ctrl.model["id"] || ctrl["id"]
+    //   ctrl.butText = ctrl.id ? 'Update' : 'Save';   //buttons based on the id
+    //   ctrl.formAction = ctrl.id ? 'Edit' : 'Add';
     
-    debugger
-    this.httpclient.get("assets/jsons/" + ctrl.formName + "-" + "form.json").subscribe(async (config: any) => {
-      ctrl.config = config
-      ctrl.model = config.model ? config.model : ctrl.model;
-      ctrl.pageHeading = config.pageHeading
-      ctrl.collectionName = config.form.collectionName
-      // ctrl.model = config.model ? config.model : {};
-      ctrl.mode = config.addEditMode ? config.addEditMode : 'popup' 
-      ctrl.id = ctrl.model[config.keyField]  || ctrl.model["id"] || ctrl["id"]
-      ctrl.butText = ctrl.id ? 'Update' : 'Save';   //buttons based on the id
-      ctrl.formAction = ctrl.id ? 'Edit' : 'Add';
-    
-      if (ctrl.formAction == 'Edit' && ctrl.mode == 'page') {
-        this.LoadData(ctrl).subscribe((res: any) => {
-          ctrl.fields = config.form.fields
-          console.log(ctrl.model);
-        })
-      }
-      else if (ctrl.formAction == 'Edit' && ctrl.mode == 'popup') {
-        ctrl.model['isEdit'] = true
-        ctrl.model['isshow'] = true
-        ctrl.model['ishide'] = true
-        ctrl.isFormDataLoaded = true
-        ctrl.formAction = ctrl.config.formAction || 'Edit';
-        ctrl.isEditMode = true;
-      }
-      ctrl.fields = config.form.fields
-    })
+    //   if (ctrl.formAction == 'Edit' && ctrl.mode == 'page') {
+    //     this.LoadData(ctrl).subscribe((res: any) => {
+    //       ctrl.fields = config.form.fields
+    //       console.log(ctrl.model);
+    //     })
+    //   }
+    //   else if (ctrl.formAction == 'Edit' && ctrl.mode == 'popup') {
+    //     ctrl.model['isEdit'] = true
+    //     ctrl.model['isshow'] = true
+    //     ctrl.model['ishide'] = true
+    //     ctrl.isFormDataLoaded = true
+    //     ctrl.formAction = ctrl.config.formAction || 'Edit';
+    //     ctrl.isEditMode = true;
+    //   }
+    //   ctrl.fields = config.form.fields
+    // })
   }
 
   /**
