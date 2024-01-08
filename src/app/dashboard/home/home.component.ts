@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit,  } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ApiService } from 'src/app/service/search.service';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -14,7 +15,7 @@ import { ApiService } from 'src/app/service/search.service';
   styleUrls: ['./home.component.css'],
 
 })
-export class HomeComponent   {
+export class HomeComponent {
   searchForm: FormGroup;
   fetchedData: any[] = [];
   filteredJobs: any[] = [];
@@ -23,14 +24,15 @@ export class HomeComponent   {
   itemsPerColumn = 8;
   currentColumn = 0;
   showResults = false;
-  city:IDropdownSettings = {
+  city: IDropdownSettings = {
     singleSelection: false,
     idField: 'city',
     textField: 'city',
-    limitSelection:1,
+    limitSelection: 1,
     allowSearchFilter: true,
   };
-  cityList:any[] = [];
+  cityList: any[] = [];
+  DocImagePAth: any = environment.ImageBaseUrl;
 
 
   loadNextColumnData() {
@@ -48,7 +50,7 @@ export class HomeComponent   {
 
 
   }
-
+  imageUrls: any[] = []
   loadMore() {
     console.log('ji');
 
@@ -56,25 +58,52 @@ export class HomeComponent   {
       this.loadNextColumnData();
     }
   }
-  constructor(private formBuilder: FormBuilder,private auth:ApiService,private route: Router) {
+  constructor(private formBuilder: FormBuilder, private auth: ApiService, private route: Router) {
     this.searchForm = this.formBuilder.group({
       searchQuery: ['']
     });
-    this.auth.GetALL('city').subscribe((xyz:any)=>{
-      this.cityList=xyz
+    this.auth.GetALL('city').subscribe((xyz: any) => {
+      this.cityList = xyz
       console.log(xyz);
 
     })
-    this.auth.GetALL('companies').subscribe((res:any)=>{
-      this.firstFiveItems=res.slice(0,4)
+    this.auth.GetALL('companies').subscribe((res: any) => {
+      this.firstFiveItems = res.slice(0, 4)
       console.log(this.firstFiveItems);
 
     })
-    this.auth.GetALL("industry").subscribe((data:any)=>{
+    this.auth.GetALL("industry").subscribe((data: any) => {
       this.fetchedData = data;
       console.log(this.fetchedData);
-this.loadMore()
+      this.loadMore()
     })
+    const filterValue: any = [
+      {
+        clause: "$and",
+        conditions: [
+          { column: "_id", operator: "$ne", value: "id" },
+        ]
+      }
+    ];
+    this.auth.getDataByFilter("event", filterValue).subscribe((event: any) => {
+
+      event.forEach((element: any) => {
+        if (element.event_image) {
+          let images = element
+          this.imageUrls.push(images)
+
+        }
+
+      });
+
+
+    })
+
+
+
+
+
+
   }
 
 
@@ -93,11 +122,11 @@ this.loadMore()
     //   }
     // ];
     // this.auth.getDataByFilter
-    this.auth.GetByID('companies',"CompanyName",query,'true').subscribe((xyz:any)=>{
+    this.auth.GetByID('companies', "CompanyName", query, 'true').subscribe((xyz: any) => {
       console.log(xyz);
-      if(xyz!=null){
-        this.showResults=true;
-        this.filteredJobs=xyz;
+      if (xyz != null) {
+        this.showResults = true;
+        this.filteredJobs = xyz;
       }
 
 
@@ -123,14 +152,34 @@ this.loadMore()
 
   }
 
-  NavigateJobs(){
+  NavigateJobs() {
     this.route.navigateByUrl('job-details')
   }
-  NavigateIndustry(industry:any){
+  NavigateIndustry(industry: any) {
     console.log(industry);
     const modifiedValue = industry.replace(/ /g, "-");
 
     this.route.navigateByUrl(modifiedValue)
   }
+
+
+
+  navigate(imageUrl: any, category: string) { 
+    console.log('Clicked Image Details:', imageUrl);
+    console.log('Category:', category);
+
+    // this.route.navigateByUrl('events')
+
+  }
+
+
+
+
+
+
+
+
+
+
 
 }

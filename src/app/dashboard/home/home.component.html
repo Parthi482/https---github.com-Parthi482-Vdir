@@ -108,69 +108,102 @@
 
 </div>
 
+<br>
+ 
 
-  <div class="container-fluid mt-5 mb-5">
-    <div id="carouselExample" class="carousel white-slide">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="row">
-            <div class="col-md-3" *ngFor="let dataPoint of columnDataList[0]">
-              <div class="card mt-2 mb-2" style="border-radius: 90px;">
-                <div class="card-body "  (click)="NavigateIndustry(dataPoint.category)">
-                  <span class="bullet"></span>
-                  {{ dataPoint.category }}
-                </div>
-              </div>
-            </div>
-          </div>
+<div class="containers">
+
+
+  <div class="job-list">
+    <h2>Event list</h2>
+    <div class="card-container">
+      <div class="card" *ngFor="let imageUrl of imageUrls">
+        <div class="card-header">
+          <img [src]="DocImagePAth + imageUrl.event_image.storage_name" alt="{{imageUrl.event_image.storage_name}}" (click)="navigate(imageUrl, 'joblist')">
         </div>
-        <div class="carousel-item">
-          <div class="row">
-            <div class="col-md-3" *ngFor="let dataPoint of columnDataList[1]">
-              <div class="card mt-2 mb-2" style="border-radius: 90px;">
-                <div class="card-body" (click)="NavigateIndustry(dataPoint.category)">
-                  <span class="bullet"></span>
-                  {{ dataPoint.category }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="card-body"><h3>{{imageUrl.event_name}}</h3></div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon text-bg-dark" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span class="carousel-control-next-icon text-bg-dark" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
-    <!-- <button class="btn btn-primary mt-3 float-end" (click)="loadMore()">View More</button> -->
   </div>
 
 
- <div class="d-flex justify-content-center fs-4 ">
-  <h1 style="font-weight: bold">Top Companies Hiring...</h1>
- </div>
-
- <div class="container mt-5 mb-5">
-  <div class="row justify-content-center">
-    <div class="col-md-3" *ngFor="let dataPoint of firstFiveItems">
-      <div class="card text-center">
-        <img src="{{ dataPoint.Company_logo }}" class="card-img-top mx-auto mt-3" alt="Company Logo" style="width: 100px; height: 100px; border-radius: 30px;">
-        <div class="card-body">
-          <h5 class="card-title">{{ dataPoint.CompanyName }}</h5>
-          <div class="mb-3 d-flex justify-content-center">
-            <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-<div style="color: rgb(182, 182, 182);margin-left: 4px;">|</div>
-          <p style="font-size: 10px;" class="card-text ms-2 ">Employee Count: {{ dataPoint.emp_count }}</p>
+  <div class="job-list"> 
+    <h2>Business directory</h2> 
+    <div class="card-container">
+      <div class="card" *ngFor="let imageUrl of imageUrls">
+        <div class="card-header">
+          <img [src]="imageUrl" alt="">
         </div>
-        </div>
+        <div class="card-body">This is the content of the card.</div>
       </div>
     </div>
+
+
+  </div>
+
+
+
+  <div class="job-list"> 
+    <h2>Job list</h2> 
+<div class="card-container">
+  <div class="card">
+    <div class="card-header">Card 1</div>
+    <div class="card-body">This is the content of Card 1.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Card 2</div>
+    <div class="card-body">This is the content of Card 2.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Card 3</div>
+    <div class="card-body">This is the content of Card 3.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Card 4</div>
+    <div class="card-body">This is the content of Card 4.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Card 5</div>
+    <div class="card-body">This is the content of Card 5.</div>
   </div>
 </div>
 
 
+  </div>
 
+  <div class="job-list"> 
+    <h2>Self Employee</h2> 
+<div class="card-container">
+  <div class="card">
+    <div class="card-header">Card 1</div>
+    <div class="card-body">This is the content of Card 1.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Card 2</div>
+    <div class="card-body">This is the content of Card 2.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Card 3</div>
+    <div class="card-body">This is the content of Card 3.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Card 4</div>
+    <div class="card-body">This is the content of Card 4.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Card 5</div>
+    <div class="card-body">This is the content of Card 5.</div>
+  </div>
+</div>
+
+
+  </div>
+</div>

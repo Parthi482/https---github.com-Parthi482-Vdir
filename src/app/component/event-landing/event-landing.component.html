@@ -48,8 +48,8 @@
     <!-- card.component.html -->
     
     <div  style="display: flex;justify-content: center;  flex-direction: row;"> 
-        <div class="card " *ngFor="let data of bannerImage">
-            <img [src]="data.eventBanner"   height="250px" width="300px" style="object-fit: contain;padding: 25px; margin: 15px;" (click)="navigate(data)">
+        <div class="card " *ngFor="let data of bannerImage">       
+            <img [src]="DocImagePAth +data.storage_name"   height="250px" width="300px" style="object-fit: contain;padding: 25px; margin: 15px;" (click)="navigate(data)">
             <span>{{data.name}}</span>
         </div>
         </div>

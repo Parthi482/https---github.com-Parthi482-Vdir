@@ -20,16 +20,16 @@ import { EventLandingComponent } from './component/event-landing/event-landing.c
 
 const routes: Routes = [
 
-  {
-    path: 'events',
-    component: DashLayoutComponent,
-    children: [
-      {
-        path: '',
-        component: EventScreenComponent,
-      },
-    ],
-  }, 
+  // {
+  //   path: 'events',
+  //   component: DashLayoutComponent,
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: EventScreenComponent,
+  //     },
+  //   ],
+  // }, 
   {
     path:"eventlanding",
     component: EventLandingComponent,

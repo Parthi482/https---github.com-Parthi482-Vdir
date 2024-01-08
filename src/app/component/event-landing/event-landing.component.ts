@@ -5,6 +5,7 @@ import { Observable } from 'rx';
 import { map } from 'rxjs';
 import * as moment from 'moment';
 import { DataService } from 'src/app/service/data.service';
+import { environment } from 'src/environments/environment';
 interface City {
   name: string;
   code: string;
@@ -20,6 +21,7 @@ interface City {
 
 export class EventLandingComponent implements OnInit { 
   upcomingDates: moment.Moment[] = [];
+  DocImagePAth: any = environment.ImageBaseUrl;
 
 
 
@@ -47,19 +49,16 @@ export class EventLandingComponent implements OnInit {
       filter: [
         {
           clause: "AND",
-          conditions: [{ column: "event_name", operator: "GREATERTHANOREQUAL", value: "2024-01-06T04:34:55.567+00:00" ,type:"date"}],
+          conditions: [{ column: "basic_details.start_date", operator: "GREATERTHANOREQUAL", value: "2024-01-01T04:34:55.567+00:00" ,type:"date"}],
         },
       ],
     };
 // 2023-11-28T12:59:47.136+00:00
     this.dataService.getDataByFilter("event",filterCondition1).subscribe((res:any) => {
       
-      let response = res.data[0].response
-      // console.log(response);
-      
-      response.forEach((element:any) => {
-        // console.log(element.eventBanner);
-          this.bannerImage.push(element);
+      let response = res.data[0].response 
+      response.forEach((element:any) => { 
+          this.bannerImage.push(element.event_image);
 });
 
     })
