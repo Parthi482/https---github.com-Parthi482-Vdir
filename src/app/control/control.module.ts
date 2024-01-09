@@ -84,8 +84,7 @@ import { EventComponent } from "../component/event/event.component";
 import {  CarouselInput } from "./carousel-input";
 import { CdkDrag, CdkDropList } from "@angular/cdk/drag-drop";
 import { CarouselComponentInput } from "./carousel-component-input";
-import { ImageComponent } from "./image.component";
-import { EventScreenComponent } from "../component/event-screen/event-screen.component";
+import { ImageComponent } from "./image.component"; 
 import { Image1Component } from "./image1.component";
 import { ScreenComponent } from "../component/screen/screen.component";
 import { CheckboxComponent } from './checkbox.input';
@@ -434,8 +433,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
         FormlyFieldStepper,
         CarsoalComponent,
         FormlyFieldInputTextEnterKey,
-        EventComponent,
-        EventScreenComponent,
+        EventComponent, 
         ImageComponent,
         Image1Component,
         ScreenComponent,

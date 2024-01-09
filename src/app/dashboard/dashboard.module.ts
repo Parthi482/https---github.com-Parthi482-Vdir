@@ -34,6 +34,7 @@ import { AgendaAddComponent } from './agenda-add/agenda-add.component';
 import {  MatDatepickerModule } from '@angular/material/datepicker';
 // import { NgxMatDatetimePickerModule } from 'ngx-mat-datetime-picker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { EventScreenComponent } from './event-screen/event-screen.component';
 @NgModule({
   declarations: [
 
@@ -43,7 +44,8 @@ HomeComponent,
     AppliedJobsComponent,
     JobDetailsComponent,
     EventListComponent,
-    AgendaAddComponent
+    AgendaAddComponent,
+    EventScreenComponent
   ],
   imports: [
     CommonModule,

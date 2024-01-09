@@ -18,6 +18,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { CardComponent } from './card/card.component';
 import { LocationComponent } from './location/location.component';
+import { Image1Component } from './image/image1.component';
 
 
 @NgModule({
@@ -32,7 +33,9 @@ import { LocationComponent } from './location/location.component';
     ImageComponent,
     MapComponent,
     CardComponent,
-    LocationComponent
+    LocationComponent,
+    Image1Component
+
   ],
   imports: [
   CommonModule,
@@ -50,8 +53,8 @@ import { LocationComponent } from './location/location.component';
     AdminLayoutComponent,
     SidenavComponent,ImageComponent, MapComponent,
     CardComponent,
-    LocationComponent
-
+    LocationComponent,
+    Image1Component
 
 
 

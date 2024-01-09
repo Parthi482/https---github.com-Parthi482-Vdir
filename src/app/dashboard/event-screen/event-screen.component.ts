@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -14,10 +14,7 @@ export class EventScreenComponent {
 city:any;
 eventName:any;
 events:any
-bannerImage:any
-eventLogo:any
-event:any
-@Input('EventID') EventID:any={};
+
   constructor(private route: ActivatedRoute,private http: HttpClient, private auth: ApiService,private router:Router,private sharedService: SharedService ) {
 
     this.route.queryParams.subscribe(params => {
@@ -44,18 +41,6 @@ event:any
       }
     });
   }
-
-
-ngOnInit(): void {
-  
-
-
-
-
-}
-
-
-  
   my(abc:any){
     let val =abc._id
 

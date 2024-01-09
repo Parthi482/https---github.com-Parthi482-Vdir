@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/service/search.service';
 
 @Component({
-  selector: 'app-image',
+  selector: 'app-images',
   template:`
   <style>
 
@@ -52,75 +52,49 @@ import { ApiService } from 'src/app/service/search.service';
 .card-body:hover:before {
   transform: scale(2.15);
 }
-
   </style>
-  <div class="card-body" (click)="my(company)"  style="background-image: url({{company.Company_banner}});height:400px;
+  <div class="card-body" (click)="my(event)"  style="background-image: url({{event.eventBanner}});height:400px;
    background-repeat: no-repeat;background-size: cover;">
-
-  <!-- <div class="card-body img-thumbnail" (click)="my(company)"  style="background-image: url({{company.Company_banner}})"> -->
 <div class="text-center" style="float: left;margin-top: 10vh" >
-  <img *ngIf="company.Company_logo" class="img-thumbnail"  src="{{ company.Company_logo }}" alt="Company Logo" style="width: 200px; height: 200px;background-color:var(--main-color)">
+  <img *ngIf="event.eventLogo" class="img-thumbnail"  src="{{ event.eventLogo }}" alt="Event Logo" style="width: 200px; height: 200px;background-color:var(--main-color)">
 </div>
 <div class="card" style="opacity: 0.7;  justify-content: end;width: 200px;float: right;margin-top: 10vh ">
   <div class="card-body">
     <div style="display: flex; flex-direction: column; align-items: flex-end;">
-      <div style="font-size: 24px; font-weight: bold;">{{company.CompanyName}}</div>
-      <h3 class="card-subtitle text-center">{{ company.industry }}</h3>
-      <h4 class="card-text text-center">{{ company.description }}</h4>
+      <div style="font-size: 15px; font-weight: bold;">{{event.eventName}}</div>
+      <h3 class="card-subtitle text-center">{{ event.startdate }}</h3>
+      <h4 class="card-text text-center">{{ event.time1 }}</h4>
       <div style="font-size: 16px; color: black;">
       <i class="fas fa-map-marker-alt"  style="color:var(--main-color)"></i>
-        {{company.street}} {{company.area}} {{company.statename}} {{company.pincode}}
+        {{event.Address}}
       </div>
     </div>
   </div>
 </div>
-
 </div>`
 })
-export class ImageComponent {
-@Input('CompanyID') CompanyID:any={};
+export class Image1Component {
+@Input('EventID') EventID:any={};
 @Input('height') height:any;
 @Input('width') width:any;
-company:any
+event:any
 
 constructor(private auth: ApiService,private router:Router) {
-  // this.auth.GetByID('companies','unique_id',this.CompanyID).subscribe((xyz:any)=>{
-  //   console.log(xyz);
-  //   this.company = xyz;
-  // })
 }
 
 ngOnInit() {
-  // console.log('sad');
   this.width=this.width? this.width : 800;
   this.height=this.height? this.height : 900;
-  console.log(this.CompanyID);
-  this.company=this.CompanyID;
-
-
+  console.log(this.EventID);
+  this.event=this.EventID;
 }
 my(abc:any){
 console.log(abc);
-console.log(abc.CompanyName);
-console.log(abc.industry)
-  // let industry =abc.industry
-  // let CompanyName=abc.CompanyName
-
-  // this.router.navigateByUrl(industry+'/'+CompanyName);
-  let companyName=abc.CompanyName.replace(/ /g, "-");
-let industry = abc.industry.replace(/ /g, "-");
-console.log(companyName);
-console.log(industry);
-
-
-// console.log(id);
-
-    this.router.navigateByUrl(industry+'/'+companyName)
-}
+console.log(abc._id);
+  let _id=abc._id.replace(/ /g, "-");
+console.log(_id);
+    // this.router.navigateByUrl('/'+EventName)
+    this.router.navigate(["event-details/"+_id])
 
 }
-
-
-
-
-// http://127.0.0.1:7000/entities/event/e74918dbd-bf7b-4ba6-9eeb-8e9c68d533f5
+} 

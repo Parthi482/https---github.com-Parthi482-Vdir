@@ -73,12 +73,15 @@ import { environment } from 'src/environments/environment';
     </div>
   </div>
 </div>
-</div>`
+</div>
+`
 })
 export class Image1Component {
+
 @Input('EventID') EventID:any={};
 @Input('height') height:any;
 @Input('width') width:any;
+
 event:any
 eventLogo:any
 bannerImage:any
@@ -93,6 +96,8 @@ ngOnInit() {
   this.height = this.height ?? 900;
 
   console.log(this.EventID);
+  console.log(this.EventID);
+
   const { event_image, event_banner } = this.EventID;
   this.event = this.EventID;
   this.eventLogo = `${this.docBasePath}${event_image?.storage_name}`;
