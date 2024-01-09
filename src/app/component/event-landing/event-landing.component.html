@@ -1,58 +1,101 @@
 <div class="containers">
-    <div class="banner">
-        <img src="../../assets/images/audience-1853662_1920.jpg" alt="Event Image">
-        <div class="info-bar" style="display: flex; align-items: center;">
-            <div style="flex-grow: 1; margin-right: 20px;">
-                <span>Looking for: </span>
-                <input type="text" placeholder="Search event" class="unique-input" matInput style="width: 200px;">
-            </div>
-            
-            <div style="flex-grow: 1; margin-right: 20px;">
-                <h3>In </h3>
-                <input type="text" placeholder="Search event" class="unique-input" matInput style="width: 200px;">
-            </div>
-            
-            <div style="flex-grow: 1; margin-right: 20px;">
-                <span>Date & Time </span>
-                <mat-form-field>
-                    <input matInput [matDatepicker]="dateTimePicker" placeholder="Select Date & Time">
-                    <mat-datepicker-toggle matSuffix [for]="dateTimePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #dateTimePicker></mat-datepicker>
-                </mat-form-field>
-                
-            </div>
-            
-            
-            
-            <div>
-                <button class="search-button" mat-raised-button>
-                    <mat-icon>search</mat-icon>
-                </button>
-            </div>
+  <div class="banner">
+    <img
+      src="../../assets/images/audience-1853662_1920.jpg"
+      alt="Event Image"
+    />
+
+    <form [formGroup]="eventlanding">
+      <div class="info-bar" style="display: flex; align-items: center">
+        <div style="flex-grow: 1; margin-right: 20px">
+          <span>Looking for: </span>
+          <input
+            type="text"
+            placeholder="Search event"
+            class="unique-input"
+            matInput
+            style="width: 200px"
+            formControlName="looking"
+          />
         </div>
-        
+
+        <div style="flex-grow: 1; margin-right: 20px">
+          <h3>In</h3>
+          <input
+            type="text"
+            placeholder="Search event"
+            class="unique-input"
+            matInput
+            style="width: 200px"
+            formControlName="in"
+          />
+        </div>
+
+        <div style="flex-grow: 1; margin-right: 20px">
+          <span>Date & Time </span>
+          <mat-form-field>
+            <input
+              matInput
+              [matDatepicker]="dateTimePicker"
+              placeholder="Select Date & Time"
+              formControlName="dateTime"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="dateTimePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #dateTimePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <button
+            class="search-button"
+            mat-raised-button
+            (click)="submitForm()"
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div>
+  <h1 style="margin: 50px; padding-left: 70px">Upcoming Events</h1>
+
+  <div style="display: flex; justify-content: center; flex-direction: row">
+    <div class="card" *ngFor="let data of bannerImage">
+      <img
+        [src]="DocImagePAth + data.bannerimages.storage_name"
+        height="250px"
+        width="300px"
+        style="object-fit: contain; padding: 25px; margin: 15px"
+        (click)="navigate(data)"
+      />
+      <span>{{ data.name }}</span>
     </div>
+  </div>
+</div>
+
+<div>
+  <h1 style="margin: 50px; padding-left: 70px">Current Events</h1>
+
+  <div style="display: flex; justify-content: center; flex-direction: row">
+    <div class="card" *ngFor="let data of bannerImage">
+      <img
+        [src]="DocImagePAth + data.bannerimages.storage_name"
+        height="250px"
+        width="300px"
+        style="object-fit: contain; padding: 25px; margin: 15px"
+        (click)="navigate(data)"
+      />
+      <span>{{ data.name }}</span>
+    </div>
+  </div>
 </div>
 
 
 
- 
 
-<div>
-    <h1 style="margin: 50px;padding-left: 50px;">Upcoming Events </h1>
-    <!-- <div class="card flex justify-content-center">
-        <form [formGroup]="formGroup">
-            <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City"></p-dropdown>
-        </form>
-    </div> -->
-    <!-- card.component.html -->
-    
-    <div  style="display: flex;justify-content: center;  flex-direction: row;"> 
-        <div class="card " *ngFor="let data of bannerImage">       
-            <img [src]="DocImagePAth +data.storage_name"   height="250px" width="300px" style="object-fit: contain;padding: 25px; margin: 15px;" (click)="navigate(data)">
-            <span>{{data.name}}</span>
-        </div>
-        </div>
-       
-
-    </div>

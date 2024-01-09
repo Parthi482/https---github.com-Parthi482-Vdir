@@ -15,6 +15,7 @@ import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.comp
 import { ScreenComponent } from './component/screen/screen.component';
 import { EventLandingComponent } from './component/event-landing/event-landing.component'; 
 import { EventScreenComponent } from './dashboard/event-screen/event-screen.component';
+import { JoblistHome } from './dashboard/event-screen/joblist-home';
 
 //import { MapComponent } from './shared/layout/map/map.component';
 
@@ -22,17 +23,17 @@ const routes: Routes = [
 
   {
     path: 'events',
-    component: EventScreenComponent,
+    component: JoblistHome,
     children: [
       {
         path: '',
-        component: EventScreenComponent,
+        component: JoblistHome,
       },
     ],
   }, 
   {
     path:"eventlanding",
-    component: EventLandingComponent,
+    component: DashLayoutComponent,
     children:[
       {
         path:'',

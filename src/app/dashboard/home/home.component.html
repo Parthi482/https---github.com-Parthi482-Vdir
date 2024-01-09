@@ -112,17 +112,12 @@
  
 
 <div class="containers">
-
-
+ 
   <div class="job-list">
     <h2>Event list</h2>
-    <div class="card-container">
-      <div class="card" *ngFor="let imageUrl of imageUrls">
-        <div class="card-header">
-          <img [src]="DocImagePAth + imageUrl.event_image.storage_name" alt="{{imageUrl.event_image.storage_name}}" (click)="navigate(imageUrl, 'joblist')">
-        </div>
-        <div class="card-body"><h3>{{imageUrl.event_name}}</h3></div>
-      </div>
+    <div class="card-container"> 
+          <app-event-screen></app-event-screen>
+     
     </div>
   </div>
 
@@ -145,31 +140,10 @@
 
   <div class="job-list"> 
     <h2>Job list</h2> 
+
 <div class="card-container">
-  <div class="card">
-    <div class="card-header">Card 1</div>
-    <div class="card-body">This is the content of Card 1.</div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">Card 2</div>
-    <div class="card-body">This is the content of Card 2.</div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">Card 3</div>
-    <div class="card-body">This is the content of Card 3.</div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">Card 4</div>
-    <div class="card-body">This is the content of Card 4.</div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">Card 5</div>
-    <div class="card-body">This is the content of Card 5.</div>
-  </div>
+  <app-joblist></app-joblist>
+   
 </div>
 
 
