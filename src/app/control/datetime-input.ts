@@ -9,15 +9,19 @@ import * as moment from "moment";
 @Component({
   selector: "datetime-input",
   template: `
-    <p>{{ this.field.props?.label }}</p>
+  <style>
+   ::ng-deep .ui-datepicker.ui-widget{
+    line-height: 0.5rem;
+ }
+  </style>
+  <p>{{ this.field.props?.label }}</p>
     <div style="margin:5px 5px;top:0px">
       <p-calendar
         id="customCalendar"
         class="max-w-full"
         dateFormat="dd/mm/yy"
         hourFormat="12"
-        min
-        
+         
         [formControl]="formControl"
         [formlyAttributes]="field"
         [(ngModel)]="date"
@@ -28,6 +32,7 @@ import * as moment from "moment";
       ></p-calendar>
     </div>
     <p style="color:red; font-size:12px;">{{ this.errorMessage }}</p>
+    
   `,
 })
 export class DateTimeInput

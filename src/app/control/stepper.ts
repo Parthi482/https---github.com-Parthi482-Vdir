@@ -17,8 +17,10 @@ import { Router } from '@angular/router';
   <div>
     <mat-step *ngFor="let step of field.fieldGroup; let index = index; let last = last">
       <ng-template matStepLabel>{{ step.props!.label }}</ng-template>
-      <formly-field [field]="step"></formly-field>
-      <div style="height: 150px"></div>
+      <div style="height: 70vh">
+        <formly-field [field]="step"></formly-field>
+    
+    </div>
 
       <div style="text-align-last: end; width: 100%">
         <button mat-button *ngIf="index !== 0" matStepperPrevious>Back step</button>

@@ -110,18 +110,18 @@ const routes: Routes = [
       },
     ],
   },
-  {path: "event-details",
-  children: [
-   {
-    path: "",
-    component:DefaultComponent ,
-   },
-   {
-    path: ":id",
-    component:DefaultComponent
-   },
-  ],
- },
+//   {path: "event-details",
+//   children: [
+//    {
+//     path: "",
+//     component:DefaultComponent ,
+//    },
+//    {
+//     path: ":id",
+//     component:DefaultComponent
+//    },
+//   ],
+//  },
   {
     path: 'jobs',
     component: DashLayoutComponent,

@@ -168,7 +168,7 @@ export class DatatableComponent implements OnInit {
         console.log(this.config.columnDefs);
         
         this.columnDefs = this.config.columnDefs; // Thus  for AG Grid columnDefs
-  
+          this.isConfigLoaded = true
         this.columnDefs.forEach((e: any) => {
           if (e.type == "datetime" || e.type == "date") {
             e.valueGetter = (params: any) => {

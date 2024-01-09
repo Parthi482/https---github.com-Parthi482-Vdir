@@ -347,47 +347,7 @@
               ]
             }
           }
-          ,
-          {
-            "props": { "label": "Customize" },
-
-            "fieldGroup": [
-              {
-                
-                  "fieldGroupClassName": "display-flex",
-                  "fieldGroup": [
-                    {
-                      "key": "theme.left_panel_color",
-                      "name": "--sidenav-color",
-                      "type": "color-picker-input",
-                      "className": "flex-1",
-                      "props": {
-                        "label": "Left panel color"
-                      }
-                    },
-                    {
-                      "key": "theme.menu_font_color",
-                      "name": "--menu-font",
-                      "type": "color-picker-input",
-                      "className": "flex-1",
-                      "props": {
-                        "label": "Menu font color"
-                      }
-                    },
-                    {
-                      "key": "theme.page_title_color",
-                      "name": "--page-heading-color",
-                      "type": "color-picker-input",
-                      "className": "flex-1",
-                      "props": {
-                        "label": "Page title colour"
-                      }
-                    }
-                  ]
-                }
-               
-            ]
-          }
+           
         ]
       }
     ]

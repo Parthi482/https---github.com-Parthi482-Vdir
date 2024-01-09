@@ -47,7 +47,7 @@ export class DataService {
  * @screenId Screen only List Json Name Because we ADD Screen name + -list 
  */
 	public loadListConfigJson(screenlistId: string): Observable<any> {
-		return this.loadConfig(screenlistId)
+		return this.loadConfig(screenlistId+'-list')
 	}
 
 
@@ -88,7 +88,7 @@ export class DataService {
  * @ID Dynamic pass of _id or any Primary key 
  */
   public getDataById(collectionName: any, id: any) {
-    return this.http.get(this.getWsBaseUrl() +"entities1/" + collectionName + "/" + id);
+    return this.http.get(this.getWsBaseUrl() +"entities1/test/" + collectionName + "/" + id);
     // return this.http.get(this.getWsBaseUrl() +"entities1/" + "token" );
 
   }
