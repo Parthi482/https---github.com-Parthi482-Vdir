@@ -1,78 +1,367 @@
 {
-    "_id": "b692fffa-c59c-405b-83be-72fc99634521",
-    "agenda_details": [
-        {
-            "agenda_description": "dsgdsgds",
-            "session_end_time": "2023-12-29T04:35:53.871Z",
-            "session_link": "dsgsdg",
-            "session_name": "Testing Data",
-            "session_start_time": "2023-12-29T04:35:51.223Z",
-            "short_description": "Testing Data short_description",
-            "youtube_link": "sdgds"
-        }
-    ],
+  "pageHeading": "Event",
+  "formType": "simple",
+  "editMode": "page",
+  "screenEditMode": "page",
+  "user": true,
+  "keyField": "_id",
+  "form": {
+    "collectionName": "event",
+    "fields": [
+      {
+        "type": "stepper",
 
-    "basic_details": {
-        "Maximum_of_participants:": 34,
-        "end_date": "2023-12-29T04:34:59.591Z",
-        "location": {
-            "lat": 80.25032279999999,
-            "lng": 13.0404524
-        },
-        "start_date": "2023-12-29T04:34:55.567Z"
-    },
-    "contact_details": [
-        {
-            "contact_email": "fdsfd",
-            "contact_name": "dsdfsd",
-            "phone_number": "dsfsdfsd",
-            "user_role": "sdfsdf"
-        }
-    ],
-    "created_by": "sanjay123sanjay12@gmial.com",
-    "created_on": "2023-12-29T04:35:58.387Z",
-    "event_banner": [
-        {
-            "_id": {
-                "Subtype": 4,
-                "Data": "fjRCv5xSSimZCZqVJkFetg=="
+        "fieldGroupClassName": "display-flex",
+        "fieldGroup": [
+          {
+            "props": { "label": "Basic Event Details" },
+
+            "fieldGroup": [
+              {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
+                  {
+                    "type": "input",
+                    "key": "event_name",
+                    "className": "flex-3",
+                    "props": {
+                      "label": "Event Name",
+                      "placeholder": "Enter the name of your event",
+
+                      "required": true
+                    }
+                  },
+
+				  {
+					"key": "event_mode",
+					"type": "select",
+                    "className": "flex-2",
+
+					"templateOptions": {
+					  "label": "Event Mode",
+					  "options": [
+						{ "value": "online", "label": "Online" },
+						{ "value": "offline", "label": "Offline" }
+					  ]
+					}
+				  },
+				  
+				  
+                  {
+                    "type": "checkbox-input-field",
+                    "className": "flex-2",
+
+                    "key": "basic_details.is_mandatory"
+                  }
+                ]
+              },
+              {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
+                  
+                  {
+                    "type": "input",
+                    "key": "basic_details.Maximum_of_participants:",
+                    "className": "flex-6",
+                    "props": {
+                      "label": "Maximum of participants:",
+                      "placeholder": "Maximum of participants",
+
+                      "required": true
+                    }
+                  },
+                  {
+                    "label": "Start Date",
+                    "type": "datetime-input",
+                    "key": "basic_details.start_date",
+                    "className": "flex-6",
+                    "props": {
+                      "label": "Start Date",
+                      "placeholder": "Start Date",
+
+                      "required": true
+                    }
+                  },
+
+                  {
+                    "label": "End Date",
+                    "type": "datetime-input",
+                    "key": "basic_details.end_date",
+                    "className": "flex-6",
+                    "props": {
+                      "label": "End Date",
+                      "placeholder": "End Date",
+
+                      "required": true
+                    }
+                  }
+                ]
+              },
+
+              {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
+                  {
+                    "type": "html-input",
+                    "key": "event_description",
+                    "className": "flex-6",
+                    "props": {
+                      "label": "Event Description",
+                      "disabled": false
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+
+          {
+            "props": { "label": "logo / banner" },
+            "fieldGroupClassName": "display-flex",
+            "fieldGroup": [
+              {
+                "type": "carousel-input",
+                "key": "event_images",
+                "className": "flex-6",
+                "refId": "_id",
+                "role": "event",
+                "bind_key": "_id",
+                "props": {
+                  "refId": "_id",
+                  "label": "Event Banner"
+                }
+              }
+            ]
+          },
+
+          {
+            "props": {
+              "label": "Contact Details",
+              "addText": "Add",
+              "required": true
             },
-            "file_name": "Screenshot from 2023-09-25 15-15-19__2023-12-16-16-00-45.png",
-            "folder": "event_banner",
-            "ref_id": "undefined",
-            "size": 117607,
-            "storage_name": "event_banner/undefined/Screenshot from 2023-09-25 15-15-19__2023-12-16-16-00-45__2023-12-29-10-05-27.png",
-            "uploaded_by": "sanjay123sanjay12@gmial.com"
-        },
-        {
-            "_id": {
-                "Subtype": 4,
-                "Data": "XS3N8eT9SLeb8DtVx+YdTA=="
+            "key": "contact_details",
+            "type": "repeat",
+            "fieldArray": {
+              "fieldGroupClassName": "row",
+              "fieldGroup": [
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "type": "input",
+                      "key": "contact_name",
+                      "className": "flex-1",
+                      "props": {
+                        "label": "Contact Name",
+                        "placeholder": "Contact Name",
+
+                        "required": true
+                      }
+                    },
+                    {
+                      "type": "input",
+                      "key": "contact_email",
+                      "className": "flex-1",
+                      "props": {
+                        "label": "Email Address",
+                        "placeholder": "Email",
+                        "pattern": "^[a-zA-Z0-9&>/;,:-_/]+( [a-zA-Z0-9&>/;,:-_/!@-]+)*$",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "type": "input",
+                      "key": "phone_number",
+                      "className": "flex-1",
+                      "props": {
+                        "label": "Phone Number",
+                        "placeholder": "Phone Number",
+                        "required": true
+                      }
+                    },
+                    {
+                      "type": "input",
+                      "key": "user_role",
+                      "className": "flex-1",
+                      "props": {
+                        "label": "User Designation",
+                        "placeholder": "User Designation",
+                        "required": true
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "props": { "label": "Event participants" },
+
+            "fieldGroup": [
+              {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
+                  {
+                    "type": "button-input",
+                    "key": "event_participant",
+                    "array": true,
+                    "collectionName": "event_participants",
+                    "props": [
+                      {
+                        "label": "Speaker",
+                        "attributes": "Speaker",
+                        "type": "Speaker"
+                      },
+                      {
+                        "label": "Team Member",
+                        "attributes": "Team Member",
+                        "type": "TeamMember"
+                      },
+                      {
+                        "label": "Organizer",
+                        "attributes": "Organizer",
+                        "type": "Delegates"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "props": {
+              "label": "Agenda Details",
+              "required": true
             },
-            "file_name": "Screenshot from 2023-11-17 16-19-02__2023-11-22-19-10-44.png",
-            "folder": "event_banner",
-            "ref_id": "undefined",
-            "size": 139096,
-            "storage_name": "event_banner/undefined/Screenshot from 2023-11-17 16-19-02__2023-11-22-19-10-44__2023-12-29-10-05-27.png",
-            "uploaded_by": "sanjay123sanjay12@gmial.com"
-        }
-    ],
-    "event_description": "dfgfgfdg",
-    "event_image": {
-        "_id": {
-            "Subtype": 4,
-            "Data": "tPGINrsLTz+Ude24CR1eMw=="
-        },
-        "file_name": "HD-wallpaper-asta-anime-black-black-clover-demon.jpg",
-        "folder": "event_logo",
-        "ref_id": "undefined",
-        "size": 75197,
-        "storage_name": "event_logo/undefined/HD-wallpaper-asta-anime-black-black-clover-demon__2023-12-29-10-05-14.jpg",
-        "uploaded_by": "sanjay123sanjay12@gmial.com"
-    },
-    "event_mode": "online",
-    "event_name": "fsdf",
-    "event_participants": [
-        "1edc4cd2ae00443b888c4a38e5fcab7c"
+            "key": "agenda_details",
+            "type": "repeat",
+            "fieldArray": {
+              "fieldGroupClassName": "row",
+              "fieldGroup": [
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "type": "input",
+                      "key": "agenda_details.session_name",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Session Name",
+                        "placeholder": "Enter the Session Name",
+                        "required": true
+                      }
+                    },
+                    {
+                      "label": "Theme or Short Description",
+                      "type": "input",
+                      "key": "agenda_details.short_description",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Theme or Short Description",
+                        "placeholder": "Theme or Short Description",
+                        "required": true
+                      }
+                    } 
+                  ]
+                },
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "label": "Choose Session Start Date & Time",
+                      "type": "datetime-input",
+                      "key": "agenda_details.session_start_time",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Choose Session Start Date & Time",
+                        "placeholder": "Choose Session Start Date & Time",
+
+                        "required": true
+                      }
+                    },
+                    {
+                      "label": "Choose Session End Date & Time",
+                      "type": "datetime-input",
+                      "key": "agenda_details.session_end_time",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Choose Session End Date & Time",
+                        "placeholder": "Choose Session End Date & Time",
+
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "label": "Session Link",
+                      "type": "input",
+                      "key": "agenda_details.session_link",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Session Link",
+                        "placeholder": "Session Link",
+                        "type": "input"
+                        
+                      },
+                      "hideExpression": "model.agenda_details.agenda_mode !== 'online'"
+                    },
+                    {
+                      "label": "Youtube Link",
+                      "type": "input",
+                      "key": "youtube_link",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Youtube Link",
+                        "placeholder": "Youtube Link",
+                        "type": "input"
+                      
+                      },
+                      "hideExpression": "model.agenda_details.agenda_mode !== 'online'"
+                    }
+                  ]
+                },
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "type": "html-input",
+                      "key": "agenda_description",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Agenda Description",
+                        "disabled": false
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+           
+        ]
+      }
     ]
+  },
+  "defaultValues": [
+    {
+      "colName": "status",
+      "type": "string",
+      "value": "Active"
+    }
+  ],
+
+  "onCancelRoute": "/list/event"
 }
+
+
+ 

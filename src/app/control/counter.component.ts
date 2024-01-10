@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-counter',
@@ -88,8 +88,16 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular
 </div>`,
  
 })
-export class CounterComponent implements AfterViewInit{
+export class CounterComponent implements AfterViewInit,OnInit{
 constructor(){}
+@ViewChild('days', { static: true })
+days!: ElementRef;
+@ViewChild('hours', { static: true })
+hours!: ElementRef;
+@ViewChild('minutes', { static: true })
+minutes!: ElementRef;
+@ViewChild('seconds', { static: true })
+seconds!: ElementRef;
 currentTime!: string;
 months: Array<string> = [
   'January',
@@ -104,27 +112,28 @@ months: Array<string> = [
   'October',
   'November',
   'December',
-];
-// @Input('start_time') start_time: any
+]; 
 
 
+@Input('target_date') target_date:any
+ 
+targetDate: Date = new Date('2024-01-15T04:34:55.567+00:00');
 
-targetDate: Date = new Date('2024-01-05T04:34:55.567+00:00');
+ngOnInit(): void {
+  console.log(this.target_date);
+   // Parse the string and create a Date object
+  let  dateObject: Date = new Date(this.target_date);
+  //   this.target
+  this.targetDate = dateObject
+  console.log(this.targetDate);
+  
+ }
 
 
-
-
-@ViewChild('days', { static: true })
-  days!: ElementRef;
-  @ViewChild('hours', { static: true })
-  hours!: ElementRef;
-  @ViewChild('minutes', { static: true })
-  minutes!: ElementRef;
-  @ViewChild('seconds', { static: true })
-  seconds!: ElementRef;
 
 ngAfterViewInit() {
   this.updateCountdown();
+console.log(this.target_date);
 
   setInterval(() => {
     this.updateCountdown();
@@ -133,7 +142,7 @@ ngAfterViewInit() {
 
 updateCountdown() {
   const now = new Date().getTime();
-  let difference = this.targetDate.getTime() - now;
+  let difference = this.target_date.getTime() - now;
 
   if (difference < 0) {
     difference = 0; // To prevent displaying negative values

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -11,11 +11,19 @@ import { DataService } from 'src/app/service/data.service';
   templateUrl: './event-screen.component.html',
   styleUrls: ['./event-screen.component.css'],
 })
-export class EventScreenComponent {
+export class EventScreenComponent  implements OnInit{
+navigate(event:any) {
+  console.log("ddddddd",event._id);
+  this.router.navigate(["event-details/"+event._id])
+
+
+
+}
 city:any;
 eventName:any;
 events:any
-
+@Input('data') data: any;
+ 
   constructor(private route: ActivatedRoute,private http: HttpClient, private auth: ApiService,private dataservice: DataService,private router:Router,private sharedService: SharedService ) {
 
     this.route.queryParams.subscribe(params => {
@@ -60,6 +68,10 @@ const filterValue: any = [
         });
       }
     });
+  }
+  ngOnInit(): void {
+    console.log(this.data);
+    
   }
   my(abc:any){
     let val =abc._id

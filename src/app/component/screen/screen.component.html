@@ -78,13 +78,9 @@
     </div>
   </div>
 </div>
+{{startdate}}
+<app-counter  [target_date]='startdate' *ngIf="startdate"></app-counter>
  
-<app-counter ></app-counter>
-
- 
- 
-
-
 
 <div
   style="
@@ -306,16 +302,7 @@
   </button>
 </div>
 
-
-
-
-
  
-
-
-
-
-
 <style>
   .containers {
     position: relative;

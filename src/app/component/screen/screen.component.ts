@@ -66,17 +66,10 @@ export class ScreenComponent implements OnInit,OnDestroy {
         'toggleEditorMode', 'bold', 'italic', 'strikeThrough', 'backgroundColor', 'textColor', 'textColor', 'unlink', 'fontSize']
     ]
   };
-  id: any
-  // companyData: any;
-  // latlong: any;
+  id: any 
   currentIndex = 0;
   timerSubscription!: Subscription
-  docBasePath: string = environment?.ImageBaseUrl
-  // bannerImage: string[] = [];
-  // startdate: any
-  // eventlogo: any;
-  // event_participants: any[] = []
-  //  targetDate:any
+  docBasePath: string = environment?.ImageBaseUrl 
  targetDate: Date = new Date('2024-01-05');
 
   timeRemaining: number | null = null;
@@ -85,94 +78,18 @@ export class ScreenComponent implements OnInit,OnDestroy {
   minutes: number | null = null;
   seconds: number | null = null;
  
-  private countdownSubscription: Subscription | undefined;
-  // data1: any[] = []
-  DocImagePAth: any = environment.ImageBaseUrl;
-  // speakerData: any[] = [];
-  // TeammemberData: any[] = [];
-  // Delegates: any[] = [];
+  private countdownSubscription: Subscription | undefined; 
+  DocImagePAth: any = environment.ImageBaseUrl; 
   constructor(private datePipe: DatePipe, private auth: ApiService, private dataservice: DataService, private route: ActivatedRoute, private router: Router, private fb: FormBuilder, private cf: ChangeDetectorRef,) {
     this.route.params.subscribe((params) => {
-      this.id = params["id"]
-      //  this.event_participant()
+      this.id = params["id"] 
 
     });
 
     this.getData()
  
   }
-
-  days1 = [
-    {
-      title: 'Day 1. February 12, 2019',
-      sessions: [
-        { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-       
-      ]
-    },
-    {
-      title: 'Day 2. February 13, 2019',
-      sessions: [
-        { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-         
-      ]
-    }
- ];
  
- slickCarouselConfig = {
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  dots: true,
-  infinite: true,
-  autoplay: true,
-  autoplaySpeed: 2000
-};
-
-cards = [
-  {
-    title: 'Day 1. February 12, 2019',
-    image:'event_logo/undefined/HD-wallpaper-asta-anime-black-black-clover-demon__2023-12-29-10-05-14.jpg',
-    sessions: [
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-     
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-    ]
-  },
-  {
-    title: 'Day 2. February 13, 2019',
-    image:'event_logo/undefined/HD-wallpaper-asta-anime-black-black-clover-demon__2023-12-29-10-05-14.jpg',
-    sessions: [
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-    ]
-  },
-  {
-    title: 'Day 2. February 13, 2019',
-    image:'event_logo/undefined/HD-wallpaper-asta-anime-black-black-clover-demon__2023-12-29-10-05-14.jpg',
-    sessions: [
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-      { time: '08:00 AM - 09:00 AM', title: 'Grand Opening', host: 'Michael Smith - Marketing ING CEO' },
-       
-    ]
-  } 
-  
-];
-
-cardRows = this.chunkArray(this.cards, 3);
-
-chunkArray(array: any[], size: number): any[][] {
-  const result = [];
-  for (let i = 0; i < array.length; i += size) {
-    result.push(array.slice(i, i + size));
-  }
-  return result;
-}
 
 
 
@@ -190,13 +107,13 @@ chunkArray(array: any[], size: number): any[][] {
   }
  
 
-  showNext() {
-    this.currentIndex = (this.currentIndex + 1) % this.days1.length;
-  }
+  // showNext() {
+  //   this.currentIndex = (this.currentIndex + 1) % this.days1.length;
+  // }
 
-  showPrevious() {
-    this.currentIndex = (this.currentIndex - 1 + this.days1.length) % this.days1.length;
-  }
+  // showPrevious() {
+  //   this.currentIndex = (this.currentIndex - 1 + this.days1.length) % this.days1.length;
+  // }
 
   // UserData: any[] = []
   // // sessionName:any[]=[]
@@ -215,9 +132,12 @@ chunkArray(array: any[], size: number): any[][] {
     this.auth.getbyid("event", this.id).subscribe((res: any) => {
  
       // basic Data 
-
+      console.log(res._id);
+                           // b692fffa-c59c-405b-83be-72fc99634521
+        console.log(res.basic_details.start_date);
+        
       this.startdate = res.basic_details.start_date
-      
+       
       this.event_basic.push(res)
       res.event_banner.forEach((event_banner:any) => {
               
@@ -253,13 +173,14 @@ chunkArray(array: any[], size: number): any[][] {
         const sessionStartTime = new Date(iterator.session_start_time);
   
         // Format the Date object
-        const formattedDate = new Intl.DateTimeFormat('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }).format(sessionStartTime);
+    //     const formattedDate = new Intl.DateTimeFormat('en-US', {
+    //       year: 'numeric',
+    //       month: 'long',
+    //       day: 'numeric'
+    //     }).format(sessionStartTime);
          
-          this.startDate.push(formattedDate)
+    //       this.startDate.push(formattedDate)
+    // console.log(this.startDate);
     
       }
 
@@ -278,16 +199,16 @@ chunkArray(array: any[], size: number): any[][] {
     for (let iterator of this.AgendaData) {
       console.log(iterator);
       // Perform additional operations with the data
-      const sessionStartTime = new Date(iterator.session_start_time);
+      // const sessionStartTime = new Date(iterator.session_start_time);
 
       // Format the Date object
-      const formattedDate = new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      }).format(sessionStartTime);
-      console.log(formattedDate);
-        this.startDate.push(formattedDate)
+      // const formattedDate = new Intl.DateTimeFormat('en-US', {
+      //   year: 'numeric',
+      //   month: 'long',
+      //   day: 'numeric'
+      // }).format(sessionStartTime);
+      // console.log(formattedDate);
+      //   this.startDate.push(formattedDate)
   
     }
 

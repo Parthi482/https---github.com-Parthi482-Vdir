@@ -74,8 +74,7 @@ const appearance: any = {
 
 @NgModule({
   declarations: [
-    DatatableComponent, 
-    DynamicFormComponent,
+    DatatableComponent,    DynamicFormComponent,
     DynamicFilterComponent,
     ActionButtonComponent,
     MyLinkRendererComponent,

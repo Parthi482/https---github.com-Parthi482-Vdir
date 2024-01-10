@@ -19,7 +19,7 @@
 
   </div>
 <div style="display: flex;justify-content: center;width: 98%;align-items: center;margin: 10px;" *ngIf="isConfigLoaded">
-  <ag-grid-angular 
+  <!-- <ag-grid-angular 
       #agGrid style="width: 98%; height: calc(100vh - 250px); flex: 1 1 auto" 
       class="ag-theme-alpine"
       [defaultColDef]="defaultColDef"
@@ -30,11 +30,34 @@
       [getRowId]="getRowId"
       [getContextMenuItems]="getContextMenuItems"
       [context]="context" 
-      (firstDataRendered)="onFirstDataRendered($event)" 
+      [gridOptions]="gridOptions"
+      (firstDataRendered)="onFirstDataRendered($event)"
+      (cellClicked)="onCellClicked($event)"
       [components]="components"
       (selectionChanged)="onSelectionChanged($event)"
       (gridReady)="onGridReady($event)">
-  </ag-grid-angular>
+  </ag-grid-angular> -->
+
+
+
+  <!-- 
+[rowData]="companies"
+
+ -->
+
+<ag-grid-angular
+#agGrid
+style="width: 100%; height: calc(100vh - 250px); flex: 1 1 auto"
+class="ag-theme-alpine"
+[defaultColDef]="defaultColDef"
+[columnDefs]="columnDefs"
+(gridReady)="onGridReady($event)"
+(firstDataRendered)="onFirstDataRendered($event)"
+(selectionChanged)="onSelectionChanged($event);"
+[components]="components"
+[overlayNoRowsTemplate]="overlayNoRowsTemplate"
+[context]="context"
+></ag-grid-angular>
 </div>
 </div>
 <!-- [groupSelectsChildren]="true" -->

@@ -94,6 +94,7 @@ import { ColorPickerInputComponent } from "./color-picker";
 import { LayoutsModule } from "../shared/layout-event/layouts.module";
 import { SlickCarouselModule } from "ngx-slick-carousel";
 import { CounterComponent } from './counter.component';
+import { FlexLayoutModule } from "@angular/flex-layout";
 // import { ColorPickerInputComponent } from "./colourpicker";
 
 
@@ -473,7 +474,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
         ImageComponent,
         Image1Component,
         ColorPickerInputComponent,
-        CounterComponent
+        CounterComponent,
     ],
     providers: [
         ArrayTodateStringPipe,
@@ -484,6 +485,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
     ],
     imports: [
       SlickCarouselModule,
+      FlexLayoutModule,
         BrowserModule,
         DragDropModule,
         CommonModule,

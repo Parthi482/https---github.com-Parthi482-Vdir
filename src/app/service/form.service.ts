@@ -53,7 +53,7 @@ export class FormService {
  * @id if id availabe ,IT  load the existing data 
  * @ctrl This is Total content from the parent componet.
  */
-  LoadInitData(ctrl: any) {
+  LoadInitData1(ctrl: any) {
  
     this.httpclient.get("assets/jsons/" + ctrl.formName + "-" + "form.json").subscribe(async (config: any) => {
       ctrl.config = config
@@ -82,8 +82,21 @@ export class FormService {
       }
       ctrl.fields = config.form.fields
     })
+ 
   }
-
+  LoadInitData(ctrl: any) {
+    
+    
+    if (ctrl.id) {
+      ctrl.collectionName = ctrl.formName
+      this.LoadData(ctrl).subscribe((res: any) => {
+        console.log(ctrl,"existing data loaded")
+        this.LoadConfig(ctrl)
+      })
+    } else {
+      this.LoadConfig(ctrl)
+    }
+  }
   /**
  * This Function help to get the screen config from data base
  * @ctrl This is Total content from the parent componet.
@@ -148,13 +161,283 @@ export class FormService {
   }
 
  
-LoadData(ctrl: any): Observable<boolean> {
-  var nextValue = new Subject<boolean>()
-  this.LoadFormData(ctrl).subscribe(exists => {
+  LoadData(ctrl: any): Observable<boolean> {
+    
+    var nextValue = new Subject<boolean>()
+    this.LoadFormData(ctrl).subscribe((exists:any) => {
     nextValue.next(exists)
-  })
-  return nextValue.asObservable()
+      if (exists && ctrl.config.formType=='master-detail') {
+        //load detailed form details and its data, if available
+        
+        this.LoadDetailConfig(ctrl)
+        this.LoadDetailDataList(ctrl,ctrl.id)
+        this.resetDetailModel(ctrl)
+      }
+    })
+    return nextValue.asObservable()
+  }
+
+// !Need TO do in same componenet for server side pagination
+LoadDetailDataList(ctrl:any,id:string,addtionalFilterConditions?:any) {
+
+  if(ctrl.config.diffApi==true){
+    let key:any=ctrl.model[ctrl.config.idToSend]
+    this.dataService.lookupTreeData(ctrl.config.endPoint,key).subscribe(
+      (result:any) => {
+      ctrl.listData=result.data.response ||  []
+      // ctrl.listData = res.data[0].response|| [];
+      ctrl.tempListData = ctrl.listData;
+      ctrl.gridApi.sizeColumnsToFit();
+      },
+      error => {
+        ctrl.listData = []
+        ctrl.tempListData = ctrl.listData;
+        //Show the error popup
+        console.error('There was an error!', error);
+      })
+     
+    
+  }else{
+
+
+
+
+
+    let filterCondition :any
+    //master-detail mapping record filter condition
+    if(ctrl?.config?.detailForm?.customfilter){
+       filterCondition = [
+        { column: ctrl.config.detailForm.mapColumn,
+            operator: "EQUALS",
+          value:ctrl.model[ctrl?.config?.detailForm?.customkey]
+          },
+        ]
+    
+    }else{
+
+      filterCondition = [
+        { column: ctrl.config.detailForm.mapColumn,
+            operator: "EQUALS",
+          value:id
+          },
+        ]
+    }
+    console.log(filterCondition);
+
+  this.dataService.makeFilterConditions(ctrl.detailListConfig.defaultFilter,filterCondition,ctrl.detailModel)
+  this.dataService.makeFilterConditions(ctrl.detailListConfig.fixedFilter,filterCondition,ctrl.detailModel)
+
+    //when we apply filter the top filter controls,
+    //this conditions to be merged with the above filter condition
+    if (addtionalFilterConditions) {
+    
+    filterCondition = _.merge(filterCondition,addtionalFilterConditions)
+    }
+    //load detail (child) collection data
+    var filterQuery = {filter:[{
+      clause: "AND",
+      conditions: filterCondition
+    }]}
+    
+
+  this.dataService.getDataByFilter(ctrl.config.detailForm.collectionName,filterQuery).subscribe(
+    (result:any) => {
+        ctrl.listData = result.data[0].response|| [];
+        ctrl.tempListData = ctrl.listData;
+        ctrl.gridApi.sizeColumnsToFit();
+      },
+      error => {
+        ctrl.listData = []
+        ctrl.tempListData = ctrl.listData;
+        //Show the error popup
+        console.error('There was an error!', error);
+      }
+    );
+  }
+
 }
+
+
+
+LoadDetailConfig(ctrl:any) {
+  ctrl.form.disable()
+
+  ctrl.keyCol = ctrl.config.detailForm.keyColumn || 'cno'
+  ctrl.detailDefaultFocusIndex = ctrl.config.detailForm.defaultFocusIndex || 0
+  ctrl.detailFields = ctrl.config.detailForm.fields
+  ctrl.detailModel = ctrl.config.detailForm.model ? ctrl.config.detailForm.model : {};
+  ctrl.isPopupEdit = ctrl.config.detailForm.isPopupEdit || false
+  ctrl.listData = []
+  
+  ctrl.tempListData = ctrl.listData;
+  ctrl.detailListConfig = ctrl.config.detailListConfig
+  ctrl.filterOptions = ctrl.config.detailListConfig.filterOptions
+  ctrl.actions = ctrl.config.detailListConfig.actions || []
+  ctrl.actionPopup =ctrl.config.detailListConfig.actionPopup || []         //popup form screen in master table
+  ctrl.delete=ctrl.config.detailListConfig.delete || []
+  //TODO
+ctrl.detailListFields =  ctrl.config.detailListConfig.fields
+
+  ctrl.config.detailListConfig.fields.forEach((e:any) => 
+  // {
+  //   if (e.type) {
+  //     if (e.type == "date") {
+  //         e["valueFormatter"] =  (params:any) => params.value == null ? "" : moment(params.value).format(e.format || "DD/MM/YY");
+  //     } 
+  //   }
+  // });
+  
+  {
+    console.log(e,'e');
+    console.log(e.type,'type');
+
+    if (e.type == "datetime" || e.type == "date") {
+      e.valueGetter = (params: any) => {
+        if (params.data && params.data[e.field]) {
+          console.log('dasd');
+          
+          return moment(params.data[e.field]).format(
+            e.format || "DD-MM-YYYY "
+          );
+        }
+        return ' '
+      };
+    }
+    if (e.type == "color") {
+      e.cellStyle = (params: any) => {
+        return { color: "blue" };
+      };
+    }
+    if (e.type == "arraytostring") {        
+      e.valueFormatter = (params: any) => {
+          if (params.data && params.data[e.field]&& !_.isEmpty(params.data[e.field])) {
+          let txt = "";
+          if(e.valueType=="plainArray"){
+            let input=params.data[e.field] ;
+            
+            for (let i=0; i < input?.length;i++){
+              txt += input[i] +","
+             }
+             console.log("txt",txt);
+             
+             var n =txt.lastIndexOf(",")
+             var value=txt.substring(0,n)
+             console.log(value);
+             
+             return value
+            
+          }else{
+            let input=params.data[e.field] ;
+            let attribute=e.value
+            for (let i=0; i < input?.length;i++){
+              txt += (input[i][attribute]) +","
+             }
+             var n =txt.lastIndexOf(",")
+             var value=txt.substring(0,n)
+             return value
+            }
+
+          }
+          return
+
+      };
+      e.type='text'
+    }  
+    if (e.width) {
+      e["width"] = e.width;
+    } 
+    // if (e.type == "set_Filter" && e.filter == "agSetColumnFilter") {
+    //   if (e.Diffkey == true) {
+    //     e.filterParams = {
+    //       values: (params: any) => {
+    //         let filter:any={
+     //           start: 0,
+    //           end: 1000,
+    //           filter: this.filterQuery,
+    //         }
+    //         if(this.allFilter!==undefined){
+    //         filter=this.allFilter;
+    //         }
+    //         this.DataService.getDataByFilter(this.collectionName, filter).subscribe((xyz: any) => {
+    //           const apidata = xyz.data[0].response;
+    //           const uniqueArray = Array.from(
+    //             new Map( apidata.map((obj: any) => [obj[e.field], obj])).values()
+    //           );
+    //           params.success(uniqueArray);
+    //         });
+    //       },
+    //       keyCreator: (params: KeyCreatorParams) => {
+    //         return [params.value[e.keyCreator], e.keyCreator, true];
+    //       },
+    //       valueFormatter: (params: any) => {
+    //         return params.value[e.field];
+    //       },
+    //     };
+    //   } else {
+    //     e.filterParams = {
+    //       values: (params: any) => {
+    //         let filter:any={
+    //           start: 0,
+    //           end: 1000,
+    //           filter: this.filterQuery,
+    //         }
+    //         if(this.allFilter!==undefined){
+    //         filter=this.allFilter;
+    //         }
+    //         this.dataService.getDataByFilter(this.collectionName,filter).subscribe((xyz: any) => {
+    //           const apidata = xyz.data[0].response
+    //             .map((result: any) => {
+    //               let val = result[e.field];
+    //               if (val !== undefined) {
+    //                 return val;
+    //               }
+    //             })
+    //             .filter((val: any) => val !== undefined); // Filter out undefined values
+    //           params.success(apidata);
+    //         });
+    //       },
+    //     };
+    //   }
+    // }
+    //if the object in nested array
+    // if (e.type == "set_Filter" && e.filter == "agSetColumnFilter" &&e.object_type == "nested_array") {
+    //   debugger;
+    //   e.filterParams = {
+    //     values: (params: any) => {
+    //       let filter:any={
+    //         start: 0,
+    //         end: 1000,
+    //         filter: this.filterQuery,
+    //       }
+    //       if(this.allFilter!==undefined){
+    //       filter=this.allFilter;
+    //       }
+    //       this.DataService.getDataByFilter(this.collectionName,filter).subscribe((xyz: any) => {
+    //         const apidata = xyz.data[0].response
+    //           .map((result: any) => {
+    //             //let val = result[e.field];
+    //             let val = e.field
+    //               .split(".")
+    //               .reduce((o: any, i: any) => o[i], result);
+    //             if (val !== undefined) {
+    //               return val;
+    //             }
+    //           })
+    //           .filter((val: any) => val !== undefined); // Filter out undefined values
+    //         params.success(apidata);
+    //       });
+    //     },
+    //   };
+    // }
+  })
+
+}
+
+
+
+
+
+
 
 
   LoadFormData(ctrl: any): Observable<boolean> {

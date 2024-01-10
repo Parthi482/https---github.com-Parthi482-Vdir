@@ -11,6 +11,10 @@ import { SharedService } from 'src/app/service/shared.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent  implements OnInit {
+nav() {
+  this.router.navigateByUrl("home")
+}
+
   employer:any;
   searchValue: string = '';
   searchQuery: any;
@@ -223,6 +227,10 @@ if(params=='Seeker'){
 
 }
 
+
+}
+func113(){
+  this.router.navigateByUrl('/list/screen')
 
 }
 func11(){

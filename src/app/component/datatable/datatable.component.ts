@@ -9,6 +9,7 @@ import {
   Input,
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { DataService } from "../../service/data.service";
 import {
   ColDef,
   ExcelExportParams,
@@ -30,16 +31,17 @@ import {
   ServerSideTransaction,
 } from "ag-grid-community";
 import * as moment from "moment";
+import { DialogService } from "../../service/dialog.service";
 import { ActionButtonComponent } from "./button";
 import * as _ from "lodash";
 import { MyLinkRendererComponent } from "./cellstyle";
-import { FormlyFieldConfig } from "@ngx-formly/core";
-import { async } from "rxjs";
-import { FormArray, FormGroup, FormControl, Validators } from "@angular/forms";
-import { DialogService } from "src/app/service/dialog.service";
+import { FormlyFieldConfig } from "@ngx-formly/core"; 
 import { HelperService } from "src/app/service/helper.service";
+import { ArrayToStringPipe } from "src/app/pipe/arraytostring";
+import { GridOptions } from "@ag-grid-community/core";
+import { async } from "rxjs";
 import { environment } from "src/environments/environment";
-import { DataService } from "src/app/service/data.service";
+import { FormArray, FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-datatable",
@@ -65,8 +67,7 @@ export class DatatableComponent implements OnInit {
   selectedModel: any = {};
   showbutton!: boolean;
   dataExist = true;
-  @ViewChild("editViewPopup", { static: true })
-  editViewPopup!: TemplateRef<any>;
+  @ViewChild("editViewPopup", { static: true })  editViewPopup!: TemplateRef<any>;
   @ViewChild("Popup", { static: true }) Popup!: TemplateRef<any>;
   formName!: string;
   model: any;
@@ -92,7 +93,8 @@ export class DatatableComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private DataService: DataService,
-    public dialogService: DialogService,
+    public dialogService: DialogService, 
+    private arraytostring: ArrayToStringPipe,
     private helperService: HelperService
   ) {
     // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -118,7 +120,6 @@ export class DatatableComponent implements OnInit {
 
    public defaultColDef: ColDef = {
     resizable: true,
-
     // suppressMovable:true,
   //   filterParams: {
   //     closeOnApply:true,
@@ -131,15 +132,22 @@ export class DatatableComponent implements OnInit {
     this.listData = this.helperService.getFilteredValue(val, this.listData, []);
   }
 
-  onGridReady(params: GridReadyEvent) {
+  // onGridReady(params: GridReadyEvent) {
 
+  //   this.gridApi = params.api;
+  //   params.api.sizeColumnsToFit();
+  //   this.gridApi.sizeColumnsToFit();
+  //   this.getList()
+
+  // }
+  onGridReady(params: GridReadyEvent<any>) {
+    // console.log(params.api);
+    
     this.gridApi = params.api;
-    params.api.sizeColumnsToFit();
-    this.gridApi.sizeColumnsToFit();
+    console.log(this.gridApi);
+    
     this.getList()
-
   }
-
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
@@ -153,11 +161,51 @@ export class DatatableComponent implements OnInit {
   loadConfig() {
     this.DataService.loadListConfigJson(this.listName).subscribe(
       (config: any) => {
-      
+        let org_type_id: any;
+        let role_type: any;
+        var role_filter: any;
+        if (config?.rolebased) { // config . role == true  
+          role_type = this.DataService.getdetails().LoginResponse.role;
+          org_type_id = this.DataService.getdetails().LoginResponse.org_id;
+          if (role_type !== "SA") {
+
+            role_filter = {
+              clause: "AND",
+              conditions: [
+                {column: "org_id",operator: "EQUALS",type: "string",value: org_type_id,},
+              ],
+            };
+          }
+
+        }if (config?.individaulAccess) { // config . role == true  
+          let decodeToken:any=this.helperService.getdecodeToken()
+          if (role_type !== "SA") {
+// to use
+            role_filter = {
+              clause: "AND",
+              conditions: [
+                {column: config?.individaulAccessColumn,operator: "EQUALS",type: "string",value: decodeToken[config.valueColumnName]},
+              ],
+            };
+          }
+
+        }
         this.config = config;
         this.showbutton = config.showbutton; // show button used to show add button it should done in json
         let filter = this.DataService.getFilterQuery(config, this);
         //! define it has the role in
+        console.log(config?.rolebased && role_type !== "SA");
+
+        if (config?.rolebased && role_type !== "SA") {
+          this.filterQuery = [role_filter];
+
+          if (filter != undefined) {
+            this.filterQuery = [filter, role_filter];
+          } 
+
+        } else {
+          this.filterQuery = filter;
+        }
         this.collectionName = config.collectionName; // collectionName used to show add button it should done in json
         this.filterOptions = config.filterOptions;
         this.filterCollectionName = config.filtercollectionName || "";
@@ -165,10 +213,7 @@ export class DatatableComponent implements OnInit {
         this.pageHeading = config.pageHeading;
         this.screenEditMode = config.screenEditMode || "popup"; // screenEditMode is type used for POP up And PAge Screen
         this.fields = [];
-        console.log(this.config.columnDefs);
-        
         this.columnDefs = this.config.columnDefs; // Thus  for AG Grid columnDefs
-          this.isConfigLoaded = true
         this.columnDefs.forEach((e: any) => {
           if (e.type == "datetime" || e.type == "date") {
             e.valueGetter = (params: any) => {
@@ -202,7 +247,10 @@ export class DatatableComponent implements OnInit {
               return { color: "blue" };
             };
           }
-         
+          if (e.type == "arraytostring") {
+            e["valueFormatter"] = (params: any) =>
+              this.arraytostring.transform(params.value, e.value);
+          }
           if (e.width) {
             e["width"] = e.width;
           }
@@ -291,8 +339,6 @@ export class DatatableComponent implements OnInit {
           }
         });
 
-        console.log(this.columnDefs);
-        
         this.isConfigLoaded = true;
 
         this.getList(this.filterQuery, config.sort);
@@ -306,6 +352,8 @@ export class DatatableComponent implements OnInit {
   getList(filterQuery?: any, sort?: any) {
     //! DEfenie this for GridAPi Should not be undefined
     if (this.gridApi !== undefined) {
+      console.log("hi");
+      
       const datasource:IServerSideDatasource = {
         getRows: async (params: IServerSideGetRowsParams) => {
           let obj: any = {
@@ -377,7 +425,6 @@ export class DatatableComponent implements OnInit {
       this.gridApi.setServerSideDatasource(datasource);
     }
   }
-
   /**
    * This method Get Trigged When the Table is Touched
    * From event we  get Data 
@@ -386,6 +433,9 @@ export class DatatableComponent implements OnInit {
   onSelectionChanged(event: any) {
 
     this.selectedModel = event.api.getSelectedRows()[0];
+    console.log("Datatable","Selected",this.selectedModel);
+    console.log(this.config);
+    
     if (this.config.onSelect == true) {
       this.router.navigate([this.config.route]);
     } else if (this.config.screenEditMode == "popup") {
@@ -398,7 +448,33 @@ export class DatatableComponent implements OnInit {
         this.selectedModel
       );
       
-    } else {
+    } 
+//     else if (this.config.screenEditMode == "projectdashboard") {
+      
+//       let filer:any={
+//         start:0,end:1000,filter:[{
+          
+//             clause: "AND",
+//             conditions: [
+//               {column: "client_id",operator: "EQUALS",type: "string",value: this.selectedModel.client_id},
+//             ],
+          
+//         }]
+//       }
+//        this.DataService.getDataByFilter('client',filer).subscribe((res:any)=>{
+//         console.log(res);
+//         let data={
+//           logo:res.data[0].response[0].logo.storage_name,
+//           client_name:res.data[0].response[0].client_name,
+// name: this.selectedModel.project_name,
+// _id: this.selectedModel._id
+//         }
+//         this.helperService.getProjectmenu(data)
+//         console.log("final Data",data);
+        
+//        })
+//     } 
+    else {
       return;
     }
   }
@@ -443,7 +519,10 @@ export class DatatableComponent implements OnInit {
         ]);
       } else if (item.route == "role/acl/") {
         this.router.navigate([`${item.route}` + data.org_id + "/" + data._id]);
-      } else {
+      } else if(item.route_type=="project"){
+        let route=item.first+data[item.Custom_Key_filed]+item.last 
+        this.router.navigate([route])  
+      }else {
         let type: any = this.route.snapshot.params["form"];
         this.router.navigate([`${item.route}` + "/" + type + "/" + data._id]);
       }
@@ -537,6 +616,37 @@ export class DatatableComponent implements OnInit {
     }
   }
 
+  onCellClicked(event:any){
+    let clickCell:any=event.column.getColId()
+
+ if (this.config.screenEditMode == "projectdashboard" && clickCell !="Action") {
+      
+      let filer:any={
+        start:0,end:1000,filter:[{
+          
+            clause: "AND",
+            conditions: [
+              {column: "client_id",operator: "EQUALS",type: "string",value: event.data.client_id},
+            ],
+          
+        }]
+      }
+       this.DataService.getDataByFilter('client',filer).subscribe((res:any)=>{
+        console.log(res);
+        let data={
+          logo:res.data[0].response[0].logo.storage_name,
+          client_name:res.data[0].response[0].client_name,
+name: event.data.project_name,
+_id: event.data._id
+        }
+        // this.helperService.getProjectmenu(data)
+        console.log("final Data",data);
+        
+       })
+    } else {
+      return;
+    }
+  }
 // Add OR Edit DATA To Change with out api request
   // close(event: any) {
   //   this.dialogService.closeModal();

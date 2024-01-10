@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-sm d-block" style="height: 80px;">
     <div id="ui" class="container-fluid">
       <div class="d-flex flex-column align-items-center mb-4">
-        <img id="ani3" src="assets/image/vdirectory-small-logo.png" alt="Logo" width="100" height="60" style="width: 140px;" class="d-inline-block align-text-top">
+        <img id="ani3" src="assets/image/vdirectory-small-logo.png" alt="Logo" width="100" height="60" style="width: 140px;" class="d-inline-block align-text-top" (click)="nav()">
         <div>
           <!-- <a class="navbar-brand text-white fw-bolder fs-3" (click)="func0()" id="ani1">vDirectory</a> -->
         </div>
@@ -19,6 +19,9 @@
         <ul class="navbar-nav">
           <div class="d-flex  " >
             <div style="display: flex;align-items:center;justify-content: end;">
+              <li class="nav-item">
+                <a class="nav-link active text-white mt-1 float-start" id="ani" aria-current="page" (click)="func113()">create Screen</a>
+              </li>
             <li class="nav-item">
               <a class="nav-link active text-white mt-1 float-start" id="ani" aria-current="page" (click)="func11()">Jobs</a>
             </li>

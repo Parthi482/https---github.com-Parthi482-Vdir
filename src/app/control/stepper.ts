@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   <div>
     <mat-step *ngFor="let step of field.fieldGroup; let index = index; let last = last">
       <ng-template matStepLabel>{{ step.props!.label }}</ng-template>
-      <div style="height: 70vh">
+      <div style="height: 60vh">
         <formly-field [field]="step"></formly-field>
     
     </div>
