@@ -66,7 +66,7 @@ import { environment } from 'src/environments/environment';
 <div class="text-center" style="float: left;margin-top: 10vh" >
   
  
-  <img class="img-thumbnail"  [src]=" ImageReader(DocImagePAth+ event.event_image.storage_name, 120, 100)" alt="Event Logo" style="width: 200px; height: 200px;background-color:var(--main-color)">
+  <img class="img-thumbnail"  [src]="DocImagePAth+ event.event_image.storage_name" [height]="'30%'" [width]="'30%'" alt="Event Logo" style="width: 200px; height: 200px;background-color:var(--main-color)">
 </div>
 <div class="card" style="opacity: 0.7;  justify-content: end;width: 200px;float: right;margin-top: 10vh ">
   <div class="card-body">

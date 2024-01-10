@@ -88,7 +88,7 @@ export class DataService {
  * @ID Dynamic pass of _id or any Primary key 
  */
   public getDataById(collectionName: any, id: any) {
-    return this.http.get(this.getWsBaseUrl() +"entities1/" + collectionName + "/" + id);
+    return this.http.get(this.getWsBaseUrl() +"entities/" + collectionName + "/" + id);
     // return this.http.get(this.getWsBaseUrl() +"entities1/" + "token" );
 
   }
