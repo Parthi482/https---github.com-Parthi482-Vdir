@@ -10,30 +10,31 @@ import * as moment from "moment";
   selector: "datetime-input",
   template: `
   <style>
-   ::ng-deep .ui-datepicker.ui-widget{
+  ::ng-deep .ui-datepicker.ui-widget {
     line-height: 0.5rem;
- }
-  </style>
-  
-  <p>{{ this.field.props?.label }}</p>
-    <div style="margin:5px 5px;top:0px">
-      <p-calendar
-        id="customCalendar"
-        class="max-w-full"
-        dateFormat="dd/mm/yy"
-        hourFormat="12"
-         
-        [formControl]="formControl"
-        [formlyAttributes]="field"
-        [(ngModel)]="date"
-        [showTime]="true"
-        [showIcon]="true"
-        [style]="{ height: '40px', width: '100%' }"
-        (onSelect)="onDateSelect($event)"
-      ></p-calendar>
-    </div>
-    <p style="color:red; font-size:12px;">{{ this.errorMessage }}</p>
+  }
+</style>
+
+<p>{{ this.field.props?.label }}</p>
+<div style="margin: 5px 5px; top: 0px">
+  <p-calendar
+    id="customCalendar"
+    class="max-w-full"
+    dateFormat="dd/mm/yy"
+    hourFormat="12"
+    [formControl]="formControl"
+    [formlyAttributes]="field"
+    [(ngModel)]="date"
+    [showTime]="true"
+    [showIcon]="true"
+    [style]="{ height: '40px', width: '100%' }"
+    [minDate]="minSelectableDate"  
     
+    (onSelect)="onDateSelect($event)"
+  ></p-calendar>
+</div>
+<p style="color: red; font-size: 12px;">{{ this.errorMessage }}</p>
+
   `,
 })
 export class DateTimeInput
@@ -41,12 +42,11 @@ export class DateTimeInput
   implements AfterViewInit, OnInit
 {
   date: Date[] | undefined;
+  minSelectableDate!: Date;
   @ViewChild("picker") picker: any;
-  errorMessage!: string;
-  // public date!: moment.Moment;
+  errorMessage!: string; 
   hideTime = false;
-  placeholder: any;
-  // [minDate]="currentDate"
+  placeholder: any; 
   currentDate = moment().toDate();
   required: any;
   currentField: any;
@@ -56,11 +56,15 @@ export class DateTimeInput
   public get FormControl() {
     return this.formControl as FormControl;
   }
-  constructor(private datePipe: DatePipe) {
+
+
+ 
+  constructor() {
     super();
   }
   ngOnInit(): void {
     debugger;
+    this.minSelectableDate = new Date(); 
     this.required = this.field.props?.required;
     this.placeholder = this.field.props?.placeholder;
     this.currentField = this.field; 
@@ -84,51 +88,8 @@ export class DateTimeInput
         });
       };
     }
-  }
-
-  // onDateSelect(event: any) {
-  //   debugger;
-  //   if (event instanceof Date) {
-  //     const selectedTime = this.formatTime(event);
-  //     console.log("Selected Time:", selectedTime);
-
-  //     const formattedFrom = this.formatTime(
-  //       new Date(`2000-01-01 ${this.model.business_hours_from}`)
-  //     );
-  //     const formattedTo = this.formatTime(
-  //       new Date(`2000-01-01 ${this.model.business_hours_to}`)
-  //     );
-
-  //     if (
-  //       this.compareTimes(selectedTime, formattedFrom) >= 0 &&
-  //       this.compareTimes(selectedTime, formattedTo) <= 0
-  //     ) {
-  //       this.errorMessage = "Selected time is within business hours.";
-  //     } else {
-  //       this.errorMessage = "Selected time is outside business hours.";
-  //     }
-  //   }
-  // }
-
-  onDateSelect(event: any) {
-    console.log(event);
-    // if(this.model.isHomeUser == true && this.model.start_date_time && this.model.end_date_time) {
-    //   if (event instanceof Date) {
-    //     const selectedTime = this.formatTime(event);
-  
-    //     const formattedFrom = this.formatTime(moment(`2000-01-01 ${this.model.start_date_time}`, 'YYYY-MM-DD hh:mm A'));
-    //     const formattedTo = this.formatTime(moment(`2000-01-01 ${this.model.end_date_time}`, 'YYYY-MM-DD hh:mm A'));
-
-    //     console.warn(formattedFrom);
-    //     console.warn(formattedTo);
-  
-    //     if (moment(selectedTime, 'hh:mm A').isBetween(moment(formattedFrom, 'hh:mm A'), moment(formattedTo, 'hh:mm A'))) {
-    //       this.errorMessage = ''
-    //     } else {
-    //       this.errorMessage = 'Start and End date & time is required.'
-    //     }
-    //   }
-    // }
+  } 
+  onDateSelect(event: any) { 
     
     if(this.model.isCorporateCustomer == true) {
     if (event instanceof Date) {

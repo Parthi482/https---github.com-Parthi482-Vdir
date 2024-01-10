@@ -117,16 +117,12 @@ months: Array<string> = [
 
 @Input('target_date') target_date:any
  
-targetDate: Date = new Date('2024-01-15T04:34:55.567+00:00');
+targetDate: Date = new Date('');
 
-ngOnInit(): void {
-  console.log(this.target_date);
-   // Parse the string and create a Date object
-  let  dateObject: Date = new Date(this.target_date);
-  //   this.target
-  this.targetDate = dateObject
-  console.log(this.targetDate);
-  
+ngOnInit(): void { 
+  let  dateObject: Date = new Date(this.target_date); 
+  this.targetDate = dateObject 
+  this.updateCountdown()
  }
 
 
@@ -142,7 +138,7 @@ console.log(this.target_date);
 
 updateCountdown() {
   const now = new Date().getTime();
-  let difference = this.target_date.getTime() - now;
+  let difference = this.targetDate.getTime() - now;
 
   if (difference < 0) {
     difference = 0; // To prevent displaying negative values
@@ -159,6 +155,8 @@ updateCountdown() {
   this.seconds.nativeElement.innerText = seconds;
 
   this.currentTime = `${this.months[this.targetDate.getMonth()]} ${this.targetDate.getDate()}, ${this.targetDate.getFullYear()}`;
+  console.log(this.currentTime);
+  
 }
  
 }

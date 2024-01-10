@@ -77,8 +77,7 @@
       />
     </div>
   </div>
-</div>
-{{startdate}}
+</div> 
 <app-counter  [target_date]='startdate' *ngIf="startdate"></app-counter>
  
 
@@ -302,7 +301,12 @@
   </button>
 </div>
 
- 
+
+<div *ngIf="">
+  <card></card>
+
+</div>
+
 <style>
   .containers {
     position: relative;

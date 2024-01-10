@@ -5,7 +5,7 @@ import { FieldType, FormlyFieldConfig } from '@ngx-formly/core';
   selector: 'card',
   template: `
     
-    
+<!--     
       <div *ngFor="let card of field.fieldGroup; let i = index; let last = last">
 
           <mat-card>
@@ -17,7 +17,8 @@ import { FieldType, FormlyFieldConfig } from '@ngx-formly/core';
           </mat-card-content>
         </mat-card>
         
-      </div>
+      </div> -->
+      <h1>hi</h1>
   `,
 })
 export class Card extends FieldType {

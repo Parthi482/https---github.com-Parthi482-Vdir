@@ -20,19 +20,16 @@ export class ScreenComponent implements OnInit,OnDestroy {
   AgendaData: any[] = []
 
   navigate() {
-   if(!localStorage.getItem('auth')){
-    // console.log( localStorage.getItem('auth'));
-    this.router.navigate(['/auth/login'])
-   }
-
-
-
+    if(!localStorage.getItem('auth')){
+      // console.log( localStorage.getItem('auth'));
+      this.router.navigate(['/auth/login'])
+    }
+    
+    let data = localStorage.getItem('auth')
+    console.log(data);
+     
   }
-
-  // {"_id":"6586dda94d1925131f6ad122","createdOn":"2023-12-23T13:16:24.815Z","email":"parthiban@kriyatec.com","isActive":true,"isProfileCompleted":false,"mobile_number":null,"role":"user","userId":"WSGJvqBUEPQXlP2KKU1mv28Za2g2","user_name":"Parthiban U","user_photo":"https://lh3.googleusercontent.com/a/ACg8ocLhESVk5SxkN5-fDN0fYEW6J1hxDcgGrBTYcrShzx1HiA=s96-c","user_type":""}
-
-
-
+ 
 
 
 
@@ -135,7 +132,7 @@ export class ScreenComponent implements OnInit,OnDestroy {
       console.log(res._id);
                            // b692fffa-c59c-405b-83be-72fc99634521
         console.log(res.basic_details.start_date);
-        
+        // b692fffa-c59c-405b-83be-72fc99634521
       this.startdate = res.basic_details.start_date
        
       this.event_basic.push(res)

@@ -58,7 +58,6 @@
               {
                 "fieldGroupClassName": "display-flex",
                 "fieldGroup": [
-                  
                   {
                     "type": "input",
                     "key": "basic_details.Maximum_of_participants:",
@@ -66,10 +65,11 @@
                     "props": {
                       "label": "Maximum of participants:",
                       "placeholder": "Maximum of participants",
-
+                      "type": "number",  
                       "required": true
                     }
-                  },
+                  }
+                  ,
                   {
                     "label": "Start Date",
                     "type": "datetime-input",

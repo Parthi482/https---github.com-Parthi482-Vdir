@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/service/search.service';
 import { environment } from 'src/environments/environment';
@@ -54,14 +54,19 @@ import { environment } from 'src/environments/environment';
   transform: scale(2.15);
 }
   </style>
-  
-  <div class="card-body" (click)="my($event)" style="background-image: url('https://pms-api.sgp1.digitaloceanspaces.com/event_banner/undefined/Screenshot from 2023-11-17 16-19-02__2023-11-22-19-10-44__2023-12-29-10-05-27.png'); height: 400px; background-repeat: no-repeat; background-size: cover;">
-  
+ <!-- {{bannerimage}} -->
+ <div>
+
+ </div>
+ <!--   <div class="card-body" (click)="my($event)" style="background-image: url('https://pms-api.sgp1.digitaloceanspaces.com/event_banner/undefined/Screenshot from 2023-11-17 16-19-02__2023-11-22-19-10-44__2023-12-29-10-05-27.png'); height: 400px; background-repeat: no-repeat; background-size: cover;">
+ -->
+  <!-- <div class="card-body" (click)="my($event)" [style]="{'background-image': ImageReader(bannerimage, 120, 100)}" > -->
+  <div class="card-body" (click)="my($event)" style="background-image: url('https://pms-api.sgp1.digitaloceanspaces.com/event_banner/undefined/Screenshot from 2023-11-17 16-19-02__2023-11-22-19-10-44__2023-12-29-10-05-27.png'); height: 400px; background-repeat: no-repeat;object-fit:cover">
+
 <div class="text-center" style="float: left;margin-top: 10vh" >
-<!-- <br>
-{{event | json }}
-<br> -->
-  <img class="img-thumbnail"  [src]="DocImagePAth+ event.event_image.storage_name" alt="Event Logo" style="width: 200px; height: 200px;background-color:var(--main-color)">
+  
+ 
+  <img class="img-thumbnail"  [src]=" ImageReader(DocImagePAth+ event.event_image.storage_name, 120, 100)" alt="Event Logo" style="width: 200px; height: 200px;background-color:var(--main-color)">
 </div>
 <div class="card" style="opacity: 0.7;  justify-content: end;width: 200px;float: right;margin-top: 10vh ">
   <div class="card-body">
@@ -86,10 +91,10 @@ export class Image1Component {
 @Input('height') height:any;
 @Input('width') width:any;
 event:any
-bannerimage:any
+bannerimage:any[]=[];
 DocImagePAth: any = environment.ImageBaseUrl;
 
-constructor(private auth: ApiService,private router:Router) {
+constructor(private auth: ApiService,private router:Router,private cf:ChangeDetectorRef) {
 }
 navigate(data:any){
   console.log(data);
@@ -117,6 +122,84 @@ console.log(_id);
     this.router.navigate(["event-details/"+_id])
 
 }
+ImageReader(image: any, targetWidth: number, targetHeight: number): string {
+  const canvas: HTMLCanvasElement = image;
+ 
+  
+  const ctx: any   = canvas.getContext('2d');
+  console.log("hi");
+  
+  const reader = new FileReader();
+console.log(reader);
+
+  reader.onload = () => {
+    const img = new Image();
+    img.onload = () => {  
+      console.log("hi");
+      
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+
+      // Draw the image onto the canvas with the new dimensions
+      ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+
+      // Get the resized image as a base64-encoded string
+      const resizedImage = canvas.toDataURL('image/jpeg');
+
+      // Log or use the resized image as needed
+      console.log(resizedImage);
+      return resizedImage.toString(); 
+    };
+
+    img.src = reader.result as string;
+  };
+
+  // You need to read the image data. Make sure to pass the image data (e.g., event.target.files[0])
+  // reader.readAsDataURL(image);
+
+  // Since FileReader.readAsDataURL is asynchronous, returning an empty string here.
+  return '';
+}
+
+
+// ImageReader(image:any){
+//   // for (const file of event.target.files) {
+//     const reader = new FileReader();
+//     reader.onload = () => {
+//       const img = new Image();
+//       img.onload = () => {
+//         const canvas = image
+//         const ctx = canvas.getContext('2d');
+//         if (ctx) {
+//           canvas.width = 120; // desired width
+//           canvas.height =100; // desired height
+//           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+//           const resizedImage = canvas.toDataURL('image/jpeg');
+//           // const url = (<FileReader>event.target).result as string;
+//             return resizedImage
+//           // this.bannerimage.push(resizedImage);
+//           // this.image.push(file);
+//            this.cf.detectChanges();
+
+//         } else {
+//           console.error('Failed to get canvas context');
+//         }
+//       };
+//       // img.src = reader.result as string;
+//     };
+//     // reader.readAsDataURL(file);
+//   // }
+// }
+
+
+
+
+
+
+
+
+
+
 } 
 
 

@@ -1,14 +1,14 @@
-import { Component } from '@angular/core'; 
+import { ChangeDetectorRef, Component } from '@angular/core'; 
 import { ApiService } from 'src/app/service/search.service';
 
 @Component({
   selector: 'app-joblist',
-  template: `        
-        <div class="container">
+  template: `         
+        <div class="container" *ngIf="search_details.length>0">
           <div class="column">
-            <div class="col-md-6" *ngFor="let job of search_details;let i =index">
+            <div class="col-md-6" *ngFor="let job of search_details">
               <div class="card border-light mb-3">
-                <div class="card-body" (click)="my(job)">
+                <div class="card-body" > 
                   <div style="display: flex;">
                     <img *ngIf="job?.Company_logo" [src]="job?.Company_logo" alt="" style="width: 80px; height: 80px;border-radius: 50%;">
                     <div style="margin-left: 10px;">
@@ -40,9 +40,9 @@ import { ApiService } from 'src/app/service/search.service';
   `,
 })
 export class JoblistHome   { 
-    search_details:any
+    search_details:any[]=[]
 
-constructor(private auth:ApiService,){
+constructor(private auth:ApiService,private cvdr:ChangeDetectorRef){
 
 }
         ngOnInit(): void {
@@ -62,8 +62,10 @@ constructor(private auth:ApiService,){
               console.log(filterValue1);
         
               this.auth.getDataByFilter("jobs",filterValue1).subscribe((data:any)=>{ 
+                console.log(data);
+                
                 this.search_details=data 
-         
+                this.cvdr.detectChanges()
               })
 
 

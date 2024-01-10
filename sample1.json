@@ -58,7 +58,6 @@
               {
                 "fieldGroupClassName": "display-flex",
                 "fieldGroup": [
-                  
                   {
                     "type": "input",
                     "key": "basic_details.Maximum_of_participants:",
@@ -110,6 +109,26 @@
                       "disabled": false
                     }
                   }
+                ]
+              },
+              {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
+					{
+						"type": "location",
+						"key": "basic_details.location",
+						"className": "flex-2",
+						"showsearchbar": true,
+						"draggable": true,
+						"props": {
+						  "label": "Add location",
+						  "placeholder": "add location"
+						}
+						 
+					  }
+ 				  
+
+                  
                 ]
               }
             ]
@@ -234,6 +253,7 @@
               }
             ]
           },
+
           {
             "props": {
               "label": "Agenda Details",
@@ -347,7 +367,6 @@
               ]
             }
           }
-           
         ]
       }
     ]
@@ -362,6 +381,3 @@
 
   "onCancelRoute": "/list/event"
 }
-
-
- 
