@@ -247,13 +247,7 @@ export class AuthService {
             this.userId = data._id
           ] 
 
-
-          // if (this.userId) {
-            console.log(this.userProfile.isProfileCompleted );
-            
-          // if (!this.userProfile.isProfileCompleted ) {
-          //     this.router.navigate([`/edit/profile/${this.userId}`]);
-          // } else {
+ 
             if (this.userId) {
             this.router.navigate([`home`]);
 
@@ -261,8 +255,7 @@ export class AuthService {
             this.router.navigate([`/edit/user/${this.userId}`]);
 
           }
-      // }
-        // this.router.navigate([`/edit/profile/${this.userId}`]);
+      
       });
  
 
