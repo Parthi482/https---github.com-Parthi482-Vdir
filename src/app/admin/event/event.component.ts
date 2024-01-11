@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ActionButtonComponent2 } from './action-button2';
 import { v4 as uuidv4 } from 'uuid';
+import { DataService } from 'src/app/service/data.service';
 
 
 
@@ -182,8 +183,8 @@ export class EventComponent {
     '<span style="padding: 10px; background:white ;">No Data Found</span>"';
   flag: boolean = false;
   update_id: any
-  constructor(private http: HttpClient, private calendar: NgbCalendar, private api: ApiService, private router: Router, private fb: FormBuilder,) {
-    this.value = this.api.getdetails()
+  constructor(private http: HttpClient, private calendar: NgbCalendar, private dataservice: DataService, private router: Router, private fb: FormBuilder,) {
+    this.value = this.dataservice.getdetails()
     console.log(this.value);
     this.companyId = this.value.unique_id
     console.log(this.companyId);
@@ -196,17 +197,26 @@ export class EventComponent {
     this.context = { componentParent: this };
 
     this.refrsh()
-    this.api.GetALL('salary').subscribe((abc2: any) => {
-      this.sarlaryrange = abc2
-    })
-    this.api.GetALL('education').subscribe((abc3: any) => {
-      this.dropdownList = abc3
 
-
+    this.dataservice.getDataByFilter('salary', {}).subscribe((abc2: any) => {
+      let data1 = abc2.data[0].response
+    // this.api.GetALL('salary').subscribe((abc2: any) => {
+      this.sarlaryrange = data1
     })
 
-    this.api.GetALL('role_category').subscribe((abc4: any) => {
-      this.rolerange = abc4
+
+
+    this.dataservice.getDataByFilter('education', {}).subscribe((abc2: any) => {
+    // this.api.GetALL('education').subscribe((abc3: any) => {
+      let data1 = abc2.data[0].response
+      this.dropdownList = data1
+
+
+    })
+    this.dataservice.getDataByFilter('role_category', {}).subscribe((abc4: any) => {
+    // this.api.GetALL('role_category').subscribe((abc4: any) => {
+      let data1 = abc4.data[0].response 
+      this.rolerange = data1
       this.rolerange.sort((a: any, b: any) => a.category.localeCompare(b.category));
 
 
@@ -297,8 +307,10 @@ export class EventComponent {
       phoneNumber: originalPhoneNumber,
       role: originalRole,
     };
-
-    this.api.update('event', id, formValues).subscribe((xyz: any) => {
+    this.dataservice.update('event',  id, formValues).subscribe((xyz: any) => {
+      // this.api.GetALL('role_category').subscribe((abc4: any) => {
+        // let data1 = abc4.data[0].response 
+    // this.api.update('event', id, formValues).subscribe((xyz: any) => {
       console.log("list", xyz);
       this.refrsh();
       this.formgrp.reset();
@@ -308,9 +320,11 @@ export class EventComponent {
   getAllJobslen() {
 
     return new Promise((resolve, reject) => {
+      this.dataservice.getDataByFilter('event', {}).subscribe((xyz: any) => {
+      // this.api.getDataList('event').subscribe((xyz: any) => {
+      let data1 = xyz.data[0].response 
 
-      this.api.getDataList('event').subscribe((xyz: any) => {
-        let value = xyz
+        let value = data1
         if (value != null) {
           let len: any = (Object.keys(value).length) - 1;
           var data: any = JSON.parse(value[len].eventName)
@@ -375,9 +389,14 @@ export class EventComponent {
 
     let deleteid = data['_id'];
     console.log(data['_id'], deleteid);
+    this.dataservice.deleteDataById('event', deleteid).subscribe((response: any) => {
+      // this.api.getDataList('event').subscribe((xyz: any) => {
+      // let data1 = xyz.data[0].response 
 
-    this.api.deleteData('event', deleteid).subscribe(
-      (response) => {
+
+
+    // this.api.deleteData('event', deleteid).subscribe(
+      // (response) => {
         console.log('Data deleted successfully', response);
         // If you want to update the local array after successful deletion, you can call deleteRow
         // this.deleteRow({ id: id });
@@ -452,8 +471,9 @@ export class EventComponent {
 
 
 
+      this.dataservice.save('event', formValues).subscribe((xyz: any) => {
 
-      this.api.save('event', formValues).subscribe((xyz: any) => {
+      // this.api.save('event', formValues).subscribe((xyz: any) => {
         console.log(xyz);
         console.log("uploaded");
 
@@ -469,20 +489,33 @@ export class EventComponent {
     this.endval = 1
     this.startval = 0
     console.log(this.value);
-    const filterValue1: any = [
-      {
-        clause: "$and",
-        conditions: [
-          { column: "companyId", operator: "$eq", value: this.value.unique_id },
-        ]
-      }
-    ];
-    this.api.getDataByFilter("event", filterValue1).subscribe((data: any) => {
+    // const filterValue1: any = [
+    //   {
+    //     clause: "$and",
+    //     conditions: [
+    //       { column: "companyId", operator: "$eq", value: this.value.unique_id },
+    //     ]
+    //   }
+    // ];
 
-      console.log(data);
-      if (data != null) {
+
+    const filterCondition1 = {
+      filter: [
+        {
+          clause: "AND",
+          conditions: [{ column: "companyId", operator: "EQUALS", value:this.value.unique_id }],
+        },
+      ],
+    } 
+    this.dataservice.getDataByFilter('event', filterCondition1).subscribe((data: any) => {
+
+    // this.dataservice.getDataByFilter("event", filterValue1).subscribe((data: any) => {
+
+      console.log(data.data[0].response);
+
+      if (data.data[0].response != null) {
         console.log("data has been changed");
-        this.companies = data.map((xyz: any) => ({
+        this.companies = data.data[0].response.map((xyz: any) => ({
           ...xyz,
           validity: this.formatMonthInNumber(xyz.validity)
         }));

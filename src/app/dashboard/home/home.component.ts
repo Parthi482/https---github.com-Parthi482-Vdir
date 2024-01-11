@@ -3,6 +3,7 @@ import { Component, OnInit, } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { DataService } from 'src/app/service/data.service';
 import { ApiService } from 'src/app/service/search.service';
 import { environment } from 'src/environments/environment';
 
@@ -58,37 +59,51 @@ export class HomeComponent {
       this.loadNextColumnData();
     }
   }
-  constructor(private formBuilder: FormBuilder, private auth: ApiService, private route: Router) {
+  constructor(private formBuilder: FormBuilder, private auth: ApiService, private route: Router,private dataservice: DataService) {
     this.searchForm = this.formBuilder.group({
       searchQuery: ['']
     });
-    this.auth.GetALL('city').subscribe((xyz: any) => {
-      this.cityList = xyz
-      console.log(xyz);
+    this.dataservice.getDataByFilter("companies", {}).subscribe((xyz: any) => {
+    // this.auth.GetALL('city').subscribe((xyz: any) => {
+      this.cityList = xyz.data[0].response 
 
     })
-    this.auth.GetALL('companies').subscribe((res: any) => {
-      this.firstFiveItems = res.slice(0, 4)
+
+
+
+
+
+    this.dataservice.getDataByFilter("companies", {}).subscribe((res: any) => {
+    // this.auth.GetALL('companies').subscribe((res: any) => {
+      let event = res.data[0].response
+      this.firstFiveItems = event.slice(0, 4)
       console.log(this.firstFiveItems);
 
     })
-    this.auth.GetALL("industry").subscribe((data: any) => {
-      this.fetchedData = data;
+
+
+
+
+    this.dataservice.getDataByFilter("industry", {}).subscribe((res: any) => {
+    // this.auth.GetALL("industry").subscribe((data: any) => {
+      this.fetchedData = res.data[0].response
       console.log(this.fetchedData);
       this.loadMore()
     })
-    const filterValue: any = [
-      {
-        clause: "$and",
-        conditions: [
-          { column: "_id", operator: "$ne", value: "id" },
-        ]
-      }
-    ];
-    this.auth.getDataByFilter("event", filterValue).subscribe((event: any) => {
+    const filterValue = {filter:[{
+      clause: 'AND',
+      conditions: [
+        { column: '_id', operator: 'NOTEQUAL',type:'string', value: "" },
+      ]
+    }]};
 
+    this.dataservice.getDataByFilter("event", {}).subscribe((res: any) => {
+      console.log(res.data[0].response);
+      let event = res.data[0].response
       event.forEach((element: any) => {
         if (element.event_image) {
+          console.log(element.event_image);
+          
           let images = element
           this.imageUrls.push(images)
 

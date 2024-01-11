@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { AuthService } from 'src/app/service/auth.service';
 import { ApiService } from 'src/app/service/search.service';
 import { SharedService } from 'src/app/service/shared.service';
 
@@ -39,7 +40,7 @@ city:IDropdownSettings = {
 };
 
 cityList:any[] = [];
-  constructor( private route:ActivatedRoute ,private router:Router , private auth : ApiService,private sharedService: SharedService){
+  constructor( private route:ActivatedRoute , public authService: AuthService,private router:Router , private auth : ApiService,private sharedService: SharedService){
    
    }
    
@@ -196,20 +197,20 @@ this.auth.isLoggedIn().then((data:any)=>{
   func3(parms: any, role: string) {
     let userType: string;
 
-    if (role === "Seeker") {
-      userType = "Seeker";
-    } else if (role === "Company") {
-      userType = "Company";
-    }else if(role === "selfEmployer"){
-      userType = "selfEmployer";
+    // if (role === "Seeker") {
+    //   userType = "Seeker";
+    // } else if (role === "Company") {
+    //   userType = "Company";
+    // }else if(role === "selfEmployer"){
+    //   userType = "selfEmployer";
 
-    } else {
-      // Handle the case where role is neither "seeker" nor "employer"
-      console.error("Invalid role:", role);
-      return; // Do not proceed further
-    }
+    // } else {
+    //   // Handle the case where role is neither "seeker" nor "employer"
+    //   console.error("Invalid role:", role);
+    //   return; // Do not proceed further
+    // }
 
-    localStorage.setItem("userType", userType);
+    // localStorage.setItem("userType", userType);
     this.router.navigateByUrl('auth/login');
   }
 

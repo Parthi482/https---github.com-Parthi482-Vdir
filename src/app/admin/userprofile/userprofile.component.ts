@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, ValidatorFn, Validators } fr
 import { ApiService } from 'src/app/service/search.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-userprofile',
@@ -127,7 +128,7 @@ futureDateValidator(): ValidatorFn {
   })
 imgfalg:boolean=true;
 
-  constructor(private formBuilder: FormBuilder, private Api: ApiService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private Api: ApiService,private dataservice:DataService, private router: Router) {
     this.auth = this.Api.getdetails();
     this.toggleEditMode();
     this.toggleEditMode1();
@@ -142,11 +143,16 @@ imgfalg:boolean=true;
       let data = JSON.parse(this.auth.phone);
       this.basicinfo.controls['phone'].setValue(data);
     }
-    this.Api.GetALL('industry').subscribe((xyz: any) => {
+    this.dataservice.getDataByFilter('industry',{}).subscribe((xyz: any) => {
+    // this.Api.GetALL('industry').subscribe((xyz: any) => {
+
       console.log(xyz);
-      this.data = xyz;
+      this.data = xyz.data[0].response;
     })
-    this.Api.getbyid('companies',this.auth._id).subscribe((data: any) => {
+
+
+
+    this.dataservice.getDataById('companies',this.auth._id).subscribe((data: any) => {
       // debugger
       console.log(data);
       let value =data;

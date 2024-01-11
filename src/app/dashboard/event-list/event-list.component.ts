@@ -9,6 +9,7 @@ import { ColDef, FirstDataRenderedEvent, GridReadyEvent } from 'ag-grid-communit
 import { Observable, map, startWith } from 'rxjs';
 // import { constructor } from 'jasmine';
 import { ActionButtonComponent1 } from 'src/app/admin/jobs/action-button1';
+import { DataService } from 'src/app/service/data.service';
 import { DialogService } from 'src/app/service/popup.service';
 import { ApiService } from 'src/app/service/search.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -120,7 +121,7 @@ filteredOptions: Observable<string[]> | any;
    onGridReady1(params: GridReadyEvent<any>) {
     this.gridApi1 = params.api;
   }
-  constructor(private http: HttpClient,public route: ActivatedRoute, private api:ApiService, private router: Router,private fb: FormBuilder,public dialogService:DialogService)
+  constructor(private http: HttpClient,public route: ActivatedRoute, private dataservice:DataService,private api:ApiService, private router: Router,private fb: FormBuilder,public dialogService:DialogService)
   {
     // this.dialogService.openSnackBar("OK","OK")
 //     this.api.GetALL('user').subscribe((res:any)=>{
@@ -131,9 +132,10 @@ filteredOptions: Observable<string[]> | any;
 //   map((value:any) => this.filter(value.user_name || '')),
 // );
 //     })
-this.api.GetALL('user').subscribe((res: any) => {
+this.dataservice.getDataByFilter('user',{}).subscribe((res: any) => {
+// this.api.GetALL('user').subscribe((res: any) => {
   console.log(res);
-  this.options = res;
+  this.options = res.data[0].response;
   this.filteredOptions = this.myControl.valueChanges.pipe(
     startWith(''),
     map((value: any) => this.filter(value || ''))

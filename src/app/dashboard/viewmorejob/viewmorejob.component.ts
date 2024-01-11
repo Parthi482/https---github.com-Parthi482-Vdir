@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from 'src/app/service/data.service';
 import { ApiService } from 'src/app/service/search.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class ViewmorejobComponent {
   button:any
   constructor(
     private auth: ApiService,
+    private dataservice:DataService,
     private route: ActivatedRoute,
     private router:Router
 
@@ -42,18 +44,29 @@ export class ViewmorejobComponent {
        this.auth.isLoggedIn().then((xyz:any)=>{
         if(xyz){
           let details=this.auth?.getdetails()?._id
-          const filterValue: any = [
-           {
-             clause: "$and",
-             conditions: [
-               { column: "Jobid", operator: "$eq", value:this.id },
-               { column: "refid", operator: "$eq", value:details }
-             ]
-           }
-         ];
-         this.auth.getDataByFilter('applied_jobs',filterValue).subscribe((xyz:any)=>{
-           console.log(xyz);
-
+        //   const filterValue: any = [
+        //    {
+        //      clause: "$and",
+        //      conditions: [
+        //        { column: "Jobid", operator: "$eq", value:this.id },
+        //        { column: "refid", operator: "$eq", value:details }
+        //      ]
+        //    }
+        //  ];
+        //  this.auth.getDataByFilter('applied_jobs',filterValue).subscribe((xyz:any)=>{
+        //    console.log(xyz);
+        const filterValue = {
+          filter: [{
+            clause: 'AND',
+            conditions: [
+              // { column: 'title', operator: 'EQUALS', value: abc }, 
+              { column: "Jobid", operator: "EQUALS", value:this.id },
+                     { column: "refid", operator: "EQUALS", value:details }
+            ]
+          }]
+        };
+        // dataservice
+        this.dataservice.getDataByFilter('applied_jobs', filterValue).subscribe((xyz: any) => {
            if(xyz==null){
              this.button=true
            }

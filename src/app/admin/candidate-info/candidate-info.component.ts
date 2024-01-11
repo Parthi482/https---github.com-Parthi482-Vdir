@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { NgModel, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from 'src/app/service/data.service';
 import { ApiService } from 'src/app/service/search.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class CandidateInfoComponent {
   resumeHere:boolean=false;
   overall_data:any[]=[]
 
-  constructor(private http: HttpClient, private auth:ApiService,private route: ActivatedRoute,private router:Router) {
+  constructor(private http: HttpClient, private auth:ApiService,private dataservice:DataService,private route: ActivatedRoute,private router:Router) {
     this.route.queryParamMap.subscribe((params:any)=>{ // queryparams
       this.parms = params.params;
       console.log(this.parms.applied_type);
@@ -32,35 +33,55 @@ export class CandidateInfoComponent {
     const data: any[] = [];
     const data1: any[] = [];
 
-    this.auth.GetByID('seekers_info', '_id', id,'false').subscribe((res: any) => {
-      console.log(res);
+
+    const filterCondition1 = {
+      filter: [
+        {
+          clause: "AND",
+          conditions: [{ column: '_id', operator: "EQUALS", value:id }],
+        },
+      ],
+    } 
 
 
-      data.push(res[0]);
-      console.log(res[0].resume);
-      if(res[0].resume!=null){
+
+    this.dataservice.getDataByFilter('seekers_info',filterCondition1).subscribe((res: any) => {
+    // this.auth.GetByID('seekers_info', '_id', id,'false').subscribe((res: any) => {
+ 
+      let response =  res.data[0].response
+
+      data.push(response);
+      console.log(response.resume);
+      if(response.resume!=null){
 this.resumeHere=true
       }else{
 this.resumeHere=false
       }
+ 
+       const filterValue = {
+        filter: [
+          {
+            clause: "AND",
+            conditions: [{ column: '_id', operator: "EQUALS", value:id }],
+          },
+        ],
+      } 
+    // const filterValue: any = [
+    //   {
+    //     clause: "$and",
+    //     conditions: [
+    //       { column: "_id", operator: "$eq", value:id },
+    //     ]
+    //   }
+    // ];
+    this.dataservice.getDataByFilter('user_resume',filterValue).subscribe((res:any)=>{
+ 
 
-       console.log(id);
-
-    const filterValue: any = [
-      {
-        clause: "$and",
-        conditions: [
-          { column: "_id", operator: "$eq", value:id },
-        ]
-      }
-    ];
-    this.auth.getDataByFilter('user_resume',filterValue).subscribe((res:any)=>{
-      console.log(res);
-
-    // })
-        console.log(res[0]);
+    // }) 
+    let response = res.data[0].response
+       
         if(res!=null){
-          data1.push(res[0]);
+          data1.push(response);
           this.overall_data = this.groupData(data, data1);
 
         }else{
@@ -80,8 +101,7 @@ this.resumeHere=false
   }
 
 groupData(data: any[], data1?: any[]):any[] {
-  console.log(data);
-  console.log(data1);
+ 
 
 
   const groupedData: any[] = [];
@@ -92,8 +112,7 @@ groupData(data: any[], data1?: any[]):any[] {
         resumeData: null, // You can set this to null when resume data is not available
       });
     });
-  } else {
-    console.log(data1);
+  } else { 
     data.forEach((item) => {
       const matchingData = data1.find((dataItem) => dataItem._id === item._id);
       if (matchingData) {
@@ -103,25 +122,31 @@ groupData(data: any[], data1?: any[]):any[] {
         });
       }
     });
-  }
-console.log(groupedData);
+  } 
 
   return groupedData;
 }
 
-UpdateCanditeInfo(type:any){
-console.log(type);
+UpdateCanditeInfo(type:any){ 
 let data:any={}
-data['applied_type']=type;
-console.log(this.overall_data);
-console.log(this.parms);
-let value =this.parms.Jobid
-console.log(value);
+data['applied_type']=type; 
+let value =this.parms.Jobid 
+const filterCondition1 = {
+  filter: [
+    {
+      clause: "AND",
+      conditions: [{ column: 'Jobid', operator: "EQUALS", value:value }],
+    },
+  ],
+} 
 
-this.auth.GetByID('applied_jobs','Jobid',value).subscribe((xyz:any)=>{
-  console.log(xyz);
 
-let ID =xyz[0]._id
+
+
+this.dataservice.getDataByFilter('applied_jobs',filterCondition1).subscribe((xyz:any)=>{
+  // console.log(xyz);
+    let res = xyz.data[0].response
+let ID =res._id
 this.auth.update('applied_jobs',ID,data).subscribe((val:any)=>{
 console.log(val);
 })

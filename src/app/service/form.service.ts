@@ -85,10 +85,12 @@ export class FormService {
  
   }
   LoadInitData(ctrl: any) {
+ 
     
     
     if (ctrl.id) {
       ctrl.collectionName = ctrl.formName
+      
       this.LoadData(ctrl).subscribe((res: any) => {
         console.log(ctrl,"existing data loaded")
         this.LoadConfig(ctrl)
@@ -105,6 +107,8 @@ export class FormService {
     
     // form or any other screen keyField (it should be given in form)
     this.dataService.loadScreenConfigJson(ctrl.formName).subscribe(async config=>{
+      console.log(config);
+      
       ctrl.config = config
       ctrl.pageHeading = config.pageHeading
       ctrl.collectionName = config.form.collectionName

@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/service/search.service';
 import {MatChipsModule} from '@angular/material/chips';
 import{ v4 as uuidv4} from 'uuid'
 import { DialogService } from 'src/app/service/dialog.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-registration',
@@ -25,7 +26,7 @@ url:any=null;
 url1:any=null;
 url2:any=null;
   data:any
-  constructor(private router: Router ,private http:HttpClient,private auth:ApiService,private fb:FormBuilder,private route:ActivatedRoute, private snackbarService: DialogService){
+  constructor(private router: Router ,private http:HttpClient,private auth:ApiService,private dataservice:DataService,private fb:FormBuilder,private route:ActivatedRoute, private snackbarService: DialogService){
     this.route.params.subscribe((xyz:any)=>{
       let data =xyz['id']
       if(data =="Company"){
@@ -48,9 +49,35 @@ this.category=='Company'
 }else{
   this.category='Seeker'
 }
-this.auth.GetALL('business_category').subscribe((res:any)=>{
 
-this.business=res
+
+
+
+
+
+
+// const filterCondition1 = {
+//   filter: [
+//     {
+//       clause: "AND",
+//       conditions: [{ column: 'Jobid', operator: "EQUALS", value:value }],
+//     },
+//   ],
+// } 
+
+
+
+
+this.dataservice.getDataByFilter('business_category',{}).subscribe((res:any)=>{
+
+
+
+
+
+
+// this.auth.GetALL('business_category').subscribe((res:any)=>{
+
+this.business=res.data[0].response
 console.log(this.business);
 
 })
@@ -174,8 +201,27 @@ minLengthValidator(minLength: number): ValidatorFn {
 console.log(event.target.value);
 let value=event.target.value
 if(event.target.value.length==6){
-  this.auth.GetByID("pincode","pincode",value).subscribe((xyz:any)=>{
-    let data=xyz[0]
+
+
+  const filterCondition1 = {
+    filter: [
+      {
+        clause: "AND",
+        conditions: [{ column: 'pincode', operator: "EQUALS", value:value }],
+      },
+    ],
+  } 
+
+
+
+
+
+
+
+
+  this.dataservice.getDataByFilter('pincode',filterCondition1).subscribe((xyz:any)=>{
+  // this.auth.GetByID("pincode","pincode",value).subscribe((xyz:any)=>{
+    let data=xyz.data[0].response
     console.log(xyz);
 
     this.employee.controls['districtname'].setValue(data.districtname)
@@ -204,17 +250,17 @@ let value=this.regis.getRawValue()
 var phone:string =JSON.stringify(value.phone)
 value.phone=phone
     //  this.http.post("http://127.0.0.1:8080/auth/seekers-info",)
-     this.auth.save('seekers_info',value).subscribe({
-      next: (data: any) => {
+    this.dataservice.save('seekers_info',value).subscribe((data:any)=>{
+    //  this.auth.save('seekers_info',value).subscribe({ next: (data: any) => {
         console.log(data.message);
         this.router.navigate(['/auth/login']);
         this.snackbarService.showErrorMessage('Registration complete successfully as Seeker ');
 
-      },error(err) {
-          console.log(err);
-          alert(err.message);
+    //   },error(err) {
+    //       console.log(err);
+    //       alert(err.message);
 
-      }
+    //   }
      });
   }
 
@@ -237,7 +283,7 @@ value.phone=phone
   var phone:string =JSON.stringify(value.phone)
   value.phone=phone
   // this.http.post("http://127.0.0.1:8080/auth/seekers-info",value)
-  this.auth.save('companies',value).subscribe({
+  this.dataservice.save('companies',value).subscribe({
     next: (data: any) => {
       console.log(data.message);
       this.router.navigate(['/auth/login']);
@@ -271,7 +317,7 @@ value.phone=phone
   // var phone:string =JSON.stringify(value.phone)
   // value.phone=phone
   // this.http.post("http://127.0.0.1:8080/auth/seekers-info",value)
-  this.auth.save('selfEmployer',value).subscribe({
+  this.dataservice.save('selfEmployer',value).subscribe({
     next: (data: any) => {
       console.log(data.message);
       this.router.navigate(['/auth/login']);
@@ -417,6 +463,10 @@ handleFileUpload(id: any, type?: any) {
   formData.append('data', this.selfEmployerForm.value.selfEmployer_id);
   formData.append('category', type);
   formData.append('collectionName', 'selfEmployer');
+
+
+  // this.dataservice.imageupload("","this.model[this.field.bind_key]",formData).subscribe((res: any) => {
+// this.dataservice.imageupload(formData, 's3').subscribe((res: any) => {
   this.auth.finalfileUpload(formData, 's3').subscribe((res: any) => {
     const newControl: any = this.fb.control(res["S3 key"]);
 

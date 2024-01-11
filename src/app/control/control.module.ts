@@ -95,6 +95,7 @@ import { LayoutsModule } from "../shared/layout-event/layouts.module";
 import { SlickCarouselModule } from "ngx-slick-carousel";
 import { CounterComponent } from './counter.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { Login } from "./login";
 // import { ColorPickerInputComponent } from "./colourpicker";
 
 
@@ -439,8 +440,12 @@ name:"carousel-component-input",Component:CarouselComponentInput
         Image1Component,
         ScreenComponent,
         ColorPickerInputComponent,
+        Login,
+        
+
     ],
     exports: [
+      Login,
         Tab,
         FileInput,
         CheckboxComponent,
@@ -484,6 +489,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
         { provide: LOCALE_ID, useValue: lang },
     ],
     imports: [
+      MatCardModule,
       SlickCarouselModule,
       FlexLayoutModule,
         BrowserModule,
@@ -545,7 +551,8 @@ name:"carousel-component-input",Component:CarouselComponentInput
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
         CalendarModule,
-        LayoutsModule
+        LayoutsModule,
+
     ]
 })
 export class ControlModule {}

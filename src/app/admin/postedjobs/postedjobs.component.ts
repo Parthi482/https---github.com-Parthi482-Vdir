@@ -73,6 +73,8 @@ const filterValue: any = [
     ]
   }
 ];
+
+
 this.auth.getDataByFilter('applied_jobs',filterValue).subscribe((xyz:any)=>{
   console.log(xyz);
   this.search_details=xyz

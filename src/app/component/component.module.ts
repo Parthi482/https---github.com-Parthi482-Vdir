@@ -83,6 +83,7 @@ const appearance: any = {
   imports: [
     SlickCarouselModule,
     NgSelectModule,
+    MatCardModule,
     MatStepperModule,
     AppRoutingModule,
     CommonModule,

@@ -7,7 +7,6 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { HelperService } from 'src/app/service/helper.service';
-import { v4 } from 'uuid';
 
 
 @Component({
@@ -33,7 +32,7 @@ export class DynamicFormComponent {
   @Input('model') model: any = {}
   @Output('onClose') onClose = new EventEmitter<any>();
   butonflag: boolean = false;
-  stepper:boolean =  false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -47,14 +46,8 @@ export class DynamicFormComponent {
   ngOnInit() {
     
     this.paramsSubscription = this.route.params.subscribe(params => {
-
       if (params['form']) {
         this.formName = params['form'];
-        if (this.formName != "event"){
-          this.stepper = true
-          this.form.addControl("_id",new FormControl('v4()'))
-          this.model['_id']=v4()
-        }
       }
       if (params['id'] != undefined) {
         this.id = params['id']
@@ -119,8 +112,6 @@ export class DynamicFormComponent {
   }
 
   initLoad() {
-    console.warn(this);
-    
     this.formService.LoadInitData(this)
   }
   // goBack(data?: any) {

@@ -16,9 +16,20 @@ import { ScreenComponent } from './component/screen/screen.component';
 import { EventLandingComponent } from './component/event-landing/event-landing.component'; 
 import { EventScreenComponent } from './dashboard/event-screen/event-screen.component';
 import { JoblistHome } from './dashboard/event-screen/joblist-home';
+import { Login } from './control/login';
+import { HomeScreenInput } from './control/home';
  
 const routes: Routes = [
-
+{
+  path:'homescreen',
+  component:DashLayoutComponent,
+  children:[
+    {
+      path:'',
+      component:HomeScreenInput
+    }
+  ]
+},
   {
     path: 'events',
     component: JoblistHome,

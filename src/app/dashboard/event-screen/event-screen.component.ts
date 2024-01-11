@@ -28,19 +28,22 @@ events:any
 
     this.route.queryParams.subscribe(params => {
       if (Object.keys(params).length === 0) {
- 
-const filterValue: any = [
-  {
-    clause: "$and",
-    conditions: [
-      { column: "basic_details.start_date", operator: "$gte", value:"2024-01-01T05:00:26.905+00:00",type:"date" },
-    ]
-  }
-];
-        this.auth.getDataByFilter("event",filterValue).subscribe((res :any )=>{
+          let date = new Date
+          console.log(date);
+          
+// const filterValue: any = [
+//   {
+//     clause: "AND",
+//     conditions: [
+//       { column: "basic_details.start_date", operator: "GREATERTHANOREQUAL", value:"2024-01-01T05:00:26.905+00:00",type:"date" },
+//     ]
+//   }
+// ];
+  this.dataservice.getDataByFilter("event",{}).subscribe((res :any )=>{
+        // this.auth.getDataByFilter("event",filterValue).subscribe((res :any )=>{
               console.log(res);
               
-            this.events = res;
+            this.events = res.data[0].response;
 
             
         })

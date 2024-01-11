@@ -38,15 +38,13 @@ export class ApiService {
         },
       ],
     };
-  
-    // console.log(data);
-    if(data=='true'){
- 
-      return this.http.get(`${this.baseUrl+Collection+'/'+Column+'/'+Value+'/'+data}`);
-      // return this.getData(Collection,filterCondition1)
+   
+    if(data=='true'){ 
+  //      return this.http.get(`${this.baseUrl+Collection+'/'+Column+'/'+Value+'/'+data}`);
+      return this.getData(Collection,filterCondition1)
     }else{
-      // return this.getData(Collection,filterCondition1)
-      return this.http.get(`${this.baseUrl+Collection+'/'+Column+'/'+Value}`);
+      return this.getData(Collection,filterCondition1)
+      
     }
  
     
@@ -63,7 +61,7 @@ export class ApiService {
    getData(Collection: string, filterCondition1: any): Observable<any> {
     return this.dataservice.getDataByFilter(Collection, filterCondition1).pipe(
       map((data: any) => {
-        let response = data.data[0];
+        let response = data.data[0].response;  
         return response;
       })
     );
@@ -110,9 +108,9 @@ getfilterjob(data:any){
   return details
  }
 
- GetALL(Collection:any){
-  return this.http.get(this.getWsBaseUrl()+ 'entities/' + Collection);
- }
+//  GetALL(Collection:any){
+//   return this.http.get(this.getWsBaseUrl()+ 'entities/' + Collection);
+//  }
 
  getDataList(collectionName:any) {
   return this.http.get(this.getWsBaseUrl() + 'entities/' + collectionName);
@@ -187,7 +185,7 @@ getfilterjob(data:any){
   public save(collectionName:any, data:any) {
 		return this.http.post(this.getWsBaseUrl() + 'entities/' + collectionName, data);
 	}
-
+  
 	public update(collectionName:any, id:any, data:any) {
 		return this.http.put(this.getWsBaseUrl() + 'entities/' + collectionName + '/' + id, data);
 	}

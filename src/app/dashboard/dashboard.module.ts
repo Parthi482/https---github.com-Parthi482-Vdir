@@ -54,6 +54,7 @@ HomeComponent,
   imports: [
     CommonModule,
     MatMenuModule,
+    MatCardModule,
     LayoutModule,
     MatDatepickerModule,
     MatFormFieldModule,

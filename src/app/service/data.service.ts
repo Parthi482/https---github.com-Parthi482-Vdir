@@ -88,20 +88,10 @@ export class DataService {
  * @ID Dynamic pass of _id or any Primary key 
  */
   public getDataById(collectionName: any, id: any) {
-    return this.http.get(this.getWsBaseUrl() +"entities/" + collectionName + "/" + id);
-    // return this.http.get(this.getWsBaseUrl() +"entities1/" + "token" );
-
+    return this.http.get(this.getWsBaseUrl() +"entities/"+ collectionName + '/' + id);
   }
 
-/**
- * This method Used only for the Get the data in Select input ts 
- * @val is parent module name
- */
-  public getotherModuleName(val:any){
-    
-    // return this.http.get(`http://10.0.0.153:8080/FilterCondition/${val}`)
-    return this.http.get(this.getWsBaseUrl()+`entities/FilterCondition/checking/${val}`)
-  }
+ 
   //deleteDataByModel Chnage it parent detelet 
   //PArent delete Child Delete
   public deleteDataByModel(collectionName: any, id: any) {
@@ -118,24 +108,58 @@ export class DataService {
   }
 
 
+/**
+ * This method USed To Get data Using Filter Condition
+ * @filter
+ * var filterCondition1 =
+ *  [
+ * {
+ *   clause: "AND",
+ *   conditions: [ 
+ *    { column: , operator: "EQUALS", value:  }, 
+ *  ]
+ * }
+ * ]
+ * @clause Type OR ,AND,$nor,$in,$nin 
+ * @conditions It Should Be in Array of Object
+ * @operator Type * "EQUALS","NOTEQUAL", "NOTCONTAINS","STARTSWITH","ENDSWITH","LESSTHAN","GREATERTHAN","LESSTHANOREQUAL","GREATERTHANOREQUAL","INRANGE","BLANK","NOTBLANK","EXISTS","IN"
+ * @column Key name
+ * @value Value For the Key to match
+ */
   public getDataByFilter(collectionName: any,data:any) {
-    return this.http.post(this.getWsBaseUrl() +"entities1/filter/"+ collectionName,data);
+ 
+    return this.http.post(this.getWsBaseUrl() +"entities/filter/"+ collectionName,data);
   }
-
+  getfilterjob(data:any){
+    return this.http.post(this.getWsBaseUrl() + 'entities/matching/jobs' , data);
+  }
   public login(data: any) {
     return this.http.post(this.getWsBaseUrl() + 'auth/login', data);
   }
 
 
-  
+ 
 /**
  * This method Send New Data
  * @collectionName Dynamic pass of Collection Name 
  * @Data Any TYPE of Data
  */
   public save(collectionName: any,data: any,) {
-    return this.http.post(this.getWsBaseUrl()+"entities1/"+`${collectionName}`, data);
+    return this.http.post(this.getWsBaseUrl()+"entities/"+`${collectionName}`, data);
   }
+public saveUser(collectionName:any,data: any){
+  console.log(data);
+  
+  return this.http.post(this.getWsBaseUrl()+"token_generator/"+`${collectionName}`, data);
+}
+
+
+
+
+
+
+
+
 
   public dataSetPreview(data:any){
     return this.http.post(this.getWsBaseUrl()+"dataset/config", data);
@@ -162,29 +186,24 @@ export class DataService {
     
   }
 
-/**
- * This method USed To Get data Using Filter Condition
- * @filter
- * var filterCondition1 =
- *  [
- * {
- *   clause: "AND",
- *   conditions: [ 
- *    { column: , operator: "EQUALS", value:  }, 
- *  ]
- * }
- * ]
- * @clause Type OR ,AND,$nor,$in,$nin 
- * @conditions It Should Be in Array of Object
- * @operator Type EQUALS,$gte,$lte,NOTEQUAL
- * @column Key name
- * @value Value For the KEy to match
- */
   //! public getDataByFilter(collectionName: any, filter: any,c?: any,limit?: any) {
   //     return this.http.post(this.getWsBaseUrl() + 'search/' + collectionName +`/0/${limit||1000}`,filter);
     
   // }
+  storedToken(tokenValue: any,type?:boolean) {
+    if(type){
+      let data:any = JSON.stringify(tokenValue);
+      localStorage.setItem('auth', data);
+        return true;
+    }else{
+      let data:any = JSON.stringify(tokenValue[1]);
+      localStorage.setItem('auth', data);
+      localStorage.setItem('token', tokenValue[0].token);
+      return true;
+    }
 
+  }
+  
   public fileupload(data: any) {
     return this.http.post(this.getWsBaseUrl() + "s3files/upload", data);
   }
@@ -212,6 +231,12 @@ public lookupTreeData(collection_name:any,project_id:any){
     return this.http.put(this.getWsBaseUrl()+"activation-api/generate-pwd/"+id,data)
   }
  
+
+  public sidenav(employee_id:any){
+    return this.http.get(this.getWsBaseUrl()+"lookup/project_sidenav/"+employee_id)
+  }
+
+
 /**
  * This method Upset Method IT check If Data is Present it Updata Or Else in Create A new data
  * This Can used For Both Save and Update
@@ -220,8 +245,8 @@ public lookupTreeData(collection_name:any,project_id:any){
  * @Data Any TYPE of Data
  */
 //! need to change the data before the
-  public update(collectionName: any, id ?: any,data?:any) {   
-      return this.http.put(this.getWsBaseUrl() +"entities1/"+ `${collectionName}` + `/${id}`, data);
+  public update(collectionName: any, id  : any,data:any) {   
+      return this.http.put(this.getWsBaseUrl() +"entities/"+ `${collectionName}` + `/${id}`, data);
   }
   public acl_update(collectionName: any,data?:any){
     return this.http.put(this.getWsBaseUrl() +"entities/"+ `${collectionName}` , data);
@@ -252,12 +277,12 @@ public imageupload(folder:any,refId:any,data: any) {
   }
   public  getTimesheetdata(employee_id: any, date: any) {
     //console.log(format_date);
-    // finaltimesheet/:employee_id/:date
+    // finaltimesheet/:employee_id/:datefinaltimesheet
     return this.http.get(this.getWsBaseUrl() + 'lookup/finaltimesheet/' + `${employee_id}` + "/" + `${date}`);
   }
-  public getTimesheetdatabyadmin( data: any) {
+  public getTimesheetforApproval( employee_id: any,start_date:any,end_date:any) {
     
-    return this.http.get(this.getWsBaseUrl() + 'lookup/timesheet/SA/' + `${data}` );
+    return this.http.get(this.getWsBaseUrl() + 'lookup/team_specifcaiton/' + `${employee_id}`+ "/" + `${start_date}`+ "/" + `${end_date}` );
   }
   public workhours(scheduledstartdate:any) {
     
@@ -346,7 +371,7 @@ public imageupload(folder:any,refId:any,data: any) {
     to.options = data
   }
 
-
+ 
   getdetails(){
   let value:any=sessionStorage.getItem("auth")
   let details:any=JSON.parse(value)
@@ -739,3 +764,4 @@ async makeFiltersConditions(Input_object: any): Promise<any> {
 }
 
 }
+

@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CardComponent } from './card/card.component';
 import { LocationComponent } from './location/location.component';
 import { Image1Component } from './image/image1.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { Image1Component } from './image/image1.component';
   ],
   imports: [
   CommonModule,
+  MatCardModule,
     RouterModule,
     MatSelectModule,
     ReactiveFormsModule,

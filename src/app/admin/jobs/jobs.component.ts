@@ -9,6 +9,7 @@ import { IDropdownSettings, } from 'ng-multiselect-dropdown';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
+import { DataService } from 'src/app/service/data.service';
 
 
 
@@ -146,9 +147,14 @@ overlayNoRowsTemplate =
  '<span style="padding: 10px; background:white ;">No Data Found</span>"';
 flag:boolean=false;
 update_id:any
-  constructor(private http: HttpClient, private auth:ApiService, private router: Router,private fb: FormBuilder,) {
-    // this.Email =this.auth.decodeToken().email
-    this.value=this.auth.getdetails()
+  constructor(private http: HttpClient, private dataservice:DataService, private router: Router,private fb: FormBuilder,) {
+    // this.Email =this.dataservice.decodeToken().email
+    this.value=this.dataservice.getdetails()
+
+
+
+
+    
     this.getAllJobslen().then(async(job:any)=> {
       this.jobId=  await job
     })
@@ -162,18 +168,27 @@ this.jobId=0
     };
 
 this.refrsh()
-    this.auth.GetALL('salary').subscribe((abc2:any)=>{
+
+
+
+this.dataservice.getDataByFilter('salary',{}).subscribe((abc2:any)=>{
+    // this.dataservice.GetALL('salary').subscribe((abc2:any)=>{
       // console.log(abc2);
-      this.sarlaryrange=abc2
+      let data = abc2.data[0].response
+      this.sarlaryrange=data
     })
-    this.auth.GetALL('education').subscribe((abc3:any)=>{
-      this.dropdownList=abc3
+
+this.dataservice.getDataByFilter('education',{}).subscribe((abc3:any)=>{
+
+    // this.dataservice.GetALL('education').subscribe((abc3:any)=>{
+  let data = abc3.data[0].response
+    this.dropdownList=data
       // console.log(this.dropdownList);
 
 
     })
     // change into
-// let indisuty=this.auth.getdetails().industry
+// let indisuty=this.dataservice.getdetails().industry
 //     const filterValue: any = [
 //       {
 //         clause: "$and",
@@ -182,7 +197,7 @@ this.refrsh()
 //         ]
 //       }
 //     ];
-//     this.auth.getDataByFilter("industry",filterValue).subscribe((data:any)=>{
+//     this.dataservice.getDataByFilter("industry",filterValue).subscribe((data:any)=>{
 //       console.log(data[0].id);
 //       let subid=data[0].id
 //       const filterValue1: any = [
@@ -194,14 +209,17 @@ this.refrsh()
 //         }
 //       ];
 //       // For some thing it will not due to to data in databse
-//       this.auth.getDataByFilter("role_category",filterValue1).subscribe((data:any)=>{
+//       this.dataservice.getDataByFilter("role_category",filterValue1).subscribe((data:any)=>{
 //         console.log(data);
 //         this.rolerange=data
 //       })
 //     })
     // Changes
-    this.auth.GetALL('role_category').subscribe((abc4:any)=>{
+    this.dataservice.getDataByFilter('role_category',{}).subscribe((xyz:any)=>{
+
+    // this.dataservice.GetALL('role_category').subscribe((abc4:any)=>{
       // console.log(abc4);
+      let abc4 = xyz.data[0].response
       this.rolerange=abc4
       this.rolerange.sort((a:any, b:any) => a.category.localeCompare(b.category));
 
@@ -311,7 +329,7 @@ this.formgrp.controls['status'].setValue(row.status);
          console.log(formValues.validity);
 
       }
-      this.auth.update('jobs', id, formValues).subscribe((xyz: any) => {
+      this.dataservice.update('jobs', id, formValues).subscribe((xyz: any) => {
         // console.log(xyz);
         this.refrsh();
         this.formgrp.reset();
@@ -322,9 +340,10 @@ this.formgrp.controls['status'].setValue(row.status);
 getAllJobslen() {
 
   return new Promise((resolve, reject) => {
+    this.dataservice.getDataByFilter('jobs',{}).subscribe((xyz:any)=>{
 
-  this.auth.getDataList('jobs').subscribe((xyz:any)=>{
-    let value=xyz
+  // this.dataservice.getDataList('jobs').subscribe((xyz:any)=>{
+    let value=xyz.data[0].response
     if(value!=null){
       let len:any=  (Object.keys(value).length)-1;
       var data:any= JSON.parse(value[len].jobId)
@@ -444,7 +463,7 @@ formValues.Location=this.value.area+ this.value.districtname +this.value.statena
       formValues.MaximumExperience=val2
       console.log(formValues);
 
-        this.auth.save('jobs',formValues).subscribe((xyz:any)=>{
+        this.dataservice.save('jobs',formValues).subscribe((xyz:any)=>{
           console.log(xyz);
           this.refrsh()
           this.formgrp.reset()
@@ -458,7 +477,7 @@ formValues.Location=this.value.area+ this.value.districtname +this.value.statena
       if(this.formgrp.valid){
         console.log(formValues);
 
-        this.auth.save('jobs',formValues).subscribe((xyz:any)=>{
+        this.dataservice.save('jobs',formValues).subscribe((xyz:any)=>{
           console.log(xyz);
           this.refrsh()
           this.formgrp.reset()
@@ -472,7 +491,7 @@ formValues.Location=this.value.area+ this.value.districtname +this.value.statena
     // console.log(formValues.validity);
     // console.log(typeof(formValues.validity));
     // if(this.formgrp.valid){
-    //   this.auth.save('jobs',formValues).subscribe((xyz:any)=>{
+    //   this.dataservice.save('jobs',formValues).subscribe((xyz:any)=>{
     //     console.log(xyz);
     //     this.refrsh()
     //     this.formgrp.reset()
@@ -496,7 +515,7 @@ refrsh(){
     }
   ];
   // For some thing it will not due to to data in databse
-  this.auth.getDataByFilter("jobs",filterValue1).subscribe((data:any)=>{
+  this.dataservice.getDataByFilter("jobs",filterValue1).subscribe((data:any)=>{
     // this.companies= data.map((xyz: any) => ({
     //     xyz.validitynew=this.formatMonthInNumber(xyz.validity)
     //    }))
@@ -510,13 +529,13 @@ refrsh(){
 
 
   })
-  // this.auth.GetByID('jobs','companyId',this.value.unique_id).subscribe((xyz: any) => {
+  // this.dataservice.GetByID('jobs','companyId',this.value.unique_id).subscribe((xyz: any) => {
   //   console.log(xyz);
   //   if(xyz != null || xyz != undefined){
   //     this.companies=xyz
   //     // xyz.forEach((element:any) => {
   //     //   if(element.jobId!=undefined){
-  //     //     this.auth.GetByID('applied_jobs','jobid',element.jobid).subscribe((xyz:any) => {
+  //     //     this.dataservice.GetByID('applied_jobs','jobid',element.jobid).subscribe((xyz:any) => {
   //     //       console.log(element.jobId);
 
   //     //       if(xyz != null){

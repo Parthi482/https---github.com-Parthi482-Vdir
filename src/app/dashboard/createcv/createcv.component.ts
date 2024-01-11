@@ -15,6 +15,7 @@ import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/service/search.service';
+import { DataService } from 'src/app/service/data.service';
 
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
@@ -118,8 +119,9 @@ personalForm: FormGroup;
 summaryForm: FormGroup;
 educationForm: FormGroup;
 
-  hobbiesArray = new FormArray([new FormControl('', Validators.required)]);
-   constructor(private http: HttpClient, private auth: ApiService,private fb: FormBuilder) {
+  hobbiesArray = new FormArray([new FormControl('', Validators.required)])
+
+   constructor(private http: HttpClient, private auth: ApiService,private dataservice:DataService,private fb: FormBuilder) {
     if (this.auth.islogin()) {
       this.email = this.auth.decodeToken().email;
 
@@ -148,7 +150,9 @@ educationForm: FormGroup;
 Data:any
 overallValue:any
   ngOnInit() {
-    this.auth.GetALL('education').subscribe((res: any) => {
+    this.dataservice.getDataByFilter('education',{}).subscribe((data1: any) => {
+    // this.auth.GetALL('education').subscribe((res: any) => {
+      let res = data1.data[0].response
       let value:any []=res
       let data:any[] =value.filter((val:any)=>{ return val.details === true })
       this.Data = data

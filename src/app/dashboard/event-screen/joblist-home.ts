@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core'; 
+import { DataService } from 'src/app/service/data.service';
 import { ApiService } from 'src/app/service/search.service';
 
 @Component({
@@ -42,29 +43,29 @@ import { ApiService } from 'src/app/service/search.service';
 export class JoblistHome   { 
     search_details:any[]=[]
 
-constructor(private auth:ApiService,private cvdr:ChangeDetectorRef){
+constructor(private auth:ApiService,private dataservice:DataService,private cvdr:ChangeDetectorRef){
 
 }
         ngOnInit(): void {
-             
-
             const cdate= new Date
-            const filterValue1: any = [
+             
+            const filterCondition1 = {
+              filter: [
                 {
-                  clause: "$and",
-                  conditions: [
-                    { column: "validity", operator: "$gte", value:cdate ,type:"date"},
-                    { column: "status", operator: "$eq", value:'open' },
-                  ]
-                }
-              ];
-              // For some thing it will not due to to data in databse
-              console.log(filterValue1);
+                  clause: "AND",
+                  conditions: [{ column: 'validity', operator: "GREATERTHANOREQUAL", value:cdate ,type:"date"},
+                
+                  { column: "status", operator: "GREATERTHANOREQUAL", value:'open' },
+                ],
+                },
+              ],
+            } 
+            
         
-              this.auth.getDataByFilter("jobs",filterValue1).subscribe((data:any)=>{ 
+              this.dataservice.getDataByFilter("jobs",filterCondition1).subscribe((data:any)=>{ 
                 console.log(data);
                 
-                this.search_details=data 
+                this.search_details=data.data[0].response 
                 this.cvdr.detectChanges()
               })
 
