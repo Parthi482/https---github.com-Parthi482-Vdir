@@ -445,37 +445,84 @@ ctrl.detailListFields =  ctrl.config.detailListConfig.fields
 
 
   LoadFormData(ctrl: any): Observable<boolean> {
-    debugger
-    var nextValue = new Subject<boolean>()
+  
+    var nextValue = new Subject<boolean>() 
     if (ctrl.id) {
-      this.dataService.getDataById(ctrl.collectionName, ctrl.id).subscribe(
-        (result: any) => {
-          console.log(result);
-          if (result  && result != null) {
-            ctrl.model = result || {}
-            // console.log(ctrl.model);      
-            ctrl.model['isEdit'] = true
-            ctrl.model['isshow'] = true
-            ctrl.model['ishide'] = true
-            ctrl.isFormDataLoaded = true
-            ctrl.isDataError = false //???
-            ctrl.formAction = ctrl.config.formAction || 'Edit';
-            ctrl.isEditMode = true;
-            //we need old data, if update without any changes
-            ctrl.modelOldData = _.cloneDeep(ctrl.model)
-            nextValue.next(true)
-          } else {
-            ctrl.model['isEdit'] = false
-            ctrl.formAction = 'Add';
-            ctrl.isFormDataLoaded = false
-            nextValue.next(false)
-          }
-        },
-        error => {
-          console.error('There was an error!', error);
+
+	    const filterCondition1 = {
+        filter: [
+          {
+            clause: "AND",
+            conditions: [{ column: '_id', operator: "EQUALS", value: ctrl.id }],
+          },
+        ],
+      } 
+       
+      this.dataService.getDataById(ctrl.collectionName,ctrl.id ).subscribe((result:any)=>{
+
+// let result = data.data[0].response
+
+        if (result  && result != null) {
+         
+            
+          ctrl.model = result.data[0] || {}
+          console.log(ctrl.model);      
+          ctrl.model['isEdit'] = true
+          ctrl.model['isshow'] = true
+          ctrl.model['ishide'] = true
+          ctrl.isFormDataLoaded = true
+          ctrl.isDataError = false //???
+          ctrl.formAction = ctrl.config.formAction || 'Edit';
+          ctrl.isEditMode = true;
+          //we need old data, if update without any changes
+          ctrl.modelOldData = _.cloneDeep(ctrl.model)
+          nextValue.next(true)
+
+        } else {
+          ctrl.model['isEdit'] = false
+          ctrl.formAction = 'Add';
+          ctrl.isFormDataLoaded = false
           nextValue.next(false)
         }
+
+        
+      }, error => {
+        console.error('There was an error!', error);
+        nextValue.next(false)
+      }
+      
+      
+      
+      
       )
+      // this.dataService.getDataById(ctrl.collectionName, ctrl.id).subscribe(
+      //   (result: any) => {
+      //     console.log(result);
+      //     if (result  && result != null) {
+      //       ctrl.model = result || {}
+      //       // console.log(ctrl.model);      
+      //       ctrl.model['isEdit'] = true
+      //       ctrl.model['isshow'] = true
+      //       ctrl.model['ishide'] = true
+      //       ctrl.isFormDataLoaded = true
+      //       ctrl.isDataError = false //???
+      //       ctrl.formAction = ctrl.config.formAction || 'Edit';
+      //       ctrl.isEditMode = true;
+      //       //we need old data, if update without any changes
+      //       ctrl.modelOldData = _.cloneDeep(ctrl.model)
+      //       nextValue.next(true)
+      //     } else {
+      //       ctrl.model['isEdit'] = false
+      //       ctrl.formAction = 'Add';
+      //       ctrl.isFormDataLoaded = false
+      //       nextValue.next(false)
+      //     }
+      //   },
+      //   error => {
+      //     console.error('There was an error!', error);
+      //     nextValue.next(false)
+      //   }
+      // )
     } else {
       nextValue.next(false)
     }
@@ -501,30 +548,15 @@ ctrl.detailListFields =  ctrl.config.detailListConfig.fields
         return ;
       }
       var data = ctrl.form.value
-      // ?SYSTEM USER
-      let role_type:any =this.dataService.getdetails().role
-      if(ctrl?.config?.rolebased&& role_type!=="SA"){
-       data.org_id=this.dataService.getdetails().org_id
-      }
-// ?SYSTEM USER
-      if(ctrl?.config?.user&&role_type!=="SA"){
-        data.org_id=this.dataService.getdetails().org_id 
-        data.user_type=role_type
-      }
-// ? PREFIX
-      if(ctrl?.config?.Change_id && (ctrl.model.isEdit !==true||ctrl.formAction == 'Add')){
-
-        // data.org_id=this.dataService.getdetails().profile.org_id
-        // data._id=data.org_id+"-"+data._id
-        data[ctrl.config.changekeyfield]=data[ctrl.config.addkeyfield]+"-"+data[ctrl.config.changekeyfield]
-      }
-
+      
       // It can be done in any project with different screen config
       //while saving set default values
 
         if (ctrl.formAction == 'Add') {
           var defaultValues = ctrl.config.form.defaultValues || []
           // this.loadDefaultValues(defaultValues,data,ctrl.model)
+          console.log("save");
+          
           this.dataService.save(ctrl.collectionName,data).pipe(
             catchError((error:any) => {
               ctrl.butonflag=false
@@ -546,6 +578,8 @@ ctrl.detailListFields =  ctrl.config.detailListConfig.fields
         }
         else {
           delete data._id
+          console.log("update");
+          
           this.dataService.update(ctrl.collectionName,ctrl.id,data).pipe(
             catchError((error:any) => {
               ctrl.butonflag=false
@@ -553,8 +587,10 @@ ctrl.detailListFields =  ctrl.config.detailListConfig.fields
               return error
             })
     ).subscribe((res: any) => {
-          this.dialogService.openSnackBar("Data has been updated successfully", "OK")
+
           
+      this.dialogService.openSnackBar("Data has been updated successfully", "OK")
+
             resolve(res)
           })
         }

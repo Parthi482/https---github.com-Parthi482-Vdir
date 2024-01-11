@@ -1,109 +1,367 @@
 {
-  "pageHeading": "Profile Update",
+  "pageHeading": "Event",
   "formType": "simple",
-  "addEditMode": "page",
+  "editMode": "page",
+  "screenEditMode": "page",
+  "user": true,
   "keyField": "_id",
   "form": {
-    "collectionName": "user",
-    "getDataEndPoint": "user/_id",
+    "collectionName": "event",
     "fields": [
       {
+        "type": "stepper",
 
-        "fieldGroup":[
-          {
-            "type": "logo",
-            "key": "user_photo",
-            "className": "center",
-            "props": {
-              "label": "upload profile",
-              "labelProp": "Name"
-            
-            }
-          }
-        ]
-      },
-      {
         "fieldGroupClassName": "display-flex",
-
         "fieldGroup": [
           {
-              "type": "input",
-              "key": "user_name",
-              "className": "flex-1",
-              "props": {
-                "label": "Name",
-                "labelPropTemplate": "{{Name}",
-              
-                "labelProp": "Name",
-                "valueProp": "user_name"
+            "props": { "label": "Basic Event Details" },
+
+            "fieldGroup": [
+              {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
+                  {
+                    "type": "input",
+                    "key": "event_name",
+                    "className": "flex-3",
+                    "props": {
+                      "label": "Event Name",
+                      "placeholder": "Enter the name of your event",
+
+                      "required": true
+                    }
+                  },
+
+				  {
+					"key": "event_mode",
+					"type": "select",
+                    "className": "flex-2",
+
+					"templateOptions": {
+					  "label": "Event Mode",
+					  "options": [
+						{ "value": "online", "label": "Online" },
+						{ "value": "offline", "label": "Offline" }
+					  ]
+					}
+				  },
+				  
+				  
+                  {
+                    "type": "checkbox-input-field",
+                    "className": "flex-2",
+
+                    "key": "basic_details.is_mandatory"
+                  }
+                ]
+              },
+              {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
+                  {
+                    "type": "input",
+                    "key": "basic_details.Maximum_of_participants:",
+                    "className": "flex-6",
+                    "props": {
+                      "label": "Maximum of participants:",
+                      "placeholder": "Maximum of participants",
+                      "type": "number",  
+                      "required": true
+                    }
+                  }
+                  ,
+                  {
+                    "label": "Start Date",
+                    "type": "datetime-input",
+                    "key": "basic_details.start_date",
+                    "className": "flex-6",
+                    "props": {
+                      "label": "Start Date",
+                      "placeholder": "Start Date",
+
+                      "required": true
+                    }
+                  },
+
+                  {
+                    "label": "End Date",
+                    "type": "datetime-input",
+                    "key": "basic_details.end_date",
+                    "className": "flex-6",
+                    "props": {
+                      "label": "End Date",
+                      "placeholder": "End Date",
+
+                      "required": true
+                    }
+                  }
+                ]
+              },
+
+              {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
+                  {
+                    "type": "html-input",
+                    "key": "event_description",
+                    "className": "flex-6",
+                    "props": {
+                      "label": "Event Description",
+                      "disabled": false
+                    }
+                  }
+                ]
               }
+            ]
+          },
+
+          {
+            "props": { "label": "logo / banner" },
+            "fieldGroupClassName": "display-flex",
+            "fieldGroup": [
+              {
+                "type": "carousel-input",
+                "key": "event_images",
+                "className": "flex-6",
+                "refId": "_id",
+                "role": "event",
+                "bind_key": "_id",
+                "props": {
+                  "refId": "_id",
+                  "label": "Event Banner"
+                }
+              }
+            ]
+          },
+
+          {
+            "props": {
+              "label": "Contact Details",
+              "addText": "Add",
+              "required": true
             },
-            {
-              "type": "input",
-              "key": "email",
-              "readonly": true,
-              "className": "flex-1",
-              "props": {
-                "readonly": true,
-                "label": "Email",
-                "labelPropTemplate": "{{email}",
-              
-                "labelProp": "Email",
-                "valueProp": "email"
-              }
-            }
-           
-        ]
-      },
-      {
-        "fieldGroupClassName": "display-flex",
-        "fieldGroup": [
-          {
-            "type": "input",
-            "key": "mobile_number",
-            "className": "flex-1",
-            
-            "props": {
-              "label": "Mobile Number",
-              "labelPropTemplate": "{{Mobile Number}",
-            
-              "labelProp": "Mobile NUmber",
-              "valueProp": "mobile_number"
+            "key": "contact_details",
+            "type": "repeat",
+            "fieldArray": {
+              "fieldGroupClassName": "row",
+              "fieldGroup": [
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "type": "input",
+                      "key": "contact_name",
+                      "className": "flex-1",
+                      "props": {
+                        "label": "Contact Name",
+                        "placeholder": "Contact Name",
+
+                        "required": true
+                      }
+                    },
+                    {
+                      "type": "input",
+                      "key": "contact_email",
+                      "className": "flex-1",
+                      "props": {
+                        "label": "Email Address",
+                        "placeholder": "Email",
+                        "pattern": "^[a-zA-Z0-9&>/;,:-_/]+( [a-zA-Z0-9&>/;,:-_/!@-]+)*$",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "type": "input",
+                      "key": "phone_number",
+                      "className": "flex-1",
+                      "props": {
+                        "label": "Phone Number",
+                        "placeholder": "Phone Number",
+                        "required": true
+                      }
+                    },
+                    {
+                      "type": "input",
+                      "key": "user_role",
+                      "className": "flex-1",
+                      "props": {
+                        "label": "User Designation",
+                        "placeholder": "User Designation",
+                        "required": true
+                      }
+                    }
+                  ]
+                }
+              ]
             }
           },
           {
-              "type": "select",
-              "key": "user_type",
-              "className": "flex-1",
-              "props": {
-                "label": "Choose Your Identity",
-                "options": [
+            "props": { "label": "Event participants" },
+
+            "fieldGroup": [
+              {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
                   {
-                    "label": "Employee/Job Seeker",
-                    "value": "Employee/Job Seeker"
-                  },
-                  {
-                    "label": "Business Owner",
-                    "value": "Business Owner"
-                  },
-                  {
-                      "label": "Voluntary",
-                      "value": "Voluntary"
+                    "type": "button-input",
+                    "key": "event_participant",
+                    "array": true,
+                    "collectionName": "event_participants",
+                    "props": [
+                      {
+                        "label": "Speaker",
+                        "attributes": "Speaker",
+                        "type": "Speaker"
+                      },
+                      {
+                        "label": "Team Member",
+                        "attributes": "Team Member",
+                        "type": "TeamMember"
+                      },
+                      {
+                        "label": "Organizer",
+                        "attributes": "Organizer",
+                        "type": "Delegates"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "props": {
+              "label": "Agenda Details",
+              "required": true
+            },
+            "key": "agenda_details",
+            "type": "repeat",
+            "fieldArray": {
+              "fieldGroupClassName": "row",
+              "fieldGroup": [
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "type": "input",
+                      "key": "agenda_details.session_name",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Session Name",
+                        "placeholder": "Enter the Session Name",
+                        "required": true
+                      }
                     },
                     {
-                      "label": "Self Employee/Skilled Labour",
-                      "value": "Self Employee//Skilled Labour"
+                      "label": "Theme or Short Description",
+                      "type": "input",
+                      "key": "agenda_details.short_description",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Theme or Short Description",
+                        "placeholder": "Theme or Short Description",
+                        "required": true
+                      }
+                    } 
+                  ]
+                },
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "label": "Choose Session Start Date & Time",
+                      "type": "datetime-input",
+                      "key": "agenda_details.session_start_time",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Choose Session Start Date & Time",
+                        "placeholder": "Choose Session Start Date & Time",
+
+                        "required": true
+                      }
+                    },
+                    {
+                      "label": "Choose Session End Date & Time",
+                      "type": "datetime-input",
+                      "key": "agenda_details.session_end_time",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Choose Session End Date & Time",
+                        "placeholder": "Choose Session End Date & Time",
+
+                        "required": true
+                      }
                     }
-
-
-                ],
-                "required": true
-              
-              }}
+                  ]
+                },
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "label": "Session Link",
+                      "type": "input",
+                      "key": "agenda_details.session_link",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Session Link",
+                        "placeholder": "Session Link",
+                        "type": "input"
+                        
+                      },
+                      "hideExpression": "model.agenda_details.agenda_mode !== 'online'"
+                    },
+                    {
+                      "label": "Youtube Link",
+                      "type": "input",
+                      "key": "youtube_link",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Youtube Link",
+                        "placeholder": "Youtube Link",
+                        "type": "input"
+                      
+                      },
+                      "hideExpression": "model.agenda_details.agenda_mode !== 'online'"
+                    }
+                  ]
+                },
+                {
+                  "fieldGroupClassName": "display-flex",
+                  "fieldGroup": [
+                    {
+                      "type": "html-input",
+                      "key": "agenda_description",
+                      "className": "flex-6",
+                      "props": {
+                        "label": "Agenda Description",
+                        "disabled": false
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+           
         ]
       }
-  
-     
     ]
-  }
+  },
+  "defaultValues": [
+    {
+      "colName": "status",
+      "type": "string",
+      "value": "Active"
+    }
+  ],
+
+  "onCancelRoute": "/list/event"
 }
+
+
+ 

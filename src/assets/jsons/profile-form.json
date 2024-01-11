@@ -1,7 +1,9 @@
 {
     "pageHeading": "Profile Update",
     "formType": "simple",
-    "addEditMode": "page",
+    "addEditMode": "page", 
+    "editMode": "page",
+    "screenEditMode": "page",
     "keyField": "_id",
     "form": {
       "collectionName": "user",
@@ -105,6 +107,8 @@
     
        
       ]
-    }
+    },
+    "onCancelRoute": "/list/event"
+
   }
   

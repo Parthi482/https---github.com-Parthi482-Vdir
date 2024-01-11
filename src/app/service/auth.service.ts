@@ -55,22 +55,28 @@ export class AuthService {
   }
 
   // Auth logic to run auth providers
-  AuthLogin(provider: any) {
-    return this.afAuth
-      .signInWithPopup(provider)
-      .then((result) => {
-        console.warn(result.additionalUserInfo?.profile);
-
-        this.SetUserData(result.additionalUserInfo?.profile);
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
+  // AuthLogin(provider: any) {
+  //   return this.afAuth
+  //     .signInWithPopup(provider)
+  //     .then((result) => { 
+       
+  //       this.SetUserData(result.additionalUserInfo?.profile);
+  //     })
+  //     .catch((error) => {
+  //       window.alert(error);
+  //     });
+  // }
+  async AuthLogin(provider: any) {
+    try {
+      const result: any = await this.afAuth.signInWithPopup(provider);
+      this.SetUserData(result.additionalUserInfo?.profile);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  async SetUserData(user: any) {
-    console.log(user);
 
+  async SetUserData(user: any) {  
     const filterCondition1 = {
       filter: [
         {
@@ -85,10 +91,42 @@ export class AuthService {
     this.dataservice
       .getDataByFilter("user", filterCondition1)
       .subscribe(async (res: any) => {
-        let doc = res.data[0].response;
-        console.warn("sdfsdfsdf", user);
+        let doc = res.data[0].response; 
 
-        if (doc.length <= 0) {
+  
+          
+        if (doc[0]._id){
+            console.log("dd");
+            let userData = {
+              _id: user.id,
+              userId: user.id,
+              user_name: user.given_name,
+              email: user.email,
+              last_name: user.family_name,
+              mobile_number: user.phoneNumber,
+              user_photo: user.picture || "/assets/image/default-user.jpg",
+              role: "user",
+              isProfileCompleted: false,
+              isActive: true,
+              user_type: "",
+            };
+
+ 
+            this.dataservice.UpdateUser(userData._id,userData).subscribe((res:any)=>{
+                console.log(res);
+                this.token.push({token: res.data });
+                this.token.push( userData );
+                this.dataservice.storedToken(this.token);  
+                this.userProfile = user;
+                // if (result){ 
+                  this.callRedirect(user.email);
+            })
+            
+
+
+        }else{
+          
+        
           let userData = {
             _id: user.id,
             userId: user.id,
@@ -102,30 +140,93 @@ export class AuthService {
             isActive: true,
             user_type: "",
           };
-          console.warn(userData);
-          localStorage.setItem("auth", JSON.stringify(userData));
 
+          // let userData = Object.assign(
+          //   { userId: user.uid },
+          //   { user_name: user.displayName }, { email: user.email },
+          //   { mobile_number: user.phoneNumber },
+          //   { user_photo: user.photoURL || '/assets/image/default-user.jpg' },
+          //   { role: "user" }, { isProfileCompleted: false }, { isActive: true },
+          //   { user_type: '' }) 
+  
+          console.log("save");
+          
           this.dataservice
-            .saveUser("user", userData)
+            .saveUser( userData)
             .subscribe((result: any) => {
-              this.token.push({ token: result.data });
-              this.token.push({ token: userData });
-              this.dataservice.storedToken(this.token);
-              console.log(user);
-
+              console.log(result);     
+              this.token.push({token: result.data });
+              this.token.push( userData );
+              this.dataservice.storedToken(this.token);  
               this.userProfile = user;
-              this.callRedirect(user.email);
+              // if (result){ 
+                this.callRedirect(user.email);
+              // }
             });
+  
         }
+
+
+
+
+
+
+
+          // }else{
+          //   let userData = {
+          //     _id: user.id,
+          //     userId: user.id,
+          //     user_name: user.given_name,
+          //     email: user.email,
+          //     last_name: user.family_name,
+          //     mobile_number: user.phoneNumber,
+          //     user_photo: user.picture || "/assets/image/default-user.jpg",
+          //     role: "user",
+          //     isProfileCompleted: false,
+          //     isActive: true,
+          //     user_type: "",
+          //   };
+          // console.log("update");
+
+          //   this.dataservice.UpdateUser(userData._id,userData).subscribe((update:any)=>{
+
+          //     this.token.push({token: update.data });
+          //     this.token.push( userData );
+          //     this.dataservice.storedToken(this.token);  
+          //     this.userProfile = user;
+          //   //   // if (result){ 
+          //       this.callRedirect(user.email);
+
+
+          //   })
+
+
+
+
+
+
+
+
+
+
+          // }
+
       });
+
+ 
   }
 
+
+
+
+  
   callRedirect(email: any) {
+    debugger
     const filterCondition1 = {
       filter: [
         {
           clause: "AND",
-          conditions: [{ column: "email", operator: "EQUALS", value: email }],
+          conditions: [{ column: "email", operator: "EQUALS", value: email ,type: "string"}],
         },
       ],
     };
@@ -133,11 +234,35 @@ export class AuthService {
     this.dataservice
       .getDataByFilter("user", filterCondition1)
       .subscribe((res: any) => {
+
         let data = res.data[0].response;
+ 
+        if (data.length > 0) {
+          data.forEach((element:any) => {
+            this.userId = element._id;
+            
+          });
+ 
+          }else[
+            this.userId = data._id
+          ] 
 
-        this.userId = data._id;
 
-        this.router.navigate([`/edit/profile/${this.userId}`]);
+          // if (this.userId) {
+            console.log(this.userProfile.isProfileCompleted );
+            
+          // if (!this.userProfile.isProfileCompleted ) {
+          //     this.router.navigate([`/edit/profile/${this.userId}`]);
+          // } else {
+            if (this.userId) {
+            this.router.navigate([`home`]);
+
+          }else{
+            this.router.navigate([`/edit/user/${this.userId}`]);
+
+          }
+      // }
+        // this.router.navigate([`/edit/profile/${this.userId}`]);
       });
  
 
@@ -160,6 +285,13 @@ export class AuthService {
     // });
   }
 
+
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(sessionStorage.getItem("user")!);
+    return user !== null && user.emailVerified !== false ? true : false;
+  }
+
+
   // } else {
   //   debugger
 
@@ -174,10 +306,7 @@ export class AuthService {
   // }
 
   // Returns true when user is looged in and email is verified
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(sessionStorage.getItem("user")!);
-    return user !== null && user.emailVerified !== false ? true : false;
-  }
+
 
   // Sign in with Google
   // GoogleAuth() {

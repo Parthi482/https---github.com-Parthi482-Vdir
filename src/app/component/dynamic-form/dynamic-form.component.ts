@@ -46,6 +46,7 @@ export class DynamicFormComponent {
   ngOnInit() {
     
     this.paramsSubscription = this.route.params.subscribe(params => {
+      
       if (params['form']) {
         this.formName = params['form'];
       }
@@ -95,6 +96,7 @@ export class DynamicFormComponent {
 // if(this.form.valid){
 
         this.formService.saveFormData(this).then((result: any) => {
+          
           console.log(result);
           if (result != undefined) {
             this.goBack(result)
@@ -134,6 +136,7 @@ export class DynamicFormComponent {
     
     if (this.config.editMode == 'page' && this.config.cancelroute_ID) {
       this.router.navigate([`${this.config.onCancelRoute}`+this.model[this.config.add_value]]);
+      
     }
    else  if (this.config.editMode == 'page') {
       this.router.navigate([`${this.config.onCancelRoute}`]);
@@ -168,6 +171,8 @@ export class DynamicFormComponent {
        
         // this.onClose.emit(data)
         } else {
+          console.warn(this.form.value);
+          
           let insertedData = Object.assign(this.model,this.form.value)
               
         

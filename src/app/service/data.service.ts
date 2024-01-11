@@ -147,12 +147,16 @@ export class DataService {
   public save(collectionName: any,data: any,) {
     return this.http.post(this.getWsBaseUrl()+"entities/"+`${collectionName}`, data);
   }
-public saveUser(collectionName:any,data: any){
-  console.log(data);
-  
-  return this.http.post(this.getWsBaseUrl()+"token_generator/"+`${collectionName}`, data);
-}
 
+
+public saveUser(data: any){ 
+  // return this.http.post(this.getWsBaseUrl()+"token_generator/insert" +  data);
+  return this.http.post(this.getWsBaseUrl()+"token_generator/insert", data);
+}
+public UpdateUser(id:any, data :any){
+  // return this.http.put(this.getWsBaseUrl() +"token_generator/update"+id); 
+  return this.http.put(this.getWsBaseUrl()+"token_generator/update/"+id,data)
+}
 
 
 

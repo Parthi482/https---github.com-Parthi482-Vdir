@@ -103,7 +103,9 @@ export class LogoComponent extends FieldType implements OnInit {
   // this.url=this.model[this.opt.key]
   this.auth=localStorage.getItem('auth');
   this.value=JSON.parse(this.auth)
-  this.url=this.value.user_photo
+ 
+  let key:any =this.field.key
+  this.url=(this.value.user_photo || this.model[key])
 }
 
   public get thisFormControl(): FormControl {
