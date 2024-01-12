@@ -148,6 +148,10 @@ export class DataService {
     return this.http.post(this.getWsBaseUrl()+"entities/"+`${collectionName}`, data);
   }
 
+public GetTokenHanderUser(id:any){
+  return this.http.get(this.getWsBaseUrl()+"token_generator/"+id)
+
+}
 
 public saveUser(data: any){ 
   // return this.http.post(this.getWsBaseUrl()+"token_generator/insert" +  data);
@@ -191,21 +195,16 @@ public UpdateUser(id:any, data :any){
   }
 
   //! public getDataByFilter(collectionName: any, filter: any,c?: any,limit?: any) {
-  //     return this.http.post(this.getWsBaseUrl() + 'search/' + collectionName +`/0/${limit||1000}`,filter);
+ 
+  storedToken(tokenValue: any) { 
+    console.log(tokenValue);
     
-  // }
-  storedToken(tokenValue: any,type?:boolean) {
-    if(type){
-      let data:any = JSON.stringify(tokenValue);
-      localStorage.setItem('auth', data);
-        return true;
-    }else{
       let data:any = JSON.stringify(tokenValue[1]);
       localStorage.setItem('auth', data);
-      localStorage.setItem('token', tokenValue[0].token);
-      return true;
-    }
-
+      console.log(tokenValue[0]);
+      
+      localStorage.setItem('token', tokenValue[0]);
+      return true; 
   }
   
   public fileupload(data: any) {

@@ -29,6 +29,7 @@
         "@angular/router": "^16.0.0",
         "@auth0/angular-jwt": "^5.1.2",
         "@ciri/ngx-countdown": "^1.0.0",
+        "@fancyapps/ui": "^5.0.33",
         "@fortawesome/fontawesome-free": "^6.4.0",
         "@ionic/angular": "^7.0.7",
         "@kolkov/angular-editor": "^3.0.0-beta.0",

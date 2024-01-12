@@ -78,6 +78,7 @@ import { CarsoalComponent } from './carsoal.component';
 import { FormlyFieldInputTextEnterKey } from "./inputcheck";
 import { MatStepperModule } from '@angular/material/stepper';
 import { FormlyFieldStepper } from "./stepper";
+import { Carousel } from '@fancyapps/ui';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { EventComponent } from "../component/event/event.component";  
@@ -96,6 +97,8 @@ import { SlickCarouselModule } from "ngx-slick-carousel";
 import { CounterComponent } from './counter.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { Login } from "./login";
+import { HomeScreenInput } from "./home";
+import { MatGridListModule } from "@angular/material/grid-list";
 // import { ColorPickerInputComponent } from "./colourpicker";
 
 
@@ -399,6 +402,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
       CounterComponent,
         Tab,
         FileInput,
+        HomeScreenInput,
         CheckboxComponent,
         HtmlInput,
         LabelView,
@@ -441,7 +445,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
         ScreenComponent,
         ColorPickerInputComponent,
         Login,
-        
+        HomeScreenInput,
 
     ],
     exports: [
@@ -490,9 +494,14 @@ name:"carousel-component-input",Component:CarouselComponentInput
     ],
     imports: [
       MatCardModule,
+      MatButtonModule,
       SlickCarouselModule,
       FlexLayoutModule,
+      // Carousel,
+
         BrowserModule,
+        MatGridListModule,
+
         DragDropModule,
         CommonModule,
         MatCardModule,

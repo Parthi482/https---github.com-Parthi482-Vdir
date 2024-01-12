@@ -1,17 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { IDropdownSettings } from 'ng-multiselect-dropdown'; 
 import { AuthService } from 'src/app/service/auth.service';
 import { ApiService } from 'src/app/service/search.service';
 import { SharedService } from 'src/app/service/shared.service';
+import { parse } from 'uuid';
+import { isEmpty } from "lodash";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent  implements OnInit {
+export class HeaderComponent  implements OnInit,OnChanges,AfterContentInit{
 nav() {
   this.router.navigateByUrl("home")
 }
@@ -26,7 +28,7 @@ nav() {
   jobSeekerName:any;
   Company_logo:any;
   employerName:any;
-  isLoggedIn = false;
+  isLoggedIn:boolean = false;
   isLoggedOut = false;
 deatils:any
 admin:boolean=false;
@@ -40,9 +42,12 @@ city:IDropdownSettings = {
 };
 
 cityList:any[] = [];
-  constructor( private route:ActivatedRoute , public authService: AuthService,private router:Router , private auth : ApiService,private sharedService: SharedService){
+  constructor(private cf :ChangeDetectorRef,private route:ActivatedRoute , public authService: AuthService,private router:Router , private auth : ApiService,private sharedService: SharedService){
    
    }
+  ngAfterContentInit(): void {
+    throw new Error('Method not implemented.');
+  }
    
    isSearchDropdownOpen: boolean = false;
 
@@ -62,47 +67,40 @@ cityList:any[] = [];
     this.sharedService.updateSearchQuery(this.searchValue);
     console.log(this.searchValue);
 
-  }
-  // onSearchInputChange() {
-  //   this.sharedService.updateSearchValue(this.searchValue);
-  //   console.log(this.searchValue);
+  } 
 
-  // }
-
-  ngOnInit(){
-
-// if(this.auth.decodeToken().role==='Company'){
-// this.admin=true
-// console.log(this.admin);
-// this.userName=this.auth.decodeToken().name
-// // console.log(this.userName);
-// }else{
-// this.seeker=true
-// console.log(this.seeker);
-// this.userName=this.auth.decodeToken().firstName
-// // console.log(this.userName);
-// }
-
-this.auth.isLoggedIn().then((data:any)=>{
-
-if(data==true){
-    this.isLoggedIn = true;
-    // this.isLoggedOut=false
-    this.deatils=this.auth.getdetails()
-    console.log(this.deatils);
-     this.userName=this.deatils.user_name
-    console.log(this.deatils.Name);
-    this.profile_pic=this.deatils.user_photo
+  ngOnInit(){ 
+    console.log("ddd");
+    
+    let user = JSON.parse(localStorage.getItem('auth') as string);
+    this.deatils = user;
+      if (!isEmpty(user)){
+        this.isLoggedIn = true; 
+        this.userName=this.deatils.user_name ;
+        this.profile_pic=this.deatils.user_profile; 
+      }
 
 
-  } else{
-    this.isLoggedIn = false;
-    this.deatils=this.auth.getdetails()
-    console.log(this.deatils);
+// this.auth.isLoggedIn().then((data:any)=>{
+//   console.log(data);
+  
+// if(data==true){
+//     this.isLoggedIn = true; 
+//     // this.deatils=this.auth.getdetails()
+//     let value:any=localStorage.getItem("auth")
+    
+//     console.log(this.deatils);
+//      this.userName=this.deatils.user_name 
+//     this.profile_pic=this.deatils.user_profile
+  
+//   } else{
+//     this.isLoggedIn = false;
+//     this.deatils=this.auth.getdetails()
+//     console.log(this.deatils);
 
-  }
+//   }
 
-})
+// })
 
   }
   search = new FormGroup({
@@ -117,35 +115,13 @@ if(data==true){
       let data:any = this.search.getRawValue()
 console.log(data);
 
-  let val:any[]=[data.city[0].city,data.domain,data.value]
-// console.log(val);
-let route:any=this.route
-// console.log(route);
-// console.log(route?.url._value[0].path);
-
-// console.log(route?.routeConfig.path);
+  let val:any[]=[data.city[0].city,data.domain,data.value] 
+let route:any=this.route 
 console.log(route?._routerState.snapshot.url);
 const cityValue = val[0];
 const typeValue = val[1];
 const domainValue = val[2]
-
-// this.router.navigateByUrl('jobs/')
-// if (route?._routerState.snapshot.url=='/jobs'||route?._routerState.snapshot.url==`/jobs?city=${cityValue}&type=${typeValue}`){
-//   this.router.navigate(
-//     ['/jobs'],
-//     { queryParams: { city: data.city[0].city,type:data.value } }
-//   );
-// }
-// else if(route?._routerState.snapshot.url=='/companies'||route?._routerState.snapshot.url==`/companies?city=${cityValue}&type=${typeValue}`){
-//   this.router.navigate(
-//     ['/companies'],
-//     { queryParams: { city: data.city[0].city,type:data.value } }
-//   );
-// }
-// else{
-//   console.log('hi')
-// }
-
+ 
 if (data.domain === "Jobs") {
   const formattedValue = data.value.replace(/\s+/g, '-');
   this.router.navigate(
@@ -166,34 +142,40 @@ if (data.domain === "Jobs") {
   );
 }
 
-this.sharedService.updateDropdownValues(val);
-    // console.log(val);
+this.sharedService.updateDropdownValues(val); 
 
+  } 
 
-
+ngAfterContentChecked(): void {  
+  let user = JSON.parse(localStorage.getItem('auth') as string);
+  if (!isEmpty(user)){ 
+    this.isLoggedIn = true;
+    this.userName=this.deatils.user_name ;
+    this.profile_pic=this.deatils.user_profile;  
+    console.log("hhhh");
+    
   }
-//  click(){
-//   let data:any = this.search.getRawValue()
+}
 
-//   let val:any[]=[data.city[0].city,data.value]
-// console.log(val);
-
-
-
-//  }
+ 
 
   ngOnChanges(){
+    console.log("dddd");
+    
 // console.log(this.auth.decodeToken());
-this.auth.isLoggedIn().then((data:any)=>{
-  this.isLoggedIn = data;
+// this.auth.isLoggedIn().then((data:any)=>{
+//   this.isLoggedIn = data;
 
-})
-    // if(this.auth.decodeToken()){
-    // } else{
-    //   this.isLoggedIn = false;
+// })
+//     if(this.auth.decodeToken()){
+//     } else{
+//       this.isLoggedIn = false;
 
-    // }
+//     }
+console.log("changes");
+
   }
+
   func3(parms: any, role: string) {
     let userType: string;
 
@@ -264,19 +246,13 @@ func13(){
 func111(){
   this.router.navigateByUrl('eventlanding')
 }
-signOut() {
-  console.log(this.deatils);
-
-  let data=this.deatils.role
-  console.log(data);
+signOut() { 
+  let data=this.deatils.role 
 this.isLoggedIn=false
 this.isLoggedOut=true
   localStorage.clear();
-  sessionStorage.clear();
-  // this.auth.signOut();
-  // this.router.navigate(['auth/login']);
-  this.router.navigateByUrl('/home')
-
+  sessionStorage.clear(); 
+  this.router.navigateByUrl('/home') 
 }
 func44(){
   this.router.navigateByUrl('dashboard/profile')

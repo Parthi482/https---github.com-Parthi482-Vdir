@@ -151,9 +151,9 @@ getfilterjob(data:any){
 
   isLoggedIn(): Promise<any>{
     return new Promise(async(resolve, reject) => {
-      console.log(!!localStorage.getItem('token'));
+      console.log(!localStorage.getItem('token'));
 
-    resolve(!!localStorage.getItem('token'));
+    resolve(!localStorage.getItem('token'));
     })
   }
 

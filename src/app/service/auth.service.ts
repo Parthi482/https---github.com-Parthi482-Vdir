@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from "@angular/core";
+import { ChangeDetectorRef, Injectable, NgZone } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import {
   AngularFirestore,
@@ -11,6 +11,9 @@ import { DataService } from "./data.service";
 import { ApiService } from "./search.service";
 import firebase from "firebase/compat/app";
 import { async } from "rxjs";
+import { isEmpty } from "lodash";
+
+type NewType = boolean;
 
 @Injectable({
   providedIn: "root",
@@ -20,14 +23,14 @@ export class AuthService {
   token: any[] = [];
   userData: any; // Save logged in user data
   userId: any;
-  constructor(
+  constructor( 
     public afs: AngularFirestore,
     private afAuth: AngularFireAuth,
     private api: ApiService,
     private dataservice: DataService,
     public router: Router,
     public ngZone: NgZone // NgZone service to remove outside scope warning
-  ) {}
+  ) { }
 
   obj: any = {};
   obj1: any = {};
@@ -35,37 +38,12 @@ export class AuthService {
   obj3: any = {};
 
   //firebase login function
-  // GoogleAuth() {
-  //   console.log(this.AuthLogin(new firebase.auth.GoogleAuthProvider()));
 
-  //   return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
-
-  // }
-
-  // async AuthLogin(provider: any) {
-  //   try {
-  //     const result: any = await this.afAuth.signInWithPopup(provider);
-  //     this.SetUserData(result.user.multiFactor.user);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
   GoogleAuth() {
     return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
   }
 
-  // Auth logic to run auth providers
-  // AuthLogin(provider: any) {
-  //   return this.afAuth
-  //     .signInWithPopup(provider)
-  //     .then((result) => { 
-       
-  //       this.SetUserData(result.additionalUserInfo?.profile);
-  //     })
-  //     .catch((error) => {
-  //       window.alert(error);
-  //     });
-  // }
+  // Auth logic to run auth providers 
   async AuthLogin(provider: any) {
     try {
       const result: any = await this.afAuth.signInWithPopup(provider);
@@ -76,7 +54,7 @@ export class AuthService {
   }
 
 
-  async SetUserData(user: any) {  
+  async SetUserData(user: any) { 
     const filterCondition1 = {
       filter: [
         {
@@ -91,196 +69,69 @@ export class AuthService {
     this.dataservice
       .getDataByFilter("user", filterCondition1)
       .subscribe(async (res: any) => {
-        let doc = res.data[0].response; 
-
-  
-          
-        if (doc[0]._id){
-            console.log("dd");
-            let userData = {
-              _id: user.id,
-              userId: user.id,
-              user_name: user.given_name,
-              email: user.email,
-              last_name: user.family_name,
-              mobile_number: user.phoneNumber,
-              user_photo: user.picture || "/assets/image/default-user.jpg",
-              role: "user",
-              isProfileCompleted: false,
-              isActive: true,
-              user_type: "",
-            };
-
- 
-            this.dataservice.UpdateUser(userData._id,userData).subscribe((res:any)=>{
-                console.log(res);
-                this.token.push({token: res.data });
-                this.token.push( userData );
-                this.dataservice.storedToken(this.token);  
-                this.userProfile = user;
-                // if (result){ 
-                  this.callRedirect(user.email);
-            })
-            
-
-
-        }else{
-          
-        
+        let doc = res.data[0].response 
+        if (!isEmpty(doc)) {  
+          this.dataservice.GetTokenHanderUser(doc[0].email).subscribe((res: any) => { 
+            if (!isEmpty(res.data)) {    
+              // let data:any = JSON.stringify(doc[0]);
+              // localStorage.setItem('auth', data); 
+              localStorage.setItem('auth', JSON.stringify(doc[0]));
+              localStorage.setItem('token', res.data.token); 
+              this.userProfile = doc; 
+              this.router.navigate([`home`]); 
+            } 
+          }) 
+        } else {  
           let userData = {
-            _id: user.id,
-            userId: user.id,
+            _id:  user.id,
+            user_id: user.id,
             user_name: user.given_name,
             email: user.email,
             last_name: user.family_name,
             mobile_number: user.phoneNumber,
-            user_photo: user.picture || "/assets/image/default-user.jpg",
+            user_profile: user.picture || "/assets/image/default-user.jpg",
             role: "user",
             isProfileCompleted: false,
             isActive: true,
             user_type: "",
-          };
-
-          // let userData = Object.assign(
-          //   { userId: user.uid },
-          //   { user_name: user.displayName }, { email: user.email },
-          //   { mobile_number: user.phoneNumber },
-          //   { user_photo: user.photoURL || '/assets/image/default-user.jpg' },
-          //   { role: "user" }, { isProfileCompleted: false }, { isActive: true },
-          //   { user_type: '' }) 
-  
-          console.log("save");
+          };  
           
           this.dataservice
-            .saveUser( userData)
-            .subscribe((result: any) => {
-              console.log(result);     
-              this.token.push({token: result.data });
-              this.token.push( userData );
-              this.dataservice.storedToken(this.token);  
+            .saveUser(userData)
+            .subscribe((result: any) => {   
+              // let data:any = JSON.stringify(userData);
+              // localStorage.setItem('auth', data); 
+              localStorage.setItem('auth', JSON.stringify(userData));
+              localStorage.setItem('token',  result.data); 
               this.userProfile = user;
-              // if (result){ 
-                this.callRedirect(user.email);
-              // }
-            });
-  
-        }
-
-
-
-
-
-
-
-          // }else{
-          //   let userData = {
-          //     _id: user.id,
-          //     userId: user.id,
-          //     user_name: user.given_name,
-          //     email: user.email,
-          //     last_name: user.family_name,
-          //     mobile_number: user.phoneNumber,
-          //     user_photo: user.picture || "/assets/image/default-user.jpg",
-          //     role: "user",
-          //     isProfileCompleted: false,
-          //     isActive: true,
-          //     user_type: "",
-          //   };
-          // console.log("update");
-
-          //   this.dataservice.UpdateUser(userData._id,userData).subscribe((update:any)=>{
-
-          //     this.token.push({token: update.data });
-          //     this.token.push( userData );
-          //     this.dataservice.storedToken(this.token);  
-          //     this.userProfile = user;
-          //   //   // if (result){ 
-          //       this.callRedirect(user.email);
-
-
-          //   })
-
-
-
-
-
-
-
-
-
-
-          // }
-
-      });
-
- 
+              this.router.navigate([`/edit/user/${userData._id}`]); 
+            }); 
+        } 
+      }); 
   }
 
 
 
+  // IsLoggedIn() :any {
+  //   const user =  localStorage.getItem("auth");
 
-  
-  callRedirect(email: any) {
-    debugger
-    const filterCondition1 = {
-      filter: [
-        {
-          clause: "AND",
-          conditions: [{ column: "email", operator: "EQUALS", value: email ,type: "string"}],
-        },
-      ],
-    };
+  // }
 
-    this.dataservice
-      .getDataByFilter("user", filterCondition1)
-      .subscribe((res: any) => {
 
-        let data = res.data[0].response;
- 
-        if (data.length > 0) {
-          data.forEach((element:any) => {
-            this.userId = element._id;
-            
-          });
- 
-          }else[
-            this.userId = data._id
-          ] 
+
+
+
+
+
+
+
+
+
+
 
  
-            if (this.userId) {
-            this.router.navigate([`home`]);
-
-          }else{
-            this.router.navigate([`/edit/user/${this.userId}`]);
-
-          }
-      
-      });
- 
-
-
-
-
-
-    // this.api.GetByID('user', 'email', email).subscribe((data: any) => {
-    //   this.userId = data[0]._id;
-    //   console.log(this.userId);
-
-    // Move the condition checks inside the subscription block
-    // if (this.userId) {
-    //     if (!this.userProfile.isProfileCompleted || newUser) {
-    //         this.router.navigate([`/edit/profile/${this.userId}`]);
-    //     } else {
-    //         this.router.navigate([`/edit/profile/${this.userId}`]);
-    //     }
-    // }
-    // });
-  }
-
-
   get isLoggedIn(): boolean {
-    const user = JSON.parse(sessionStorage.getItem("user")!);
+    const user = JSON.parse(sessionStorage.getItem("auth")!);
     return user !== null && user.emailVerified !== false ? true : false;
   }
 
