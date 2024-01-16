@@ -1,0 +1,176 @@
+ 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container"> 
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">MENU
+        <span class="navbar-toggler-icon" style="background-color: white;"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" style="color: white;">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about" style="color: white;">Speakers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact" style="color: white;">Agenda</a>
+          </li>
+        </ul>
+        <button  class="button-18" >
+            CONFIRM YOUR SEAT
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+  <div  >
+    <img src="../../assets/image/11557.jpg" height="700px" width="100%">
+  </div>
+   
+
+
+<div class="container">
+    <div class="left-side">
+      <h1>ABOUT</h1>
+      <div>
+        <button class="button-18">CONFIRM YOUR SEAT</button>
+      </div>
+    </div>
+    <div class="right-side">
+      <h2>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa mollitia non illum enim explicabo odit laborum ad possimus, suscipit fugiat. Accusantium cum voluptas mollitia, quidem blanditiis pariatur maxime unde!
+      </h2>
+    </div>
+  </div>
+   
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 left-side">
+        <h1 style="font-family: 'Mitr', sans-serif;">SPEAKERS</h1>
+      </div>
+      <div class="col-md-6 right-side">
+        <button class="button-18">VIEW ALL SPEAKERS</button>
+      </div>
+    </div>
+  </div>
+  
+
+  <section class="game-section">
+    <ngx-slick-carousel class="carousel">
+      <div *ngFor="let item of carouselItems.slice(0, initialItemsToShow); let i = index">
+        <div class="item" [ngStyle]="{'background-image': 'url(' + item.imageUrl + ')'}">
+          <div class="item-desc">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+          </div>
+        </div>
+      </div>
+    </ngx-slick-carousel>
+  </section>
+  
+
+ 
+<div class="schedule-header">AGENDA</div>
+ 
+
+<div class="day-tabs">
+    <div class="day-tab" [class.active]="activeDay === 'day17'" (click)="showSchedule('day17')">17th Aug</div>
+    <div class="day-tab" [class.active]="activeDay === 'day18'" (click)="showSchedule('day18')">18th Aug</div>
+    <div class="day-tab" [class.active]="activeDay === 'day19'" (click)="showSchedule('day19')">19th Aug</div>
+  </div>
+  
+  <div class="schedule-container" [ngClass]="{ 'active': activeDay === 'day17' }">
+    <div class="time-slot">
+      <div>
+        <div>Registration And Breakfast</div>
+        <div>- Mal Practice</div>
+      </div>
+      <div class="event-time">8:30 am</div>
+    </div>
+    <div class="time-slot">
+      <div>
+        <div>Opening Remarks And Keynote</div>
+        <div>- Aaron Ottix</div>
+      </div>
+      <div class="event-time">10:00 am</div>
+    </div>
+    <div class="time-slot">
+      <div>
+        <div>Web Accessible Designs</div>
+        <div>- Frank Senbeans</div>
+      </div>
+      <div class="event-time">11:30 am</div>
+    </div>
+    <div class="time-slot">
+      <div>
+        <div>Building Communities</div>
+        <div>- Ken Tucky</div>
+      </div>
+      <div class="event-time">12:30 pm</div>
+    </div>
+  </div>
+  
+  <div class="schedule-container" [ngClass]="{ 'active': activeDay === 'day18' }">
+    <div class="time-slot">
+      <div>
+        <div>RegistrationRegistrationRegistrationRegistrationRegistration And Breakfast</div>
+        <div>- Mal Practice</div>
+      </div>
+      <div class="event-time">8:30 am</div>
+    </div>
+    <div class="time-slot">
+      <div>
+        <div>Opening Remarks And Keynote</div>
+        <div>- Aaron Ottix</div>
+      </div>
+      <div class="event-time">10:00 am</div>
+    </div>
+    <div class="time-slot">
+      <div>
+        <div>Web Accessible Designs</div>
+        <div>- Frank Senbeans</div>
+      </div>
+      <div class="event-time">11:30 am</div>
+    </div>
+    <div class="time-slot">
+      <div>
+        <div>Building Communities</div>
+        <div>- Ken Tucky</div>
+      </div>
+      <div class="event-time">12:30 pm</div>
+    </div>
+  </div>
+  
+  <div class="schedule-container" [ngClass]="{ 'active': activeDay === 'day19' }">
+    <div class="time-slot">
+      <div>
+        <div>Registration And Breakfast</div>
+        <div>- Mal Practice</div>
+      </div>
+      <div class="event-time">8:30 am</div>
+    </div>
+    <div class="time-slot">
+      <div>
+        <div>Opening Remarks And Keynote</div>
+        <div>- Aaron Ottix</div>
+      </div>
+      <div class="event-time">10:00 am</div>
+    </div>
+    <div class="time-slot">
+      <div>
+        <div>Web Accessible Designs</div>
+        <div>- Frank Senbeans</div>
+      </div>
+      <div class="event-time">11:30 am</div>
+    </div>
+    <div class="time-slot">
+      <div>
+        <div>Building Communities</div>
+        <div>- Ken Tucky</div>
+      </div>
+      <div class="event-time">12:30 pm</div>
+    </div>
+  </div>
+  

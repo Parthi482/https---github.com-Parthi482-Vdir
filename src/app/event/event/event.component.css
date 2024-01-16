@@ -1,0 +1,402 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .brand {
+    font-size: 1.5rem;
+  }
+  
+  .nav-list {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-list li {
+    font-size: 1rem;
+  }
+  
+  /* Responsive Styles */
+  @media screen and (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .nav-list {
+      margin-top: 10px;
+    }
+  
+    .nav-list li {
+      margin-bottom: 10px;
+    }
+  }
+ 
+
+  .button-18 {
+    align-items: center;
+    background-color: rgb(255,193,7); 
+    border: 0;
+    border-radius: 100px;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 20px;
+    max-width: 480px;
+    min-height: 40px;
+    min-width: 0px;
+    overflow: hidden;
+    padding: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    touch-action: manipulation;
+    transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+  }
+  
+  .button-18:hover,
+  .button-18:focus {  
+    background-color: rgb(255,193,7);  
+
+    color: #ffffff;
+  }
+  
+  .button-18:active {
+border: rgb(255,193,7);
+
+    color: rgb(255, 255, 255, .7);
+  }
+  
+  .button-18:disabled { 
+    cursor: not-allowed;
+    background: rgba(0, 0, 0, .08);
+    color: rgba(0, 0, 0, .3);
+  }
+
+
+  /* Your Component's CSS file */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .left-side {
+    flex: 1; /* Take up available space */
+    padding: 20px; /* Add padding as needed */
+  }
+  
+  .right-side {
+    flex: 2; /* Take up more space than left side */
+    padding: 20px; /* Add padding as needed */
+  }
+  
+
+  img {
+    max-width: 100%;
+    border: 0px;
+  }
+
+
+  
+ul,
+ol {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+}
+a:focus,
+a:active,
+a:visited,
+a:hover {
+  text-decoration: none;
+  outline: none;
+}
+a:hover {
+  color: #e73700;
+}
+h2 {
+  margin-bottom: 48px;
+  padding-bottom: 16px;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  position: relative;
+  text-transform: capitalize;
+}
+h3 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  line-height: 36px;
+}
+button {
+  outline: none !important;
+}
+/******* Common Element CSS End *********/
+
+/* -------- title style ------- */
+.line-title {
+  position: relative;
+  width: 400px;
+}
+.line-title::before,
+.line-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  border-radius: 2px;
+}
+.line-title::before {
+  width: 100%;
+  background: #f2f2f2;
+}
+.line-title::after {
+  width: 32px;
+  background: #e73700;
+}
+
+/******* Middle section CSS Start ******/
+/* -------- Landing page ------- */
+.game-section {
+  padding: 60px 50px;
+}
+.game-section .owl-stage {
+  margin: 15px 0;
+  display: flex;
+  display: -webkit-flex;
+}
+.game-section .item {
+  margin: 0 15px 60px;
+  width: 320px;
+  height: 400px;
+  display: flex;
+  display: -webkit-flex;
+  align-items: flex-end;
+  -webkit-align-items: flex-end;
+  background: #343434 no-repeat center center / cover;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+.game-section .item.active {
+  width: 500px;
+  box-shadow: 12px 40px 40px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 12px 40px 40px rgba(0, 0, 0, 0.25);
+}
+.game-section .item:after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+}
+.game-section .item-desc {
+  padding: 0 24px 12px;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transform: translateY(calc(100% - 54px));
+  -webkit-transform: translateY(calc(100% - 54px));
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+}
+.game-section .item.active .item-desc {
+  transform: none;
+  -webkit-transform: none;
+}
+.game-section .item-desc p {
+  opacity: 0;
+  -webkit-transform: translateY(32px);
+  transform: translateY(32px);
+  transition: all 0.4s ease-in-out 0.2s;
+  -webkit-transition: all 0.4s ease-in-out 0.2s;
+}
+.game-section .item.active .item-desc p {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+.game-section .owl-theme.custom-carousel .owl-dots {
+  margin-top: -20px;
+  position: relative;
+  z-index: 5;
+}
+/******** Middle section CSS End *******/
+
+/***** responsive css Start ******/
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  h2 {
+    margin-bottom: 32px;
+  }
+  h3 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  /* -------- Landing page ------- */
+  .game-section {
+    padding: 50px 30px;
+  }
+  .game-section .item {
+    margin: 0 12px 60px;
+    width: 260px;
+    height: 360px;
+  }
+  .game-section .item.active {
+    width: 400px;
+  }
+  .game-section .item-desc {
+    transform: translateY(calc(100% - 46px));
+    -webkit-transform: translateY(calc(100% - 46px));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  h2 {
+    margin-bottom: 32px;
+  }
+  h3 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    line-height: 32px;
+  }
+  .line-title {
+    width: 330px;
+  }
+
+  /* -------- Landing page ------- */
+  .game-section {
+    padding: 50px 30px 40px;
+  }
+  .game-section .item {
+    margin: 0 12px 60px;
+    width: 240px;
+    height: 330px;
+  }
+  .game-section .item.active {
+    width: 360px;
+  }
+  .game-section .item-desc {
+    transform: translateY(calc(100% - 42px));
+    -webkit-transform: translateY(calc(100% - 42px));
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: 14px;
+  }
+  h2 {
+    margin-bottom: 20px;
+  }
+  h3 {
+    margin: 0 0 8px;
+    font-size: 19px;
+    line-height: 24px;
+  }
+  .line-title {
+    width: 250px;
+  }
+
+  /* -------- Landing page ------- */
+  .game-section {
+    padding: 30px 15px 20px;
+  }
+  .game-section .item {
+    margin: 0 10px 40px;
+    width: 200px;
+    height: 280px;
+  }
+  .game-section .item.active {
+    width: 270px;
+    box-shadow: 6px 10px 10px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 6px 10px 10px rgba(0, 0, 0, 0.25);
+  }
+  .game-section .item-desc {
+    padding: 0 14px 5px;
+    transform: translateY(calc(100% - 42px));
+    -webkit-transform: translateY(calc(100% - 42px));
+  }
+}
+
+
+
+.schedule-header {
+    background-color: #ffff;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 2rem;
+}
+.day-tabs {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #16213e;
+    padding: 0.5rem;
+  }
+  
+  .day-tab {
+    color: #e6e6e6;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .day-tab.active {
+    color: #f1c40f;
+    border-bottom: 2px solid #f1c40f;
+  }
+  
+  .schedule-container {
+    display: none;
+    padding: 1rem;
+  }
+  
+  .schedule-container.active {
+    display: block;
+  }
+  
+  .time-slot {
+    border-bottom: 1px dashed #52575d;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .time-slot:last-child {
+    border-bottom: none;
+  }
+  
+  .event-time {
+    color: #a7adba;
+  }
+  

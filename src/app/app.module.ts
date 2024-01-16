@@ -13,8 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { EventComponent } from './admin/event/event.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 import { AgGridModule } from 'ag-grid-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -23,15 +22,21 @@ import { ComponentModule } from './component/component.module';
 import { TokenInterceptor } from 'src/interceptor/tokenInceptor';
 import { AngularFireModule } from '@angular/fire/compat';
 import { env, environment } from 'src/environments/environment';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth'; 
+import { EventComponent } from './event/event/event.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SlickCarouselModule } from 'ngx-slick-carousel'; // Import SlickCarouselModule
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, 
+    EventComponent
 
   ],
   imports: [
+    SlickCarouselModule ,
+
     BrowserModule,
     AppRoutingModule,AgGridModule,
     SharedModule,

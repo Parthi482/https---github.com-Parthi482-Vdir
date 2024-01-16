@@ -18,8 +18,17 @@ import { EventScreenComponent } from './dashboard/event-screen/event-screen.comp
 import { JoblistHome } from './dashboard/event-screen/joblist-home';
 import { Login } from './control/login';
 import { HomeScreenInput } from './control/home';
+import { EventComponent } from './event/event/event.component';
  
 const routes: Routes = [
+{
+  path:"testing",
+  component:EventComponent
+},
+
+
+
+
 {
   path:'homescreen',
   component:DashLayoutComponent,
