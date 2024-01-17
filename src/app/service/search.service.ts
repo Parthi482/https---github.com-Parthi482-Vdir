@@ -104,6 +104,8 @@ getfilterjob(data:any){
 
  getdetails(){
   let value:any=localStorage.getItem("auth")
+  console.log(value);
+  
   let details:any=JSON.parse(value)
   return details
  }

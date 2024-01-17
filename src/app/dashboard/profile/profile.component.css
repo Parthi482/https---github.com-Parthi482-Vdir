@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap');
 
-a:hover{
+/* a:hover{
   cursor: pointer;
 }
 
@@ -14,11 +14,7 @@ body input:focus, textarea:focus {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(0, 0, 0, 0.6);
   outline: 0 none;
 }
-/* #inp2:focus {
-  border-color: rgba(241, 17, 17, 0.998);
-  box-shadow: 0 1px 1px rgb(204, 37, 37) inset, 0 0 8px rgb(239, 17, 17);
-  outline: 0 none;
-} */
+ 
 input[type="checkbox"]:focus {
   border-color: rgba(22, 25, 21, 0.8);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(0, 0, 0, 0.6);
@@ -31,12 +27,31 @@ input[type="checkbox"]:focus {
 
 .bg {
   font-family: 'Barlow';
+} */
+
+
+#fileInput{
+  display: none;
 }
 
-img {
-  height: 100%;
-  width: 100%;
-  border-radius: 50%;
+label {
+  margin-bottom: 30px;
+}
+
+ 
+.profile-container {
+  display: flex;
+}
+
+.profile-image {
+  margin-top: 60px;
+  margin-left: 250px;
+  flex: 1; /* Take 1/3 of the container width */
+}
+
+.profile-form {
+  flex: 2; /* Take 2/3 of the container width */
+  padding-left: 20px; /* Adjust as needed for spacing between image and form */
 }
 
 .hoverable {
@@ -72,6 +87,16 @@ img {
   z-index: 1;
 }
 
+
+img {
+
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+
+
 .hoverable:hover .hover-text {
   display: block;
 }
@@ -80,10 +105,13 @@ img {
   display: block;
 }
 
-#fileInput{
-  display: none;
-}
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+  .profile-container {
+    flex-direction: column;
+  }
 
-label {
-  margin-bottom: 30px;
+  .profile-form {
+    padding-left: 0;
+  }
 }

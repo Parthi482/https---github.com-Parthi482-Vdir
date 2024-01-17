@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn } from '@angular/forms';
+import { DataService } from 'src/app/service/data.service';
 import { ApiService } from 'src/app/service/search.service';
 
 @Component({
@@ -21,29 +22,31 @@ export class ProfileComponent {
   path:any;
   profileForm: FormGroup = new FormGroup({});
    data :any
-  constructor(private http: HttpClient, private auth: ApiService,private fb: FormBuilder) {
+  constructor(private http: HttpClient, private auth: ApiService,private dataservice:DataService,private fb: FormBuilder) {
     this.Email = this.auth.decodeToken().email;
     this.data=this.auth.getdetails()
     // let val = this.data;
     // console.log(this.data._id);
-
-    this.auth.getbyid("seekers_info",this.data._id).subscribe((val:any)=>{
+    console.log(this.data);
+    
+    this.dataservice.getDataById("user",this.data._id).subscribe((res:any)=>{
+      let val = res.data[0]
       console.log(val);
 
           this.profile = {
-            firstName: val.firstName,
-            lastName: val.lastName,
+            firstName: val.user_name,
+            lastName: val.last_name,
             email: val.email,
             password: val.password,
             role: val.role,
-            phone: val.phone,
+            phone: val.mobile_number,
             education: val.education,
             dateofbirth: val.dateofbirth,
             profile_pic:val.profile_pic,
             resume:val.resume,
             address:val.address
           };
-          this.url = val.profile_pic
+          this.url = val.user_profile
 
         })
     // this.auth.getSeekersInfo(this.Email).
@@ -148,7 +151,7 @@ console.log('====================================');
     //   console.log(res);
 
     // })
-    this.auth.finalfileUpload(formData,'s3').subscribe((res:any)=>{
+    this.dataservice.imageupload("resume",id,formData).subscribe((res:any)=>{
       console.log(res);
 
     })
@@ -163,8 +166,8 @@ let id =this.data._id
     resume.append('category', 'resume');
     resume.append('collectionName', 'seekers_info');
 
-    this.auth.finalfileUpload(resume,'s3').subscribe((res:any)=>{
-      console.log(res);
+    this.dataservice.imageupload("resume",id,resume).subscribe((res:any)=>{
+  
 
     })
   }
@@ -212,7 +215,7 @@ let id =this.data._id
 
     // this.http
     //   .put<any>(`http://127.0.0.1:8080/auth/seekers-info/${this.Email}`, this.profile)
-      this.auth.update('seekers_info',this.data._id,formValue)
+      this.dataservice.update('user',this.data._id,formValue)
       .subscribe({
         next: (data: any) => {
           console.log(data);

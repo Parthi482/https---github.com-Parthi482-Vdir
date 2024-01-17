@@ -39,6 +39,7 @@ import { JoblistHome } from './event-screen/joblist-home';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { HomeScreenInput } from '../control/home';
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [
     HomeScreenInput,
@@ -48,10 +49,14 @@ import { HomeScreenInput } from '../control/home';
     EventListComponent,
     AgendaAddComponent,
     EventScreenComponent,
-    JoblistHome
+    JoblistHome,
+    // ProfileComponent
   ],
   imports: [
+    // CommonModule, ReactiveFormsModule, FormsModule,
     CommonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatMenuModule,
     MatCardModule,
     LayoutModule,
@@ -84,7 +89,8 @@ import { HomeScreenInput } from '../control/home';
     MatInputModule, MatProgressBarModule,
     AdminRoutingModule, AgGridModule, ReactiveFormsModule, FormsModule, NgMultiSelectDropDownModule.forRoot(),
 
-  ]
+  ],
+ 
 })
 export class DashboardModule { }
 
