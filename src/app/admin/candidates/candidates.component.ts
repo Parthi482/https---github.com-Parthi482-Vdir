@@ -243,7 +243,7 @@ export class CandidatesComponent {
 
 
 
-      this.auth.getDataByFilter('applied_jobs', filterValue).subscribe((xyz: any) => {
+      this.dataservice.getDataByFilter('applied_jobs', filterValue).subscribe((xyz: any) => {
         console.log(xyz);
 
         this.cardData = []

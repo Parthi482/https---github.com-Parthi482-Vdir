@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/service/search.service';
 import {MatTabsModule} from '@angular/material/tabs';
 import { LayoutModule } from "../../shared/layout/layout.module";
 import { MatIconModule } from '@angular/material/icon';
+import { DataService } from 'src/app/service/data.service';
 
 
 @Component({
@@ -20,9 +21,9 @@ export class CvbuilderComponent {
   http: any;
   search_details: any;
   companyData: any = {};
-  constructor(private auth: ApiService,private route :ActivatedRoute,private router:Router) {
+  constructor(private auth: ApiService,private route :ActivatedRoute,private router:Router,private dataservice:DataService) {
     const id = this.route.snapshot.params['id'];
-    this.auth.getbyid('companies',id).subscribe((xyz:any)=>{
+    this.dataservice.getDataById('companies',id).subscribe((xyz:any)=>{
       console.log(xyz.CompanyName);
       let address=xyz.street+" "+xyz.area+" "+xyz.statename+" "+xyz.pincode
       console.log(address);
@@ -48,16 +49,17 @@ export class CvbuilderComponent {
 this.companyData['fulladdress']=address;
 console.log(this.companyData);
 
+ 
 const filterValue: any = [
   {
-    clause: "$and",
+    clause: "AND",
     conditions: [
-      { column: "companyId", operator: "$eq", value: xyz.unique_id},
-      { column: "status", operator: "$eq", value: "open" }
+      { column: "companyId", operator: "EQUALS", value: xyz.unique_id},
+      { column: "status", operator: "EQUALS", value: "open" }
     ]
   }
 ];
-this.auth.getDataByFilter('jobs',filterValue).subscribe((xyz:any)=>{
+this.dataservice.getDataByFilter('jobs',filterValue).subscribe((xyz:any)=>{
   console.log(xyz);
   this.search_details=xyz
 

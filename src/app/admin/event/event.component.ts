@@ -489,15 +489,7 @@ export class EventComponent {
     this.endval = 1
     this.startval = 0
     console.log(this.value);
-    // const filterValue1: any = [
-    //   {
-    //     clause: "$and",
-    //     conditions: [
-    //       { column: "companyId", operator: "$eq", value: this.value.unique_id },
-    //     ]
-    //   }
-    // ];
-
+  
 
     const filterCondition1 = {
       filter: [

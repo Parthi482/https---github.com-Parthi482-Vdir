@@ -16,7 +16,7 @@ import { Router } from "@angular/router";
         display: flex;
         padding: 16px;
         cursor: pointer;
-        width: 550px;
+        /* width: 550px; */
         max-width: auto;
         margin: 10px;
       }
@@ -40,8 +40,8 @@ import { Router } from "@angular/router";
       }
 
       .name {
-        font-size: 24px;
-        font-weight: bold;
+        font-size: 16px;
+        font-weight: bolder;
       }
       .contact-details {
         display: flex;
@@ -80,11 +80,11 @@ import { Router } from "@angular/router";
         <mat-card
           class="card"
           *ngFor="let event of eventData"
-          style="justify-content: evenly; width: 350px; margin-left: 50px; "
+         
           (click)="navigateToHome('event-details', event._id)"
         >
           <div class="card-content" style="justify-content:center">
-            <div class="image-container" style="padding-right: 50px;">
+            <div class="image-container" >
               <img
                 class="avatar"
                 src="{{
@@ -94,7 +94,10 @@ import { Router } from "@angular/router";
                 alt="{{ event.event_name }}"
               />
             </div>
-            <span class="name"> {{ event.event_name }}</span>
+            <div style="margin-left: 30px;">
+
+              <span class="name" > {{ event.event_name }}</span>
+            </div>
           </div>
         </mat-card>
       </div>
@@ -102,25 +105,7 @@ import { Router } from "@angular/router";
       <div fxFlex>
         <h1>Business list</h1>
 
-        <!-- <div class="card-container" *ngFor="let company of companies">
-    <mat-card class="card" (click)="navigateToHome('event-details', company._id)">
-      <div class="card-content">
-        <div class="image-container">
-          <img class="avatar" [src]="company.Company_logo" alt="{{ company.CompanyName }}" />
-        </div>
-        <div class="details-container">
-          <h2 class="name"> {{ company.CompanyName }}</h2>
-          <h5 class="service-industry"><b> {{ company.industry }}</b> </h5>
-                <div style="float: right;">
-                <h5 class="address" style="float:left ;"><i class="fa fa-phone" aria-hidden="true"></i>{{company.phone}}</h5> 
-                <br>
-          <h5 class="address" style="float:right" *ngIf="company.Address"><b> <i class="fas fa-map-marker-alt marker-icon" style="padding-right: 15px;"></i>{{ company.Address }}</b> </h5>
-                </div>
-
-        </div>
-      </div>
-    </mat-card>
-  </div> -->
+ 
 
         <div class="card-container" *ngFor="let company of companies">
           <mat-card
@@ -137,56 +122,46 @@ import { Router } from "@angular/router";
                 />
               </div>
               <div class="details-container">
-                <h2 class="name">{{ company.CompanyName }}</h2>
+
+              <div>
+              <span class="name">{{ company.CompanyName }}</span> 
                 <h5 class="service-industry">
-                  <b>{{ company.industry }}</b>
+                   {{ company.industry }} 
                 </h5>
-                <div class="contact-details">
-                  <h5 class="phone">
-                    <i class="fa fa-phone" aria-hidden="true"></i
-                    >{{ company.phone }}
-                  </h5>
-                  <h5 class="address">
-                    <b
-                      ><i class="fas fa-map-marker-alt marker-icon"></i
-                      >{{ company.Address }}</b
-                    >
-                  </h5>
+              </div>
+                
+                <div class="contact-details"> 
+                  <span > 
+                    {{ company.phone }}
+                  </span>
+                  <span> 
+                    {{ company.email }}</span>
+                  <span class="address"> 
+                      <i class="fas fa-map-marker-alt marker-icon" style="color: brown;"></i>
+                      {{ company.Address }}  
+                  </span>
+  
                 </div>
               </div>
             </div>
           </mat-card>
         </div>
+
+
+
       </div>
 
       <div fxFlex>
         <h1>Job list</h1>
-        <!-- <mat-card class="card" *ngFor="let job of jobData">
-          <div class="image-container">
-            <img
-              class="avatar"
-              src="{{ job.Company_logo }}"
-              alt="{{ job.companyName }}"
-            />
-          </div>
-          <div class="card-content">
-            <h5 class="name"><b>job title:</b> {{ job.Requirements }}</h5>
-            <br />
-            <h5 class="service-industry">
-              <b>Service Industry:</b> {{ job.industry }}
-            </h5>
-            <h5 class="address"><b>Company Name:</b>{{ job.companyName }}</h5>
-            <h5 class="service-industry"><b>Position</b>:{{ job.role }}</h5>
-          </div>
-        </mat-card> -->
+        
 
-        <div class="card-container"*ngFor="let job of jobData">
+        <div *ngFor="let job of jobData">
           <mat-card
             class="card"
           
             *ngIf="job"
           >
-            <div class="card-content">
+            <div class="card-content" style="justify-content:center">
               <div class="image-container">
                 <img
                   class="avatar"
@@ -194,11 +169,20 @@ import { Router } from "@angular/router";
               alt="{{ job.companyName }}"
                 />
               </div>
-              <div class="details-container">
 
-                <h2  class="name"> {{job.role }}</h2>
-                <h2>{{ job.companyName }}</h2>
-
+              <div style="margin-left: 30px;"> 
+                <span  class="name"> {{job.title }}</span>
+                <br>
+                <span>{{ job.companyName }}</span>
+                <br>
+                <span>{{job.Skill}}</span>
+                <br>
+                <span>{{job.workmode}}</span>
+                <!-- <span>
+                <i class="fa fa-credit-card" aria-hidden="true"></i> 
+                  {{job.salary}}
+                </span> -->
+                <!-- <span>{{job.MaximumExperience}}</span> -->
 <!--               
                 <h2 class="name">{{ company.CompanyName }}</h2>
                 <h5 class="service-industry">

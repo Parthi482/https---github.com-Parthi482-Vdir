@@ -83,15 +83,7 @@ export class FormlyFieldInputTextEnterKey extends FieldType<any> implements OnIn
 
   frmLeave(value:any, field:any) {
     if(field.templateOptions.searchableField) {
-    //   let bookid= ''
-    //   var filterQuery = [{
-    //     clause: "$and",
-    //     conditions: [
-    //      {column: 'book_id', operator: "$eq", value:bookid}, // for book id
-    //      {column: field.key, operator: "$eq", value:value} // same field in template option
-    //     //  {column: field.templateOptions.searchColumnName, operator: "$eq", value:value}, // diff field from template option
-    //    ]
-    //  }]
+     
     //  const keys = field.key
     // let query:any={}
     // if(this.opt.multifilter==true){ 

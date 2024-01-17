@@ -129,16 +129,7 @@ const filterValue1 = {
             const endTime = moment().endOf('day').subtract(1, 'minute').format()
             
 
-// const filterValue2: any = [
-//         {
-//           clause: "$and",
-//           conditions: [
-//             { column: "companyId", operator: "$eq", value: this.companyId },
-//             { column: "createdOn", operator: "$gte", value:startTime ,type:"date"},
-//             { column: "createdOn", operator: "$lte", value:endTime ,type:"date"},
-//           ]
-//         }
-//       ];
+ 
 const filterValue2 = {
   filter: [
     {

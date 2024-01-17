@@ -186,34 +186,7 @@ this.dataservice.getDataByFilter('education',{}).subscribe((abc3:any)=>{
       // console.log(this.dropdownList);
 
 
-    })
-    // change into
-// let indisuty=this.dataservice.getdetails().industry
-//     const filterValue: any = [
-//       {
-//         clause: "$and",
-//         conditions: [
-//           { column: "category", operator: "$eq", value:indisuty },
-//         ]
-//       }
-//     ];
-//     this.dataservice.getDataByFilter("industry",filterValue).subscribe((data:any)=>{
-//       console.log(data[0].id);
-//       let subid=data[0].id
-//       const filterValue1: any = [
-//         {
-//           clause: "$and",
-//           conditions: [
-//             { column: "category_code", operator: "$eq", value:subid },
-//           ]
-//         }
-//       ];
-//       // For some thing it will not due to to data in databse
-//       this.dataservice.getDataByFilter("role_category",filterValue1).subscribe((data:any)=>{
-//         console.log(data);
-//         this.rolerange=data
-//       })
-//     })
+    }) 
     // Changes
     this.dataservice.getDataByFilter('role_category',{}).subscribe((xyz:any)=>{
 
@@ -506,20 +479,22 @@ refrsh(){
   this.endval=1
   this.startval=0
   console.log(this.value);
-  const filterValue1: any = [
-    {
-      clause: "$and",
-      conditions: [
-        { column: "companyId", operator: "$eq", value:this.value.unique_id },
-      ]
-    }
-  ];
+ 
+  const filterValue1 = {
+    filter: [
+      {
+        clause: "AND",
+        conditions: [{ column: 'companyId', operator: "EQUALS", value:this.value.unique_id }],
+      },
+    ],
+  } 
   // For some thing it will not due to to data in databse
-  this.dataservice.getDataByFilter("jobs",filterValue1).subscribe((data:any)=>{
+  this.dataservice.getDataByFilter("jobs",filterValue1).subscribe((res:any)=>{
     // this.companies= data.map((xyz: any) => ({
     //     xyz.validitynew=this.formatMonthInNumber(xyz.validity)
     //    }))
-    console.log(data);
+ 
+    let data  =res.data[0].response
     if(data!=null){
       this.companies = data.map((xyz: any) => ({
         ...xyz,

@@ -66,14 +66,7 @@ this.resumeHere=false
           },
         ],
       } 
-    // const filterValue: any = [
-    //   {
-    //     clause: "$and",
-    //     conditions: [
-    //       { column: "_id", operator: "$eq", value:id },
-    //     ]
-    //   }
-    // ];
+  
     this.dataservice.getDataByFilter('user_resume',filterValue).subscribe((res:any)=>{
  
 

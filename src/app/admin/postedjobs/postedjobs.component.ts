@@ -66,15 +66,7 @@ editorConfig: AngularEditorConfig = {
       }
 
 this.data=xyz
-// const filterValue: any = [
-//   {
-//     clause: "$and",
-//     conditions: [
-//       { column: "companyId", operator: "$eq", value: this.data.unique_id},
-//       { column: "applied_type", operator: "$eq", value: "New_Registration" }
-//     ]
-//   }
-// ];
+ 
 
 const filterValue = {
   filter: [
