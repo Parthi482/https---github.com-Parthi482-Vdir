@@ -151,20 +151,19 @@ this.applyJob()
   }
 
   const input = params['title'];
-  const title = input.replace(/-/g, ' ');
-  console.log(title);
-   // Replace hyphen with space
-
-  const filterValue: FilterCondition[] = [
-    {
-      clause: "$and",
-      conditions: [
-        { column: "title", operator: "$eq", value: title },
-        {column: "jobId", operator: "$eq", value:params['jobid']}
-      ]
-    }
-  ];
-
+  const title = input.replace(/-/g, ' '); 
+  const filterValue = {
+    filter: [
+      {
+        clause: "AND",
+        conditions: [  
+                    { column: "title", operator: "EQUALS", value: title },
+                    {column: "jobId", operator: "EQUALS", value:params['jobid']}
+          
+      ],
+      },
+    ],
+  } 
   console.log(title);
   console.log(filterValue);
 
@@ -197,18 +196,20 @@ this.applyJob()
         const transformedCategory = inputCategory.replace(/-/g, ' ');
         const transformedTitle = inputTitle.replace(/-/g, ' ');
 
-        const filterValue: FilterCondition[] = [
-          {
-            clause: "$and",
-            conditions: [
-              { column: "refid", operator: "$eq", value:  id},
-              { column: "Jobid", operator: "$eq", value:transformedCategory },
-              { column: "title", operator: "$eq", value:transformedTitle }
-            ]
-          }
-        ];
-        console.log(transformedCategory);
-        console.log(transformedTitle);
+        
+        const filterValue = {
+          filter: [
+            {
+              clause: "AND",
+              conditions: [ 
+                          { column: "refid", operator: "EQUALS", value:  id},
+              { column: "Jobid", operator: "EQUALS", value:transformedCategory },
+              { column: "title", operator: "EQUALS", value:transformedTitle }
+                
+            ],
+            },
+          ],
+        }  
 
         this.auth.getDataByFilter('applied_jobs', filterValue).subscribe((xyz: any) => {
           // console.log(xyz);
@@ -248,16 +249,20 @@ else if(params['business-category']&&params['company']){
   const transformedCategory = inputCategory.replace(/-/g, ' ');
   const transformedCompany = inputCompany.replace(/-/g, ' ');
 
-  const filterValue: FilterCondition[] = [
-    {
-      clause: "$and",
-      conditions: [
-        { column: "industry", operator: "$eq", value: transformedCategory },
-        { column: "CompanyName", operator: "$eq", value: transformedCompany }
-      ]
-    }
-  ];
-
+ 
+  const filterValue = {
+    filter: [
+      {
+        clause: "AND",
+        conditions: [
+          { column: "industry", operator: "EQUALS", value:transformedCategory},
+        { column: "CompanyName", operator: "EQUALS", value: transformedCompany }
+                
+          
+      ],
+      },
+    ],
+  } 
   console.log(transformedCategory);
   console.log(transformedCompany);
 
@@ -269,25 +274,31 @@ else if(params['business-category']&&params['company']){
 
 
 
-  this.dataservice.getDataByFilter('companies',{})
-  .subscribe((xyz:any)=>{
+  this.dataservice.getDataByFilter('companies',filterValue)
+  .subscribe((res:any)=>{
+    let xyz =  res.data[0].response[0]
  
-          console.log(xyz.data[0].response[0]);
-          let id = xyz.data[0].response[0]._id
-          console.log(id);
- 
-this.dataservice.updateVisitor("companies",id,this.profileVisitor).subscribe((xyz:any)=>{
-  console.log(xyz);
+    res.data[0].response.forEach((element:any) => {
+      this.companyData=element
 
-})
-          this.companyData=xyz.data[0].response[0]
-          // this.mapdata=xyz[0].coordinate
-          console.log(this.companyData.coordinate);
+      // // this.mapdata=xyz[0].coordinate
+      // console.log(this.companyData.coordinate);
 
-          console.log(this.companyData);
+      // console.log(this.companyData);
+      
+    });
+  
+    
+          // console.log(id);
+//  !pending
+// this.dataservice.updateVisitor("companies",id,this.profileVisitor).subscribe((xyz:any)=>{
+//   console.log(xyz);
+
+// })
+     
 
           let address= xyz.Address
-          let CompanyID= xyz._id
+          // let CompanyID= xyz[0]._id
 
           if(xyz.Company_Register_Type!=undefined&&xyz.Company_Register_Type!=null){
             xyz.Company_Register_Type=xyz.Company_Register_Type.replace(/_/g, ' ');
@@ -310,22 +321,25 @@ this.dataservice.updateVisitor("companies",id,this.profileVisitor).subscribe((xy
 
     this.companyData['fulladdress']=address;
     console.log(this.companyData);
+    const filtersValue = {
+      filter: [
+        {
+          clause: "AND",
+          conditions: [
+            { column: "companyId", operator: "EQUALS", value: this.companyData.unique_id},
+                  { column: "status", operator: "EQUALS", value: "open" }
+            
+        ],
+        },
+      ],
+    } 
 
 
-
-    const filtersValue: any = [
-      {
-        clause: "$and",
-        conditions: [
-          { column: "companyId", operator: "$eq", value: xyz[0].unique_id},
-          { column: "status", operator: "$eq", value: "open" }
-        ]
-      }
-
-    ];
-    this.auth.getDataByFilter('jobs',filtersValue).subscribe((xyz:any)=>{
-      console.log(xyz);
-      this.search_details=xyz
+    this.dataservice.getDataByFilter('jobs',filtersValue).subscribe((xyz:any)=>{
+      xyz.data[0].response.forEach((element:any) => {
+        this.search_details.push(element)  
+      });
+      
 
     })
 
@@ -349,23 +363,27 @@ this.industryFilter=true
 const inputCategory = params['business-category'];
 const transformedCategory = inputCategory.replace('-', ' ');
 
-const filterValue: FilterCondition[] = [
-  {
-    clause: "$and",
-    conditions: [
-      { column: "industry", operator: "$eq", value: transformedCategory },
+ 
+const filterValue = {
+  filter: [
+    {
+      clause: "AND",
+      conditions: [
+        { column: "industry", operator: "EQUALS", value:transformedCategory},
+              
+        
     ],
-  },
-];
-
+    },
+  ],
+} 
 console.log(transformedCategory); // Output the transformed category
 console.log(filterValue);
 
    // { 'business-category': 'IT services', company: 'Ban' }
-   this.auth.getDataByFilter('companies',filterValue)
+   this.dataservice.getDataByFilter('companies',filterValue)
    .subscribe((xyz:any)=>{
           //  console.log(xyz[0]);
-           this.company=xyz[0];
+           this.company=xyz.data[0].response;
            console.log(this.company);
            console.log(this.company.coordinate);
 

@@ -186,7 +186,8 @@ console.log(element[this.opt.specification]);
       console.log(id);
       this.dataService.getDataById(name, id).subscribe((res: any) => {
         ;
-        this.dataService.buildOptions(res, this.opt);
+      
+        this.dataService.buildOptions(res.data[0], this.opt);
         if(this.model.isEdit){
           this.valueSlected()
         }

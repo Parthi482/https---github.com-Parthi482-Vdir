@@ -147,7 +147,7 @@ this.dataservice.getDataByFilter('applied_jobs',filterCondition1).subscribe((xyz
   // console.log(xyz);
     let res = xyz.data[0].response
 let ID =res._id
-this.auth.update('applied_jobs',ID,data).subscribe((val:any)=>{
+this.dataservice.update('applied_jobs',ID,data).subscribe((val:any)=>{
 console.log(val);
 })
 this.router.navigateByUrl("admin/candidates/all",value)

@@ -134,27 +134,31 @@ imgfalg:boolean=true;
     this.toggleEditMode1();
     this.toggleEditMode2();
     this.toggleEditMode3();
+    console.log(this.auth);
+    
     // console.log(this.auth.phone);
     this.basicinfo.controls['Name']?.setValue(this.auth.Name);
     this.basicinfo.controls['CompanyName'].setValue(this.auth.CompanyName);
-    this.basicinfo.controls['Address'].setValue(this.auth.area +','+' '+this.auth.districtname+','+' '+ this.auth.statename +','+' '+this.auth.pincode)
+    // this.basicinfo.controls['Address'].setValue(this.auth.area +','+' '+this.auth.districtname+','+' '+ this.auth.statename +','+' '+this.auth.pincode)
     this.basicinfo.controls['email'].setValue(this.auth.email)
-    if (this.auth.phone != '') {
-      let data = JSON.parse(this.auth.phone);
-      this.basicinfo.controls['phone'].setValue(data);
-    }
+    // if (this.auth.phone != '') {
+    //   let data = JSON.parse(this.auth?.phone);
+    //   this.basicinfo.controls['phone'].setValue(data);
+    // }
     this.dataservice.getDataByFilter('industry',{}).subscribe((xyz: any) => {
     // this.Api.GetALL('industry').subscribe((xyz: any) => {
-
+ 
       console.log(xyz);
       this.data = xyz.data[0].response;
     })
 
+    console.log(this.auth._id);
+    
+    this.dataservice.getDataById('companies',this.auth._id).subscribe((res: any) => {
 
-
-    this.dataservice.getDataById('companies',this.auth._id).subscribe((data: any) => {
-      // debugger
-      console.log(data);
+    // this.dataservice.getDataById('companies',"654331ce4c36b5f156fc3880").subscribe((res: any) => {
+ 
+      let data = res.data[0]  
       let value =data;
       this.value = value;
       this.url = value?.Company_logo
@@ -261,7 +265,7 @@ imgfalg:boolean=true;
         this.basicinfo.controls['company_description'].setValue(value.company_description);
         this.basicinfo.controls['Website'].setValue(value.Website);
         this.basicinfo.controls['emp_count'].setValue(value.emp_count);
-        this.basicinfo.controls['phone'].setValue(value.phone);
+        // this.basicinfo.controls['phone'].setValue(value.phone);
       }
     })
     this.productRows.push({
@@ -318,8 +322,8 @@ imgfalg:boolean=true;
     const formData = new FormData();
     formData.append('file', file);
     formData.append('data', _id); //seekers or company id
-    formData.append('category', type);
-    this.Api.finalfileUpload(formData, 's3').subscribe((res: any) => {
+    formData.append('category', type); 
+    this.dataservice.imageupload('company',id,formData).subscribe((res: any) => {
       console.log(res);
 
     })

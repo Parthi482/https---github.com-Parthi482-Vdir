@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import {  FormBuilder, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { DataService } from 'src/app/service/data.service';
 import { ApiService } from 'src/app/service/search.service';
 
 @Component({
@@ -37,9 +38,10 @@ editorConfig: AngularEditorConfig = {
 
 }
 
-  constructor(private http: HttpClient, private auth:ApiService, private router: Router,private fb: FormBuilder, ) {
+  constructor(private http: HttpClient, private auth:ApiService, private router: Router,private fb: FormBuilder,private dataservice:DataService ) {
     this.details=this.auth.getdetails()
-    this.auth.getbyid("companies",this.details._id).subscribe((xyz:any)=>{
+    this.auth.getbyid("companies",this.details._id).subscribe((res:any)=>{
+      let xyz:any = res.data[0]
       console.log(xyz);
 
       let address=xyz.street+" "+xyz.area+" "+xyz.statename+" "+xyz.pincode
@@ -64,20 +66,32 @@ editorConfig: AngularEditorConfig = {
       }
 
 this.data=xyz
-const filterValue: any = [
-  {
-    clause: "$and",
-    conditions: [
-      { column: "companyId", operator: "$eq", value: this.data.unique_id},
-      { column: "applied_type", operator: "$eq", value: "New_Registration" }
-    ]
-  }
-];
+// const filterValue: any = [
+//   {
+//     clause: "$and",
+//     conditions: [
+//       { column: "companyId", operator: "$eq", value: this.data.unique_id},
+//       { column: "applied_type", operator: "$eq", value: "New_Registration" }
+//     ]
+//   }
+// ];
 
+const filterValue = {
+  filter: [
+    {
+      clause: "AND",
+      conditions: [{ column: 'companyId', operator: "EQUALS", value:this.data.unique_id},
+      { column: "applied_type", operator: "EQUALS", value: "New_Registration" }
+    
+    ],
+    },
+  ],
+} 
+ 
 
-this.auth.getDataByFilter('applied_jobs',filterValue).subscribe((xyz:any)=>{
+this.dataservice.getDataByFilter('applied_jobs',filterValue).subscribe((xyz:any)=>{
   console.log(xyz);
-  this.search_details=xyz
+  this.search_details=xyz.data[0].response
 
 })
 

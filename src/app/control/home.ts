@@ -15,7 +15,7 @@ import { Router } from "@angular/router";
       .card {
         display: flex;
         padding: 16px;
-        cursor:pointer;
+        cursor: pointer;
         width: 550px;
         max-width: auto;
         margin: 10px;
@@ -33,17 +33,34 @@ import { Router } from "@angular/router";
       }
 
       .avatar {
-        width: 80px;
-        height: 80px;
+        width: 90px;
+        height: 90px;
         border-radius: 50%;
         object-fit: cover;
       }
 
       .name {
-        font-size: 16px;
+        font-size: 24px;
         font-weight: bold;
       }
+      .contact-details {
+        display: flex;
+        flex-direction: column;
+      }
 
+      .phone,
+      .address {
+        margin: 0;
+        margin-bottom: 5px;
+      }
+
+      .marker-icon {
+        padding-right: 5px;
+      }
+
+      .details-container {
+        flex-grow: 1;
+      }
       @media screen and (max-width: 600px) {
         .card {
           flex-direction: column;
@@ -59,15 +76,15 @@ import { Router } from "@angular/router";
 
     <div fxLayout="row" fxLayoutGap="12px">
       <div fxFlex>
-        <h1>Event list</h1> 
+        <h1>Event list</h1>
         <mat-card
           class="card"
           *ngFor="let event of eventData"
-          style="justify-content:evenly ;width:450px; margin-left:50px;" 
+          style="justify-content: evenly; width: 350px; margin-left: 50px; "
           (click)="navigateToHome('event-details', event._id)"
         >
           <div class="card-content" style="justify-content:center">
-            <div class="image-container">
+            <div class="image-container" style="padding-right: 50px;">
               <img
                 class="avatar"
                 src="{{
@@ -77,7 +94,7 @@ import { Router } from "@angular/router";
                 alt="{{ event.event_name }}"
               />
             </div>
-            <span class="name">{{ event.event_name }}</span>
+            <span class="name"> {{ event.event_name }}</span>
           </div>
         </mat-card>
       </div>
@@ -85,23 +102,58 @@ import { Router } from "@angular/router";
       <div fxFlex>
         <h1>Business list</h1>
 
+        <!-- <div class="card-container" *ngFor="let company of companies">
+    <mat-card class="card" (click)="navigateToHome('event-details', company._id)">
+      <div class="card-content">
+        <div class="image-container">
+          <img class="avatar" [src]="company.Company_logo" alt="{{ company.CompanyName }}" />
+        </div>
+        <div class="details-container">
+          <h2 class="name"> {{ company.CompanyName }}</h2>
+          <h5 class="service-industry"><b> {{ company.industry }}</b> </h5>
+                <div style="float: right;">
+                <h5 class="address" style="float:left ;"><i class="fa fa-phone" aria-hidden="true"></i>{{company.phone}}</h5> 
+                <br>
+          <h5 class="address" style="float:right" *ngIf="company.Address"><b> <i class="fas fa-map-marker-alt marker-icon" style="padding-right: 15px;"></i>{{ company.Address }}</b> </h5>
+                </div>
+
+        </div>
+      </div>
+    </mat-card>
+  </div> -->
+
         <div class="card-container" *ngFor="let company of companies">
-          <mat-card class="card" (click)="navigateToHome('event-details', company._id)">
-            <div class="image-container">
-              <img
-                class="avatar"
-                [src]="company.Company_logo"
-                alt="{{ company.CompanyName }}"
-              />
-            </div>
+          <mat-card
+            class="card"
+            (click)="navigateToHome('event-details', company._id)"
+            *ngIf="company.Company_logo"
+          >
             <div class="card-content">
-              <h5 class="name">
-                <b>Company Name:</b> {{ company.CompanyName }}
-              </h5>
-              <h5 class="service-industry">
-                <b>Service Industry:</b> {{ company.industry }}
-              </h5>
-              <h5 class="address"><b>Address:</b> {{ company.Address }}</h5>
+              <div class="image-container">
+                <img
+                  class="avatar"
+                  [src]="company.Company_logo"
+                  alt="{{ company.CompanyName }}"
+                />
+              </div>
+              <div class="details-container">
+                <h2 class="name">{{ company.CompanyName }}</h2>
+                <h5 class="service-industry">
+                  <b>{{ company.industry }}</b>
+                </h5>
+                <div class="contact-details">
+                  <h5 class="phone">
+                    <i class="fa fa-phone" aria-hidden="true"></i
+                    >{{ company.phone }}
+                  </h5>
+                  <h5 class="address">
+                    <b
+                      ><i class="fas fa-map-marker-alt marker-icon"></i
+                      >{{ company.Address }}</b
+                    >
+                  </h5>
+                </div>
+              </div>
             </div>
           </mat-card>
         </div>
@@ -109,7 +161,7 @@ import { Router } from "@angular/router";
 
       <div fxFlex>
         <h1>Job list</h1>
-        <mat-card class="card" *ngFor="let job of jobData">
+        <!-- <mat-card class="card" *ngFor="let job of jobData">
           <div class="image-container">
             <img
               class="avatar"
@@ -126,7 +178,54 @@ import { Router } from "@angular/router";
             <h5 class="address"><b>Company Name:</b>{{ job.companyName }}</h5>
             <h5 class="service-industry"><b>Position</b>:{{ job.role }}</h5>
           </div>
-        </mat-card>
+        </mat-card> -->
+
+        <div class="card-container"*ngFor="let job of jobData">
+          <mat-card
+            class="card"
+          
+            *ngIf="job"
+          >
+            <div class="card-content">
+              <div class="image-container">
+                <img
+                  class="avatar"
+                  src="{{ job.Company_logo }}"
+              alt="{{ job.companyName }}"
+                />
+              </div>
+              <div class="details-container">
+
+                <h2  class="name"> {{job.role }}</h2>
+                <h2>{{ job.companyName }}</h2>
+
+<!--               
+                <h2 class="name">{{ company.CompanyName }}</h2>
+                <h5 class="service-industry">
+                  <b>{{ company.industry }}</b>
+                </h5>
+                <div class="contact-details">
+                  <h5 class="phone">
+                    <i class="fa fa-phone" aria-hidden="true"></i
+                    >{{ company.phone }}
+                  </h5>
+                  <h5 class="address">
+                    <b
+                      ><i class="fas fa-map-marker-alt marker-icon"></i
+                      >{{ company.Address }}</b
+                    >
+                  </h5>
+                </div> -->
+
+
+              </div>
+            </div>
+          </mat-card>
+        </div>
+
+
+
+
       </div>
 
       <div fxFlex>
@@ -152,7 +251,7 @@ export class HomeScreenInput implements OnInit {
   constructor(
     private dataservice: DataService,
     private cf: ChangeDetectorRef,
-    private router:Router
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.getData();
@@ -232,7 +331,6 @@ export class HomeScreenInput implements OnInit {
     this.cf.detectChanges();
   }
 
-  
   navigateToHome(route: any, id?: any) {
     this.router.navigate([`${route}/${id}`]);
   }
