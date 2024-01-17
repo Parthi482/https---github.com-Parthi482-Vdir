@@ -178,38 +178,12 @@ import { Router } from "@angular/router";
                 <span>{{job.Skill}}</span>
                 <br>
                 <span>{{job.workmode}}</span>
-                <!-- <span>
-                <i class="fa fa-credit-card" aria-hidden="true"></i> 
-                  {{job.salary}}
-                </span> -->
-                <!-- <span>{{job.MaximumExperience}}</span> -->
-<!--               
-                <h2 class="name">{{ company.CompanyName }}</h2>
-                <h5 class="service-industry">
-                  <b>{{ company.industry }}</b>
-                </h5>
-                <div class="contact-details">
-                  <h5 class="phone">
-                    <i class="fa fa-phone" aria-hidden="true"></i
-                    >{{ company.phone }}
-                  </h5>
-                  <h5 class="address">
-                    <b
-                      ><i class="fas fa-map-marker-alt marker-icon"></i
-                      >{{ company.Address }}</b
-                    >
-                  </h5>
-                </div> -->
-
-
+                
               </div>
             </div>
           </mat-card>
         </div>
-
-
-
-
+ 
       </div>
 
       <div fxFlex>
