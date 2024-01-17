@@ -26,7 +26,9 @@ import { Router } from "@angular/router";
         display: flex;
         flex-direction: row;
         align-items: center;
-        width: auto;
+        width: auto; 
+        justify-content: center;
+        align-items: center;
       }
 
       .image-container {
@@ -42,7 +44,8 @@ import { Router } from "@angular/router";
 
       .name {
         font-size: 16px;
-        font-weight: bolder;
+        font-weight: bold;
+    
       }
       .contact-details {
         display: flex;
@@ -127,13 +130,13 @@ import { Router } from "@angular/router";
 
               <div>
               <span class="name">{{ company.CompanyName }}</span> 
-                <h3 >
+                <h3>
                    {{ company.industry }} 
                 </h3>
               </div>
                 
                 <div class="contact-details"> 
-                  <span > 
+                  <span style="font-weight: normal;"> 
                   <i class="fa fa-phone" aria-hidden="true"></i>  {{ company.phone }}
                   </span>
                   <span> 
