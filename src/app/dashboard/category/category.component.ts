@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import slugify from 'slugify';
 import { SharedService } from 'src/app/service/shared.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-category',
@@ -52,43 +53,34 @@ ngOnChanges(){
 console.log(this.route);
 }
 ngOnInit() {
-  // console.log('hi');
-console.log(this.route);
+  // console.log('hi'); 
 this.applyJob()
 }
-    constructor(private auth: ApiService,private route :ActivatedRoute,private router:Router,private sharedService: SharedService) {
-console.log(!!localStorage.getItem('token'));
-
+    constructor(private dataservice:DataService,private auth: ApiService,private route :ActivatedRoute,private router:Router,private sharedService: SharedService) {
+ 
 
       if(!!localStorage.getItem('token') == true){
         let visitor:any = localStorage.getItem('auth')
 
-      let visitors = JSON.parse(visitor)
-console.log(visitors);
+      let visitors = JSON.parse(visitor) 
       this.profileVisitor.visitors = this.profileVisitor.visitors || [];
 
       this.profileVisitor.visitors.push({
-        firstName: visitors.firstName,
+        firstName: visitors.user_name,
         email: visitors.email,
-        address: visitors.address,
-      });
-      console.log(this.profileVisitor);
+        // address: visitors.address,
+      }); 
         }
        this.sharedService.dropdownValues$.subscribe(values => {
-    console.log(values)
+ 
   });
-  this.user=this.auth.decodeToken().role
-  console.log(this.auth.decodeToken());
-
-  console.log(this.user);
+  this.user=this.auth.decodeToken().role  
 
 
-  this.sharedService.searchQuery$.subscribe(value => {
-    console.log(value)
+  this.sharedService.searchQuery$.subscribe(value => { 
    });
       const params = this.route.snapshot.params;
-
-      console.log(params);
+ 
 
       this.route.params.subscribe((xyz: any) => {
         const slugify = (text: string) => {
@@ -100,11 +92,9 @@ console.log(visitors);
         Object.keys(xyz).forEach(key => {
           slugifiedParams[key] = slugify(xyz[key] as string); // Type assertion here
         });
-
-        console.log(slugifiedParams);
+ 
       });
-      if (params['job'] && params['title'] || params['jobid']) {
-        console.log('job screen');
+      if (params['job'] && params['title'] || params['jobid']) { 
   this.jobFilter=true;
 
 
@@ -126,19 +116,17 @@ console.log(visitors);
   const transformedCategory2 = inputCategory2.replace('-', ' ');
   const filterValue1 : FilterCondition[] = [
     {
-      clause: "$and",
+      clause: "AND",
       conditions: [
-        { column: "industry", operator: "$eq", value: transformedCategory},
-        { column: "CompanyName", operator: "$eq", value:transformedCategory2 },
+         
+        { column: 'industry', operator: "EQUALS", value:transformedCategory },
+        { column: 'CompanyName', operator: "EQUALS", value:transformedCategory2 }
+         
         ]
     }
-  ];
-
-
-
-  this.auth.getDataByFilter('companies',filterValue1)
-  .subscribe((xyz:any)=>{
-    console.log(xyz[0]);
+  ]; 
+   this.dataservice.getDataByFilter('companies',filterValue1)
+  .subscribe((xyz:any)=>{ 
 
     this.companyData=xyz[0];
     // console.log( xyz[0].coordinate);
@@ -179,7 +167,8 @@ console.log(visitors);
 
   console.log(title);
   console.log(filterValue);
-  this.auth.getDataByFilter('jobs',filterValue)
+
+  this.dataservice.getDataByFilter('jobs',filterValue)
   .subscribe((xyz:any)=>{
     console.log(xyz);
 
@@ -279,22 +268,19 @@ else if(params['business-category']&&params['company']){
 
 
 
-  this.auth.getDataByFilter('companies',filterValue)
+
+  this.dataservice.getDataByFilter('companies',{})
   .subscribe((xyz:any)=>{
-          console.log(xyz[0]);
-          let id = xyz[0]._id
+ 
+          console.log(xyz.data[0].response[0]);
+          let id = xyz.data[0].response[0]._id
           console.log(id);
-
-
-          // let address=xyz.street+" "+xyz.area+" "+xyz.statename+" "+xyz.pincode
-          // let address = xyz.Address
-          // let CompanyID=xyz._id
-
-this.auth.updateVisitor("companies",id,this.profileVisitor).subscribe((xyz:any)=>{
+ 
+this.dataservice.updateVisitor("companies",id,this.profileVisitor).subscribe((xyz:any)=>{
   console.log(xyz);
 
 })
-          this.companyData=xyz[0]
+          this.companyData=xyz.data[0].response[0]
           // this.mapdata=xyz[0].coordinate
           console.log(this.companyData.coordinate);
 
@@ -475,17 +461,14 @@ this.loggedInBy=false
             // newData.phone=value.role
             newData.Location= value.Location
             newData.refid=data._id  // change in _id
-            newData.role=value.role
-            console.log(newData);
+            newData.role=value.role 
             // this.auth.postAppliedJobs
-            this.auth.save('applied_jobs',newData).subscribe((xyz:any)=>{
-              console.log(xyz);
+            this.dataservice.save('applied_jobs',newData).subscribe((xyz:any)=>{ 
 
               let applied_job:any={}
                 let valu=(this.job.applied_job)+1
                 applied_job['applied_job']=valu
-                this.auth.update('jobs',this.job._id,applied_job).subscribe((last:any)=>{
-                  console.log(last);
+                this.dataservice.update('jobs',this.job._id,applied_job).subscribe((last:any)=>{ 
 
                 })
 

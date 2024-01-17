@@ -96,8 +96,7 @@ import { LayoutsModule } from "../shared/layout-event/layouts.module";
 import { SlickCarouselModule } from "ngx-slick-carousel";
 import { CounterComponent } from './counter.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { Login } from "./login";
-import { HomeScreenInput } from "./home";
+import { Login } from "./login"; 
 import { MatGridListModule } from "@angular/material/grid-list";
 // import { ColorPickerInputComponent } from "./colourpicker";
 
@@ -401,8 +400,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
     declarations: [
       CounterComponent,
         Tab,
-        FileInput,
-        HomeScreenInput,
+        FileInput, 
         CheckboxComponent,
         HtmlInput,
         LabelView,
@@ -444,8 +442,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
         Image1Component,
         ScreenComponent,
         ColorPickerInputComponent,
-        Login,
-        HomeScreenInput,
+        Login, 
 
     ],
     exports: [

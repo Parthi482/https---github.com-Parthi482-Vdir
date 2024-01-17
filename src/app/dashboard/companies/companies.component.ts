@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/service/search.service';
 import { LayoutModule } from "../../shared/layout/layout.module";
 import { SharedService } from 'src/app/service/shared.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
     selector: 'app-companies',
@@ -17,14 +18,15 @@ import { SharedService } from 'src/app/service/shared.service';
 export class CompaniesComponent {
 city:any;
 companyName:any;
-  constructor(private route: ActivatedRoute,private http: HttpClient, private auth: ApiService,private router:Router,private sharedService: SharedService ) {
+  constructor(private route: ActivatedRoute,private http: HttpClient,private dataservice:DataService, private auth: ApiService,private router:Router,private sharedService: SharedService ) {
 
     this.route.queryParams.subscribe(params => {
       if (Object.keys(params).length === 0) {
-        this.auth.getDataList('companies').subscribe({
+
+        this.dataservice.getDataByFilter('companies',{}).subscribe({
           next: (data: any) => {
-            console.log(data);
-            this.companies = data;
+           
+            this.companies = data.data[0].response;
           },
           error(err) {
             console.error(err);
@@ -49,26 +51,25 @@ companyName:any;
 
         if (this.city && this.companyName) {
           filterValue1.push({
-            clause: '$and',
+            clause: 'AND',
             conditions: [
-                { column: 'districtname', operator: '$eq', value: inputCategory },
-                { column: 'CompanyName', operator: '$eq', type: 'search', value: inputCategory2, FullTextSearch: true },
+              { column: 'districtname', operator: "EQUALS", value:inputCategory },
+              { column: 'CompanyName', operator: "EQUALS", value:inputCategory2,type:'search' , FullTextSearch: true}
             ],
         });
-
+       
         } else {
           filterValue1.push({
-            clause: '$or',
+            clause: 'OR',
             conditions: [
-              { column: 'districtname', operator: '$eq', value: inputCategory },
-              { column: 'CompanyName', operator: '$eq', value: inputCategory2},
+
+              { column: 'districtname', operator: "EQUALS", value:inputCategory },
+              { column: 'CompanyName', operator: "EQUALS", value:inputCategory2} 
           ],
       });
-        }
-
-
-
-        this.auth.getDataByFilter('companies', filterValue1).subscribe((xyz: any) => {
+        } 
+        
+        this.dataservice.getDataByFilter('companies', filterValue1).subscribe((xyz: any) => {
           console.log(xyz);
 
           this.companies = xyz;

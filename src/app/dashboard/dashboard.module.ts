@@ -11,7 +11,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { AdminRoutingModule } from '../admin/admin-routing.module';
 import { AppliedJobsComponent } from './applied-jobs/applied-jobs.component';
 import { JobDetailsComponent } from './job-details/job-details.component';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
 
 import { HomeComponent } from './home/home.component';
 
@@ -28,22 +28,21 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { EventListComponent } from './event-list/event-list.component';
 import { MatDialogActions, MatDialogModule } from '@angular/material/dialog';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { AgendaAddComponent } from './agenda-add/agenda-add.component';
-import {  MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 // import { NgxMatDatetimePickerModule } from 'ngx-mat-datetime-picker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { EventScreenComponent } from './event-screen/event-screen.component';
 import { JoblistHome } from './event-screen/joblist-home';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { HomeScreenInput } from '../control/home';
 @NgModule({
   declarations: [
-
-
-
-HomeComponent,
+    HomeScreenInput,
+    HomeComponent,
     AppliedJobsComponent,
     JobDetailsComponent,
     EventListComponent,
@@ -61,17 +60,16 @@ HomeComponent,
     MatInputModule,
     MatNativeDateModule,
     MatButtonModule,
-    DashboardRoutingModule,MatSliderModule,MatIconModule,MatTabsModule,MatInputModule, MatProgressBarModule,
-    MatButtonModule,MatSliderModule,
+    DashboardRoutingModule, MatSliderModule, MatIconModule, MatTabsModule, MatInputModule, MatProgressBarModule,
+    MatButtonModule, MatSliderModule,
     MatStepperModule,
     MatAutocompleteModule,
     MatCardModule,
     MatDatepickerModule,
-    AdminRoutingModule, AgGridModule,ReactiveFormsModule,FormsModule,NgMultiSelectDropDownModule.forRoot(),
-    CommonModule,AngularEditorModule, MatButtonModule,MatSliderModule,
+    AdminRoutingModule, AgGridModule, ReactiveFormsModule, FormsModule, NgMultiSelectDropDownModule.forRoot(),
+    CommonModule, AngularEditorModule, MatButtonModule, MatSliderModule,
     MatDialogModule,
-    MatButtonModule,
-    // NgxMatDatetimePickerModule,
+    MatButtonModule, 
     ReactiveFormsModule,
     MatStepperModule,
     MatCardModule,
@@ -84,7 +82,7 @@ HomeComponent,
     MatButtonModule,
     MatCardModule,
     MatInputModule, MatProgressBarModule,
-    AdminRoutingModule, AgGridModule,ReactiveFormsModule,FormsModule,NgMultiSelectDropDownModule.forRoot(),
+    AdminRoutingModule, AgGridModule, ReactiveFormsModule, FormsModule, NgMultiSelectDropDownModule.forRoot(),
 
   ]
 })

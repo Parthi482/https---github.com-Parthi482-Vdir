@@ -3,18 +3,9 @@
     <div id="ui" class="container-fluid">
       <div class="d-flex flex-column align-items-center mb-4">
         <img id="ani3" src="assets/image/vdirectory-small-logo.png" alt="Logo" width="100" height="60" style="width: 140px;" class="d-inline-block align-text-top" (click)="nav()">
-        <div>
-          <!-- <a class="navbar-brand text-white fw-bolder fs-3" (click)="func0()" id="ani1">vDirectory</a> -->
-        </div>
+      
       </div>
-
-
-
-
-
-      <!-- <button class="navbar-toggler" type="button"  data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button> -->
+ 
       <div class="collapse navbar-collapse justify-content-end" style="align-items: baseline;" >
         <ul class="navbar-nav">
           <div class="d-flex  " >
@@ -108,9 +99,9 @@
             <a class="nav-link dropdown-toggle text-white mt-1"  id="ani5" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <div class="d-flex align-items-center"  *ngIf="isLoggedIn">
                 <div class="rounded-circle profile-image-container"
-                [ngStyle]="{ 'background-color':url || profile_pic || Company_logo ? 'transparent' : '#ccc', 'width': '50px', 'height': '50px', 'display': 'flex', 'justify-content': 'center', 'align-items': 'center' }">
-
-                  <img *ngIf="this.profile_pic" [src]="this.profile_pic ? this.profile_pic : 'assets/image/default-user.jpg'" style="width: 50px; height: 50px" alt="User Image" class="rounded-circle profile-image" />
+                >
+ 
+                  <img *ngIf="profile_pic" [src]="profile_pic ? profile_pic : 'assets/image/default-user.jpg'" style="width: 50px; height: 50px" alt={{userName}} class="rounded-circle profile-image" />
                 
                 </div>
               </div>
@@ -121,13 +112,13 @@
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="func44()">Profile</a></li>
               <li ><a class="mt-2 fs-6 ms-3" (click)="signOut()" *ngIf="isLoggedIn">LogOut</a> </li>
              </ul>
-             <ul class="dropdown-menu" aria-labelledby="ani5" *ngIf="admin">
+             <!-- <ul class="dropdown-menu" aria-labelledby="ani5" *ngIf="admin">
               <li><a class="dropdown-item fs-6" (click)="route1()">Home</a></li>
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route2()">My Profile</a></li>
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route3()">Jobs</a></li>
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route4()">Candidates</a></li>
               <li ><a class="mt-2 fs-6 ms-3" (click)="signOut()" *ngIf="isLoggedIn">LogOut</a> </li>
-             </ul>
+             </ul> -->
           </li>
 
         </div>
@@ -138,49 +129,4 @@
     </div>
   </nav>
 </div>
-
-<!--101 <div class="navbar "  id="navbarNavDropdown"  style="height: 100px;margin-top: -20px;">
-            <div class="container-fluid mt-3 mb-3 d-flex w-100 align-items-center">
-              <form [formGroup]="search" class="mb-4">
-                <div class="row">
-                  <div class="col-md-4 mt-3">
-                    <ng-multiselect-dropdown
-                      [placeholder]="'Select the City'"
-                      [settings]="city"
-                      [data]="cityList"
-                      formControlName="city"
-                      class="text-white"
-                      (onFilterChange)="onItemSelect()"
-                    ></ng-multiselect-dropdown>
-                  </div>
-                  <div class="col-md-4 mt-3">
-                    <div class="form-group">
-                      <select class="form-control" id="domain" formControlName="domain" placeholder="Search In...">
-                        <option value="" disabled selected>Search In..</option>
-                        <option value="Jobs">Jobs</option>
-                        <option value="Companies">Companies</option>
-                        <option value="Product & Services">Product & Services</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-4 mt-3">
-                    <div class="input-group" >
-                      <input
-                        type="text"
-                        class="form-control"
-                        formControlName="value"
-                        [(ngModel)]="searchValue"
-                        placeholder="Search Key.."
-                      />
-                      <div class="input-group-append">
-                        <button class="input-group-text" (click)="onItemSelect()">
-                          <i class="fas fa-search"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-
-            </div>
-          </div> -->
+ 

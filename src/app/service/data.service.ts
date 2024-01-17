@@ -228,7 +228,9 @@ public lookupTreeData(collection_name:any,project_id:any){
   public verify_key(data:any){
     return this.http.get(this.getWsBaseUrl()+"activation-api/"+data)
   }
- 
+  public updateVisitor(collectionName:any, id:any, data:any) {
+		return this.http.put(this.getWsBaseUrl()  + collectionName + '/' + id, data);
+	}
 
   public generate_pwd(id:any,data:any){
     return this.http.put(this.getWsBaseUrl()+"activation-api/generate-pwd/"+id,data)
