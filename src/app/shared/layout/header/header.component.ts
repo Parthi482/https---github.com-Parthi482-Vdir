@@ -148,16 +148,14 @@ export class HeaderComponent implements OnInit, OnChanges, AfterContentInit {
   }
 
   ngAfterContentChecked(): void {
-
-    if (this.userName == undefined) {
-      let authData: any = localStorage.getItem('auth');
+    let authData: any = localStorage.getItem('auth');
       let user = JSON.parse(authData);
+
+    if (!isEmpty(user)) {
       this.isLoggedIn = true;
       this.userName = user.user_name;
-      this.profile_pic = user.user_profile;
-      console.warn(this.profile_pic);
-      
-    }
+      this.profile_pic = user.user_profile; 
+    } 
 
 
   }

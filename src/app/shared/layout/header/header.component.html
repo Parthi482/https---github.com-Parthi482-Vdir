@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-sm d-block" style="height: 80px;">
     <div id="ui" class="container-fluid">
       <div class="d-flex flex-column align-items-center mb-4">
-        <img id="ani3" src="assets/image/vdirectory-small-logo.png" alt="Logo" width="100" height="60" style="width: 140px;" class="d-inline-block align-text-top" (click)="nav()">
+        <img id="ani3" src="assets/image/vdirectory-small-logo.png" alt="Logo" width="100" height="60" style="width: 140px;cursor:pointer" class="d-inline-block align-text-top;" (click)="nav()">
       
       </div>
  
@@ -75,23 +75,29 @@
             </div>
           </div>
 
-<div class="" >
-  <li class="container "  *ngIf="!isLoggedIn">
-    <a class="nav-link  text-white mt-1 mt-3"   role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="authService.GoogleAuth()">
+<!-- <div class="" > -->
+  <!-- <li class="container"> -->
+    <a class="nav-link  text-white mt-1 mt-3"   role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="authService.GoogleAuth()" *ngIf="isLoggedIn===false">
       Login
     </a>
    
-  </li> 
+  <!-- </li>  -->
 
-</div>
+<!-- </div> -->
 
 </div>
 </form>
 
+ 
 
 
-<div *ngIf="isLoggedIn" > <h1 style="float: right;margin-left: auto;" class="username mt-4">Welcome,{{userName}}</h1>
-</div> 
+  <h1 style="float: right;margin-left: auto;" class="username mt-4"  *ngIf="isLoggedIn" >Welcome {{userName}}
+  
+  
+  
+  
+  </h1>
+ 
  
           <div style="margin-left: auto;">
           <li class="nav-item dropdown me-5"  *ngIf="isLoggedIn" >
@@ -100,8 +106,8 @@
               <div class="d-flex align-items-center"  *ngIf="isLoggedIn">
                 <div class="rounded-circle profile-image-container"
                 >
- 
-                  <img *ngIf="profile_pic" [src]="profile_pic ? profile_pic : 'assets/image/default-user.jpg'" style="width: 50px; height: 50px" alt={{userName}} class="rounded-circle profile-image" />
+           
+                  <img *ngIf="this.profile_pic" [src]="this.profile_pic ? profile_pic : 'assets/image/default-user.jpg'" style="width: 50px; height: 50px" alt={{userName}} class="rounded-circle profile-image" />
                 
                 </div>
               </div>
@@ -112,13 +118,13 @@
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="func44()">Profile</a></li>
               <li ><a class="mt-2 fs-6 ms-3" (click)="signOut()" *ngIf="isLoggedIn">LogOut</a> </li>
              </ul>
-             <!-- <ul class="dropdown-menu" aria-labelledby="ani5" *ngIf="admin">
+             <ul class="dropdown-menu" aria-labelledby="ani5" *ngIf="admin">
               <li><a class="dropdown-item fs-6" (click)="route1()">Home</a></li>
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route2()">My Profile</a></li>
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route3()">Jobs</a></li>
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route4()">Candidates</a></li>
               <li ><a class="mt-2 fs-6 ms-3" (click)="signOut()" *ngIf="isLoggedIn">LogOut</a> </li>
-             </ul> -->
+             </ul>
           </li>
 
         </div>
