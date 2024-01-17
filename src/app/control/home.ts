@@ -189,11 +189,7 @@ import { Router } from "@angular/router";
           </mat-card>
         </div> -->
         <div class="card-container" *ngFor="let job of jobData">
-          <mat-card
-            class="card"
-            
-            *ngIf=" job.Company_logo "
-          >
+          <mat-card class="card">
             <div class="card-content">
               <div class="image-container">
                 <img
@@ -205,7 +201,7 @@ import { Router } from "@angular/router";
               <div class="details-container">
 
               <div>
-              <span class="name">{{  job.companyName }}</span> 
+                <h3>{{  job.companyName }}</h3>
                 <h5 >
                    {{ job.Skill }} 
                 </h5>
