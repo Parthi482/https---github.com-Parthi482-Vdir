@@ -18,6 +18,7 @@ import { Router } from "@angular/router";
         cursor: pointer;
         /* width: 550px; */
         max-width: auto;
+        height:180px;
         margin: 10px;
       }
 
@@ -45,6 +46,7 @@ import { Router } from "@angular/router";
       }
       .contact-details {
         display: flex;
+        /* font-size: 16px; */
         flex-direction: column;
       }
 
@@ -125,14 +127,14 @@ import { Router } from "@angular/router";
 
               <div>
               <span class="name">{{ company.CompanyName }}</span> 
-                <h5 class="service-industry">
+                <h3 >
                    {{ company.industry }} 
-                </h5>
+                </h3>
               </div>
                 
                 <div class="contact-details"> 
                   <span > 
-                    {{ company.phone }}
+                  <i class="fa fa-phone" aria-hidden="true"></i>  {{ company.phone }}
                   </span>
                   <span> 
                     {{ company.email }}</span>
@@ -155,7 +157,7 @@ import { Router } from "@angular/router";
         <h1>Job list</h1>
         
 
-        <div *ngFor="let job of jobData">
+        <!-- <div *ngFor="let job of jobData">
           <mat-card
             class="card"
           
@@ -170,8 +172,8 @@ import { Router } from "@angular/router";
                 />
               </div>
 
-              <div style="margin-left: 30px;"> 
-                <span  class="name"> {{job.title }}</span>
+              <div style="margin-left: 50px;"> 
+                <h1> {{job.title }}</h1>
                 <br>
                 <span>{{ job.companyName }}</span>
                 <br>
@@ -182,8 +184,40 @@ import { Router } from "@angular/router";
               </div>
             </div>
           </mat-card>
+        </div> -->
+        <div class="card-container" *ngFor="let job of jobData">
+          <mat-card
+            class="card"
+            
+            *ngIf=" job.Company_logo "
+          >
+            <div class="card-content">
+              <div class="image-container">
+                <img
+                  class="avatar"
+                  [src]=" job.Company_logo"
+                  alt="{{  job.companyName }}"
+                />
+              </div>
+              <div class="details-container">
+
+              <div>
+              <span class="name">{{  job.companyName }}</span> 
+                <h5 >
+                   {{ job.Skill }} 
+                </h5>
+              </div>
+                
+                <div class="contact-details"> 
+                  <span > 
+                    {{ job.workmode}}
+                  </span>
+                   
+                </div>
+              </div>
+            </div>
+          </mat-card>
         </div>
- 
       </div>
 
       <div fxFlex>

@@ -16,6 +16,7 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/service/search.service';
 import { DataService } from 'src/app/service/data.service';
+import { isEmpty } from 'lodash';
 
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
@@ -23,7 +24,7 @@ import { DataService } from 'src/app/service/data.service';
 @Component({
   selector: 'app-createcv',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule,CommonModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './createcv.component.html',
   styleUrls: ['./createcv.component.css'],
 })
@@ -109,67 +110,71 @@ export class CreatecvComponent implements OnInit {
   whole: any[] = [];
   educationdetails: any[] = [];
   extra = {};
-  projectrows:any[] = [];
+  projectrows: any[] = [];
   skillrows: any[] = [];
   skillrows1: any[] = [];
   workexperience: any[] = [];
-sidebar:any;
-details:any
-personalForm: FormGroup;
-summaryForm: FormGroup;
-educationForm: FormGroup;
+  sidebar: any;
+  details: any
+  personalForm: FormGroup;
+  summaryForm: FormGroup;
+  educationForm: FormGroup;
 
   hobbiesArray = new FormArray([new FormControl('', Validators.required)])
 
-   constructor(private http: HttpClient, private auth: ApiService,private dataservice:DataService,private fb: FormBuilder) {
+  constructor(private http: HttpClient, private auth: ApiService, private dataservice: DataService, private fb: FormBuilder) {
     if (this.auth.islogin()) {
       this.email = this.auth.decodeToken().email;
 
-    let details =this.auth.getdetails();
-    this.details=details;
-    let fname=details.firstName+ ' ' +details.lastName
-    this.fullname1=fname
-    this.phonenumber1=details.phone
-    this.email1=details.email
+      let details = this.auth.getdetails();
+      this.details = details;
+      let fname = details.firstName + ' ' + details.lastName
+      this.fullname1 = fname
+      this.phonenumber1 = details.phone
+      this.email1 = details.email
     }
     this.personalForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.pattern('.*\\S.*')]],
       title: ['', [Validators.required, Validators.pattern('.*\\S.*')]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required,Validators.pattern(/^[6-9][0-9]{9}$/)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^[6-9][0-9]{9}$/)]],
       address: ['', [Validators.required, Validators.pattern('.*\\S.*')]]
     });
-  this.summaryForm = this.fb.group({
-    summary:['', Validators.pattern('.*\\S.*')]
-  })
-  this.educationForm = new FormGroup({
-    university: new FormControl('', [Validators.required, this.noSpaceValidator()]),
-  })
+    this.summaryForm = this.fb.group({
+      summary: ['', Validators.pattern('.*\\S.*')]
+    })
+    this.educationForm = new FormGroup({
+      university: new FormControl('', [Validators.required, this.noSpaceValidator()]),
+    })
   }
 
-Data:any
-overallValue:any
+  Data: any
+  overallValue: any
   ngOnInit() {
-    this.dataservice.getDataByFilter('education',{}).subscribe((data1: any) => {
-    // this.auth.GetALL('education').subscribe((res: any) => {
+    this.dataservice.getDataByFilter('education', {}).subscribe((data1: any) => {
+      // this.auth.GetALL('education').subscribe((res: any) => {
       let res = data1.data[0].response
-      let value:any []=res
-      let data:any[] =value.filter((val:any)=>{ return val.details === true })
+      let value: any[] = res
+      let data: any[] = value.filter((val: any) => { return val.details === true })
       this.Data = data
     })
-    if (this.auth.islogin()) {
+    if (!isEmpty(localStorage.getItem('token'))) {
       // this.auth.getUserResume(this.Email)
-      let ID =this.auth.getdetails()._id
+      let ID = this.auth.getdetails()._id
       console.log('====================================');
       console.log(ID);
       console.log('====================================');
-      this.auth.GetByID('user_resume','_id',ID)
-        .subscribe({  next: (data1: any) => {
-            console.log(data1);
-        if(data1!=null){
-          this.overallValue=data1[0]
-          let data=data1[0]
+      // this.dataservice.getDataById("user_resume", "101761091537366569087").subscribe((res: any) => {
+        this.dataservice.getDataById("user_resume",ID).subscribe((res:any)=>{
 
+        let data = res
+        console.log(data);
+
+        if (!isEmpty(data)) {
+          this.overallValue = res.data[0]
+          let data = res.data[0]
+          console.log(data);
+          
           this.populateFormFields(data);
           this.responseemail = data.email;
           this.getUserValues();
@@ -179,18 +184,35 @@ overallValue:any
           this.getUserValues4();
           this.getUserValues5();
         }
-          },
-          error(err) {
-            console.error(err);
-          },
-        });
+      })
+      // this.dataservice.getDataById('user_resume',ID)
+      //   .subscribe({  next: (data1: any) => {
+      //       console.log(data1);
+      //   if(data1!=null){
+      //     this.overallValue=data1.data[0]
+      //     let data=data1.data[0]
+
+      //     this.populateFormFields(data);
+      //     this.responseemail = data.email;
+      //     this.getUserValues();
+      //     this.getUserValues1();
+      //     this.getUserValues2();
+      //     this.getUserValues3();
+      //     this.getUserValues4();
+      //     this.getUserValues5();
+      //   }
+      //     },
+      //     error(err) {
+      //       console.error(err);
+      //     },
+      //   });
     }
 
   }
 
   populateFormFields(data: any) {
-        this.fullname1 = data.fullname;
-        console.log(data.fullname);
+    this.fullname1 = data.fullname;
+    console.log(data.fullname);
 
     this.title1 = data.title;
     this.email1 = data.email;
@@ -214,68 +236,68 @@ overallValue:any
     this.description1 = [];
     this.activity = [];
     this.description2 = [];
-if(data.educationdetails&&data.educationdetails.length!=0){
-  this.tablerows = data.educationdetails;
-  for (let i = 0; i < data.educationdetails.length; i++) {
-    this.universities[i] = data.educationdetails[i].university;
-    this.degrees[i] = data.educationdetails[i].degree;
-    this.graduationdates[i] = data.educationdetails[i].graduationdate;
-    this.gpas[i] = data.educationdetails[i].gpa;
-  }
-}
-  if(data.certificates&&data.certificates.length!=0){
-    this.certificaterows = data.certificates;
+    if (data.educationdetails && data.educationdetails.length != 0) {
+      this.tablerows = data.educationdetails;
+      for (let i = 0; i < data.educationdetails.length; i++) {
+        this.universities[i] = data.educationdetails[i].university;
+        this.degrees[i] = data.educationdetails[i].degree;
+        this.graduationdates[i] = data.educationdetails[i].graduationdate;
+        this.gpas[i] = data.educationdetails[i].gpa;
+      }
+    }
+    if (data.certificates && data.certificates.length != 0) {
+      this.certificaterows = data.certificates;
 
-  for (let i = 0; i < data.certificates.length; i++) {
-    this.certificatename[i] = data.certificates[i].certificate;
-    this.authority[i] = data.certificates[i].authority;
-    this.dateearned[i] = data.certificates[i].dateearned;
-    this.description[i] = data.certificates[i].description;
-  }
-}
+      for (let i = 0; i < data.certificates.length; i++) {
+        this.certificatename[i] = data.certificates[i].certificate;
+        this.authority[i] = data.certificates[i].authority;
+        this.dateearned[i] = data.certificates[i].dateearned;
+        this.description[i] = data.certificates[i].description;
+      }
+    }
 
-  if(data.workexperience&&data.workexperience.length!=0){
-    this.workexperience = data.workexperience;
+    if (data.workexperience && data.workexperience.length != 0) {
+      this.workexperience = data.workexperience;
 
-  for (let i = 0; i < data.workexperience.length; i++) {
-    this.company[i] = data.workexperience[i].company;
-    this.position[i] = data.workexperience[i].position;
-    this.startdate[i] = data.workexperience[i].startdate;
-    this.enddate[i] = data.workexperience[i].enddate;
-    this.responsibilities[i] = data.workexperience[i].responsibilities;
-  }
-}
+      for (let i = 0; i < data.workexperience.length; i++) {
+        this.company[i] = data.workexperience[i].company;
+        this.position[i] = data.workexperience[i].position;
+        this.startdate[i] = data.workexperience[i].startdate;
+        this.enddate[i] = data.workexperience[i].enddate;
+        this.responsibilities[i] = data.workexperience[i].responsibilities;
+      }
+    }
 
-  if(data.skills&&data.skills.length!=0){
-    this.skillrows = data.skills;
+    if (data.skills && data.skills.length != 0) {
+      this.skillrows = data.skills;
 
-  for (let i = 0; i < data.skills.length; i++) {
-    this.skillname[i] = data.skills[i].skill;
-    this.skilllevel[i] = data.skills[i].level;
-  }
+      for (let i = 0; i < data.skills.length; i++) {
+        this.skillname[i] = data.skills[i].skill;
+        this.skilllevel[i] = data.skills[i].level;
+      }
 
-}
-  if(data.projectsexperience&&data.projectsexperience.length!=0){
-    this.projectrows = data.projectsexperience;
+    }
+    if (data.projectsexperience && data.projectsexperience.length != 0) {
+      this.projectrows = data.projectsexperience;
 
-  for (let i = 0; i < data.projectsexperience.length; i++) {
-    this.projectname[i] = data.projectsexperience[i].project;
-    this.role[i] = data.projectsexperience[i].role;
-    this.duration[i] = data.projectsexperience[i].duration;
-    this.description1[i] = data.projectsexperience[i].description1;
-  }
-  if(data.extracurricular&&data.extracurricular.length!=0){
-    this.skillrows1 = data.extracurricular;
+      for (let i = 0; i < data.projectsexperience.length; i++) {
+        this.projectname[i] = data.projectsexperience[i].project;
+        this.role[i] = data.projectsexperience[i].role;
+        this.duration[i] = data.projectsexperience[i].duration;
+        this.description1[i] = data.projectsexperience[i].description1;
+      }
+      if (data.extracurricular && data.extracurricular.length != 0) {
+        this.skillrows1 = data.extracurricular;
 
-  for (let i = 0; i < data.extracurricular.length; i++) {
-    this.activity[i] = data.extracurricular[i].activity;
-    this.description2[i] = data.extracurricular[i].description2;
-  }
+        for (let i = 0; i < data.extracurricular.length; i++) {
+          this.activity[i] = data.extracurricular[i].activity;
+          this.description2[i] = data.extracurricular[i].description2;
+        }
 
-}
+      }
 
-}
-//   if( data.educationDetails&&data.educationDetails.length!=0){
+    }
+    //   if( data.educationDetails&&data.educationDetails.length!=0){
 
     // this.tableRows = data.educationDetails;
     // this.certificateRows = data.certificates;
@@ -289,7 +311,7 @@ if(data.educationdetails&&data.educationdetails.length!=0){
 
 
 
-   cl1(value: any) {
+  cl1(value: any) {
     this.personalinfo = true;
     this.summary = true;
     this.education = true;
@@ -460,7 +482,7 @@ if(data.educationdetails&&data.educationdetails.length!=0){
   }
 
   deleteSkillRow(i: number) {
-    console.log(i,'index');
+    console.log(i, 'index');
 
     this.skillrows.splice(i, 1);
     this.skillname.splice(i, 1);
@@ -590,7 +612,7 @@ if(data.educationdetails&&data.educationdetails.length!=0){
     console.log('====================================');
   }
 
-  generate(data:any) {
+  generate(data: any) {
 
     const documentDefinition = {
       content: [
@@ -761,7 +783,7 @@ if(data.educationdetails&&data.educationdetails.length!=0){
             },
           ],
         }, // Line separator
-/////////////////////
+        /////////////////////
 
         {
           text: 'Skills',
@@ -876,39 +898,39 @@ if(data.educationdetails&&data.educationdetails.length!=0){
 
   resume() {
 
-this.totalval().then((val:any)=>{
-  let id=this.details._id
+    this.totalval().then((val: any) => {
+      let id = this.details._id
 
-  if (this.overallValue!=null&&this.overallValue!=undefined) {
-    // this.auth.updateResume(this.Email, this.allValues)
-    console.log(id);
+      if (this.overallValue != null && this.overallValue != undefined) {
+        // this.auth.updateResume(this.Email, this.allValues)
+        console.log(id);
 
-this.auth.update('user_resume',id,val).subscribe({
+        this.auth.update('user_resume', id, val).subscribe({
 
-        next: (data: any) => {
-          console.log(data);
-        },
+          next: (data: any) => {
+            console.log(data);
+          },
 
-        error(err) {
-          console.log(err);
-          // alert(err.message);
-        },
-      });
-  } else {
+          error(err) {
+            console.log(err);
+            // alert(err.message);
+          },
+        });
+      } else {
 
-    val['_id'] = id;
+        val['_id'] = id;
 
-    this.auth.save('user_resume',val).subscribe({
-        next: (data: any) => {
-          console.log(data);
-        },
-        error(err) {
-          console.log(err);
-          // alert(err.message);
-        },
-      });
-  }
-})
+        this.auth.save('user_resume', val).subscribe({
+          next: (data: any) => {
+            console.log(data);
+          },
+          error(err) {
+            console.log(err);
+            // alert(err.message);
+          },
+        });
+      }
+    })
 
 
   }
@@ -926,88 +948,88 @@ this.auth.update('user_resume',id,val).subscribe({
   //       },
   //     });
   // }
-generatePdf(){
+  generatePdf() {
 
-  this.totalval().then(( val:any)=>{
-    this.generate( val)
-})
+    this.totalval().then((val: any) => {
+      this.generate(val)
+    })
 
 
 
-}
+  }
 
-  totalval(): Promise<any>{
+  totalval(): Promise<any> {
     return new Promise((resolve, reject) => {
 
-    let whole:any []=[]
-    let whole1:any []=[]
-    let whole2:any []=[]
-    let whole3:any []=[]
-    let whole4:any []=[]
-    let whole5:any []=[]
+      let whole: any[] = []
+      let whole1: any[] = []
+      let whole2: any[] = []
+      let whole3: any[] = []
+      let whole4: any[] = []
+      let whole5: any[] = []
 
-    for (let i = 0; i < this.universities.length; i++) {
-      let obj:any = {};
-      obj['university'] = this.universities[i];
-      obj['degree'] = this.degrees[i];
-      obj['graduationdate'] = this.graduationdates[i];
-      obj['gpa'] = this.gpas[i];
-      whole.push(obj);
-    }
-    for (let i = 0; i < this.certificatename.length; i++) {
-      // this.obj1 = {};
-      let obj1:any = {};
+      for (let i = 0; i < this.universities.length; i++) {
+        let obj: any = {};
+        obj['university'] = this.universities[i];
+        obj['degree'] = this.degrees[i];
+        obj['graduationdate'] = this.graduationdates[i];
+        obj['gpa'] = this.gpas[i];
+        whole.push(obj);
+      }
+      for (let i = 0; i < this.certificatename.length; i++) {
+        // this.obj1 = {};
+        let obj1: any = {};
 
-      obj1['certificate'] = this.certificatename[i];
-      obj1['authority'] = this.authority[i];
-      obj1['dateearned'] = this.dateearned[i];
-      obj1['description'] = this.description[i];
-      whole1.push(obj1);
-    }
-    for (let i = 0; i < this.company.length; i++) {
-      // this.o/bj2 = {};
-      let obj2:any = {};
+        obj1['certificate'] = this.certificatename[i];
+        obj1['authority'] = this.authority[i];
+        obj1['dateearned'] = this.dateearned[i];
+        obj1['description'] = this.description[i];
+        whole1.push(obj1);
+      }
+      for (let i = 0; i < this.company.length; i++) {
+        // this.o/bj2 = {};
+        let obj2: any = {};
 
-      obj2['company'] = this.company[i];
-      obj2['position'] = this.position[i];
-      obj2['startdate'] = this.startdate[i];
-      obj2['enddate'] = this.enddate[i];
-      obj2['responsibilities'] = this.responsibilities[i];
+        obj2['company'] = this.company[i];
+        obj2['position'] = this.position[i];
+        obj2['startdate'] = this.startdate[i];
+        obj2['enddate'] = this.enddate[i];
+        obj2['responsibilities'] = this.responsibilities[i];
 
-      whole2.push(obj2);
-    }
-    for (let i = 0; i < this.skillname.length; i++) {
-      // this.obj3 = {};
-      let obj3:any = {};
-      obj3['skill'] = this.skillname[i];
-      obj3['level'] = this.skilllevel[i];
+        whole2.push(obj2);
+      }
+      for (let i = 0; i < this.skillname.length; i++) {
+        // this.obj3 = {};
+        let obj3: any = {};
+        obj3['skill'] = this.skillname[i];
+        obj3['level'] = this.skilllevel[i];
 
-      whole3.push(obj3);
-    }
-    for (let i = 0; i < this.projectname.length; i++) {
-      // this.obj4 = {};
-      let obj4:any = {};
+        whole3.push(obj3);
+      }
+      for (let i = 0; i < this.projectname.length; i++) {
+        // this.obj4 = {};
+        let obj4: any = {};
 
-      obj4['project'] = this.projectname[i];
-      obj4['role'] = this.role[i];
-      obj4['duration'] = this.duration[i];
-      obj4['description1'] = this.description1[i];
-      whole4.push(obj4);
-    }
-    for (let i = 0; i < this.activity.length; i++) {
-      let obj5:any = {};
-      obj5['activity'] = this.activity[i];
-      obj5['description2'] = this.description2[i];
+        obj4['project'] = this.projectname[i];
+        obj4['role'] = this.role[i];
+        obj4['duration'] = this.duration[i];
+        obj4['description1'] = this.description1[i];
+        whole4.push(obj4);
+      }
+      for (let i = 0; i < this.activity.length; i++) {
+        let obj5: any = {};
+        obj5['activity'] = this.activity[i];
+        obj5['description2'] = this.description2[i];
 
-      whole5.push(obj5);
-    }
-    let ID =this.auth.getdetails()._id
+        whole5.push(obj5);
+      }
+      let ID = this.auth.getdetails()._id
 
-  let allvalues:any={}
-    allvalues['fullname'] = this.fullname1;
+      let allvalues: any = {}
+      allvalues['fullname'] = this.fullname1;
       allvalues['title'] = this.title1;
       allvalues['email'] = this.email1;
-    // allvalues['_id']=ID
+      // allvalues['_id']=ID
       allvalues['phonenumber'] = this.phonenumber1;
       allvalues['address'] = this.address1;
       allvalues['summary'] = this.summary1;
@@ -1022,15 +1044,15 @@ generatePdf(){
       console.log('====================================');
 
       resolve(allvalues)
-  })
- }
- noSpaceValidator(): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    if (control.value && control.value.trim().length === 0) {
-      return { 'noSpace': true };
-    }
-    return null;
-  };
+    })
+  }
+  noSpaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.value && control.value.trim().length === 0) {
+        return { 'noSpace': true };
+      }
+      return null;
+    };
 
-}
+  }
 }
