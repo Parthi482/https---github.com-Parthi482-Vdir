@@ -55,8 +55,7 @@ import {  DragDropModule } from '@angular/cdk/drag-drop';
 import { TokenInterceptor } from 'src/interceptor/tokenInceptor';
 import { EventLandingComponent } from './event-landing/event-landing.component';
 import { BusinessDirectoryComponent } from './business-directory/business-directory.component';
-import { JobsComponent } from './jobs/jobs.component';
-import { SelfEmployeeComponent } from './self-employee/self-employee.component';
+import { JobsComponent } from './jobs/jobs.component'; 
 import { EventsComponent } from './events/events.component';
 // import { EventsComponent } from './events/events.component';   
 const MY_DATE_FORMATS = {
@@ -84,8 +83,7 @@ const appearance: any = {
     ActionButtonComponent,
     MyLinkRendererComponent,
     EventLandingComponent, 
-    JobsComponent,
-    SelfEmployeeComponent, 
+    JobsComponent, 
     // EventsComponent, 
   ],
   imports: [
