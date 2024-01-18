@@ -1,6 +1,7 @@
 .business-card {
     display: flex;
-    max-width: 400px;
+    max-width: 550px;
+    /* width: 550px; */
     height: 200px;
     margin: 20px;
     border: 1px solid #ccc;
@@ -47,7 +48,7 @@
   }
   
   .business-card-container {
-    display: flex;
+    display: flex; 
     justify-content: center;
     flex-wrap: wrap;
   }

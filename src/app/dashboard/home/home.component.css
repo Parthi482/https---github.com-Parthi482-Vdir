@@ -161,25 +161,47 @@ input[type="checkbox"]:focus {
 
 .carousel-indicators .active {
   background-color: rgba(255, 255, 255, 0.5);
-}
-/* new */
-.containers {
-  display: flex;
-}
+} 
+
+
+
+
+
+
 
 .job-list{
   flex: 1; 
   width: 33.33%;  
 } 
-.containers {
+/* .containers {
   display: flex;
-} 
+}  */
 .card-container {
   display: flex;
   flex-direction: column;
    
 }
-  
+
+.containers {
+  display: flex;
+  /* justify-content: space-around; */
+}
+
+.section {
+  flex: 1; 
+}
+
+h1 {
+  font-weight: bold;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+    .section {
+      flex: 100%; 
+      max-width: none;  
+    }
+  }
 /* .grid-container {
   display: grid;
   grid-template-columns: 1fr;

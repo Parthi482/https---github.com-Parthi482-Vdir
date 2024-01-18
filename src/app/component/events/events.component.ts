@@ -21,18 +21,22 @@ ngOnInit(): void {
 }
 
 getData(){
-
+  let todayDate = new Date()
+  console.log(todayDate);
+  
   const filterValue = {
     filter: [
       {
         clause: "AND",
-        conditions: [{ column: '_id', operator: "NOTEQUAL", value:"id" }],
+        conditions: [{ column: "basic_details.start_date", operator: "GREATERTHANOREQUAL", value:todayDate , type:"date"}],
       },
     ],
   } 
  
-  this.dataservice.getDataByFilter("companies",filterValue).subscribe((res:any)=>{
+  this.dataservice.getDataByFilter("event",filterValue).subscribe((res:any)=>{
      let data = res.data[0].response 
+     console.log(data);
+     
        this.Data = data
   })
 }
