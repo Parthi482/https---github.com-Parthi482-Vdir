@@ -111,24 +111,56 @@
 </div>
    
 <br>
-<!-- <div class="grid-container"> -->
-  <!-- <div class="grid-item"> -->
-    <h1 style="font-weight: bold;text-align: center;">Event List</h1>
+<div class="containers">
+  <div class="section">
+    <h1>Event List</h1>
     <app-events></app-events>
-  <!-- </div> -->
+  </div>
 
-  <!-- <div class="grid-item"> -->
-    <h1 style="font-weight: bold;text-align: center;">Business List</h1>
+  <div class="section">
+    <h1>Business List</h1>
     <app-business-directory></app-business-directory>
-  <!-- </div> -->
-
-  <!-- <div class="grid-item"> -->
-    <h1 style="font-weight: bold;text-align: center;">Self Employee</h1>
-    <app-business-directory></app-business-directory>
-  <!-- </div> -->
-
-  <!-- <div class="grid-item"> -->
-    <h1 style="font-weight: bold;text-align: center;">Job List</h1>
-    <app-business-directory></app-business-directory>
-  <!-- </div> -->
+  </div>
 <!-- </div> -->
+
+<!-- <div class="containers"> -->
+  <div class="section">
+    <h1>Self Employee</h1>
+    <app-business-directory></app-business-directory>
+  </div>
+
+  <div class="section">
+    <h1>Job List</h1>
+    <app-business-directory></app-business-directory>
+  </div>
+</div> 
+
+<style> 
+  .containers {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .section {
+    flex: 1;
+    margin: 10px;
+  }
+
+  h1 {
+    font-weight: bold;
+    text-align: center;
+  }
+</style>
+
+
+
+
+    <!-- <h1 style="font-weight: bold;text-align: center;">Event List</h1>
+    <app-events></app-events>  
+    <h1 style="font-weight: bold;text-align: center;">Business List</h1>
+    <app-business-directory></app-business-directory> 
+ 
+    <h1 style="font-weight: bold;text-align: center;">Self Employee</h1>
+    <app-business-directory></app-business-directory>  
+    <h1 style="font-weight: bold;text-align: center;">Job List</h1>
+    <app-business-directory></app-business-directory>  -->
