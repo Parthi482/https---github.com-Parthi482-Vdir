@@ -49,6 +49,7 @@ import { FormArray, FormGroup, FormControl, Validators } from "@angular/forms";
   styleUrls: ["./datatable.component.css"],
 })
 export class DatatableComponent implements OnInit {
+  
   collectionName!: string;
   listName!: string;
   config: any;
