@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './category/category.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { AgendaAddComponent } from './agenda-add/agenda-add.component';
+import { EventsComponent } from '../component/events/events.component';
 
 const routes: Routes = [
   {path:'', children:[
@@ -32,8 +33,7 @@ const routes: Routes = [
 
   // {path:'applied-jobs', loadComponent:()=>import('./applied-jobs/applied-jobs.component').then(x=>x.AppliedJobsComponent)}
 {path:'applied-jobs',component:AppliedJobsComponent},
-{path:'agenda-add',component:AgendaAddComponent},
-
+{path:'agenda-add',component:AgendaAddComponent}, 
 // {path:'job-details',component:JobDetailsComponent},
 // {path:':business-category/:company/:job/:role', loadComponent:()=>import('./category/category.component').then(x=>x.CategoryComponent)},
 {path: "event-list",

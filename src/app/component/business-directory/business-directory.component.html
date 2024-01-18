@@ -1,0 +1,16 @@
+ 
+<div class="business-card-container">
+    <div class="business-card" *ngFor="let data of Data">
+      <div class="left-side">
+        <div class="logo-container">
+          <img src="{{data.Company_logo}}" alt="{{data.CompanyName}}" class="company-logo">
+        </div>
+      </div>
+      <div class="right-side">
+        <h2 style="font-weight: bold;">{{data.CompanyName}}</h2>
+        <p>{{data.Mobile}}</p>
+        <p>{{data.email}}</p>
+        <p>{{data.Address}}</p>
+      </div>
+    </div>
+  </div>

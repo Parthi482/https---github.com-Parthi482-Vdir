@@ -40,6 +40,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { HomeScreenInput } from '../control/home';
 import { ProfileComponent } from './profile/profile.component';
+import { EventsComponent } from '../component/events/events.component';
+import { BusinessDirectoryComponent } from '../component/business-directory/business-directory.component';
 @NgModule({
   declarations: [
     HomeScreenInput,
@@ -49,6 +51,8 @@ import { ProfileComponent } from './profile/profile.component';
     EventListComponent,
     AgendaAddComponent,
     EventScreenComponent,
+    EventsComponent,
+    BusinessDirectoryComponent,
     JoblistHome,
     // ProfileComponent
   ],

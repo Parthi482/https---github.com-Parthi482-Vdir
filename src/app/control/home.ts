@@ -15,8 +15,7 @@ import { Router } from "@angular/router";
       .card {
         display: flex;
         padding: 16px;
-        cursor: pointer;
-        /* width: 550px; */
+        cursor: pointer; 
         max-width: auto;
         height:180px;
         margin: 10px;
@@ -123,7 +122,7 @@ import { Router } from "@angular/router";
                 <img
                   class="avatar"
                   [src]="company.Company_logo"
-                  alt="{{ company.CompanyName }}"
+                alt="{{ company.CompanyName }}"
                 />
               </div>
               <div class="details-container">

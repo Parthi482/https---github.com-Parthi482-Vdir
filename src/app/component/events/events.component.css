@@ -1,0 +1,77 @@
+.business-card {
+  display: flex;
+  max-width: 400px;
+  margin: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.left-side {
+  flex: 1;
+  display: flex;
+  padding-left: 15px;
+  align-items: center;
+}
+
+.logo-container {
+  width: 100px; /* Adjust the size of the container as needed */
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  margin: 0 auto; /* Center the circle */
+}
+
+.company-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio without stretching */
+}
+
+.right-side {
+  flex: 2;
+  padding: 20px;
+}
+
+.right-side h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.right-side p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.business-card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Media Queries for Responsive Layout */
+@media screen and (min-width: 576px) {
+  .business-card {
+    flex: 0 0 calc(50% - 20px);
+  }
+}
+
+/* @media screen and (min-width: 768px) {
+  .business-card {
+    flex: 0 0 calc(33.33% - 20px);
+  }
+} */
+
+@media screen and (min-width: 992px) {
+  .business-card {
+    flex: 0 0 calc(33.33% - 20px);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .business-card {
+    flex: 0 0 calc(20% - 20px);
+  }
+}

@@ -19,11 +19,12 @@ import { JoblistHome } from './dashboard/event-screen/joblist-home';
 import { Login } from './control/login';
 import { HomeScreenInput } from './control/home';
 import { EventComponent } from './event/event/event.component';
+import { EventsComponent } from './component/events/events.component';
  
 const routes: Routes = [
 {
   path:"testing",
-  component:EventComponent
+  component:EventsComponent
 },
 
 
