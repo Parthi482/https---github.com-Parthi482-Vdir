@@ -20,11 +20,12 @@ import { Login } from './control/login';
 import { HomeScreenInput } from './control/home';
 import { EventComponent } from './event/event/event.component';
 import { EventsComponent } from './component/events/events.component';
+import { BusinessDirectoryComponent } from './component/business-directory/business-directory.component';
  
 const routes: Routes = [
 {
   path:"testing",
-  component:EventsComponent
+  component:BusinessDirectoryComponent
 },
 
 

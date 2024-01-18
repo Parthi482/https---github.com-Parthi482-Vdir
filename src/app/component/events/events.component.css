@@ -4,6 +4,7 @@
   margin: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  height: 200px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

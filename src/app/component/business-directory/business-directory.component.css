@@ -1,6 +1,7 @@
 .business-card {
     display: flex;
     max-width: 400px;
+    height: 200px;
     margin: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -50,6 +51,20 @@
     justify-content: center;
     flex-wrap: wrap;
   }
+  .company-info {
+    text-align: center; /* Center text within the container if needed */
+  }
+  
+  .company-info h2 {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333; /* Customize the color as needed */
+  }
+  
+  .company-info .industry {
+    color: #666; /* Customize the color as needed */
+  }
+
   
   /* Media Queries for Responsive Layout */
   @media screen and (min-width: 576px) {
