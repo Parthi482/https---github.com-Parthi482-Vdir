@@ -82,9 +82,7 @@ const appearance: any = {
     DynamicFilterComponent,
     ActionButtonComponent,
     MyLinkRendererComponent,
-    EventLandingComponent, 
-    JobsComponent, 
-    // EventsComponent, 
+    EventLandingComponent,  
   ],
   imports: [
     SlickCarouselModule,

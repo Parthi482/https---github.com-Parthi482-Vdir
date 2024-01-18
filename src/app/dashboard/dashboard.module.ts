@@ -43,6 +43,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { EventsComponent } from '../component/events/events.component';
 import { BusinessDirectoryComponent } from '../component/business-directory/business-directory.component';
 import { SelfEmployeeComponent } from '../component/self-employee/self-employee.component';
+import { JobsComponent } from '../component/jobs/jobs.component';
 @NgModule({
   declarations: [
     HomeScreenInput,
@@ -55,6 +56,7 @@ import { SelfEmployeeComponent } from '../component/self-employee/self-employee.
     EventsComponent,
     BusinessDirectoryComponent,
     SelfEmployeeComponent,
+    JobsComponent,
     JoblistHome,
     // ProfileComponent
   ],
