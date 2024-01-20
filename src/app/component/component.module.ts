@@ -53,11 +53,12 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import {  DragDropModule } from '@angular/cdk/drag-drop';
 import { TokenInterceptor } from 'src/interceptor/tokenInceptor';
-import { EventLandingComponent } from './event-landing/event-landing.component';
-import { BusinessDirectoryComponent } from './business-directory/business-directory.component';
-import { JobsComponent } from './jobs/jobs.component'; 
-import { EventsComponent } from './events/events.component';
-// import { EventsComponent } from './events/events.component';   
+import { EventLandingComponent } from './event-landing/event-landing.component';  
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ScreenComponent } from './screen/screen.component';
+
+
+
 const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -82,7 +83,7 @@ const appearance: any = {
     DynamicFilterComponent,
     ActionButtonComponent,
     MyLinkRendererComponent,
-    EventLandingComponent,  
+    EventLandingComponent,   
   ],
   imports: [
     SlickCarouselModule,
@@ -139,8 +140,10 @@ const appearance: any = {
     MatInputModule,
     MatNativeDateModule,
     MatIconModule,
-    MatDatepickerModule, 
+    NgbModule,
+    MatDatepickerModule,  
   ],
+
 
 
   exports: [

@@ -8,49 +8,35 @@ import { CategoryComponent } from './dashboard/category/category.component';
 import { HomeComponent } from './dashboard/home/home.component';
 import { CompaniesComponent } from './dashboard/companies/companies.component';
 import { JobDetailsComponent } from './dashboard/job-details/job-details.component';
-import { LocationComponent } from './shared/layout/location/location.component';
-import { DefaultComponent } from './shared/layout-event/default/default.component';
+import { LocationComponent } from './shared/layout/location/location.component'; 
 import { DatatableComponent } from './component/datatable/datatable.component';
 import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.component';  
 import { ScreenComponent } from './component/screen/screen.component';
-import { EventLandingComponent } from './component/event-landing/event-landing.component'; 
-import { EventScreenComponent } from './dashboard/event-screen/event-screen.component';
-import { JoblistHome } from './dashboard/event-screen/joblist-home';
-import { Login } from './control/login';
-import { HomeScreenInput } from './control/home';
+import { EventLandingComponent } from './component/event-landing/event-landing.component';  
 import { EventComponent } from './event/event/event.component';
-import { EventsComponent } from './component/events/events.component';
-import { BusinessDirectoryComponent } from './component/business-directory/business-directory.component';
  
 const routes: Routes = [
-{
-  path:"testing",
-  component:BusinessDirectoryComponent
-},
-
-
-
-
+  
 {
   path:'homescreen',
-  component:DashLayoutComponent,
+  component:EventComponent,
   children:[
     {
       path:'',
-      component:HomeScreenInput
+      component:EventComponent
     }
   ]
 },
-  {
-    path: 'events',
-    component: JoblistHome,
-    children: [
-      {
-        path: '',
-        component: JoblistHome,
-      },
-    ],
-  }, 
+//   {
+//     path: 'events',
+//     component: JoblistHome,
+//     children: [
+//       {
+//         path: '',
+//         component: JoblistHome,
+//       },
+//     ],
+//   }, 
   {
     path:"eventlanding",
     component: DashLayoutComponent,
@@ -61,7 +47,8 @@ const routes: Routes = [
       }
     ]
   },
-  {path: "event-details",
+  {
+    path: "event-details",
   component: DashLayoutComponent,
   
   children: [
@@ -76,9 +63,7 @@ const routes: Routes = [
   ],
   },
 
-
-
-
+ 
   {
     path: 'auth',
     component: AuthLayoutComponent,

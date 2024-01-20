@@ -98,6 +98,7 @@ import { CounterComponent } from './counter.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { Login } from "./login"; 
 import { MatGridListModule } from "@angular/material/grid-list";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 // import { ColorPickerInputComponent } from "./colourpicker";
 
 
@@ -495,7 +496,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
       SlickCarouselModule,
       FlexLayoutModule,
       // Carousel,
-
+      NgbModule,
         BrowserModule,
         MatGridListModule,
 

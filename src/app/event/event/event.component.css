@@ -1,4 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+/* styles.css */
+.button-18 {
+  /* Add your button styles here */
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.button-18:hover {
+  background-color: #0056b3;
+}
 
 .navbar {
     display: flex;
@@ -23,21 +36,7 @@
     font-size: 1rem;
   }
   
-  /* Responsive Styles */
-  @media screen and (max-width: 768px) {
-    .navbar {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .nav-list {
-      margin-top: 10px;
-    }
-  
-    .nav-list li {
-      margin-bottom: 10px;
-    }
-  }
+
  
 
   .button-18 {
@@ -88,29 +87,95 @@ border: rgb(255,193,7);
     color: rgba(0, 0, 0, .3);
   }
 
+ /* About Content start*/
+ .containing {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;  
+  margin: 0 auto;
+  padding: 20px;
+}
 
-  /* Your Component's CSS file */
-.container {
+  .left-side, .right-side {
+    box-sizing: border-box;
+    padding: 20px;
+    width: 100%;
+  }
+  .container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;   
   }
-  
-  .left-side {
-    flex: 1; /* Take up available space */
-    padding: 20px; /* Add padding as needed */
-  }
-  
-  .right-side {
-    flex: 2; /* Take up more space than left side */
-    padding: 20px; /* Add padding as needed */
-  }
-  
 
-  img {
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .card-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .card-item {
+    width: 100%;
+    max-width: 300px; /* Adjust max-width as needed */
+  }
+
+
+    /* Responsive Styles */
+    @media screen and (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    
+      .nav-list {
+        margin-top: 10px;
+      }
+    
+      .nav-list li {
+        margin-bottom: 10px;
+      }
+    }
+  @media only screen and (min-width: 768px) {
+    .left-side {
+      width: 30%;
+    }
+
+    .right-side {
+      width: 70%;
+    }
+  }
+  @media only screen and (min-width: 600px) {
+    .card-item {
+      width: calc(33.333% - 20px); /* Adjust as needed, considering margin */
+    }
+  }
+
+  @media only screen and (min-width: 900px) {
+    .card-item {
+      width: calc(25% - 20px); /* Adjust as needed, considering margin */
+    }
+  }
+
+.centered-container {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */ 
+  
+  justify-content: center; 
+}
+
+
+  /* img {
     max-width: 100%;
     border: 0px;
-  }
+  } */
+ /* About Content End*/
 
 
   
@@ -375,16 +440,20 @@ button {
     color: #f1c40f;
     border-bottom: 2px solid #f1c40f;
   }
+ 
   
   .schedule-container {
     display: none;
     padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
   
   .schedule-container.active {
     display: block;
   }
-  
+ 
+
   .time-slot {
     border-bottom: 1px dashed #52575d;
     padding: 1rem 0;
@@ -399,4 +468,60 @@ button {
   .event-time {
     color: #a7adba;
   }
+   
+
+
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+
+
+  }
+  .view-more { 
+  /* top: 10px;
+  right: 10px;
+  background-color: black;
+  color: #fff; */
+  /* padding: 5px 10px; */
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
   
+  .card-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+  .card-item {
+    flex-basis: calc(33.33% - 10px); /* Adjust as needed */
+    box-sizing: border-box;
+  }
+  
+  .card {
+    position: relative;
+    width: 300px;
+    height: 250px;
+    border: 1px solid #ddd;
+    border-radius: 10%;
+    overflow: hidden;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
