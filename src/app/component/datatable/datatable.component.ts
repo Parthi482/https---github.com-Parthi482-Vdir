@@ -49,7 +49,6 @@ import { FormArray, FormGroup, FormControl, Validators } from "@angular/forms";
   styleUrls: ["./datatable.component.css"],
 })
 export class DatatableComponent implements OnInit {
-  
   collectionName!: string;
   listName!: string;
   config: any;
@@ -88,6 +87,7 @@ export class DatatableComponent implements OnInit {
     paginationPageSize: environment?.paginationPageSize,
     rowModelType: environment?.rowModelType,
   };
+
   overlayNoRowsTemplate =
     '<span style="padding: 10px; background:white ;">No Data Found</span>"';
   constructor(
@@ -106,6 +106,19 @@ export class DatatableComponent implements OnInit {
       linkRenderer: MyLinkRendererComponent,
     };
   }
+
+
+ 
+
+
+
+
+
+
+
+
+
+
 
   ngOnInit() {
     // this.getFilter(this.filterQuery)
@@ -133,22 +146,15 @@ export class DatatableComponent implements OnInit {
     this.listData = this.helperService.getFilteredValue(val, this.listData, []);
   }
 
-  // onGridReady(params: GridReadyEvent) {
+  onGridReady(params: GridReadyEvent) {
 
-  //   this.gridApi = params.api;
-  //   params.api.sizeColumnsToFit();
-  //   this.gridApi.sizeColumnsToFit();
-  //   this.getList()
-
-  // }
-  onGridReady(params: GridReadyEvent<any>) {
-    // console.log(params.api);
-    
     this.gridApi = params.api;
-    console.log(this.gridApi);
-    
+    params.api.sizeColumnsToFit();
+    this.gridApi.sizeColumnsToFit();
     this.getList()
+
   }
+
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
@@ -353,8 +359,6 @@ export class DatatableComponent implements OnInit {
   getList(filterQuery?: any, sort?: any) {
     //! DEfenie this for GridAPi Should not be undefined
     if (this.gridApi !== undefined) {
-      console.log("hi");
-      
       const datasource:IServerSideDatasource = {
         getRows: async (params: IServerSideGetRowsParams) => {
           let obj: any = {
@@ -620,33 +624,8 @@ export class DatatableComponent implements OnInit {
   onCellClicked(event:any){
     let clickCell:any=event.column.getColId()
 
- if (this.config.screenEditMode == "projectdashboard" && clickCell !="Action") {
-      
-      let filer:any={
-        start:0,end:1000,filter:[{
-          
-            clause: "AND",
-            conditions: [
-              {column: "client_id",operator: "EQUALS",type: "string",value: event.data.client_id},
-            ],
-          
-        }]
-      }
-       this.DataService.getDataByFilter('client',filer).subscribe((res:any)=>{
-        console.log(res);
-        let data={
-          logo:res.data[0].response[0].logo.storage_name,
-          client_name:res.data[0].response[0].client_name,
-name: event.data.project_name,
-_id: event.data._id
-        }
-        // this.helperService.getProjectmenu(data)
-        console.log("final Data",data);
-        
-       })
-    } else {
-      return;
-    }
+ 
+      return; 
   }
 // Add OR Edit DATA To Change with out api request
   // close(event: any) {
@@ -790,55 +769,13 @@ _id: event.data._id
     'copyWithHeaders',
     'separator',
     // 'paste',
-    {
-    name: 'Export To Excel',
-    subMenu: [
-    // {
-    // name: 'Excel',
-    // subMenu: [
-    {
-    name: 'Selected Data Only ',
-    action: () => {
-    if(params.context.componentParent.gridApi.getSelectedRows().length!==0){
-    params.context.componentParent.onBtExport(false)
-    }else{
-    window.alert('No data Selected');
-    }
-    }
-    },{
-    name: 'All Data',
-    action: () => {
-    params.context.componentParent.onBtExport(true)
-    }
-    }
-    ]
-    }
+     
     ];
     
     return result;
     
     }
-    
-  onBtExport(flag?:any) {
-    if(flag==true){
-    this.DataService.getDataByFilter(
-        this.collectionName ,{}
-      ).subscribe(async (xyz: any) => {
-        console.log(xyz.data[0].response[0])
-        // this.excelservice.exportAsExcelFile(xyz.data[0].response, "Sanjay");
-   
-        } 
-        )
-      }else{
-        // console.log(data);
-        let data =this.gridApi.getSelectedRows()
-        console.log(data);
-        
-        // this.excelservice.exportAsExcelFile(data, "Sanjay");
-        this.gridApi.deselectAll();
-      }
-        
-  }
+     
  async editgrp(data: any) {
     // todo
     var filterCondition1 = {

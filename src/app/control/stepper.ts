@@ -23,10 +23,10 @@ import { Router } from '@angular/router';
     </div>
 
       <div style="text-align-last: end; width: 100%">
-        <button mat-button *ngIf="index !== 0" matStepperPrevious>Back step</button>
+        <button mat-button *ngIf="index !== 0" matStepperPrevious>Back</button>
          
         <button matStepperNext mat-raised-button type="button" *ngIf="!last" [disabled]="!isValid(step)">
-          Next step
+          Next
         </button>
 
         <button mat-raised-button type="button" *ngIf="last" [disabled]="!isValid(step)" (click)="SubmitData()">

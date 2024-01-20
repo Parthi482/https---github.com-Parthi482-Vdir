@@ -65,10 +65,11 @@
 <div>
   <h1 style="margin: 50px; padding-left: 70px">Upcoming Events</h1>
 
+  
   <div style="display: flex; justify-content: center; flex-direction: row">
-    <div class="card" *ngFor="let data of bannerImage">
+    <div class="card" *ngFor="let data of eventImage">
       <img
-        [src]="DocImagePAth + data.bannerimages.storage_name"
+        [src]="data.bannerimages.storage_name"
         height="250px"
         width="300px"
         style="object-fit: contain; padding: 25px; margin: 15px"
@@ -83,9 +84,9 @@
   <h1 style="margin: 50px; padding-left: 70px">Current Events</h1>
 
   <div style="display: flex; justify-content: center; flex-direction: row">
-    <div class="card" *ngFor="let data of bannerImage">
+    <div class="card" *ngFor="let data of eventImage">
       <img
-        [src]="DocImagePAth + data.bannerimages.storage_name"
+        [src]="data.bannerimages.storage_name"
         height="250px"
         width="300px"
         style="object-fit: contain; padding: 25px; margin: 15px"

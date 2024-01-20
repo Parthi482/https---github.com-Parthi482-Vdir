@@ -127,8 +127,14 @@ export class CreatecvComponent implements OnInit {
       this.email = this.auth.decodeToken().email;
 
       let details = this.auth.getdetails();
+      console.warn(details);
+      
       this.details = details;
-      let fname = details.firstName + ' ' + details.lastName
+      // user_name: user.given_name,
+      //       email: user.email,
+      //       last_name: user.family_name,
+      let fname = details.first_name
+ 
       this.fullname1 = fname
       this.phonenumber1 = details.phone
       this.email1 = details.email
@@ -164,15 +170,31 @@ export class CreatecvComponent implements OnInit {
       console.log('====================================');
       console.log(ID);
       console.log('====================================');
+
+
+
+
+      const filterCondition1 = {
+        filter: [
+          {
+            clause: "AND",
+            conditions: [{ column: '_id', operator: "EQUALS", value:ID }],
+          },
+        ],
+      } 
+
+
+
       // this.dataservice.getDataById("user_resume", "101761091537366569087").subscribe((res: any) => {
-        this.dataservice.getDataById("user_resume",ID).subscribe((res:any)=>{
+        this.dataservice.getDataByFilter("user_resume",filterCondition1).subscribe((res:any)=>{
 
         let data = res
         console.log(data);
 
         if (!isEmpty(data)) {
-          this.overallValue = res.data[0]
-          let data = res.data[0]
+          // this.overallValue = res.data[0]
+          let data = res.data[0].response
+          this.overallValue = data
           console.log(data);
           
           this.populateFormFields(data);

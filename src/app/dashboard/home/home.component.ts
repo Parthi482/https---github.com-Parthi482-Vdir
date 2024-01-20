@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, } from '@angular/core';
+import { Component, HostListener, OnInit, } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -68,11 +68,8 @@ export class HomeComponent {
       this.cityList = xyz.data[0].response 
 
     })
-
-
-
-
-
+ 
+    
     this.dataservice.getDataByFilter("companies", {}).subscribe((res: any) => {
     // this.auth.GetALL('companies').subscribe((res: any) => {
       let event = res.data[0].response
@@ -125,7 +122,19 @@ export class HomeComponent {
 
   searchJobs() {
     const query = this.searchForm.get('searchQuery')?.value;
+    const filterValue = {
+      filter: [
+        {
+          clause: "AND",
+          conditions: [
 
+            { column: "CompanyName", operator: "EQUALS", value:query }
+
+
+          ],
+        },
+      ],
+    }
     // const filterValue: any = [
     //   {
     //     clause: "$and",
@@ -136,12 +145,12 @@ export class HomeComponent {
     //     ]
     //   }
     // ];
-    // this.auth.getDataByFilter
-    this.auth.GetByID('companies', "CompanyName", query, 'true').subscribe((xyz: any) => {
+    // this.auth.getDataByFilter 
+      this.dataservice.getDataByFilter('companies', filterValue).subscribe((xyz: any) => {
       console.log(xyz);
       if (xyz != null) {
         this.showResults = true;
-        this.filteredJobs = xyz;
+        this.filteredJobs = xyz.data[0].response[0];
       }
 
 
@@ -187,8 +196,14 @@ export class HomeComponent {
 
   }
 
+  showSections = window.innerWidth < 763;
 
-
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.showSections = (event.target as Window).innerWidth < 763;
+    console.log("Hello Lesstham");
+    
+  }
 
 
 

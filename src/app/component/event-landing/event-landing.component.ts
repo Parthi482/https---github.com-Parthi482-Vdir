@@ -33,7 +33,7 @@ export class EventLandingComponent implements OnInit {
 
   cities: City[] | undefined;
 
-  bannerImage:any[]=[]
+  eventImage:any[]=[]
 
   
   navigate(data:any) { 
@@ -57,11 +57,11 @@ export class EventLandingComponent implements OnInit {
       
       let response = res.data[0].response 
       if(response){
-        this.bannerImage = []
+        this.eventImage = []
       }
       response.forEach((element:any) => { 
                 
-          this.bannerImage.push(element.event_image);
+          this.eventImage.push(element.event_image);
 });
 
     })
@@ -85,11 +85,13 @@ export class EventLandingComponent implements OnInit {
       
       let response = res.data[0].response 
       response.forEach((element:any) => { 
+        console.warn(element);
+        
         let objects ={
           bannerimages:element.event_image,
           id:element._id
         }
-          this.bannerImage.push(objects);
+          this.eventImage.push(objects);
 });
 
     })

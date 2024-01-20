@@ -13,7 +13,7 @@ import { isEmpty } from "lodash";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnChanges, AfterContentInit {
+export class HeaderComponent implements OnInit, OnChanges {
   nav() {
     this.router.navigateByUrl("home")
   }
@@ -45,9 +45,7 @@ export class HeaderComponent implements OnInit, OnChanges, AfterContentInit {
   constructor(private cf: ChangeDetectorRef, private route: ActivatedRoute, public authService: AuthService, private router: Router, private auth: ApiService, private sharedService: SharedService) {
 
   }
-  ngAfterContentInit(): void {
-    throw new Error('Method not implemented.');
-  }
+ 
 
   isSearchDropdownOpen: boolean = false;
 

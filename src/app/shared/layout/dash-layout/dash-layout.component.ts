@@ -9,8 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DashLayoutComponent {
   ishow:boolean = false
   constructor(  private route: ActivatedRoute,){ 
-    this.route.params.subscribe((params:any) => {
-      console.log(params);
+    this.route.params.subscribe((params:any) => { 
       
         if (params == "event-details"){
           this.ishow = true
