@@ -19,10 +19,14 @@ const routes: Routes = [
   
 {
   path:'homescreen',
-  component:EventComponent,
+  component:DashLayoutComponent,
   children:[
     {
       path:'',
+      component:EventComponent
+    },
+    {
+      path:':id',
       component:EventComponent
     }
   ]

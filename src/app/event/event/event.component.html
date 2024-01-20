@@ -1,4 +1,6 @@
 <!-- navbar -->
+<router-outlet></router-outlet>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <button
@@ -38,14 +40,16 @@
 </nav>
 
 <!-- Banner Image -->
-<div>
+<div *ngFor="let bannerImage of Banner_data.slice(0, 1); let i = index" [class.active]="i === currentIndex">
   <img
-    src="../../assets/image/11557.jpg"
+    [src]="docBasePath + bannerImage.storage_name"
     [ngClass]="{ 'img-fluid': !isMobile }"
     alt="Responsive Image"
     style="object-fit: cover; height: 700px; width: 100%"
   />
 </div>
+
+
 
 <!-- About -->
 <div class="containing">
@@ -54,10 +58,7 @@
   </div>
   <div class="right-side">
     <h2>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa
-      mollitia non illum enim explicabo odit laborum ad possimus, suscipit
-      fugiat. Accusantium cum voluptas mollitia, quidem blanditiis pariatur
-      maxime unde!
+      {{about}}
     </h2>
   </div>
 </div>

@@ -514,7 +514,7 @@ button {
     cursor: pointer;
     width: 300px;
     height: 350px;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     border-radius: 10%;
     overflow: hidden;
     margin: 15px;
@@ -522,6 +522,7 @@ button {
     /* margin-bottom: 10px; */
     display: flex;
     flex-direction: column;
+    border-radius: 10%;
     /* justify-content: space-between; */
   }
   
@@ -530,3 +531,7 @@ button {
     height: 100%;
     object-fit: cover;
   }
+
+
+ 
+  
