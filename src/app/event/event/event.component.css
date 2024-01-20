@@ -498,8 +498,9 @@ button {
   .card-row {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px; /* Adjust as needed */
+    /* justify-content: space-between; */
+    /* margin-bottom: 20px;  */
+
   }
   
   .card-item {
@@ -508,16 +509,20 @@ button {
   }
   
   .card {
-    position: relative;
+      transition: all 0.4s ease-in-out;
+    /* position: relative; */
+    cursor: pointer;
     width: 300px;
-    height: 250px;
+    height: 350px;
     border: 1px solid #ddd;
     border-radius: 10%;
     overflow: hidden;
-    margin-bottom: 10px;
+    margin: 15px;
+    padding: 30px;
+    /* margin-bottom: 10px; */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
   }
   
   .card img {

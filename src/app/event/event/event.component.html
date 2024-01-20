@@ -81,20 +81,18 @@
       </div>
     </div>
   </div> -->
- 
- 
-   
+
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <div >
-        <h2 >SPEAKERS</h2>
-        <p   (click)="toggleRemainingImages()">View More</p>
+      <div>
+        <h2>SPEAKERS</h2>
+        <a class="view-more" (click)="toggleRemainingImages()">View More</a>
       </div>
-    </div> 
+    </div>
   </div>
 </div>
- 
+
 <div class="container">
   <div class="card-container">
     <div class="card-row" *ngFor="let item of displayedItems; let i = index">
@@ -103,13 +101,9 @@
         *ngFor="let card of displayedItems.slice(i * 3, (i + 1) * 3)"
       >
         <div class="card">
-          <img
-            [src]="card.imageUrl"
-            alt="{{ card.title }}"
-          />
+          <img [src]="card.imageUrl" alt="{{ card.title }}" />
           <div class="card-content">
             <h3>{{ card.title }}</h3>
-            <p>{{ card.description }}</p>
           </div>
         </div>
       </div>
@@ -117,32 +111,33 @@
   </div>
 </div>
 
-
-
 <!-- AGENDA -->
 <div class="centered-container">
-  <h2 style="justify-content: center;display: flex;">AGENDA</h2>
+  <h2 style="justify-content: center; display: flex">AGENDA</h2>
   <!-- <div> -->
-    <div class="day-tabs">
-      <div
-        class="day-tab"
-        [class.active]="activeDay === dayInfo.day"
-        (click)="showSchedule(dayInfo.day)"
-        *ngFor="let dayInfo of scheduleData"
-      >
-        {{ dayInfo.date }}
-      </div>
+  <div class="day-tabs">
+    <div
+      class="day-tab"
+      [class.active]="activeDay === dayInfo.day"
+      (click)="showSchedule(dayInfo.day)"
+      *ngFor="let dayInfo of scheduleData"
+    >
+      {{ dayInfo.date }}
     </div>
+  </div>
 
-    <div *ngFor="let dayInfo of scheduleData" class="schedule-container" [ngClass]="{ active: activeDay === dayInfo.day }">
-      <div *ngFor="let event of dayInfo.events" class="time-slot">
-        <div>
-          <div>{{ event.name }}</div>
-          <div>{{ event.speaker }}</div>
-        </div>
-        <div class="event-time">{{ event.time }}</div>
+  <div
+    *ngFor="let dayInfo of scheduleData"
+    class="schedule-container"
+    [ngClass]="{ active: activeDay === dayInfo.day }"
+  >
+    <div *ngFor="let event of dayInfo.events" class="time-slot">
+      <div>
+        <div>{{ event.name }}</div>
+        <div>{{ event.speaker }}</div>
       </div>
+      <div class="event-time">{{ event.time }}</div>
     </div>
+  </div>
   <!-- </div> -->
 </div>
-
