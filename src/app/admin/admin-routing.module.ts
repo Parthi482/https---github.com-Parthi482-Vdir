@@ -5,14 +5,12 @@ import { CandidatesComponent } from './candidates/candidates.component';
 import { PostedjobsComponent } from './postedjobs/postedjobs.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EventComponent } from './event/event.component';
 
 const routes: Routes = [{path: '', children:[
   // {path:'jobs', loadComponent:()=>import('./jobs/jobs.component').then(x=>x.JobsComponent)},
   {path:'jobs', component:JobsComponent},
   {path:"candidates/:id", component:CandidatesComponent},
   {path:"dashboard", component:DashboardComponent},
-  {path:"event", component:EventComponent},
   {path:'preview-profile', component:PostedjobsComponent},
   {path:'edit-profile', component:UserprofileComponent},
   // {path:'candidates', loadComponent:()=>import('./candidates/candidates.component').then(x=>x.CandidatesComponent)},

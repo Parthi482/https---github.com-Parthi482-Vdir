@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { DataService } from 'src/app/service/data.service';
 import { ApiService } from 'src/app/service/search.service';
 
 @Component({
@@ -27,11 +28,11 @@ export class ScreenComponent {
     ]
   };
    id:any
-  constructor(private auth: ApiService,private route:ActivatedRoute, private router: Router, private fb: FormBuilder) {
+  constructor(private dataservice :DataService,private auth: ApiService,private route:ActivatedRoute, private router: Router, private fb: FormBuilder) {
     this.route.params.subscribe((params) => {
      console.log(params["id"]);
      this.id=params["id"]
-     this.auth.getbyid('event', params["id"]).subscribe((xyz: any) => {
+     this.dataservice.getDataById('event', params["id"]).subscribe((xyz: any) => {
       console.log(xyz);
       this.data = xyz;
       
