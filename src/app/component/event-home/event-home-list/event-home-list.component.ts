@@ -26,10 +26,14 @@ export class EventHomeListComponent {
 
   eventImage:any[]=[]
 
-  
-  navigate(data:any) { 
-    this.router.navigate([data])
-    // this.router.navigate(["event/"+data.id]) 
+ 
+  navigate(router:string,data?:any) { 
+    if(router =="list"){ 
+      this.router.navigate(['event-home'])
+    }else{    
+        this.router.navigate(["event/"+data]) 
+
+    }
       
   }
 

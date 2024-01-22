@@ -1,4 +1,4 @@
-<!-- <div class="containers" *ngIf="!Ishome">
+<div class="containers" *ngIf="!Ishome">
     <div class="banner">
       <img
         src="../../assets/images/audience-1853662_1920.jpg"
@@ -60,42 +60,37 @@
         </div>
       </form>
     </div>
-  </div> -->
+  </div>
 
  
 
-  <div style="position: relative;">
+  <!-- <div >
     <img  class="original-image" src="../../assets/images/audience-1853662_1920.jpg" alt="event_banner"/>
     <button class="button-1" style="float: right;" role="button">Join</button>
 
-</div> 
+</div>  -->
 
-  <div class="business-card-container">
+
+
+ <div class="business-card-container">
+
+  <div class="business-card"  style="cursor: pointer;" *ngFor="let data of Data?.slice(0, minNumberOfCards || Data.length)" (click)="navigate('view', data._id)">
  
-    <div class="business-card" *ngFor="let data of Data?.slice(0,minNumberOfCards || Data.length)" >
-      <div class="left-side">
-        <div class="logo-container">
-          <img
-            src="{{
-              'https://seekers.sgp1.digitaloceanspaces.com/' +
-                data.event_image.storage_name
-            }}"
-            alt="{{ data.event_name }}"
-            class="company-logo"
-          />
-        </div>
-  
-      </div>
-      <div class="right-side" style="align-self: center;width: 220px;" >
-        <h2 style="font-weight: bold">{{ data.event_name }}</h2>
-        <!-- <p>{{ data.basic_details.start_date }}</p> -->
-        <p><i class="fa fa-users" aria-hidden="true"></i>{{ data.event_participants.length }}</p>
-        <!-- <p>{{ data.Address }}</p> -->
+    <div class="left-side">
+      <div class="logo-container">
+        <img src="{{ 'https://seekers.sgp1.digitaloceanspaces.com/' + (data?.event_image?.storage_name || '') }}" alt="{{ data?.event_name }}" class="company-logo" />
       </div>
     </div>
-    <a style="text-decoration: none;cursor: pointer;"class="view-more" *ngIf="Ishome" (click)="navigate('event-home')">view more</a>
-  
+    <div class="right-side" style="align-self: center; width: 220px;">
+      <h2 style="font-weight: bold">{{ data?.event_name }}</h2>
+      <p><i class="fa fa-users" aria-hidden="true"></i>{{ data?.event_participants?.length || 0 }}</p>
+    </div>
   </div>
+
+  <a style="text-decoration: none; cursor: pointer;" class="view-more" *ngIf="Ishome" (click)="navigate('list')">view more</a>
+
+</div>
+
 
 
 

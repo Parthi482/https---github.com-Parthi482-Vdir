@@ -1,50 +1,57 @@
-import { NgModule, Component } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthLayoutComponent } from './shared/layout/auth-layout/auth-layout.component';
-import { DashLayoutComponent } from './shared/layout/dash-layout/dash-layout.component';
-import { AdminLayoutComponent } from './shared/layout/admin-layout/admin-layout.component';
-import { AuthsGuard } from './service/auths.guard';
-import { CategoryComponent } from './dashboard/category/category.component';
-import { HomeComponent } from './dashboard/home/home.component';
-import { CompaniesComponent } from './dashboard/companies/companies.component';
-import { JobDetailsComponent } from './dashboard/job-details/job-details.component';
-import { LocationComponent } from './shared/layout/location/location.component'; 
-import { DatatableComponent } from './component/datatable/datatable.component';
-import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.component';  
-import { ScreenComponent } from './component/screen/screen.component';
-import { EventLandingComponent } from './component/event-landing/event-landing.component';  
-import { EventComponent } from './event/event/event.component';
-import { EventHomeListComponent } from './component/event-home/event-home-list/event-home-list.component';
- 
+import { NgModule, Component } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { AuthLayoutComponent } from "./shared/layout/auth-layout/auth-layout.component";
+import { DashLayoutComponent } from "./shared/layout/dash-layout/dash-layout.component";
+import { AdminLayoutComponent } from "./shared/layout/admin-layout/admin-layout.component";
+import { AuthsGuard } from "./service/auths.guard";
+import { CategoryComponent } from "./dashboard/category/category.component";
+import { HomeComponent } from "./dashboard/home/home.component";
+import { CompaniesComponent } from "./dashboard/companies/companies.component";
+import { JobDetailsComponent } from "./dashboard/job-details/job-details.component";
+import { LocationComponent } from "./shared/layout/location/location.component";
+import { DatatableComponent } from "./component/datatable/datatable.component";
+import { DynamicFormComponent } from "./component/dynamic-form/dynamic-form.component";
+import { ScreenComponent } from "./component/screen/screen.component";
+import { EventLandingComponent } from "./component/event-landing/event-landing.component";
+import { EventComponent } from "./event/event/event.component";
+import { EventHomeListComponent } from "./component/event-home/event-home-list/event-home-list.component";
+import { EventViewComponent } from "./component/event-home/event-view/event-view.component";
+
 const routes: Routes = [
   {
-    path:'event-home',  component:DashLayoutComponent,    children:[
+    path: "event-home",
+    component: DashLayoutComponent,
+    children: [
       {
-      path:'',
-      component:EventHomeListComponent
-    }
-  ]
+        path: "",
+        component: EventHomeListComponent,
+      },
+    ],
   },
-// {
-//   path:'event',
-//   component:EventComponent,
-//   children:[
-//     {
-//       path:':id',
-//       component:EventComponent
-//     }
-//   ]
-// },
-//   {
-//     path: 'events',
-//     component: JoblistHome,
-//     children: [
-//       {
-//         path: '',
-//         component: JoblistHome,
-//       },
-//     ],
-//   }, 
+  {
+    path: "event",
+    component: EventViewComponent,
+    children: [
+      {
+        path: '',
+        component: EventViewComponent,
+      },
+      {
+        path: ':id',
+        component: EventViewComponent,
+      },
+    ],
+  },
+  //   {
+  //     path: 'events',
+  //     component: JoblistHome,
+  //     children: [
+  //       {
+  //         path: '',
+  //         component: JoblistHome,
+  //       },
+  //     ],
+  //   },
   // {
   //   path:"eventlanding",
   //   component: DashLayoutComponent,
@@ -58,7 +65,7 @@ const routes: Routes = [
   // {
   //   path: "event-details",
   // component: DashLayoutComponent,
-  
+
   // children: [
   //  {
   //   path: "",
@@ -71,76 +78,75 @@ const routes: Routes = [
   // ],
   // },
 
- 
   {
-    path: 'auth',
+    path: "auth",
     component: AuthLayoutComponent,
-    loadChildren: () => import('./auth/auth.module').then((x) => x.AuthModule),
+    loadChildren: () => import("./auth/auth.module").then((x) => x.AuthModule),
   },
   {
-    path: 'dashboard',
+    path: "dashboard",
     component: DashLayoutComponent,
     loadChildren: () =>
-      import('./dashboard/dashboard.module').then((x) => x.DashboardModule),
+      import("./dashboard/dashboard.module").then((x) => x.DashboardModule),
   },
   {
-    path: 'admin',
+    path: "admin",
     component: AdminLayoutComponent,
     canActivateChild: [AuthsGuard],
     loadChildren: () =>
-      import('./admin/admin.module').then((x) => x.AdminModule),
+      import("./admin/admin.module").then((x) => x.AdminModule),
   },
 
   //  {path:"",redirectTo:"/dashboard/home",pathMatch:"full"}
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: "", redirectTo: "home", pathMatch: "full" },
   {
-    path: 'home',
+    path: "home",
     component: DashLayoutComponent,
     children: [
       {
-        path: '',
+        path: "",
         component: HomeComponent,
       },
     ],
   },
   {
-    path: 'companies',
+    path: "companies",
     component: DashLayoutComponent,
     children: [
       {
-        path: '',
+        path: "",
         component: CompaniesComponent,
       },
     ],
   },
   {
-    path: 'google',
+    path: "google",
     component: LocationComponent,
     children: [
       {
-        path: '',
+        path: "",
         component: LocationComponent,
       },
     ],
   },
-//   {path: "event-details",
-//   children: [
-//    {
-//     path: "",
-//     component:DefaultComponent ,
-//    },
-//    {
-//     path: ":id",
-//     component:DefaultComponent
-//    },
-//   ],
-//  },
+  //   {path: "event-details",
+  //   children: [
+  //    {
+  //     path: "",
+  //     component:DefaultComponent ,
+  //    },
+  //    {
+  //     path: ":id",
+  //     component:DefaultComponent
+  //    },
+  //   ],
+  //  },
   {
-    path: 'jobs',
+    path: "jobs",
     component: DashLayoutComponent,
     children: [
       {
-        path: '',
+        path: "",
         component: JobDetailsComponent,
       },
     ],
@@ -149,7 +155,7 @@ const routes: Routes = [
   {
     path: "add",
     component: DashLayoutComponent,
-  //  canActivate: [AuthGuardService],
+    //  canActivate: [AuthGuardService],
 
     children: [
       {
@@ -161,7 +167,7 @@ const routes: Routes = [
   {
     path: "edit",
     component: DashLayoutComponent,
-  //  canActivate: [AuthGuardService],
+    //  canActivate: [AuthGuardService],
 
     children: [
       {
@@ -173,7 +179,7 @@ const routes: Routes = [
 
   {
     path: "list",
-    // canActivate: [AuthGuardService], 
+    // canActivate: [AuthGuardService],
     component: DashLayoutComponent,
     children: [
       {
@@ -183,33 +189,33 @@ const routes: Routes = [
       {
         path: ":form",
         component: DatatableComponent,
-      }
+      },
     ],
   },
   {
-    path: ':business-category',
+    path: ":business-category",
     // component: DashLayoutComponent,
     children: [
       {
-        path: '',
+        path: "",
         component: CategoryComponent,
       },
       {
-        path: ':company',
+        path: ":company",
         children: [
           {
-            path: '',
+            path: "",
             component: CategoryComponent,
           },
           {
-            path: ':job/:title',
+            path: ":job/:title",
             children: [
               {
-                path: '', // An empty path for the child route (meaning it matches when no additional segment is provided)
+                path: "", // An empty path for the child route (meaning it matches when no additional segment is provided)
                 component: CategoryComponent,
               },
               {
-                path: ':jobid', // The optional dynamic segment
+                path: ":jobid", // The optional dynamic segment
                 component: CategoryComponent,
               },
             ],
