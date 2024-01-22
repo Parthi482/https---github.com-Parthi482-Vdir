@@ -52,8 +52,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import {  DragDropModule } from '@angular/cdk/drag-drop';
-import { TokenInterceptor } from 'src/interceptor/tokenInceptor';
-import { EventLandingComponent } from './event-landing/event-landing.component';  
+import { TokenInterceptor } from 'src/interceptor/tokenInceptor'; 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ScreenComponent } from './screen/screen.component';
  
@@ -86,13 +85,13 @@ const appearance: any = {
     DatatableComponent,    DynamicFormComponent,
     DynamicFilterComponent,
     ActionButtonComponent,
-    MyLinkRendererComponent,
-    EventLandingComponent, 
+    MyLinkRendererComponent, 
     EventViewComponent,
     EventAdminComponent,   
   ],
   imports: [
     SlickCarouselModule,
+    MatSelectModule,
     NgSelectModule,
     MatCardModule,
     MatStepperModule,

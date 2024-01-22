@@ -1,4 +1,4 @@
- 
+ <div>
 <div class="business-card-container">
     <div class="business-card" *ngFor="let data of Data">
       <div class="left-side">
@@ -17,8 +17,16 @@
         <p>{{data.title}}</p>   
         <p *ngIf="data.city"><i class="fa fa-map-marker" aria-hidden="true" style="padding-right: 5px;color: brown  ;" ></i>{{data.city}}</p>
       </div>
-    </div>
-  <a style="text-decoration: none;cursor: pointer;">view more</a>
+    </div> 
 
+  <div style="text-align: center; margin-top: 10px;">
+    <a
+      style="text-decoration: none; cursor: pointer; display: inline-block; padding: 10px 20px;  border-radius: 5px;"
+      
+    >
+      View More
+    </a>
+  </div>
   </div>
 
+</div>

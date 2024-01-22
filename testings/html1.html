@@ -1,271 +1,121 @@
- 
-<div class="carousel-container">
-    <div class="banner">
-      <div
-        *ngFor="let image of EventImages; let i = index"
-        class="carousel-item"
-        [class.active]="i === currentIndex"
-      >
-        <img
-          [src]="docBasePath + image.storage_name"
-          alt=""
-          style="width: 100%; height: 550px; object-fit: cover"
-        />
-      </div>
-    </div>
-  </div> 
-  <app-counter  [target_date]='startdate' *ngIf="startdate"></app-counter>
-   
-  <!-- Description -->
-  <div
-    style="
-      margin: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    "
-  >
-    <div *ngFor="let basicdata of event_basic">
-      <h2>About event</h2>
-  
-      <p>{{ basicdata.event_description }}</p>
-    </div>
-  </div>
-  
-  <br/>
-  <br/>
-  <!-- Speaker & participants Count -->
-  <!-- <div
-    style="
-      width: 100%;
-      height: 150px;
-      background-color: darkcyan;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      align-items: center;
-      padding: 50px;
-    "
-  >
-  
-  
-    <div>
-      <h1>20+</h1>
-      <span>Speaker</span>
-    </div>
-  
-    <div>
-      <h1>40+</h1>
-      <span>participants</span>
-    </div>
-  
-  
-  </div> -->
-  
-  
-  <!-- AgendaData -->
-  <div
-    style="
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin: 15px;
-    "
-  >
-    <h1
-      style="
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 15px;
-      "
-    >
-      Schedule
-    </h1>
-  
-    <div
-      *ngFor="let iterator of this.AgendaData"
-      class="row"
-      style="display: flex; gap: 15px; justify-content: center"
-    >
-      <div
-        class="card"
-        style="
-          margin: 15px;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          overflow: hidden;
-        "
-      >
-        <div *ngFor="let start of startDate; let i = index">
-          <div
-            class="card-title-container"
-            style="
-              background-color: cadetblue;
-              text-align: center;
-              height: 80px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              color: white;
-            "
-          >
-            Day {{ i + 1 }}: {{ start }}
-          </div>
-        </div>
-  
-        <div
-          class="session-card"
-          style="padding: 15px; border-bottom: 1px solid #ddd"
-        >
-          <div style="font-weight: bold">{{ iterator.session_name }}</div>
-          <div>{{ iterator.short_description }}</div>
-          <!-- <button mat-raised-button (click)="yourFunction()">Youtube</button> -->
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <br />
-  <br /><br />
-  
-  <!-- Gallery -->
-  
-  <h1 style="display: flex; justify-content: center; align-items: center">
-    Our Gallery
-  </h1>
-  <div style="display: flex; justify-content: center; align-items: center">
-    <div
-      *ngFor="let images of EventImages"
-      style="flex-direction: row; display: flex"
-    >
-      <img
-        [src]="docBasePath + images.storage_name"
-        alt=""
-        style="width: 250px; height: 150px; margin: 15px"
-      />
-    </div>
-  </div>
-  <br /> 
-  
-  <!-- Speaker Data -->
-  <div
-    style="
-      background-color: #f5f8fb;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    "
-  >
-    <h5 style="margin: 10px">SEE WHAT'S ALL ABOUT</h5>
-    <h1>Speakers</h1>
-  
-    <div class="card-row" style="display: flex; width: 100%">
-      <div
-        *ngFor="let row of SpeakerData"
-        class="cards"
-        style="flex: 0 0 auto; margin: 10px"
-      >
-        <div
-          class="card-image-speaker"
-          style="
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            height: 200px;
-            width: 200px;
-          "
-        >
-          <img
-            [src]="row.user_photo"
-            alt=""
-            style="width: 100%; object-fit: cover; border-radius: 8px"
-          />
-          <div
-            class="session-title-hover"
-            style="
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              right: 0;
-              background-color: cadetblue;
-              color: white;
-              padding: 8px;
-              border-bottom-left-radius: 8px;
-              border-bottom-right-radius: 8px;
-            "
-          >
-            {{ row.first_name }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Join Event -->
-  <div
-    style="
-      display: flex;
-      background-color: cornflowerblue;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 200px;
-    "
-  >
-    <h1
-      style="
-        margin-bottom: 10px;
-        font-size: 1.5em;
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        letter-spacing: 1px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      "
-    >
-      Join Our Event
-    </h1>
-  
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam illo quaerat
-      a iste eligendi vero, reiciendis labore debitis itaque beatae eveniet
-      perferendis inventore veniam deserunt, rerum, ratione nam fugit autem?
-    </p>
-    <button mat-raised-button style="width: 10%" (click)="navigate()">
-      JOIN EVENT
-    </button>
-  </div>
-  
-   
-  
-  <style>
-    .containers {
-      position: relative;
-      width: 100%;
-      height: 450px;
-      overflow: hidden;
-    }
-    .bottom-div {
-      position: absolute;
-      bottom: 0;
-      width: 50%;
-      /* height: 100px; */
-      background-color: #f0f0f0;
-      padding: 20px;
-      box-sizing: border-box;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      left: 25%;
-    }
-    .counter {
-      text-align: center;
-      font-size: 2em; 
-      font-weight: bold;  
-    }
-  </style>
-  
+<form id="fs-frm" name="simple-contact-form" accept-charset="utf-8" action="https://formspree.io/f/{form_id}" method="post">
+  <fieldset id="fs-frm-inputs">
+    <label for="full-name">Full Name</label>
+    <input type="text" name="name" id="full-name" placeholder="First and Last" required="">
+    <label for="email-address">Email Address</label>
+    <input type="email" name="_replyto" id="email-address" placeholder="email@domain.tld" required="">
+    <label for="message">Message</label>
+    <textarea rows="5" name="message" id="message" placeholder="Aenean lacinia bibendum nulla sed consectetur. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec ullamcorper nulla non metus auctor fringilla nullam quis risus." required=""></textarea>
+    <input type="hidden" name="_subject" id="email-subject" value="Contact Form Submission">
+  </fieldset>
+  <input type="submit" value="Submit">
+</form><style>/* reset */
+
+
+#fs-frm input,
+#fs-frm select,
+#fs-frm textarea,
+#fs-frm fieldset,
+#fs-frm optgroup,
+#fs-frm label,
+#fs-frm #card-element:disabled {
+  font-family: inherit;
+  font-size: 100%;
+  color: inherit;
+  border: none;
+  border-radius: 0;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+#fs-frm label,
+#fs-frm legend,
+#fs-frm ::placeholder {
+  font-size: .825rem;
+  margin-bottom: .5rem;
+  padding-top: .2rem;
+  display: flex;
+  align-items: baseline;
+}
+
+/* border, padding, margin, width */
+#fs-frm input,
+#fs-frm select,
+#fs-frm textarea,
+#fs-frm #card-element {
+  border: 1px solid rgba(0,0,0,0.2);
+  background-color: rgba(255,255,255,0.9);
+  padding: .75em 1rem;
+  margin-bottom: 1.5rem;
+}
+#fs-frm input:focus,
+#fs-frm select:focus,
+#fs-frm textarea:focus {
+  background-color: white;
+  outline-style: solid;
+  outline-width: thin;
+  outline-color: gray;
+  outline-offset: -1px;
+}
+#fs-frm [type="text"],
+#fs-frm [type="email"] {
+  width: 100%;
+}
+#fs-frm [type="button"],
+#fs-frm [type="submit"],
+#fs-frm [type="reset"] {
+  width: auto;
+  cursor: pointer;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+}
+#fs-frm [type="button"]:focus,
+#fs-frm [type="submit"]:focus,
+#fs-frm [type="reset"]:focus {
+  outline: none;
+}
+#fs-frm [type="submit"],
+#fs-frm [type="reset"] {
+  margin-bottom: 0;
+}
+#fs-frm select {
+  text-transform: none;
+}
+
+#fs-frm [type="checkbox"] {
+  -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
+  appearance: checkbox;
+  display: inline-block;
+  width: auto;
+  margin: 0 .5em 0 0 !important;
+}
+
+#fs-frm [type="radio"] {
+  -webkit-appearance: radio;
+  -moz-appearance: radio;
+  appearance: radio;
+}
+
+/* address, locale */
+#fs-frm fieldset.locale input[name="city"],
+#fs-frm fieldset.locale select[name="state"],
+#fs-frm fieldset.locale input[name="postal-code"] {
+  display: inline;
+}
+#fs-frm fieldset.locale input[name="city"] {
+  width: 52%;
+}
+#fs-frm fieldset.locale select[name="state"],
+#fs-frm fieldset.locale input[name="postal-code"] {
+  width: 20%;
+}
+#fs-frm fieldset.locale input[name="city"],
+#fs-frm fieldset.locale select[name="state"] {
+  margin-right: 3%;
+}
+</style>

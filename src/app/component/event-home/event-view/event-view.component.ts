@@ -58,10 +58,10 @@ export class EventViewComponent {
   ];
 
   constructor(private route: ActivatedRoute, private dataservice: DataService,private datePipe: DatePipe) {
+   
+    this.route.params.forEach((res:any)=>{
 
-    this.route.children.forEach((res: any) => {
-
-      if (res.params._value.id) this.getData(res.params._value.id)
+      if (res.id) this.getData(res.id)
 
     })
 

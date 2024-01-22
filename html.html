@@ -1,274 +1,74 @@
-<nav class="navbar navbar-expand-lg navbar-light " style="background-color:brown">
-    <img id="ani3" src="assets/image/vdirectory-small-logo.png"  alt="Logo" width="100" height="60" style="width: 140px;" class="d-inline-block align-text-top">
-  
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarColor03" >
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" style="cursor: pointer;">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="cursor: pointer;">Schedule</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="cursor: pointer;">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="cursor: pointer;">Speakers</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="cursor: pointer;">Contact</a>
-        </li>
-      </ul>
-  
-    </div>
-  </nav>
-  
-  
-  
-  
-  
-  
-  <div class="carousel-container">
-    <div class="banner">
-      <div *ngFor="let image of data1; let i = index" class="carousel-item" [class.active]="i === currentIndex">
-        <img [src]="image" alt="" style="width: 100%; height: 550px; object-fit: cover;">
-      </div>
-    </div>
-    
-    <!-- <div class="logo-container">
-      <img [src]="docBasePath + eventlogo" alt="Logo Image">
-    </div> -->
-  
-    <div  class="info-bar" style="background-color: beige;width: 350px;; height: 100px;justify-content: center;align-items: center;display: flex;"> 
-      <div *ngIf="timeRemaining" style="justify-content: center;align-items: center; display: flex;"> 
-        <div >
-          <!-- <h4>EVENT WILL START IN</h4> -->
-          {{ days }} days
-          {{ hours }} hours
-          {{ minutes }} minutes
-          {{ seconds }} seconds
-        </div>
-      </div>
-    </div>
-  
-  
+<div class="containers" *ngIf="!Ishome">
+  <div class="banner"> 
+    <!-- <img [src]="imageList[currentIndex]" alt=""  style="width: 100%; height: 550px;object-fit:fill;">  -->
+    <img  src="../../assets/images/audience-1853662_1920.jpg"  alt="Event Image" />
+
   </div>
-  
-  
-  
-  
-  <div>
-    <h4>about Event</h4>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ullam quia dignissimos, aliquam iure tenetur unde aut vitae accusantium cupiditate eaque magnam numquam? Doloribus harum exercitationem earum ea, perferendis commodi.</p>
-  </div>
-  
-  
-  <!-- 
-  <div style="display: flex; flex-direction: column; margin: 25px; text-align: center;">
-    <h3>Schedule</h3>
-    <div class="card1">
-      <div>
-        Day 1. February 12, 2019
-      </div>
-      <div>
-        <span>08:00 AM - 09:00 AM</span>
-        <h2>Grand Opening</h2>
-        <h5>Host: Michael Smith - Marketing ING CEO</h5>
-      </div>
-    </div>
-  </div> -->
-  
-  
-  
-    <!-- Uncomment the following lines if you want to display the start date -->
-      <!-- <div style="background-color: steelblue; height: 100px; margin: 50px;">
-        {{startdate}}
-      </div> -->
-  
-      <!-- Uncomment the following lines if you want to iterate over agenda_details -->
-      <!-- <div *ngFor="let agenda of agenda_details">
-        <h3>{{agenda.session_name}}</h3>
-      </div> -->
-    <!-- </div> -->
-  
-  <div  style="display: flex;justify-content: center;  flex-direction: row;"> 
-    <div class="card" *ngFor="let data of bannerImage">
-      Day 1. February 12, 2019    
-     
-     </div>
-    </div>
-  
-    <!-- <div style="display: flex;justify-content: center;  flex-direction: row; align-items: center;background-color:blanchedalmond;">
-      
-      <h2>Speakers</h2> 
-      <div style="display: flex;justify-content: center;  flex-direction: row; align-items: center;" > 
-        <div class="card" *ngFor="let data of bannerImage">
-            
-        </div>
-        </div>
-    </div> -->
-  
-    <div class="loc" style="display: flex; justify-content: center; position: relative; width: 100%; overflow: hidden;margin-top: 20px;">
-      <div style="flex: 0 0 65%;font-size: medium; font-weight: bold; margin-left: 16px; box-sizing: border-box; padding: 20px;color:rgb(255 136 0) ; background-color: rgba(250, 247, 247, 0.8); border-radius: 10px;">
-          <p>OUR SPEAKERS</p>
-      </div>
-    </div>
-  
-    <div  style="display: flex;justify-content: center;  flex-direction: row;"> 
-  <div class="card "  *ngFor="let speaker of speakerData" >
-     
-    <img [src]="speaker.user_photo" alt={{speaker.first_name}}  height="250px" width="300px" style="object-fit: contain;padding: 25px;">
-    <h1>{{speaker.first_name}}</h1>
-    <p class="title">Lorem, ipsum dolor sit </p>
-    <p> Deleniti velit consequatur blanditiis </p>
-    
-  </div>
-  </div>
-  
-  
-  
-  <!-- <div class="loc" style="display: flex; justify-content: center; position: relative; width: 100%; overflow: hidden;margin-top: 20px;">
-    <div style="flex: 0 0 65%;font-size: medium; font-weight: bold; margin-left: 16px; box-sizing: border-box; padding: 20px;color:rgb(255 136 0) ; background-color: rgba(250, 247, 247, 0.8); border-radius: 10px;">
-        <p>OUR SPEAKERS</p>
-    </div>
-  </div>
-  
-  <div  style="display: flex;justify-content: center;  flex-direction: row;"> 
-  <div class="card "  *ngFor="let speaker of speakerData" >
+</div>
+ 
+
+<!-- <div class="center-container" *ngIf="!Ishome">
+  <form>
+    <mat-form-field style="width: 250px;">
+      <input matInput type="text" [matAutocomplete]="auto" [formControl]="searchText" placeholder="Event name" (keydown.enter)="$event.preventDefault()" />
+      <mat-icon *ngIf="searchText.value !== ''" matSuffix class="searchIcon" (click)="clearSearch()">close</mat-icon>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+        <mat-option *ngFor="let item of filteredData" [value]="item.event_name">
+          {{ item.event_name }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field style="width: 250px; margin: 15px;">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker"          (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)"/>
+
+      <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
    
-  <img [src]="speaker.user_photo" alt={{speaker.first_name}}  height="250px" width="300px" style="object-fit: contain;padding: 25px;">
-  <h1>{{speaker.first_name}}</h1>
-  <p class="title">Lorem, ipsum dolor sit </p>
-  <p> Deleniti velit consequatur blanditiis </p>
-  
+  </form>
+</div> -->
+
+
+ 
+ 
+<div class="business-card-container">
+  <div
+    class="business-card"
+    style="cursor: pointer"
+    *ngFor="let data of Data?.slice(0, minNumberOfCards || Data.length)"
+    (click)="navigate('view', data._id)"
+  >
+    <div class="left-side">
+      <div class="logo-container">
+        <img
+          src="{{
+            'https://seekers.sgp1.digitaloceanspaces.com/' +
+              (data?.event_image?.storage_name || '')
+          }}"
+          alt="{{ data?.event_name }}"
+          class="company-logo"
+        />
+      </div>
+    </div>
+    <div class="right-side" style="align-self: center; width: 220px">
+      <h2 style="font-weight: bold">{{ data?.event_name }}</h2>
+      <p>
+        <i class="fa fa-users" aria-hidden="true"></i
+        >{{ data?.event_participants?.length || 0 }}
+      </p>
+    </div>
   </div>
-  </div> -->
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-      <h2>Join Event now!</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores ipsum commodi aut officiis soluta. Repudiandae voluptates officiis cum, id, delectus harum sed suscipit nihil sapiente mollitia perferendis vero illo inventore?</p>
-      <button mat-raised-button>Join event</button>
-    </div>
-  <!-- <div class="info-ba1r" >
-    <div>
-      <i class="fas fa-calendar" style="font-size: 32px; margin-bottom: 8px; margin-right: 8px;"></i>
-      <div style="margin-bottom: 0;">Number of speaker:</div>
-    </div>
-    <div>
-      <i class="fas fa-map-marker-alt" style="font-size: 24px; margin-bottom: 8px; margin-right: 8px;"></i>
-      <p style="margin-bottom: 0;">Total Participate:</p>
-    </div>
-  
-    <div>
-      <i class="fas fa-clock" style="font-size: 24px; margin-bottom: 8px; margin-right: 8px;"></i>
-      <p style="margin-bottom: 0;">Time:</p>
-    </div>
-  
-  </div> -->
-  
-  
-  
-  
-  
-  <!-- <ngx-countdown [time]="86400000"></ngx-countdown>  -->
-   
-  <!-- 
-  
-    
-  
-    
-  
-  
-  
-    <div class="loc" style="display: flex; justify-content: center; position: relative; width: 100%; overflow: hidden;">
-      <div style="flex: 0 0 35%; box-sizing: border-box; padding: 20px; background-color: rgba(250, 247, 247, 0.8); border-radius: 10px; height: 300px; overflow: hidden;">
-          <h3 style="color:rgb(255 136 0) ;font-size: medium; font-weight: bold;">About the Event</h3>
-          <p  style="overflow: auto; max-height: 240px;" [innerHTML]="data?.event_description"></p>
-      </div>
-   
-  
-  </div>
-     
-   
-    
-    <div class="loc" style="display: flex; justify-content: center; position: relative; width: 100%; overflow: hidden; margin-top: 10px;">
-      <div style="flex: 0 0 35%; box-sizing: border-box; padding: 20px; background-color: rgba(253, 251, 251, 0.8); border-radius: 10px;">
-        <h3 style="color:rgb(255 136 0) ;font-size: medium; font-weight: bold;">Agenda
-        </h3> 
-  
-  
-      <div *ngFor="let agenda of AgendaData">
-        <mat-accordion class="example-headers-align" multi>
-          <mat-expansion-panel (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <h4>{{ agenda.session_start_time }}</h4> 
-              </mat-panel-title>
-              <mat-panel-description>
-                <p>{{ agenda.session_name }}</p> 
-              </mat-panel-description>
-            </mat-expansion-panel-header> 
-            <div [innerHTML]="agenda.agenda_description">{{panelOpenState ? 'open' : 'closed'}}
-            </div> 
-            <mat-action-row>
-              <button mat-button color="primary"  >Session Link</button>
-              <button mat-button color="warn"  >Youtube Link</button> 
-            </mat-action-row>
-          </mat-expansion-panel> 
-        </mat-accordion>
-      </div>
-   
-  
-      </div>
-  
-      <div style="flex: 0 0 30% ; box-sizing: border-box; padding: 2px;color: #fcfafa; border-radius: 10px;height: 300px;width: 300px;">
-        <locations [Address]="" [Flag]="false" [Draggable]="false" [Latlog]="location"></locations> 
-  
-      </div>
-    </div>
-    
-    <div class="loc" style="display: flex; justify-content: center; position: relative; width: 100%; overflow: hidden;margin-top: 20px;">
-      <div style="flex: 0 0 65%;font-size: medium; font-weight: bold; margin-left: 16px; box-sizing: border-box; padding: 20px;color:rgb(255 136 0) ; background-color: rgba(250, 247, 247, 0.8); border-radius: 10px;">
-          <p>OUR SPEAKERS</p>
-      </div>
-    </div>
-  
-    <div  style="display: flex;justify-content: center;  flex-direction: row;"> 
-  <div class="card "  *ngFor="let speaker of speakerData" >
-     
-    <img [src]="speaker.user_photo" alt={{speaker.first_name}}  height="250px" width="300px" style="object-fit: contain;padding: 25px;">
-    <h1>{{speaker.first_name}}</h1>
-    <p class="title">Lorem, ipsum dolor sit </p>
-    <p> Deleniti velit consequatur blanditiis </p>
-    
-  </div>
-  </div>
-  
-    -->
-  
-  
-   
+
+  <a
+    style="text-decoration: none; cursor: pointer"
+    class="view-more"
+    *ngIf="Ishome"
+    (click)="navigate('list')"
+    >view more</a
+  >
+</div>
+ 
+ 

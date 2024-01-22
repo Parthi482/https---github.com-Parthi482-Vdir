@@ -100,67 +100,16 @@ a:hover {
 .carousel-bullet:hover {
     color: #aaaaaa;
 }
-
-
-/* .fill {object-fit: fill;}
-.contain {object-fit: contain;}
-.cover {object-fit: cover;}
-.scale-down {object-fit: scale-down;}
-.none {object-fit: none;}
- */
-
-
-
-
-
+ 
 
     </style>
-
-
-<!-- carousel.component.html -->
-<!-- <div id="container" style="position: relative; height: 400px; width: 100%;">
-<ngx-slick-carousel class="carousel" [config]="slickConfig" (init)="slickInit($event)" (afterChange)="slideChange($event)">
-  <div   class="carousel-slide">
-    <img [src]="imageList[currentIndex]" alt="Carousel Slide">
-  </div>
-</ngx-slick-carousel>
-
-</div> -->
-
-
-
-
-
-
-
-
-
-
-
+ 
 <div id="container" style="position: relative; height: 400px; width: 100%;">
 
 <img [src]="defaultBannerImage" alt="" *ngIf="!originalBanner" style="width: 100%; height: 100%;object-fit: cover; " >
  
   <img [src]="imageList[currentIndex]" alt="" *ngIf="newBanner" style="width: 100%; height: 100%;object-fit:fill;"> 
-  <!-- <div  class="controls" style="margin: 10px; display: flex; flex-direction: row; align-items: center; justify-content: center; "> -->
-    
-  <!-- <a   class="previous round" (click)="prev()" >&#8249;</a>
-  <a class="current round" (click)="current()"> &#8249;</a>
-<a class="next round" (click)="next()">&#8250;</a> -->
-<!-- <ol class="carousel-indicators" style="display: flex; flex-direction: row ;justify-content: center; " >
-            <li>
-                <label for="carousel-1" class="carousel-bullet" (click)="prev()">•</label>
-            </li>
-            <li>
-                <label for="carousel-2" class="carousel-bullet" (click)="current()">•</label>
-            </li>
-            <li>
-                <label for="carousel-3" class="carousel-bullet" (click)="next()">•</label>
-            </li> 
-</ol> -->
-
-  <!-- </div>  -->
-
+  
 <div style="display: flex; flex-direction: row;">
   <img [src]="defaultlogoImage ? defaultlogoImage : '../../assets/images/banner.png'" alt="Logo Image" style="border: none;background-color:white;width: 200px; height: 200px;object-fit: cover; padding:8px;border-radius: 50%; margin: 15px; padding-left: 15px; position: absolute; bottom: 0; left: 0;">
   <input type='file' style="width: 200px; height: 200px; border-radius: 50%; opacity: 0; margin: 15px; padding-left: 15px; position: absolute; bottom: 0%; left: 0;" (change)="onFileSelected($event)">
@@ -188,7 +137,7 @@ a:hover {
   
   <br>
   <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; top: 0;">
-
+<!-- image drag and drop -->
 <div
   cdkDropList
   [cdkDropListData]="imageList"
@@ -343,16 +292,10 @@ eventId:any
 
     for (const file of this.BannerData) {
  
-      formData.append("file", file);
-      // if(this.field?.['bind_key']){
-            // formData.append(ref,Id);
-
+      formData.append("file", file); 
             formData.append("user_profile", "test_user");
-          // }
-          
-    }
- console.clear()
-    console.log(Id);
+  
+    } 
     
   //banner upload
   this.dataService.imageupload("temporary_user",Id,formData).subscribe((res: any) => {
@@ -379,12 +322,8 @@ eventId:any
       this.currentIndex++;
     }
     this.cf.detectChanges();
-    // this.currentSlideIndex = (this.currentSlideIndex + 1) % this.slides.length;
-  }
-  // showNextSlide() {
-  //   this.currentSlideIndex = (this.currentSlideIndex + 1) % this.slides.length;
-  // }
-
+     
+  } 
 
   ngOnChanges(changes: SimpleChanges){
     console.log(changes)
@@ -397,11 +336,7 @@ onFileSelected(event: any) {
 
   let ref=this?.field?.props?.['refId']
 
-
-
-
-
-
+ 
   const files: FileList = event.target.files;
   const filesArray: File[] = Array.from(files);
 

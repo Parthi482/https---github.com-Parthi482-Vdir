@@ -10,10 +10,7 @@ import { CompaniesComponent } from "./dashboard/companies/companies.component";
 import { JobDetailsComponent } from "./dashboard/job-details/job-details.component";
 import { LocationComponent } from "./shared/layout/location/location.component";
 import { DatatableComponent } from "./component/datatable/datatable.component";
-import { DynamicFormComponent } from "./component/dynamic-form/dynamic-form.component";
-import { ScreenComponent } from "./component/screen/screen.component";
-import { EventLandingComponent } from "./component/event-landing/event-landing.component";
-import { EventComponent } from "./event/event/event.component";
+import { DynamicFormComponent } from "./component/dynamic-form/dynamic-form.component"; 
 import { EventHomeListComponent } from "./component/event-home/event-home-list/event-home-list.component";
 import { EventViewComponent } from "./component/event-home/event-view/event-view.component";
 
@@ -30,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: "event",
-    component: EventViewComponent,
+    component: DashLayoutComponent,
     children: [
       {
         path: '',

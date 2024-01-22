@@ -412,7 +412,7 @@ eventFormGroup!: FormGroup;
       ],
     };
 
-    return this.dataService.getDataByFilter("test_user", filterCondition1).pipe(map((res: any) => res.data[0].response.map((user: any) => user)));
+    return this.dataService.getDataByFilter("user", {}).pipe(map((res: any) => res.data[0].response.map((user: any) => user)));
   }
 
   initForm() {

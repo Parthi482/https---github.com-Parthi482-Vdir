@@ -534,10 +534,12 @@ button {
     object-fit: cover;
   }
 
-
+.nav-link{
+  cursor: pointer;
+}
  
 
-
+ 
 .footfa,h5,p{
   font-family: 'Fredoka', sans-serif;
 
