@@ -115,7 +115,7 @@
 </div>
 
 <!-- AGENDA -->
-<!-- !pending -->
+<!--  -->
 <div class="centered-container">
   <h2 style="justify-content: center; display: flex">AGENDA</h2>
   <!-- <div> -->
@@ -147,8 +147,37 @@
 </div>
 
 
-<!-- <app-footer></app-footer> -->
 
+
+ 
+<!-- <div class="centered-container"  *ngFor="let data of scheduleData">
+  <h2 style="justify-content: center; display: flex">AGENDA</h2>
+  
+  <div class="day-tabs">
+    <div
+      class="day-tab"
+      [class.active]="activeDay === data.date"
+  
+     
+    >
+      {{ data.date }} 
+    </div>
+  </div>
+ 
+   <div
+    
+    class="schedule-container"
+    [ngClass]="{ active: activeDay === data.date }"
+  >
+     <div  class="time-slot">  
+        <div>{{ data.session_name }}</div> 
+      <div class="event-time">{{ data.agenda_details.session_start_time }}</div>
+    </div>
+  </div> 
+</div> -->
+
+
+<!-- !footer -->
 
 
 <div className="footfa">
