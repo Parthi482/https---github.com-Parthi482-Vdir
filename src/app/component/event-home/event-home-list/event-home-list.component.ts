@@ -1,43 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable } from 'rx';
-import { map } from 'rxjs';
-import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
-
+import { Component, Input } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
 import { environment } from 'src/environments/environment';
-interface City {
-  name: string;
-  code: string;
-}
 
 @Component({
-  selector: 'app-event-landing',
-  templateUrl: './event-landing.component.html',
-  styleUrls: ['./event-landing.component.css']
+  selector: 'app-event-home-list',
+  templateUrl: './event-home-list.component.html',
+  styleUrls: ['./event-home-list.component.css']
 })
-
-
-
-export class EventLandingComponent implements OnInit { 
+export class EventHomeListComponent {
   upcomingDates: moment.Moment[] = [];
   DocImagePAth: any = environment.ImageBaseUrl;
-
+  ishow:boolean = false
   eventlanding: FormGroup | any;
+  Data:any  
+  @Input('minNumberOfCards') minNumberOfCards?: number; 
 
-  constructor(private router: Router,private dataService : DataService,private fb: FormBuilder,private datePipe: DatePipe) {
+  @Input('IsHome')Ishome:any
+  constructor(private router: Router,private dataService : DataService,private fb: FormBuilder,private route : ActivatedRoute) {
 
   }
-
-  cities: City[] | undefined;
+ 
 
   eventImage:any[]=[]
 
   
   navigate(data:any) { 
-    this.router.navigate(["event-details/"+data.id]) 
+    this.router.navigate([data])
+    // this.router.navigate(["event/"+data.id]) 
       
   }
 
@@ -72,6 +64,14 @@ export class EventLandingComponent implements OnInit {
   }
  
   ngOnInit() { 
+
+    // this.ishow = true
+    this.getData() 
+    // this.route.params.forEach((res:any)=>{
+    //   console.log(res);
+      
+    // })
+
     const currentDate = new Date();
     const filterCondition1 = {
       filter: [
@@ -96,9 +96,7 @@ export class EventLandingComponent implements OnInit {
 
     })
 
- 
-
-    
+  
     this.eventlanding = this.fb.group({
       looking: [''],
       in: [''],
@@ -106,7 +104,23 @@ export class EventLandingComponent implements OnInit {
   });
 
   }
- 
+  getData(){
+    let todayDate = new Date() 
+    const filterValue = {
+      filter: [
+        {
+          clause: "AND",
+          conditions: [{ column: "basic_details.start_date", operator: "GREATERTHANOREQUAL", value:todayDate , type:"date"}],
+        },
+      ],
+    } 
+   
+    this.dataService.getDataByFilter("event",filterValue).subscribe((res:any)=>{
+       let data = res.data[0].response  
+         this.Data = data
+    })
+  }
+  
  
 }
  

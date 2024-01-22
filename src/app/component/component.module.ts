@@ -56,6 +56,10 @@ import { TokenInterceptor } from 'src/interceptor/tokenInceptor';
 import { EventLandingComponent } from './event-landing/event-landing.component';  
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ScreenComponent } from './screen/screen.component';
+ 
+import { EventViewComponent } from './event-home/event-view/event-view.component';
+import { EventHomeListComponent } from './event-home/event-home-list/event-home-list.component';
+import { EventAdminComponent } from './event-home/event-admin/event-admin.component';
 
 
 
@@ -83,7 +87,9 @@ const appearance: any = {
     DynamicFilterComponent,
     ActionButtonComponent,
     MyLinkRendererComponent,
-    EventLandingComponent,   
+    EventLandingComponent, 
+    EventViewComponent,
+    EventAdminComponent,   
   ],
   imports: [
     SlickCarouselModule,

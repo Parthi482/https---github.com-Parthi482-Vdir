@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit, } from '@angular/core';
+import { Component, HostListener, OnInit, Output, } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -17,6 +17,8 @@ import { environment } from 'src/environments/environment';
 
 })
 export class HomeComponent {
+  // @Output('')minNumberOfCards:any
+
   searchForm: FormGroup;
   fetchedData: any[] = [];
   filteredJobs: any[] = [];
@@ -63,6 +65,7 @@ export class HomeComponent {
     this.searchForm = this.formBuilder.group({
       searchQuery: ['']
     });
+    // this.Ishome =  true
     this.dataservice.getDataByFilter("companies", {}).subscribe((xyz: any) => {
     // this.auth.GetALL('city').subscribe((xyz: any) => {
       this.cityList = xyz.data[0].response 
@@ -135,17 +138,7 @@ export class HomeComponent {
         },
       ],
     }
-    // const filterValue: any = [
-    //   {
-    //     clause: "$and",
-    //     conditions: [
-    //       { column: "CompanyName", operator: "$eq", value: query}
-    //       // ,
-    //       // { column: "applied_type", operator: "$eq", value: "new_registration" }
-    //     ]
-    //   }
-    // ];
-    // this.auth.getDataByFilter 
+  
       this.dataservice.getDataByFilter('companies', filterValue).subscribe((xyz: any) => {
       console.log(xyz);
       if (xyz != null) {
@@ -155,24 +148,7 @@ export class HomeComponent {
 
 
     })
-    // const filteredJobs = this.sampleJobs.filter(job =>
-    //   job.title.toLowerCase().startsWith(query.toLowerCase())
-    // );
-
-    // this.filteredJobs = filteredJobs.sort((a, b) => {
-    //   const titleA = a.title.toLowerCase();
-    //   const titleB = b.title.toLowerCase();
-    //   if (titleA < titleB) {
-    //     return -1;
-    //   }
-    //   if (titleA > titleB) {
-    //     return 1;
-    //   }
-    //   return 0;
-    // });
-
-    // this.showResults = this.filteredJobs.length > 0;
-
+   
 
   }
 
@@ -192,12 +168,12 @@ export class HomeComponent {
     console.log('Clicked Image Details:', imageUrl);
     console.log('Category:', category);
 
-    this.route.navigate(["event/"+"b692fffa-c59c-405b-83be-72fc99634521"]) 
+    this.route.navigate(["event-details/"+"b692fffa-c59c-405b-83be-72fc99634521"]) 
 
   }
 
   showSections = window.innerWidth < 763;
-
+// response
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.showSections = (event.target as Window).innerWidth < 763;

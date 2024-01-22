@@ -119,7 +119,7 @@ console.log(abc._id);
   let _id=abc._id.replace(/ /g, "-");
 console.log(_id);
     // this.router.navigateByUrl('/'+EventName)
-    this.router.navigate(["event/"+_id])
+    this.router.navigate(["event-details/"+_id])
 
 }
 ImageReader(image: any, targetWidth: number, targetHeight: number): string {

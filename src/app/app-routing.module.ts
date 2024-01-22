@@ -14,19 +14,27 @@ import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.comp
 import { ScreenComponent } from './component/screen/screen.component';
 import { EventLandingComponent } from './component/event-landing/event-landing.component';  
 import { EventComponent } from './event/event/event.component';
+import { EventHomeListComponent } from './component/event-home/event-home-list/event-home-list.component';
  
 const routes: Routes = [
-  
-{
-  path:'event',
-  component:EventComponent,
-  children:[
-    {
-      path:':id',
-      component:EventComponent
+  {
+    path:'event-home',  component:DashLayoutComponent,    children:[
+      {
+      path:'',
+      component:EventHomeListComponent
     }
   ]
-},
+  },
+// {
+//   path:'event',
+//   component:EventComponent,
+//   children:[
+//     {
+//       path:':id',
+//       component:EventComponent
+//     }
+//   ]
+// },
 //   {
 //     path: 'events',
 //     component: JoblistHome,
@@ -37,18 +45,18 @@ const routes: Routes = [
 //       },
 //     ],
 //   }, 
-  {
-    path:"eventlanding",
-    component: DashLayoutComponent,
-    children:[
-      {
-        path:'',
-        component: EventLandingComponent
-      }
-    ]
-  },
   // {
-  //   path: "event",
+  //   path:"eventlanding",
+  //   component: DashLayoutComponent,
+  //   children:[
+  //     {
+  //       path:'',
+  //       component: EventLandingComponent
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "event-details",
   // component: DashLayoutComponent,
   
   // children: [
@@ -115,7 +123,7 @@ const routes: Routes = [
       },
     ],
   },
-//   {path: "event",
+//   {path: "event-details",
 //   children: [
 //    {
 //     path: "",

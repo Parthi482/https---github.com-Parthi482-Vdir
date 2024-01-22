@@ -1,0 +1,221 @@
+<!-- navbar -->
+<!-- <router-outlet></router-outlet> -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        MENU <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about" routerLinkActive="active"
+              >Speakers</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact" routerLinkActive="active"
+              >Agenda</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="ml-auto">
+        <button class="button-18 btn btn-lg btn-secondary">
+          CONFIRM YOUR SEAT
+        </button>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Banner Image -->
+  <div *ngFor="let bannerImage of Banner_data.slice(0, 1); let i = index" [class.active]="i === currentIndex">
+    
+    <img
+      [src]="docBasePath + bannerImage.storage_name"
+      [ngClass]="{ 'img-fluid': !isMobile }"
+      alt="Responsive Image"
+      style="object-fit: cover; height: 500px; width: 100%"
+    />
+  </div>
+  
+  <!-- event_description -->
+  
+  <!-- About -->
+  <div class="containing">
+    <div class="left-side">
+      <h1>ABOUT</h1>
+    </div>
+    <div class="right-side">
+      <h2>
+        {{about}}
+      </h2>
+    </div>
+  </div>
+  
+  <!-- <div class="game-section">
+      <div id="gameCarousel">
+        <div class="carousel-inner">
+          {{carouselItems |json}}
+          <br>
+          <div *ngFor="let item of carouselItems; let i = index" class="carousel-item" [class.active]="i === 0">
+            <div class="col-md-4"> 
+              {{item.imageUrl|json}}
+              <div class="item" [ngStyle]="{'background-image': 'url(' + item.imageUrl + ')'}">
+                <div class="item-desc">
+                  <h3>{{ item.title }}</h3>
+                  <p>{{ item.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div>
+          <h2>SPEAKERS</h2>
+          <!-- <a class="view-more" (click)="toggleRemainingImages()">View More</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="card-container">
+      <div class="card-row" *ngFor="let item of displayedItems; let i = index">
+        <div
+          class="card-item"
+          *ngFor="let card of displayedItems.slice(i * 3, (i + 1) * 3)"
+        >
+          <div class="card">
+          
+            <img [src]="card.user_photo" alt="{{card.first_name }}" style="object-fit: cover;"/>
+            <div class="card-content">
+              <h3>{{ card.first_name }}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- AGENDA -->
+  <!--  -->
+  <div class="centered-container">
+    <h2 style="justify-content: center; display: flex">AGENDA</h2>
+    <!-- <div> -->
+    <div class="day-tabs">
+      <div
+        class="day-tab"
+        [class.active]="activeDay === dayInfo.day"
+        (click)="showSchedule(dayInfo.day)"
+        *ngFor="let dayInfo of scheduleData"
+      >
+        {{ dayInfo.date }}
+      </div>
+    </div>
+  
+    <div
+      *ngFor="let dayInfo of scheduleData"
+      class="schedule-container"
+      [ngClass]="{ active: activeDay === dayInfo.day }"
+    >
+      <div *ngFor="let event of dayInfo.events" class="time-slot">
+        <div>
+          <div>{{ event.name }}</div>
+          <div>{{ event.speaker }}</div>
+        </div>
+        <div class="event-time">{{ event.time }}</div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+  
+  
+  
+  
+   
+  <!-- <div class="centered-container"  *ngFor="let data of scheduleData">
+    <h2 style="justify-content: center; display: flex">AGENDA</h2>
+    
+    <div class="day-tabs">
+      <div
+        class="day-tab"
+        [class.active]="activeDay === data.date"
+    
+       
+      >
+        {{ data.date }} 
+      </div>
+    </div>
+   
+     <div
+      
+      class="schedule-container"
+      [ngClass]="{ active: activeDay === data.date }"
+    >
+       <div  class="time-slot">  
+          <div>{{ data.session_name }}</div> 
+        <div class="event-time">{{ data.agenda_details.session_start_time }}</div>
+      </div>
+    </div> 
+  </div> -->
+  
+  
+  <!-- !footer -->
+  
+  
+  <div className="footfa">
+    <footer class="page-footer flex-wrap  font-small teal " style="background-color:var(--footer-color)">
+    
+    
+      <div class="container-fluid text-white  text-md-left">
+    
+    
+        <div class="row">
+    
+    
+          <div class="col-md-6 mt-md-0 mt-3">
+    
+            <h5 class="text-uppercase font-weight-bold">About Seekers.com</h5>
+    <p class="text-break">At Seekers.com, we believe that everyone deserves a fulfilling and rewarding career. We are a dedicated job portal that aims to connect job seekers with their dreams by unlocking opportunities and empowering professional growth. Our platform simplifies the job search process, providing personalized tools and resources to help individuals navigate</p>
+          </div>
+    
+          <hr class="clearfix w-100 d-md-none pb-3">
+    
+          <div class="col-md-6 mb-md-0 mb-3">
+    
+            <h5 class="text-uppercase font-weight-bold">Seekers.com</h5>
+    <p  class="text-break"> the premier destination for job seekers to embark on their path to success. We are dedicated to connecting talented individuals like you with the perfect job opportunities that align with your skills, aspirations, and passions. Our user-friendly platform provides a seamless and personalized job search experience, empowering you</p>
+          </div>
+    
+        </div>
+    
+      </div>
+    
+      <p class="footer-copyright text-center text-white align-items-center py-3">© 2023 Copyright:
+    
+      </p>
+      <div class=" text-center">
+        <a href="/"  > Seekers.com</a>
+      </div>
+    
+    
+    </footer>
+    </div>
+    
