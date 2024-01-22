@@ -109,7 +109,6 @@ export class EventComponent implements OnInit {
         this.data.agenda_details.forEach((res:any)=>{
          res.agenda_details.session_start_time = formatTime 
          res["date"] = this.formatDate(session_start_time)
-        console.log(res);
         
          this.scheduleData.push(res)
         })
