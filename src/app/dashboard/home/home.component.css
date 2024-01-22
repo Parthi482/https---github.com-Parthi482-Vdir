@@ -183,8 +183,8 @@ input[type="checkbox"]:focus {
 }
 
 .containers {
-  display: flex;
-  /* justify-content: space-around; */
+  display: flex; 
+  margin: 5px;
 }
 
 .section {

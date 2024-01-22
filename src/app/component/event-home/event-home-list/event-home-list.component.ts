@@ -21,7 +21,7 @@ import { Column } from 'ag-grid-community';
 export class EventHomeListComponent {
   upcomingDates: moment.Moment[] = [];
   DocImagePAth: any = environment.ImageBaseUrl;
-  // ishow:boolean = false
+  searchForm!: FormGroup;
   eventlanding: FormGroup | any;
   Data:any[]=[]  
   options: string[] = [];
@@ -36,8 +36,8 @@ export class EventHomeListComponent {
 
   @Input('minNumberOfCards') minNumberOfCards?: number; 
 
-  @Input('IsHome')Ishome:any
-  constructor(private cf:ChangeDetectorRef ,private router: Router,private dataService : DataService,private fb: FormBuilder,private route : ActivatedRoute) {
+  @Input('IsHome')Ishomescreen:any
+  constructor(private formBuilder: FormBuilder,private cf:ChangeDetectorRef ,private router: Router,private dataService : DataService,private fb: FormBuilder,private route : ActivatedRoute) {
 
   }
  
@@ -110,9 +110,18 @@ export class EventHomeListComponent {
   }
 
 
+  initForm(): void {
+    this.searchForm = this.formBuilder.group({
+      eventName: [''],
+      chosenDate: [null]
+    });
+  }
 
-
-
+  onSubmit(): void {
+    // Access the form values
+    const formData = this.searchForm.value;
+    // Perform actions with formData, e.g., send it to a service, etc.
+  }
   getData(){
     let todayDate = new Date() 
     const filterValue = {
@@ -141,6 +150,7 @@ export class EventHomeListComponent {
   clearSearch() {
     this.searchText.setValue('');
     this.filteredData = [];
+    // this.searchForm.get('eventName').setValue('');
   }
 
  
@@ -190,13 +200,7 @@ export class EventHomeListComponent {
 
     // })
 
-
-
-
-
-
-
-
+ 
   }
 
 
@@ -205,8 +209,6 @@ export class EventHomeListComponent {
 
 
 
-
-
-
+ 
 }
  
