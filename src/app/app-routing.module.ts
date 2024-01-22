@@ -47,21 +47,21 @@ const routes: Routes = [
       }
     ]
   },
-  {
-    path: "event-details",
-  component: DashLayoutComponent,
+  // {
+  //   path: "event",
+  // component: DashLayoutComponent,
   
-  children: [
-   {
-    path: "",
-    component: ScreenComponent,
-   },
-   {
-    path: ":id",
-    component:ScreenComponent
-   },
-  ],
-  },
+  // children: [
+  //  {
+  //   path: "",
+  //   component: ScreenComponent,
+  //  },
+  //  {
+  //   path: ":id",
+  //   component:ScreenComponent
+  //  },
+  // ],
+  // },
 
  
   {
@@ -115,7 +115,7 @@ const routes: Routes = [
       },
     ],
   },
-//   {path: "event-details",
+//   {path: "event",
 //   children: [
 //    {
 //     path: "",

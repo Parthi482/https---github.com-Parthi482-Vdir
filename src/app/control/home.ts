@@ -85,7 +85,7 @@ import { Router } from "@angular/router";
           class="card"
           *ngFor="let event of eventData"
          
-          (click)="navigateToHome('event-details', event._id)"
+          (click)="navigateToHome('event', event._id)"
         >
           <div class="card-content" style="justify-content:center">
             <div class="image-container" >
@@ -114,7 +114,7 @@ import { Router } from "@angular/router";
         <div class="card-container" *ngFor="let company of companies">
           <mat-card
             class="card"
-            (click)="navigateToHome('event-details', company._id)"
+            (click)="navigateToHome('event', company._id)"
             *ngIf="company.Company_logo"
           >
             <div class="card-content">

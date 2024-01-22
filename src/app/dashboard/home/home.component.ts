@@ -192,7 +192,7 @@ export class HomeComponent {
     console.log('Clicked Image Details:', imageUrl);
     console.log('Category:', category);
 
-    this.route.navigate(["event-details/"+"b692fffa-c59c-405b-83be-72fc99634521"]) 
+    this.route.navigate(["event/"+"b692fffa-c59c-405b-83be-72fc99634521"]) 
 
   }
 

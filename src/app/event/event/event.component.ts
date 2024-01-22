@@ -56,8 +56,7 @@ export class EventComponent implements OnInit {
         { name: 'Web Accessible Designs', speaker: '- Frank Senbeans', time: '11:30 am' },
         { name: 'Building Communities', speaker: '- Ken Tucky', time: '12:30 pm' }
       ]
-    }
-    // Add more days and events as needed
+    } 
   ];
 
   constructor(private route: ActivatedRoute, private dataservice: DataService,private datePipe: DatePipe) {
@@ -74,9 +73,7 @@ export class EventComponent implements OnInit {
 
   ngOnInit(): void {
     this.displayedItems = this.event_participants
-    // this.activeDay = this.agenda_data.length > 0 ? this.agenda_data.day : null;
-    // this.activeDay = this.scheduleData.length > 0 ? this.scheduleData[0].date : null;
-
+     
     this.startCarousel();
   }
 
@@ -112,22 +109,7 @@ export class EventComponent implements OnInit {
         
          this.scheduleData.push(res)
         })
-         
-        // {
-        //   agenda_description: 'ggegegegege',
-        //   agenda_details: {
-        //     session_end_time: '2024-01-11T13:16:39.000Z',
-        //     session_link: 'egeg',
-        //     session_name: 'egegeg',
-        //     session_start_time: '6:46 PM',
-        //     short_description: 'gegegeg'
-        //   },
-        //   youtube_link: 'egege',
-        //   day: 'Jan 11'
-        // }
-
-
-
+           
       }
     })
   }

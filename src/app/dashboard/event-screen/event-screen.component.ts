@@ -14,7 +14,7 @@ import { DataService } from 'src/app/service/data.service';
 export class EventScreenComponent  implements OnInit{
 navigate(event:any) {
   console.log("ddddddd",event._id);
-  this.router.navigate(["event-details/"+event._id])
+  this.router.navigate(["event/"+event._id])
 
 
 

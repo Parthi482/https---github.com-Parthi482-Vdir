@@ -11,7 +11,7 @@ export class DashLayoutComponent {
   constructor(  private route: ActivatedRoute,){ 
     this.route.params.subscribe((params:any) => { 
       
-        if (params == "event-details"){
+        if (params == "event"){
           this.ishow = true
         }
   })
