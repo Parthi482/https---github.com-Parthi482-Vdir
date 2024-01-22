@@ -34,8 +34,7 @@ getData(){
   this.dataservice.getDataByFilter("user",filterValue).subscribe((res:any)=>{
      let data = res.data[0].response 
      
-     this.Data = data
-     console.log(data);
+     this.Data = data;
     })
 }
 

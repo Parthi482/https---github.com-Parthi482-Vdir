@@ -127,13 +127,12 @@ export class CreatecvComponent implements OnInit {
       this.email = this.auth.decodeToken().email;
 
       let details = this.auth.getdetails();
-      console.warn(details);
-      
+   
       this.details = details;
       // user_name: user.given_name,
       //       email: user.email,
       //       last_name: user.family_name,
-      let fname = details.first_name
+      let fname = details.user_name
  
       this.fullname1 = fname
       this.phonenumber1 = details.phone
@@ -167,13 +166,7 @@ export class CreatecvComponent implements OnInit {
     if (!isEmpty(localStorage.getItem('token'))) {
       // this.auth.getUserResume(this.Email)
       let ID = this.auth.getdetails()._id
-      console.log('====================================');
-      console.log(ID);
-      console.log('====================================');
-
-
-
-
+      
       const filterCondition1 = {
         filter: [
           {
@@ -182,15 +175,9 @@ export class CreatecvComponent implements OnInit {
           },
         ],
       } 
-
-
-
-      // this.dataservice.getDataById("user_resume", "101761091537366569087").subscribe((res: any) => {
-        this.dataservice.getDataByFilter("user_resume",filterCondition1).subscribe((res:any)=>{
-
-        let data = res
-        console.log(data);
-
+ 
+        this.dataservice.getDataByFilter("user_resume",filterCondition1).subscribe((res:any)=>{ 
+        let data = res 
         if (!isEmpty(data)) {
           // this.overallValue = res.data[0]
           let data = res.data[0].response

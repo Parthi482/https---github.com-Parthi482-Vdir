@@ -6,10 +6,8 @@ import { DataService } from 'src/app/service/data.service';
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.css']
 })
-export class EventsComponent implements OnInit { 
-
-  Data:any
-
+export class EventsComponent implements OnInit {  
+  Data:any 
   constructor(private dataservice:DataService){
 
   }
@@ -21,9 +19,7 @@ ngOnInit(): void {
 }
 
 getData(){
-  let todayDate = new Date()
-  console.log(todayDate);
-  
+  let todayDate = new Date() 
   const filterValue = {
     filter: [
       {
@@ -34,9 +30,7 @@ getData(){
   } 
  
   this.dataservice.getDataByFilter("event",filterValue).subscribe((res:any)=>{
-     let data = res.data[0].response 
-     console.log(data);
-     
+     let data = res.data[0].response  
        this.Data = data
   })
 }

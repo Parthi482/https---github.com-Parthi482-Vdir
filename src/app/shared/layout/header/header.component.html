@@ -10,9 +10,9 @@
         <ul class="navbar-nav">
           <div class="d-flex  " >
             <div style="display: flex;align-items:center;justify-content: end;">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link active text-white mt-1 float-start" id="ani" aria-current="page" (click)="func113()">Create Screen</a>
-              </li>
+              </li> -->
             <li class="nav-item">
               <a class="nav-link active text-white mt-1 float-start" id="ani" aria-current="page" (click)="func11()">Jobs</a>
             </li>
@@ -111,10 +111,15 @@
               <li><a class="dropdown-item fs-6" (click)="func12()">Create Resume</a></li>
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="func22()">Applied Jobs</a></li>
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="func44()">Profile</a></li>
-              <li ><a class="mt-2 fs-6 ms-3" (click)="signOut()" *ngIf="isLoggedIn">LogOut</a> </li>
-             </ul>
-             <ul class="dropdown-menu" aria-labelledby="ani5" *ngIf="admin">
-              <li><a class="dropdown-item fs-6" (click)="route1()">Home</a></li>
+
+              <!-- <li ><a class="mt-2 fs-6 ms-3" (click)="signOut()" *ngIf="isLoggedIn">LogOut</a> 
+              </li> -->
+
+             <!-- </ul> -->
+             <!-- !pending -->
+
+             <!-- <ul class="dropdown-menu" aria-labelledby="ani5" *ngIf="admin"> -->
+              <!-- <li><a class="dropdown-item fs-6" (click)="route1()">Home</a></li> -->
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route2()">My Profile</a></li>
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route3()">Jobs</a></li>
               <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route4()">Candidates</a></li>
