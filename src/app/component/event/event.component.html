@@ -61,7 +61,7 @@
       <br> 
      <div style="display: flex; align-items: center;"> 
         <mat-chip-list formGroupName="user_role" vertical="true">
-          <mat-chip-option *ngFor="let category of ['Delegates', 'Speaker', 'TeamMember', 'Buyer']"
+          <mat-chip-option *ngFor="let category of ['Delegates', 'Speaker', 'TeamMember']"
                           [selected]="eventFormGroup.get('user_role.' + category)!.value"
                           (click)="updateCategoryValue(category, !eventFormGroup.get('user_role.' + category)!.value)">
             {{ category }}

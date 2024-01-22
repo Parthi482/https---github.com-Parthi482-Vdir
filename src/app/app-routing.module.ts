@@ -18,13 +18,9 @@ import { EventComponent } from './event/event/event.component';
 const routes: Routes = [
   
 {
-  path:'homescreen',
-  component:DashLayoutComponent,
+  path:'event',
+  component:EventComponent,
   children:[
-    {
-      path:'',
-      component:EventComponent
-    },
     {
       path:':id',
       component:EventComponent

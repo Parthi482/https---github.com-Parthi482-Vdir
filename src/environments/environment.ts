@@ -9,8 +9,8 @@ export const environment = {
   cacheBlockSize:14,
   paginationPageSize:10, 
   rowModelType:"serverSide",
-  ImageBaseUrl:"https://pms-api.sgp1.digitaloceanspaces.com/"
-  // ImageBaseUrl: "https://seekers.sgp1.digitaloceanspaces.com/"
+  // ImageBaseUrl:"https://pms-api.sgp1.digitaloceanspaces.com/"
+  ImageBaseUrl: "https://seekers.sgp1.digitaloceanspaces.com/"
 };
 export const env = {
   firebase: {
