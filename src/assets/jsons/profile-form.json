@@ -1,16 +1,21 @@
-{
-    "pageHeading": "Profile Update",
-    "formType": "simple",
-    "addEditMode": "page", 
-    "editMode": "page",
-    "screenEditMode": "page",
-    "keyField": "_id",
-    "form": {
-      "collectionName": "user",
-      "getDataEndPoint": "user/_id",
-      "fields": [
+ {
+  "pageHeading": "Profile Update",
+  "formType": "simple",
+  "addEditMode": "page", 
+  "editMode": "page",
+  "screenEditMode": "page",
+  "keyField": "_id",
+  "form": {
+    "collectionName": "user",
+    "getDataEndPoint": "user/_id",
+    "fields": [
+     
+      {
+        "type": "user",
+        "fieldGroupClassName": "display-flex",
+        "fieldGroup": [
         {
-  
+      
           "fieldGroup":[
             {
               "type": "logo",
@@ -26,7 +31,7 @@
         },
         {
           "fieldGroupClassName": "display-flex",
-  
+      
           "fieldGroup": [
             {
                 "type": "input",
@@ -96,19 +101,19 @@
                         "label": "Self Employee/Skilled Labour",
                         "value": "Self Employee//Skilled Labour"
                       }
-
-
+      
+      
                   ],
                   "required": true
                 
                 }}
           ]
         }
-    
-       
+      
       ]
-    },
-    "onCancelRoute": "/list/event"
+      }
+    ]
+  },
+  "onCancelRoute": "/list/event"
 
-  }
-  
+}

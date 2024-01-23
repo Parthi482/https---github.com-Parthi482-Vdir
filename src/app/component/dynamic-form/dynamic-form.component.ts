@@ -138,11 +138,14 @@ export class DynamicFormComponent {
     console.log(data);
 
     if (this.config.editMode == 'page' && this.config.cancelroute_ID) {
-      this.router.navigate([`${this.config.onCancelRoute}` + this.model[this.config.add_value]]);
+      // this.router.navigate([`${this.config.onCancelRoute}` + this.model[this.config.add_value]]);
+      this.router.navigate(["home"])
 
     }
     else if (this.config.editMode == 'page') {
-      this.router.navigate([`${this.config.onCancelRoute}`]);
+      // this.router.navigate([`${this.config.onCancelRoute}`]);
+      this.router.navigate(["home"])
+
     }
     // if (this.config.editMode == 'popup') 
     else {
@@ -195,6 +198,7 @@ export class DynamicFormComponent {
   cancel() {
 
     if (this.config.editMode == "page") {
+      // this.router.navigate(["home"])
       this.router.navigate([`${this.config.onCancelRoute}`]);
     } else
       this.dialogService.closeModal()

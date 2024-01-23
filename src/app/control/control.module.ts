@@ -99,6 +99,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { Login } from "./login"; 
 import { MatGridListModule } from "@angular/material/grid-list";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { FormlyFieldUser } from "./user-input";
 // import { ColorPickerInputComponent } from "./colourpicker";
 
 
@@ -394,11 +395,13 @@ name:"carousel-component-input",Component:CarouselComponentInput
     ],},
     { name: 'datetime_input', component: DateTimeInput },
     {name:"counter-input",Component:CounterComponent},
+    {name:"user",Component:FormlyFieldUser},
   ],
 }; 
 
 @NgModule({
     declarations: [
+      FormlyFieldUser,
       CounterComponent,
         Tab,
         FileInput, 
@@ -447,6 +450,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
 
     ],
     exports: [
+      FormlyFieldUser,
       Login,
         Tab,
         FileInput,

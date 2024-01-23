@@ -99,8 +99,7 @@ export class LogoComponent extends FieldType implements OnInit {
 
   ngOnInit(): void {
     this.opt = this.field.templateOptions || {};
-    this.label = this.opt.label || 'Upload';
-  // this.url=this.model[this.opt.key]
+    this.label = this.opt.label || 'Upload'; 
   this.auth=localStorage.getItem('auth');
   this.value=JSON.parse(this.auth)
  
@@ -119,10 +118,7 @@ export class LogoComponent extends FieldType implements OnInit {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('category', 'profile_pic');
-
-    console.log(formData);
-
-   console.log(this.form);
+ 
    
   }
 
@@ -130,22 +126,15 @@ export class LogoComponent extends FieldType implements OnInit {
     if (event.target.files && event.target.files[0]) {
         var reader = new FileReader();
         let sourcefile:any=event.target.files[0]
-        reader.readAsDataURL(sourcefile);
-        // this.url=sourcefile;
+        reader.readAsDataURL(sourcefile); 
         this.cf.detectChanges();
-        
-        
-    //   reader.readAsDataURL();
+         
     reader.onload = (event) => {
         const url = (<FileReader>event.target).result as string;
         this.url=url
         this.cf.detectChanges();
       };
-    //   reader.onload = (event: any) => {
-    //     this.cf.detectChanges();
-
-    //     this.url = event.target.result;
-    //   };
+   
     }
   }
 }
