@@ -91,7 +91,8 @@ mat-form-field {
     display: flex;
     max-width: 400px;
     height: 200px;
-    margin: 20px;
+    margin-bottom: 20px;
+
     border: 1px solid #ccc;
     border-radius: 8px;
     /* overflow: hidden; */
