@@ -280,25 +280,12 @@ else if(params['business-category']&&params['company']){
  
     res.data[0].response.forEach((element:any) => {
       this.companyData=element
-
-      // // this.mapdata=xyz[0].coordinate
-      // console.log(this.companyData.coordinate);
-
-      // console.log(this.companyData);
+ 
       
     });
   
-    
-          // console.log(id);
-//  !pending
-// this.dataservice.updateVisitor("companies",id,this.profileVisitor).subscribe((xyz:any)=>{
-//   console.log(xyz);
-
-// })
-     
-
-          let address= xyz.Address
-          // let CompanyID= xyz[0]._id
+       
+          let address= xyz.Address 
 
           if(xyz.Company_Register_Type!=undefined&&xyz.Company_Register_Type!=null){
             xyz.Company_Register_Type=xyz.Company_Register_Type.replace(/_/g, ' ');

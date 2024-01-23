@@ -7,6 +7,7 @@ import { ColDef, FirstDataRenderedEvent, GridReadyEvent } from 'ag-grid-communit
 import { ApiService } from 'src/app/service/search.service';
 import { ActionButtonComponent } from './action-button';
 import { DataService } from 'src/app/service/data.service';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'app-candidates',
@@ -243,11 +244,11 @@ export class CandidatesComponent {
 
 
 
-      this.dataservice.getDataByFilter('applied_jobs', filterValue).subscribe((xyz: any) => {
-        console.log(xyz);
-
+      this.dataservice.getDataByFilter('applied_jobs', filterValue).subscribe((res: any) => {
+     
+        let xyz  = res.data[0].response
         this.cardData = []
-        if (xyz != null) {
+        if (!isEmpty(xyz)) {
           this.cardData = xyz.map((xyz: any) => ({
             ...xyz,
             date: this.formatMonthInNumber(xyz.date[0].response)

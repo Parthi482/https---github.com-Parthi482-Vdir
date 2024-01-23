@@ -148,6 +148,8 @@ export class EventHomeListComponent {
          res.data[0].response.forEach((res:any) => {
        
             let data :any=res.event_image.storage_name
+            console.log(data);
+            
             this.imageList.push(data)
        
          });

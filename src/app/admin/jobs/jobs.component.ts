@@ -384,12 +384,7 @@ my(){
 startval:number=0
 endval:number=1
   logFormValues(data:any,data1:any) {
-    // console.log(this.jobId);
-    console.log('====================================');
-    console.log(data);
-    console.log(this.formgrp);
-
-    console.log('====================================');
+   
     if(this.formgrp.valid){
 
     var job_id=JSON.stringify(this.jobId+1)
@@ -477,19 +472,18 @@ formValues.Location=this.value.area+ this.value.districtname +this.value.statena
 
 refrsh(){
   this.endval=1
-  this.startval=0
-  console.log(this.value);
+  this.startval=0 
  
-  const filterValue1 = {
-    filter: [
-      {
-        clause: "AND",
-        conditions: [{ column: 'companyId', operator: "EQUALS", value:this.value.unique_id }],
-      },
-    ],
-  } 
+  // const filterValue1 = {
+  //   filter: [
+  //     {
+  //       clause: "AND",
+  //       conditions: [{ column: 'companyId', operator: "EQUALS", value:this.value.unique_id }],
+  //     },
+  //   ],
+  // } 
   // For some thing it will not due to to data in databse
-  this.dataservice.getDataByFilter("jobs",filterValue1).subscribe((res:any)=>{
+  this.dataservice.getDataByFilter("jobs",{}).subscribe((res:any)=>{
     // this.companies= data.map((xyz: any) => ({
     //     xyz.validitynew=this.formatMonthInNumber(xyz.validity)
     //    }))

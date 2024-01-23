@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit, Output, } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, Output, } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { Subscription, interval } from 'rxjs';
 import { DataService } from 'src/app/service/data.service';
 import { ApiService } from 'src/app/service/search.service';
 import { environment } from 'src/environments/environment';
@@ -26,6 +28,10 @@ export class HomeComponent {
   firstFiveItems: any[] = [];
   itemsPerColumn = 8;
   currentColumn = 0;
+  currentIndex = 0;
+  imageList: SafeUrl[] = [];
+  timerSubscription!: Subscription 
+
   showResults = false;
   city: IDropdownSettings = {
     singleSelection: false,
@@ -36,7 +42,7 @@ export class HomeComponent {
   };
   cityList: any[] = [];
   DocImagePAth: any = environment.ImageBaseUrl;
-
+ 
 
   loadNextColumnData() {
     const startIndex = this.currentColumn * this.itemsPerColumn;
@@ -61,41 +67,39 @@ export class HomeComponent {
       this.loadNextColumnData();
     }
   }
-  constructor(private formBuilder: FormBuilder, private auth: ApiService, private route: Router,private dataservice: DataService) {
+  constructor(private cf: ChangeDetectorRef,private formBuilder: FormBuilder, private auth: ApiService, private route: Router, private dataservice: DataService) {
     this.searchForm = this.formBuilder.group({
       searchQuery: ['']
     });
     // this.Ishome =  true
     this.dataservice.getDataByFilter("companies", {}).subscribe((xyz: any) => {
-    // this.auth.GetALL('city').subscribe((xyz: any) => {
-      this.cityList = xyz.data[0].response 
+      // this.auth.GetALL('city').subscribe((xyz: any) => {
+      this.cityList = xyz.data[0].response
 
     })
- 
-    
+
     this.dataservice.getDataByFilter("companies", {}).subscribe((res: any) => {
-    // this.auth.GetALL('companies').subscribe((res: any) => {
+      // this.auth.GetALL('companies').subscribe((res: any) => {
       let event = res.data[0].response
       this.firstFiveItems = event.slice(0, 4)
       console.log(this.firstFiveItems);
 
     })
 
-
-
-
     this.dataservice.getDataByFilter("industry", {}).subscribe((res: any) => {
-    // this.auth.GetALL("industry").subscribe((data: any) => {
+      // this.auth.GetALL("industry").subscribe((data: any) => {
       this.fetchedData = res.data[0].response
       console.log(this.fetchedData);
       this.loadMore()
     })
-    const filterValue = {filter:[{
-      clause: 'AND',
-      conditions: [
-        { column: '_id', operator: 'NOTEQUAL',type:'string', value: "" },
-      ]
-    }]};
+    const filterValue = {
+      filter: [{
+        clause: 'AND',
+        conditions: [
+          { column: '_id', operator: 'NOTEQUAL', type: 'string', value: "" },
+        ]
+      }]
+    };
 
     this.dataservice.getDataByFilter("event", {}).subscribe((res: any) => {
       console.log(res.data[0].response);
@@ -103,7 +107,7 @@ export class HomeComponent {
       event.forEach((element: any) => {
         if (element.event_image) {
           console.log(element.event_image);
-          
+
           let images = element
           this.imageUrls.push(images)
 
@@ -114,9 +118,22 @@ export class HomeComponent {
 
     })
 
+    let data:any[] = [
+      "https://media.istockphoto.com/id/1394701218/photo/job-search-concept-find-your-career-woman-looking-at-online-website-by-laptop-computer-people.jpg?b=1&s=170667a&w=0&k=20&c=ZFS0x2s-WrF__GiGEognB4ao-YUI68w3OKMaLGQy3PY=",
+      "https://media.istockphoto.com/id/866302266/photo/young-woman-working-from-home.jpg?s=612x612&w=0&k=20&c=WcemVbAhYT9BPUaYvt5GhvZ8PErTxk5zHQ1BDfKN0ec=",    
+      "https://media.istockphoto.com/id/1407182786/photo/coworkers-greeting-and-doing-a-handshake-at-work.jpg?b=1&s=170667a&w=0&k=20&c=eeymqUeIp57H3ECylA11o4aXMurVoTjROQhmbXGHRQE=",
+      "https://media.istockphoto.com/id/1045876492/photo/signing-a-contract.jpg?s=612x612&w=0&k=20&c=XO7Jr4UkBunpLox_e8PXSo0Fcr3T8EhwMDJ8mRsSGCA="
 
+    ];
+    data.forEach((res:any) => {
+   
+    this.imageList.push(res)
+      
+    });
+ 
+ 
 
-
+    this.startCarousel()
 
 
   }
@@ -131,15 +148,15 @@ export class HomeComponent {
           clause: "AND",
           conditions: [
 
-            { column: "CompanyName", operator: "EQUALS", value:query }
+            { column: "CompanyName", operator: "EQUALS", value: query }
 
 
           ],
         },
       ],
     }
-  
-      this.dataservice.getDataByFilter('companies', filterValue).subscribe((xyz: any) => {
+
+    this.dataservice.getDataByFilter('companies', filterValue).subscribe((xyz: any) => {
       console.log(xyz);
       if (xyz != null) {
         this.showResults = true;
@@ -148,7 +165,7 @@ export class HomeComponent {
 
 
     })
-   
+
 
   }
 
@@ -164,26 +181,39 @@ export class HomeComponent {
 
 
 
-  navigate(imageUrl: any, category: string) { 
+  navigate(imageUrl: any, category: string) {
     console.log('Clicked Image Details:', imageUrl);
     console.log('Category:', category);
 
-    this.route.navigate(["event-details/"+"b692fffa-c59c-405b-83be-72fc99634521"]) 
+    this.route.navigate(["event-details/" + "b692fffa-c59c-405b-83be-72fc99634521"])
 
   }
 
   showSections = window.innerWidth < 763;
-// response
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
-    this.showSections = (event.target as Window).innerWidth < 763;
-    console.log("Hello Lesstham");
-    
+  // response
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event: Event): void {
+  //   this.showSections = (event.target as Window).innerWidth < 763;
+  //   console.log("Hello Lesstham");
+
+  // }
+
+
+  startCarousel() {
+    this.timerSubscription = interval(3000).subscribe(() => {
+      this.showNextSlide();
+    });
   }
 
-
-
-
+  showNextSlide() {
+    if (this.currentIndex === this.imageList.length - 1) {
+      this.currentIndex = 0;
+    } else {
+      this.currentIndex++;
+    }
+    this.cf.detectChanges(); 
+  }
+ 
 
 
 
