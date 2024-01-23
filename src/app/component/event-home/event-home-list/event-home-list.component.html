@@ -6,15 +6,21 @@
       style="width: 100%; height: 550px;"
     />
   </div>
-  <!-- !pending -->
-  <div class="rigt-side"  >
+  
+ 
+    <div *ngIf="CurrentBannerData && CurrentBannerData.length > 0">
+  <div class="rigt-side" *ngFor="let bannerdata of CurrentBannerData"  
+  >
     <div style="margin: 10px;">
-        <p style="font-size: 16px; font-weight: bold;">Event Name: "Party Tym"</p>
-        <p style="font-size: 16px; font-weight: bold;">Start Date Feb 12 2024</p>
+      <p style="font-size: 16px; font-weight: bold;">Event Name: {{bannerdata.event_name}}</p>
+      <p style="font-size: 16px; font-weight: bold;">Start Date: {{bannerdata.Start_date}}</p>
+      
         <button  (click)="SendEmail()" mat-raised-button>Join</button>
     </div>
 </div>
+</div>
 
+ 
   <div class="centered-div">
     <form [formGroup]="form">
       <mat-form-field style="width: 250px">

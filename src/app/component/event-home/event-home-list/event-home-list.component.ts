@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
@@ -10,6 +10,7 @@ import { SafeUrl } from '@angular/platform-browser';
 import { Subscription, interval } from 'rxjs';
 import { HelperService } from 'src/app/service/helper.service';
 import { DatePipe } from '@angular/common';
+import { ApiService } from 'src/app/service/search.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './event-home-list.component.html',
   styleUrls: ['./event-home-list.component.css']
 })
-export class EventHomeListComponent {
+export class EventHomeListComponent implements OnInit, AfterContentChecked{
   upcomingDates: moment.Moment[] = [];
   DocImagePAth: any = environment.ImageBaseUrl;
   searchForm!: FormGroup;
@@ -33,7 +34,7 @@ export class EventHomeListComponent {
   timerSubscription!: Subscription
   @Input('minNumberOfCards') minNumberOfCards?: number;
   @Input('IsHome') Ishomescreen: any
-
+CurrentBannerData:any[]=[]
   searchText = new FormControl('');
   dateControl = new FormControl('');
 
@@ -43,8 +44,8 @@ export class EventHomeListComponent {
   });
 
 
-  constructor(private datePipe: DatePipe, private formBuilder: FormBuilder, private cf: ChangeDetectorRef, private router: Router, private dataService: DataService, private fb: FormBuilder, private route: ActivatedRoute) {
-
+  constructor(private auth:ApiService,private datePipe: DatePipe, private formBuilder: FormBuilder, private cf: ChangeDetectorRef, private router: Router, private dataService: DataService, private fb: FormBuilder, private route: ActivatedRoute) {
+    this.getData()
   }
 
 
@@ -90,41 +91,29 @@ export class EventHomeListComponent {
 
 
   }
+ngOnInit(): void { 
 
-  ngOnInit() {
+  this.searchText.valueChanges.pipe(
+    debounceTime(500),
+    distinctUntilChanged()
+  ).subscribe((res: any) => {
 
-    this.getData()
+    const escapedTerm = res.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regexPattern = new RegExp(escapedTerm, 'i');
 
-
-
-    this.searchText.valueChanges.pipe(
-      debounceTime(500),
-      distinctUntilChanged()
-    ).subscribe((res: any) => {
-
-      const escapedTerm = res.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regexPattern = new RegExp(escapedTerm, 'i');
-
-      this.filteredData = this.Data.filter((element: any) => {
-        return regexPattern.test(element.event_name);
-      });
+    this.filteredData = this.Data.filter((element: any) => {
+      return regexPattern.test(element.event_name);
     });
-
-    this.startCarousel()
-  }
-
-
-  initForm(): void {
-    this.searchForm = this.formBuilder.group({
-      eventName: [''],
-      chosenDate: [null]
-    });
-  }
-
+  });
+  
+  this.startCarousel()
+}
+ 
+ 
   onSubmit(): void {
     const formData = this.searchForm.value;
   }
-  getData() {
+ async getData() {
     let todayDate = new Date()
     const filterValue = {
       filter: [
@@ -141,23 +130,24 @@ export class EventHomeListComponent {
       var dateTime: any
 
       res.data[0].response.forEach((res: any) => {
-        let data: any = res.event_image.storage_name;
+
+
+        res.event_banner.forEach((event_banner: any) => {
+
+          let data: any = event_banner.storage_name
+
+          this.imageList.push(data)
+          console.log(this.imageList);
+
+        });
+
         dateTime = this.formatDate(res.basic_details.start_date)
 
         res["Start_date"] = dateTime
 
         this.Data.push(res)
-        this.imageList.push(data)
 
       });
-      //  console.log(dateTime);
-      //  data.forEach((res:any) => {
-
-      //  });
-      //  this.Data = data ;
-      //  let dateTime =  this.formatDate(data.basic_details.start_date) 
-
-  console.log(this.Data);
     })
   }
 
@@ -185,12 +175,18 @@ export class EventHomeListComponent {
     }
   }
 
-  SendEmail(){
-    
+  SendEmail() {
+   let data =  this.auth.getdetails()
+   console.log(data);
+   
   }
-
-
+  ngAfterContentChecked(): void {
+     
+    this.GetCurrentBannerData()
+  }
+ 
   startCarousel() {
+    
     this.timerSubscription = interval(3000).subscribe(() => {
       this.showNextSlide();
     });
@@ -199,12 +195,28 @@ export class EventHomeListComponent {
   showNextSlide() {
     if (this.currentIndex === this.imageList.length - 1) {
       this.currentIndex = 0;
+       
     } else {
-      this.currentIndex++;
-    }
-    this.cf.detectChanges();
+      this.currentIndex++; 
+      // this.GetCurrentBannerData() 
+    }  
+    // this.cf.detectChanges();
   }
+ async GetCurrentBannerData(){
+ 
+    if (!isEmpty(this.imageList[this.currentIndex])){
 
+      let image = this.imageList[this.currentIndex  ] 
+  var matchingObject: any = this.Data.find((res: any) => {
+    return res.event_banner.some((event_banner: any) => {
+      return image === event_banner.storage_name;
+    });
+  });
+  this.CurrentBannerData.push(matchingObject)  
+      
+    }
+   
+}
   addEvent(event: any) {
     this.selectedDate = event.value
 
@@ -235,7 +247,8 @@ export class EventHomeListComponent {
       res.data[0].response.forEach((res: any) => {
         let data: any = res.event_image.storage_name
         this.imageList.push(data)
-
+        console.log(this.imageList);
+        
       });
     })
 
