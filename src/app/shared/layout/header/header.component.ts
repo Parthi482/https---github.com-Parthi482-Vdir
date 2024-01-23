@@ -244,7 +244,7 @@ export class HeaderComponent implements OnInit, OnChanges {
     this.router.navigateByUrl('/companies')
   }
   func111() {
-    this.router.navigateByUrl('eventlanding')
+    this.router.navigateByUrl('event-home')
   }
   signOut() {
     // let data = this.deatils.role
