@@ -8,13 +8,14 @@
       </div>
       <div class="right-side" style="align-self: center; justify-self: center; width: 220px;">
         <div>
-          <h2 style="font-weight: bold; margin-bottom: 5px;">{{data.CompanyName}}</h2>
+          <h2 style="font-weight: bold; margin-bottom: 5px;font-size: 28px;">{{data.CompanyName}}</h2>
           <div>{{data.industry}}</div>
         </div>
         
         <p><i class="fa fa-phone" aria-hidden="true" style="padding-right: 5px;"></i>{{data.phone}}</p>
-        <p><i class="fa fa-envelope" aria-hidden="true" style="padding-right: 5px;"></i>{{data.email}}</p>
-        <p><i class="fa fa-map-marker" aria-hidden="true" style="padding-right: 5px; color: brown;"></i>{{data.Address}}</p>
+        <p style="cursor: pointer;" (click)="navigateToAddress(data.email)"><i class="fa fa-envelope" aria-hidden="true" style="padding-right: 5px;"></i>{{data.email}}</p>
+        <a style="cursor: pointer;" (click)="navigateToMap(data.coordinate.Longitude,data.coordinate.Latitude)"><i class="fa fa-map-marker" aria-hidden="true" style="padding-right: 5px; color: brown;"></i>{{data.Address}}</a>
+ 
       </div>
     </div>
   </div>

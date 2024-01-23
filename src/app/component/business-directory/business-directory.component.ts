@@ -16,10 +16,22 @@ export class BusinessDirectoryComponent implements OnInit {
 
 
 ngOnInit(): void {
-    this.getData() 
+    this.getData();
     
 }
+navigateToAddress(data:any){
+let email = `mailto:${data}`
+console.log(email);
+window.open(email,"_blank");
 
+
+}
+
+
+navigateToMap(lng:any,lat:any){ 
+     let url=`https://www.google.com/maps?q=${lng},${lat}`;
+     window.open(url,"_blank");
+}
 getData(){
 
   const filterValue = {
