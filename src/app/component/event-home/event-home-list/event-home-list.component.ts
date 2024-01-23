@@ -185,7 +185,9 @@ export class EventHomeListComponent {
     }
   }
 
-
+  SendEmail(){
+    
+  }
 
 
   startCarousel() {

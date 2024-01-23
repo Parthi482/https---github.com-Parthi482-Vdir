@@ -24,6 +24,17 @@
   width: 35%;
   height: 100px;
 }
+
+.rigt-side {
+  background-color: beige;
+  border-radius: 10%;
+  position: absolute;
+  bottom: 15%;
+  right: 3%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
 /* search Input End */
 
 /* Banner Image div end */
@@ -87,10 +98,5 @@
 .view-more:hover {
   color: brown;
 }
+
 /* Card Css End */
-
-
-
-
-
- 
