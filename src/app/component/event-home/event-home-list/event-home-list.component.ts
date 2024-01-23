@@ -29,14 +29,22 @@ export class EventHomeListComponent {
   filteredOptions: any;
   public search = { searchText: '' };
   selectedDate!: Date;
-  public searchText: FormControl = new FormControl('', []);
+  // public searchText: FormControl = new FormControl('', []);
   currentIndex = 0;
   imageList: SafeUrl[] = [];
-  timerSubscription!: Subscription
-
-  @Input('minNumberOfCards') minNumberOfCards?: number; 
-
+  timerSubscription!: Subscription 
+  @Input('minNumberOfCards') minNumberOfCards?: number;  
   @Input('IsHome')Ishomescreen:any
+
+  searchText = new FormControl('');
+  dateControl = new FormControl('');
+
+  form = new FormGroup({
+    search: this.searchText,
+    date: this.dateControl
+  });
+
+
   constructor(private formBuilder: FormBuilder,private cf:ChangeDetectorRef ,private router: Router,private dataService : DataService,private fb: FormBuilder,private route : ActivatedRoute) {
 
   }
@@ -176,6 +184,7 @@ export class EventHomeListComponent {
       this.showNextSlide();
     });
   }
+
   showNextSlide() {
     if (this.currentIndex === this.imageList.length - 1) {
       this.currentIndex = 0;
@@ -187,24 +196,44 @@ export class EventHomeListComponent {
  
   addEvent(event: any) {
      this.selectedDate = event.value
-    // const filterCondition1 = {
-    //   filter:[
-    //     {
-    //       clause: "AND",
-    //       conditions: [{ column: "basic_details.start_date", operator: "GREATERTHANOREQUAL", value:event.value , type:"date"}],
-    //     }
-    //   ]
-    // }
-
-    // this.dataService.getDataByFilter("",filterCondition1).subscribe((res:any)=>{
-
-    // })
-
- 
+     
   }
 
 
+  onEnter() { 
+    const searchValue = this.form.get('search')?.value; 
+   
+    console.log('Search:', searchValue);
+    console.log('Date:',  this.selectedDate);
+ 
+    const filteredData = {
+      filter:[
+        {
+          clause: "AND",
+          conditions: [
+            
+            
+            { column: 'event_name', operator: "EQUALS", value:searchValue },
+            { column: "basic_details.start_date", operator: "GREATERTHANOREQUAL", value:this.selectedDate , type:"date"}
+        
+        ],
+        },
+      ]
+    }
+    this.dataService.getDataByFilter("event",filteredData).subscribe((res:any)=>{
+       
+       this.Data = res.data[0].response   
+        res.data[0].response.forEach((res:any) => { 
+          let data :any=res.event_image.storage_name
+          this.imageList.push(data)
+     
+       }); 
+    })
 
+
+
+  }
+  
 
 
 
