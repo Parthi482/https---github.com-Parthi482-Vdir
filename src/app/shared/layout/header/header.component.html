@@ -1,145 +1,250 @@
-<div style="padding-left: 15px;background-color: brown;">
-  <div>
-     contact-email: abc@gmail.com
-  </div> 
- 
-</div>
+<div class="font">
+  <!-- <label style="padding-left: 35px; background-color: #b7121a; width: 100%">
+    <label for="" style="color: white; font-weight: bold">contact-email:</label>
+    <label
+      style="
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        padding-left: 8px;
+      "
+    >
+    
 
-<div class="font" >
-  <nav class="navbar navbar-expand-sm d-block" style="height: 80px;">
+      info@kriyatec.com
+    </label>
+  </label> -->
+
+  <nav class="navbar navbar-expand-sm d-block" style="height: 80px">
     <div id="ui" class="container-fluid">
       <div class="d-flex flex-column align-items-center mb-4">
-        <img id="ani3" src="assets/image/vdirectory-small-logo.png" alt="Logo" width="100" height="60" style="width: 140px;cursor:pointer" class="d-inline-block align-text-top;" (click)="nav()">
-      
+        <img
+          id="ani3"
+          src="assets/image/vdirectory-small-logo.png"
+          alt="Logo"
+          width="100"
+          height="60"
+          style="width: 140px; cursor: pointer"
+          class="d-inline-block align-text-top;"
+          (click)="nav()"
+        />
       </div>
- 
-      <div class="collapse navbar-collapse justify-content-end" style="align-items: baseline;" >
+
+      <div
+        class="collapse navbar-collapse justify-content-end"
+        style="align-items: baseline"
+      >
         <ul class="navbar-nav">
-          <div class="d-flex  " >
-            <div style="display: flex;align-items:center;justify-content: end;">
+          <div class="d-flex">
+            <div
+              style="display: flex; align-items: center; justify-content: end"
+            >
               <!-- <li class="nav-item">
                 <a class="nav-link active text-white mt-1 float-start" id="ani" aria-current="page" (click)="func113()">Create Screen</a>
               </li> -->
-            <li class="nav-item">
-              <a class="nav-link active text-white mt-1 float-start" id="ani" aria-current="page" (click)="func11()">Jobs</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white mt-1" id="ani" (click)="func13()">Companies</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active text-white mt-1 float-start" id="ani" aria-current="page" (click)="func111()">Events</a>
-            </li>
-
-          </div>
-
-          <form [formGroup]="search">
-<div class="leftHeader ">
-
-          <div class="header ">
-            <div class="search-icon mt-3" (click)="toggleSearchDropdown()">
-              <i class="fas fa-search"></i>
+              <li class="nav-item">
+                <a
+                  class="nav-link active text-white mt-1 float-start"
+                  id="ani"
+                  aria-current="page"
+                  (click)="func11()"
+                  >Jobs</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white mt-1" id="ani" (click)="func13()"
+                  >Companies</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active text-white mt-1 float-start"
+                  id="ani"
+                  aria-current="page"
+                  (click)="func111()"
+                  >Events</a
+                >
+              </li>
             </div>
-            <div class="search-dropdown" *ngIf="isSearchDropdownOpen">
-              <ul class="search-options">
-                <li>
-                  <ng-multiselect-dropdown
-                    [placeholder]="'Select the City'"
-                    [settings]="city"
-                    [data]="cityList"
 
-                    formControlName="city"
-                    class="multiSelect"
-                    (onFilterChange)="onItemSelect()"
-                  ></ng-multiselect-dropdown>
-                </li>
-                <li>
-                  <div class="form-group">
-                    <select class="form-control" id="domain" formControlName="domain" placeholder="Search In...">
-                      <option value="" disabled selected>Search In..</option>
-                      <option value="Jobs">Jobs</option>
-                      <option value="Companies">Companies</option>
-                      <option value="Product & Services">Product & Services</option>
-                    </select>
+            <form [formGroup]="search">
+              <div class="leftHeader">
+                <div class="header">
+                  <div
+                    class="search-icon mt-3"
+                    (click)="toggleSearchDropdown()"
+                  >
+                    <i class="fas fa-search"></i>
                   </div>
-                </li>
-                <li>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      formControlName="value"
-                      [(ngModel)]="searchValue"
-                      placeholder="Search Key.."
-                    />
-                    <div class="input-group-append">
-                      <button class="input-group-text" (click)="onItemSelect()">
-                        <i class="fas fa-search"></i>
-                      </button>
+                  <div class="search-dropdown" *ngIf="isSearchDropdownOpen">
+                    <ul class="search-options">
+                      <li>
+                        <ng-multiselect-dropdown
+                          [placeholder]="'Select the City'"
+                          [settings]="city"
+                          [data]="cityList"
+                          formControlName="city"
+                          class="multiSelect"
+                          (onFilterChange)="onItemSelect()"
+                        ></ng-multiselect-dropdown>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <select
+                            class="form-control"
+                            id="domain"
+                            formControlName="domain"
+                            placeholder="Search In..."
+                          >
+                            <option value="" disabled selected>
+                              Search In..
+                            </option>
+                            <option value="Jobs">Jobs</option>
+                            <option value="Companies">Companies</option>
+                            <option value="Product & Services">
+                              Product & Services
+                            </option>
+                          </select>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="value"
+                            [(ngModel)]="searchValue"
+                            placeholder="Search Key.."
+                          />
+                          <div class="input-group-append">
+                            <button
+                              class="input-group-text"
+                              (click)="onItemSelect()"
+                            >
+                              <i class="fas fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <a
+                  class="nav-link text-white mt-1 mt-3"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  (click)="authService.GoogleAuth()"
+                  *ngIf="isLoggedIn === false"
+                >
+                  Login
+                </a>
+              </div>
+            </form>
+
+            <h1
+              style="float: right; margin-left: auto"
+              class="username mt-4"
+              *ngIf="isLoggedIn"
+            >
+              Welcome {{ userName }}
+            </h1>
+
+            <div style="margin-left: auto">
+              <li class="nav-item dropdown me-5" *ngIf="isLoggedIn">
+                <a
+                  class="nav-link dropdown-toggle text-white mt-1"
+                  id="ani5"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <div class="d-flex align-items-center" *ngIf="isLoggedIn">
+                    <div class="rounded-circle profile-image-container">
+                      <img
+                        *ngIf="this.profile_pic"
+                        [src]="
+                          this.profile_pic
+                            ? profile_pic
+                            : 'assets/image/default-user.jpg'
+                        "
+                        style="width: 50px; height: 50px"
+                        alt="{{ userName }}"
+                        class="rounded-circle profile-image"
+                      />
                     </div>
                   </div>
-                </li>
-              </ul>
-            </div>
-          </div>
- 
-    <a class="nav-link  text-white mt-1 mt-3"   role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="authService.GoogleAuth()" *ngIf="isLoggedIn===false">
-      Login
-    </a>
-    
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="ani5">
+                  <li>
+                    <a class="dropdown-item fs-6" (click)="func12()"
+                      >Create Resume</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item fs-6"
+                      *ngIf="isLoggedIn"
+                      (click)="func22()"
+                      >Applied Jobs</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item fs-6"
+                      *ngIf="isLoggedIn"
+                      (click)="func44()"
+                      >Profile</a
+                    >
+                  </li>
 
-</div>
-</form>
-
- 
-
-
-  <h1 style="float: right;margin-left: auto;" class="username mt-4"  *ngIf="isLoggedIn" >Welcome {{userName}}
-  
-  
-  
-  
-  </h1>
- 
- 
-          <div style="margin-left: auto;">
-          <li class="nav-item dropdown me-5"  *ngIf="isLoggedIn" >
-
-            <a class="nav-link dropdown-toggle text-white mt-1"  id="ani5" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <div class="d-flex align-items-center"  *ngIf="isLoggedIn">
-                <div class="rounded-circle profile-image-container"
-                >
-           
-                  <img *ngIf="this.profile_pic" [src]="this.profile_pic ? profile_pic : 'assets/image/default-user.jpg'" style="width: 50px; height: 50px" alt={{userName}} class="rounded-circle profile-image" />
-                
-                </div>
-              </div>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="ani5" >
-              <li><a class="dropdown-item fs-6" (click)="func12()">Create Resume</a></li>
-              <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="func22()">Applied Jobs</a></li>
-              <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="func44()">Profile</a></li>
-
-              <!-- <li ><a class="mt-2 fs-6 ms-3" (click)="signOut()" *ngIf="isLoggedIn">LogOut</a> 
+                  <!-- <li ><a class="mt-2 fs-6 ms-3" (click)="signOut()" *ngIf="isLoggedIn">LogOut</a> 
               </li> -->
 
-             <!-- </ul> -->
-             <!-- !pending -->
+                  <!-- </ul> -->
+                  <!-- !pending -->
 
-             <!-- <ul class="dropdown-menu" aria-labelledby="ani5" *ngIf="admin"> -->
-              <!-- <li><a class="dropdown-item fs-6" (click)="route1()">Home</a></li> -->
-              <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route2()">My Profile</a></li>
-              <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route3()">Jobs</a></li>
-              <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route4()">Candidates</a></li>
-              <li ><a class="mt-2 fs-6 ms-3" (click)="signOut()" *ngIf="isLoggedIn">LogOut</a> </li>
-             </ul>
-          </li>
-
-        </div>
-      </div>
+                  <!-- <ul class="dropdown-menu" aria-labelledby="ani5" *ngIf="admin"> -->
+                  <!-- <li><a class="dropdown-item fs-6" (click)="route1()">Home</a></li> -->
+                  <li>
+                    <a
+                      class="dropdown-item fs-6"
+                      *ngIf="isLoggedIn"
+                      (click)="route2()"
+                      >My Profile</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item fs-6"
+                      *ngIf="isLoggedIn"
+                      (click)="route3()"
+                      >Jobs</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item fs-6"
+                      *ngIf="isLoggedIn"
+                      (click)="route4()"
+                      >Candidates</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="mt-2 fs-6 ms-3"
+                      (click)="signOut()"
+                      *ngIf="isLoggedIn"
+                      >LogOut</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+          </div>
         </ul>
-
       </div>
     </div>
   </nav>
 </div>
- 

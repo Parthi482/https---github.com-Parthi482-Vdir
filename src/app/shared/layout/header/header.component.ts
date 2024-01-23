@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   searchQuery: any;
   userImage: any;
   url: any = null;
+  email:any
   userName: any;
   profile_pic: any;
   jobSeekerName: any;
@@ -151,6 +152,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 
     if (!isEmpty(user)) {
       this.isLoggedIn = true;
+      this.email  = user.email
       this.userName = user.user_name;
       this.profile_pic = user.user_profile; 
     } 

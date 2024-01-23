@@ -13,6 +13,7 @@ import { DatatableComponent } from "./component/datatable/datatable.component";
 import { DynamicFormComponent } from "./component/dynamic-form/dynamic-form.component"; 
 import { EventHomeListComponent } from "./component/event-home/event-home-list/event-home-list.component";
 import { EventViewComponent } from "./component/event-home/event-view/event-view.component";
+import { JoblistHome } from "./dashboard/event-screen/joblist-home";
 
 const routes: Routes = [
   {
@@ -22,7 +23,11 @@ const routes: Routes = [
       {
         path: "",
         component: EventHomeListComponent,
-      },
+      }
+      ,{
+        path:'register',
+        component:JoblistHome
+      }
     ],
   },
   {
@@ -36,9 +41,9 @@ const routes: Routes = [
       {
         path: ':id',
         component: EventViewComponent,
-      },
+      }
     ],
-  },
+  }, 
   //   {
   //     path: 'events',
   //     component: JoblistHome,

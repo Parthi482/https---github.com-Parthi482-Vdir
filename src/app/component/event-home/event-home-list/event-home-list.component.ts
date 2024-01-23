@@ -11,6 +11,7 @@ import { Subscription, interval } from 'rxjs';
 import { HelperService } from 'src/app/service/helper.service';
 import { DatePipe } from '@angular/common';
 import { ApiService } from 'src/app/service/search.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class EventHomeListComponent implements OnInit, AfterContentChecked{
   timerSubscription!: Subscription
   @Input('minNumberOfCards') minNumberOfCards?: number;
   @Input('IsHome') Ishomescreen: any
+  ActiveUser:boolean = false
 CurrentBannerData:any[]=[]
   searchText = new FormControl('');
   dateControl = new FormControl('');
@@ -44,8 +46,12 @@ CurrentBannerData:any[]=[]
   });
 
 
-  constructor(private auth:ApiService,private datePipe: DatePipe, private formBuilder: FormBuilder, private cf: ChangeDetectorRef, private router: Router, private dataService: DataService, private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(public authService: AuthService,private auth:ApiService,private datePipe: DatePipe, private formBuilder: FormBuilder, private cf: ChangeDetectorRef, private router: Router, private dataService: DataService, private fb: FormBuilder, private route: ActivatedRoute) {
     this.getData()
+    let data =  this.auth.getdetails()
+    if (!isEmpty(data)){
+      this.ActiveUser =  true
+    }
   }
 
 
@@ -174,11 +180,10 @@ ngOnInit(): void {
       this.router.navigate(["event/" + matchingObject._id])
     }
   }
-
-  SendEmail() {
-   let data =  this.auth.getdetails()
-   console.log(data);
-   
+  //  todo Mail Api 
+  SendEmail(data?:any) {
+    
+    this.router.navigate(["event-home/register"])
   }
   ngAfterContentChecked(): void {
      
@@ -199,8 +204,7 @@ ngOnInit(): void {
     } else {
       this.currentIndex++; 
       // this.GetCurrentBannerData() 
-    }  
-    // this.cf.detectChanges();
+    }   
   }
  async GetCurrentBannerData(){
  
@@ -225,30 +229,34 @@ ngOnInit(): void {
 
   onEnter() {
     const searchValue = this.form.get('search')?.value;
-
-
+ 
+    
     const filteredData = {
       filter: [
         {
           clause: "AND",
           conditions: [
-
-
             { column: 'event_name', operator: "EQUALS", value: searchValue },
             { column: "basic_details.start_date", operator: "GREATERTHANOREQUAL", value: this.selectedDate, type: "date" }
-
           ],
         },
       ]
     }
     this.dataService.getDataByFilter("event", filteredData).subscribe((res: any) => {
 
-      this.Data = res.data[0].response
+       
       res.data[0].response.forEach((res: any) => {
-        let data: any = res.event_image.storage_name
-        this.imageList.push(data)
-        console.log(this.imageList);
-        
+        if (!isEmpty(res)){
+          this.Data = []
+          this.Data.push(res)
+
+        }
+      
+        res.event_banner.forEach((event_banner:any) => {
+          let data: any = res.event_banner.storage_name 
+          this.imageList.push(data)
+        });
+ 
       });
     })
 
