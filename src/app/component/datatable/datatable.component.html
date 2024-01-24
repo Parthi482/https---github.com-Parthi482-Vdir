@@ -27,9 +27,10 @@
   class="ag-theme-alpine"
   [defaultColDef]="defaultColDef"
   [columnDefs]="columnDefs"
-  [rowData]="listData"
-  (gridReady)="onGridReady($event)"
-  (firstDataRendered)="onFirstDataRendered($event)"
+  [rowData]="listData"  
+  [context]="context"[paginationPageSizeSelector]='false'
+  [components]="components" 
+  (gridReady)="onGridReady($event)" 
 ></ag-grid-angular>
 
 
