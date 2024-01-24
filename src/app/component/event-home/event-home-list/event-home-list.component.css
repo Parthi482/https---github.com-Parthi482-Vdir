@@ -24,14 +24,26 @@
   width: 35%;
   height: 100px;
 }
+.event-description-container { 
+  max-height: 80px;  
+  overflow: hidden;
+}
+
+.event-description { 
+  line-height: 20px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ 
 
 .rigt-side {
   background-color: beige;
   border-radius: 10%;
   position: absolute;
-  bottom: 15%;
+  top: 27%; 
   right: 35px;
-  /* transform: translateX(-50%); */
+ width: 250px; 
   text-align: center;
 }
 

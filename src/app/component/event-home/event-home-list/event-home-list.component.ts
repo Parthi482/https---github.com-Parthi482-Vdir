@@ -181,9 +181,12 @@ ngOnInit(): void {
       this.router.navigate(["event/" + matchingObject._id])
     }
   }
+
+
   //  todo Mail Api 
-  SendEmail(data?:any) {  
-      alert("Thank Your For Register")
+  SendEmail(data?:any) {   
+    
+      // alert("Thank Your For Register")
       // this.dataService.SendEmailForEvent(this.userData.email).subscribe((res:any)=>{         
       // }) 
   }

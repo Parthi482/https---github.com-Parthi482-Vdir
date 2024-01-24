@@ -11,16 +11,16 @@
     <div *ngIf="CurrentBannerData && CurrentBannerData.length > 0">
   <div class="rigt-side" *ngFor="let bannerdata of CurrentBannerData; let i = index"   > 
     <div style="margin: 10px;" >
-      <p style="font-size: 16px; font-weight: bold;">Event Name: {{bannerdata.event_name}}</p>
-      <p style="font-size: 16px; font-weight: bold;">Start Date: {{bannerdata.Start_date}}</p>
-      
-        <button  (click)="SendEmail(bannerdata)" mat-raised-button *ngIf="ActiveUser == true">Join</button>
-        <button mat-raised-button *ngIf="!ActiveUser" (click)="authService.GoogleAuth()">Join</button>
-
+      <h2 style="font-size: 30px; font-weight: bold;">{{bannerdata.event_name}}</h2>
+      <div class="event-description-container" [innerHTML]="bannerdata.event_description"></div> 
+        <div style="padding: 10px;"><i class="fa fa-calendar" aria-hidden="true"></i>
+          {{ bannerdata.Start_date }}
+        </div> 
+      <button  (click)="SendEmail(bannerdata)" mat-raised-button *ngIf="ActiveUser == true">Join</button>
+      <button mat-raised-button *ngIf="!ActiveUser" (click)="authService.GoogleAuth()">Join</button> 
     </div>
 </div>
 </div>
-
  
   <div class="centered-div">
     <form [formGroup]="form">
@@ -81,11 +81,11 @@
   </div>
  
 </div>
-
+<!-- 
 <div *ngIf="!Ishomescreen">
   <br />
   <br />
-</div>
+</div> -->
 
  
 
