@@ -52,10 +52,11 @@ export class DatatableComponent implements OnInit {
   collectionName!: string;
   listName!: string;
   config: any;
+public listData: any[] = []
+
   pageHeading: any;
   columnDefs: any;
-  filterOptions: any;
-  listData: any;
+  filterOptions: any; 
   screenEditMode: string = "popup";
   fields: any;
   loading: boolean = false;
@@ -165,54 +166,24 @@ export class DatatableComponent implements OnInit {
 
   public getRowId: GetRowIdFunc = (params: GetRowIdParams) => `${params.data[this.config.keyField ? this.config.keyField  : "_id"]}`;
 
-  loadConfig() {
+  loadConfig() { 
+    
     this.DataService.loadListConfigJson(this.listName).subscribe(
-      (config: any) => {
+      (config: any) => { 
+        
         let org_type_id: any;
         let role_type: any;
         var role_filter: any;
         if (config?.rolebased) { // config . role == true  
           role_type = this.DataService.getdetails().LoginResponse.role;
           org_type_id = this.DataService.getdetails().LoginResponse.org_id;
-          if (role_type !== "SA") {
-
-            role_filter = {
-              clause: "AND",
-              conditions: [
-                {column: "org_id",operator: "EQUALS",type: "string",value: org_type_id,},
-              ],
-            };
-          }
-
-        }if (config?.individaulAccess) { // config . role == true  
-          let decodeToken:any=this.helperService.getdecodeToken()
-          if (role_type !== "SA") {
-// to use
-            role_filter = {
-              clause: "AND",
-              conditions: [
-                {column: config?.individaulAccessColumn,operator: "EQUALS",type: "string",value: decodeToken[config.valueColumnName]},
-              ],
-            };
-          }
-
-        }
+         
+        } 
         this.config = config;
         this.showbutton = config.showbutton; // show button used to show add button it should done in json
         let filter = this.DataService.getFilterQuery(config, this);
-        //! define it has the role in
-        console.log(config?.rolebased && role_type !== "SA");
-
-        if (config?.rolebased && role_type !== "SA") {
-          this.filterQuery = [role_filter];
-
-          if (filter != undefined) {
-            this.filterQuery = [filter, role_filter];
-          } 
-
-        } else {
-          this.filterQuery = filter;
-        }
+        //! define it has the role in 
+          this.filterQuery = filter; 
         this.collectionName = config.collectionName; // collectionName used to show add button it should done in json
         this.filterOptions = config.filterOptions;
         this.filterCollectionName = config.filtercollectionName || "";
@@ -274,7 +245,7 @@ export class DatatableComponent implements OnInit {
                   filter=this.allFilter;
                   }
                   this.DataService.getDataByFilter(this.collectionName, filter).subscribe((xyz: any) => {
-                    const apidata = xyz.data[0].response;
+                    const apidata = xyz.data[0].response[0];
                     const uniqueArray = Array.from(
                       new Map( apidata.map((obj: any) => [obj[e.field], obj])).values()
                     );
@@ -328,7 +299,7 @@ export class DatatableComponent implements OnInit {
                 filter=this.allFilter;
                 }
                 this.DataService.getDataByFilter(this.collectionName,filter).subscribe((xyz: any) => {
-                  const apidata = xyz.data[0].response
+                  const apidata = xyz.data[0].response[0]
                     .map((result: any) => {
                       //let val = result[e.field];
                       let val = e.field
@@ -346,7 +317,7 @@ export class DatatableComponent implements OnInit {
           }
         });
 
-        this.isConfigLoaded = true;
+        // this.isConfigLoaded = true;
 
         this.getList(this.filterQuery, config.sort);
       }
@@ -357,77 +328,109 @@ export class DatatableComponent implements OnInit {
    * This method Get All Data by Passing collectionName  in grid
    */
   getList(filterQuery?: any, sort?: any) {
+ 
+ 
+    
     //! DEfenie this for GridAPi Should not be undefined
-    if (this.gridApi !== undefined) {
-      const datasource:IServerSideDatasource = {
-        getRows: async (params: IServerSideGetRowsParams) => {
-          let obj: any = {
-            start: params.request.startRow,
-            end: params.request.endRow,
-            filter: params.request.filterModel,
-            sort: params.request.sortModel,
-          };
+    if (this.gridApi !== undefined) { 
+      
+      // const datasource:IServerSideDatasource = {
+      //   getRows: async (params: IServerSideGetRowsParams) => {
+      //     let obj: any = {
+      //       start: params.request.startRow,
+      //       end: params.request.endRow,
+      //       filter: params.request.filterModel,
+      //       sort: params.request.sortModel,
+      //     };
 
-          this.DataService.makeFiltersConditions(obj).then((filtercondition: any) => {
-              let filter = filtercondition.filter;
-              filtercondition.filter = [];
-              if (this.filterQuery !== undefined && filterQuery !== undefined) {
-                if (this.filterQuery == filterQuery) {
-                  filtercondition.filter = [...this.filterQuery, ...filter];
-                } else {
-                  filtercondition.filter = [
-                    ...this.filterQuery,
-                    ...filter,
-                    ...filterQuery,
-                  ];
-                }
-              } else if (this.filterQuery !== undefined) {
-                filtercondition.filter = [...this.filterQuery, ...filter];
-              } else if (filterQuery !== undefined) {
-                filtercondition.filter = [...filter, ...filterQuery];
-              } else {
-                filtercondition.filter = [...filter];
-              }
-              if (sort != undefined) {
-                filtercondition.sort = sort;
-              }
-             this.allFilter=filtercondition
-              this.DataService.getDataByFilter(this.collectionName ,filtercondition).subscribe(async (xyz: any) => {
-                console.log(xyz);
-                this.gridApi.sizeColumnsToFit();
-                if (await xyz) {
-                  if (xyz?.data[0]?.pagination[0]?.totalDocs !== undefined) {
-                    this.gridApi.hideOverlay()
-                    this.listData = xyz.data[0].response;
-                    let data:any={
-                      rowData:xyz.data[0].response ,
-                      rowCount:xyz.data[0].pagination[0].totalDocs
-                    }
-                    params.success(
-                      data
-                    );
-                  } else {
-                    this.gridApi.showNoRowsOverlay();
-                    params.success(
-                      {
-                        rowData:[],
-                        rowCount:0
-                      })
-                   }
-                } else {
-                  this.gridApi.showNoRowsOverlay();
-                  params.success(
-                    {
-                      rowData:[],
-                      rowCount:0
-                    })
-                }
-              });
+      //     this.DataService.makeFiltersConditions(obj).then((filtercondition: any) => {
+      //         let filter = filtercondition.filter;
+      //         filtercondition.filter = [];
+      //         if (this.filterQuery !== undefined && filterQuery !== undefined) {
+      //           if (this.filterQuery == filterQuery) {
+      //             filtercondition.filter = [...this.filterQuery, ...filter];
+      //           } else {
+      //             filtercondition.filter = [
+      //               ...this.filterQuery,
+      //               ...filter,
+      //               ...filterQuery,
+      //             ];
+      //           }
+      //         } else if (this.filterQuery !== undefined) {
+      //           filtercondition.filter = [...this.filterQuery, ...filter];
+      //         } else if (filterQuery !== undefined) {
+      //           filtercondition.filter = [...filter, ...filterQuery];
+      //         } else {
+      //           filtercondition.filter = [...filter];
+      //         }
+      //         if (sort != undefined) {
+      //           filtercondition.sort = sort;
+      //         }
+      //        this.allFilter=filtercondition
+
+
+
+      //        console.log("tdddddddddddddddddddddddd");
+      //        console.log(this.collectionName);
+             
+      //         this.DataService.getDataByFilter(this.collectionName ,{}).subscribe(async (xyz: any) => {
+      //           console.log(xyz);
+      //           this.gridApi.sizeColumnsToFit();
+      //           if (await xyz) {
+      //             if (xyz?.data[0]?.pagination[0]?.totalDocs !== undefined) {
+      //               this.gridApi.hideOverlay()
+      //               this.listData = xyz.data[0].response;
+      //               let data:any={
+      //                 rowData:xyz.data[0].response ,
+      //                 rowCount:xyz.data[0].pagination[0].totalDocs
+      //               }
+      //               params.success(
+      //                 data
+      //               );
+      //             } else {
+      //               this.gridApi.showNoRowsOverlay();
+      //               params.success(
+      //                 {
+      //                   rowData:[],
+      //                   rowCount:0
+      //                 })
+      //              }
+      //           } else {
+      //             this.gridApi.showNoRowsOverlay();
+      //             params.success(
+      //               {
+      //                 rowData:[],
+      //                 rowCount:0
+      //               })
+      //           }
+      //         });
+      //       }
+      //     );
+      //   },
+      // };
+      // this.gridApi.setServerSideDatasource(datasource);
+      // todo
+      this.DataService.getDataByFilter(this.collectionName ,{}).subscribe(async (xyz: any) => {
+        console.log(xyz);
+        this.gridApi.sizeColumnsToFit();
+        if (await xyz) {
+          if (xyz?.data[0]?.pagination[0]?.totalDocs !== undefined) {
+            this.gridApi.hideOverlay()
+            this.listData = xyz.data[0].response;
+            let data:any={
+              rowData:xyz.data[0].response ,
+              rowCount:xyz.data[0].pagination[0].totalDocs
             }
-          );
-        },
-      };
-      this.gridApi.setServerSideDatasource(datasource);
+             
+          } else {
+            this.gridApi.showNoRowsOverlay();
+            
+           }
+        } else {
+          this.gridApi.showNoRowsOverlay();
+          
+        }
+      });
     }
   }
   /**

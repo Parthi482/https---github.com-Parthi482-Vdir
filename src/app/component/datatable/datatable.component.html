@@ -18,25 +18,37 @@
     </div>
 
   </div>
-<div style="display: flex;justify-content: center;width: 98%;align-items: center;margin: 10px;" *ngIf="isConfigLoaded">
-  <ag-grid-angular 
-      #agGrid style="width: 98%; height: calc(100vh - 250px); flex: 1 1 auto" 
-      class="ag-theme-alpine"
-      [defaultColDef]="defaultColDef"
-      [columnDefs]="columnDefs"
-      [rowSelection]="'single'"
-      [pagination]="true"
-      [overlayNoRowsTemplate]="overlayNoRowsTemplate"
-      [getRowId]="getRowId"
-      [getContextMenuItems]="getContextMenuItems"
-      [context]="context"[paginationPageSizeSelector]='false'
-      [gridOptions]="gridOptions"
-      (firstDataRendered)="onFirstDataRendered($event)"
-      (cellClicked)="onCellClicked($event)"
-      [components]="components"
-      (selectionChanged)="onSelectionChanged($event)"
-      (gridReady)="onGridReady($event)">
-  </ag-grid-angular>
+<div style="display: flex;justify-content: center;width: 98%;align-items: center;margin: 10px;" >
+ 
+ 
+  <ag-grid-angular
+  #agGrid
+  style="width: 100%; height: calc(100vh - 250px); flex: 1 1 auto"
+  class="ag-theme-alpine"
+  [defaultColDef]="defaultColDef"
+  [columnDefs]="columnDefs"
+  [rowData]="listData"
+  (gridReady)="onGridReady($event)"
+  (firstDataRendered)="onFirstDataRendered($event)"
+></ag-grid-angular>
+
+
+  <!-- <ag-grid-angular    
+        style="width: 100%; height: calc(100vh - 250px); flex: 1 1 auto"
+        class="ag-theme-alpine"
+        [defaultColDef]="defaultColDef"
+        [columnDefs]="columnDefs" 
+        [rowData]="listData"
+        [gridOptions]='gridOptions' 
+        [context]="context"[paginationPageSizeSelector]='false'
+        [components]="components" 
+        [debug]="true"
+        [rowSelection]="'single'"
+        [animateRows]="true"
+        (cellClicked)='onCellClicked($event)'
+        (selectionChanged)="onSelectionChanged($event)" 
+        (gridReady)="onGridReady($event)" 
+        ></ag-grid-angular> -->
 </div>
 </div>
 <!-- [groupSelectsChildren]="true" -->
