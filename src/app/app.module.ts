@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar'; 
-import { AgGridModule } from 'ag-grid-angular';
+import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -36,7 +36,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel'; // Import SlickCarouse
   ],
   imports: [
     SlickCarouselModule ,
-
+    AgGridAngular,
     BrowserModule,
     AppRoutingModule,AgGridModule,
     SharedModule,

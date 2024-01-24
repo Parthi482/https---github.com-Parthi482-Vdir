@@ -186,9 +186,9 @@ ngOnInit(): void {
   //  todo Mail Api 
   SendEmail(data?:any) {   
     
-      // alert("Thank Your For Register")
-      // this.dataService.SendEmailForEvent(this.userData.email).subscribe((res:any)=>{         
-      // }) 
+      alert("Thank Your For Register")
+      this.dataService.SendEmailForEvent(this.userData.email).subscribe((res:any)=>{         
+      }) 
   }
   ngAfterContentChecked(): void {
      

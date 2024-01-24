@@ -67,7 +67,7 @@ export class EventViewComponent {
   ActiveUser: boolean = false
   userData: any
 
-  constructor(private cf : ChangeDetectorRef,private auth: ApiService, public authService: AuthService, private route: ActivatedRoute, private dataservice: DataService, private datePipe: DatePipe) {
+  constructor(private dataService: DataService,private cf : ChangeDetectorRef,private auth: ApiService, public authService: AuthService, private route: ActivatedRoute, private dataservice: DataService, private datePipe: DatePipe) {
 
     this.route.params.forEach((res: any) => {
 
@@ -160,9 +160,9 @@ export class EventViewComponent {
   //  todo Mail Api 
   SendEmail(data?: any) {
 
-    // alert("Thank Your For Register")
-    // this.dataService.SendEmailForEvent(this.userData.email).subscribe((res:any)=>{         
-    // }) 
+    alert("Thank Your For Register")
+    this.dataService.SendEmailForEvent(this.userData.email).subscribe((res:any)=>{         
+    }) 
   }
   startCarousel() {
 
