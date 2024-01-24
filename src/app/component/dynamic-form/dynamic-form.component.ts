@@ -105,13 +105,13 @@ export class DynamicFormComponent {
  
       if (result != undefined) {
     
-        if (this.formName =="user"|| this.formAction == "Edit"){
-          // this.router.navigate([""])
+        if (this.formName =="user"|| this.formAction == "Edit"){ 
           let data:any  = this.form.value
           
-          console.log(data.user_type);
           let navigate =  this.Navigate(data.user_type)
-          this.router.navigate(["add/companies"])
+          console.log("naviga",navigate);
+          
+          this.router.navigate(["add/company"])
         }else{
           this.goBack(result) 
           this.butonflag = true
@@ -125,7 +125,7 @@ export class DynamicFormComponent {
 
   private Navigate(user_type: any): any {
     if (user_type === "Business Owner") {
-      return "UserCompains";
+      return "company";
     } 
   }
     

@@ -20,7 +20,7 @@
           <i class="fa fa-users" aria-hidden="true" style="padding-right: 5px;padding-bottom: 5px;"></i
           >{{ bannerdata?.event_participants?.length || 0 }}
           </div>
-      <button class="rsvp-button" (click)="SendEmail(bannerdata)" mat-raised-button *ngIf="ActiveUser == true">RSVP</button>
+      <button class="rsvp-button" (click)="SendEmail(bannerdata)" style="background-color: rgba(31, 215, 232, 0.873);" *ngIf="ActiveUser == true">RSVP</button>
       <button class="rsvp-button" *ngIf="!ActiveUser" (click)="authService.GoogleAuth()">
         RSVP
       </button>  
