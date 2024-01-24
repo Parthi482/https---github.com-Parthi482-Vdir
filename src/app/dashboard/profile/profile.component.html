@@ -91,6 +91,19 @@
               <div *ngIf="profileForm.get('education')?.hasError('noSpaceAtStartEnd') && profileForm.get('education')?.touched"
                    style="color: red;">Invalid Education</div>
             </div>
+
+
+            <!-- Role Change -->
+            <div class="mb-3" fxFlex="50%">
+              <label for="education" class="form-label">Education</label>
+              <input type="text" id="education" class="form-control" formControlName="education" [(ngModel)]="profile.education">
+              <div *ngIf="profileForm.get('education')?.hasError('required') && profileForm.get('education')?.touched"
+                   style="color: red;">Education is required</div>
+              <div *ngIf="profileForm.get('education')?.hasError('noSpaceAtStartEnd') && profileForm.get('education')?.touched"
+                   style="color: red;">Invalid Education</div>
+            </div>
+
+
           </form> 
 
         <div class="text-end mb-3 me-3">
@@ -107,6 +120,13 @@
           </div>
         </div>
       </div>
+
+
+
+
+
+
+
     </div>
   </div>
 </div>

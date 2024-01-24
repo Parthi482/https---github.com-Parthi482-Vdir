@@ -10,12 +10,12 @@
 
         <div class="text-center mb-5" style="margin-top: 40px;" (click)="stopPropagation($event)" >
           <label for="Company_logo" class="hoverable">
-            <img [src]="url?url:this.auth.Company_logo" alt="Company Logo">
+            <img [src]="url?url:this.auth.user_profile" alt="Company Logo">
             <div class="hover-text">Upload Company Logo</div>
             <div class="background"></div>
           </label>
           <input id="Company_logo" type='file' style="display: none;" [disabled]="imgfalg"
-            (change)="handleFileUpload('Company_logo', 'Company_logo'); onSelectFile($event, true)">
+          (change)="handleFileUpload('Company_logo', 'Company_logo'); onSelectFile($event, true)">
         </div>
 
         <div class="card" style="opacity: 0.8;  justify-content: end;">
@@ -37,11 +37,11 @@
     </div>
 
 
-    <div *ngIf="!toast" aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 d-flex"
+    <!-- <div *ngIf="!toast" aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 d-flex"
       style="z-index: 9999; height: 100px; width: 350px; margin-left: 8%;">
       <div class="toast-container top-0 end-0 p-3">
 
-        <!-- Then put toasts within -->
+        
         <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
           <div class="toast-header">
             <strong class="me-auto">Profile is Not Fully Completed</strong>
@@ -53,7 +53,7 @@
         </div>
 
       </div>
-    </div>
+    </div> -->
 
   </div>
   <div style="margin-top: 10px;">

@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/service/search.service';
 import { ColDef, FirstDataRenderedEvent, GridReadyEvent } from 'ag-grid-community';
+import { filter } from 'lodash';
+import { DataService } from 'src/app/service/data.service';
 
 
 @Component({
@@ -64,18 +66,44 @@ public defaultColDef: ColDef = {
   suppressMovable:true,
 };
 gridApi:any
-  constructor(private http: HttpClient, private auth: ApiService) {
+  constructor(private http: HttpClient, private auth: ApiService, private dataservice: DataService) {
     this.Email = this.auth.decodeToken().email;
     this.data = this.auth.getdetails()._id;
-    const filterValue: any = [
-      {
-        clause: "$and",
-        conditions: [
-          { column: "refid", operator: "$eq", value:this.data }
-        ]
-      }
-    ];
-    this.auth.getDataByFilter('applied_jobs',filterValue).subscribe((xyz:any)=>{
+  
+
+
+    const filterCondition1 = {
+      filter: [
+        {
+          clause: "AND",
+          conditions: [  { column: "refid", operator: "EQUALS", value:this.data }],
+        },
+      ],
+    } 
+
+  //   const filterValue: any = [
+        //    {
+        //      clause: "$and",
+        //      conditions: [
+        //        { column: "Jobid", operator: "$eq", value:this.id },
+        //        { column: "refid", operator: "$eq", value:details }
+        //      ]
+        //    }
+        //  ];
+
+
+
+
+
+
+
+
+
+    this.dataservice.getDataByFilter('applied_jobs',filterCondition1).subscribe((res:any)=>{
+
+      let xyz =  res.data[0].response
+
+
       this.cardData=xyz.map((xyz: any) => ({
         ...xyz,
         status:xyz.applied_type.replace(/_/g, ' '),

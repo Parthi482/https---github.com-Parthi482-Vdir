@@ -64,7 +64,7 @@ import { LogoComponent } from "./profile-logo";
 import { patchWork } from "./patchwork";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { tooglebutton } from "./tooglebutton";
-import { Card } from "./card";
+import { CompaniesInput } from "./companies-input";
 import { radiobutton } from "./radiobutton";
 import { RepeatTypeComponent } from "./repeat";
 import { Chips } from "./chips";
@@ -383,7 +383,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
     { name: "custompopup-input", component: CustomPopupInput },
     { name: "time-input", component: TimeInput }, 
     { name: "toogle", component: tooglebutton },
-    { name: "card", component: Card },
+    { name: "companies-input", component: CompaniesInput },
     { name: "patch-work", component: patchWork }, 
     { name: "radio-button", component: radiobutton },
     { name: "repeat", component: RepeatTypeComponent },
@@ -435,7 +435,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
         Location,
         LogoComponent,
         tooglebutton,
-        Card,
+        CompaniesInput,
         patchWork,
         Chips,
         FormlyFieldStepper,
@@ -450,6 +450,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
 
     ],
     exports: [
+      CompaniesInput,
       FormlyFieldUser,
       Login,
         Tab,

@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 /* Banner Image div started */
+
 .containers {
   width: 100%;
   position: relative;
@@ -145,4 +146,9 @@
   background: rgb(2,29,78);
   background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
   color: rgb(4, 4, 38);
+}
+
+.background-image{
+  width: 350px;
+  height: 350px;
 }

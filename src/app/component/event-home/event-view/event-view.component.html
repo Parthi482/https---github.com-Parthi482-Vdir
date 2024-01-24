@@ -40,7 +40,7 @@
   </nav> -->
   
   <!-- Banner Image -->
-  <div *ngFor="let bannerImage of Banner_data.slice(0, 1); let i = index" [class.active]="i === currentIndex">
+  <!-- <div *ngFor="let bannerImage of Banner_data.slice(0, 1); let i = index" [class.active]="i === currentIndex">
     
     <img
       [src]="docBasePath + bannerImage.storage_name"
@@ -48,8 +48,53 @@
       alt="Responsive Image"
       style="object-fit: cover; height: 500px; width: 100%"
     />
+    <div >
+      <div class="rigt-side"   > 
+        <div style="margin: 10px;" >
+          <h2 style="font-size: 30px; font-weight: bold;"></h2>
+          <div class="event-description-container" >fffffffffffffffffffff</div> 
+            <div style="padding: 10px;"><i class="fa fa-calendar" aria-hidden="true"></i>
+              "bannerdata.Start_date"  
+            </div> 
+           
+        </div>
+    </div>
+    </div>
   </div>
-  
+   -->
+
+
+
+  <div class="containers" >
+    <div class="banner">
+      <img
+        [src]="imageList[currentIndex]"
+        alt=""
+        style="width: 100%; height: 550px;"
+      />
+    </div>  
+      <div >
+    <div class="right-side-form" *ngFor="let bannerdata of CurrentBannerData; let i = index"   > 
+      <div style="margin: 10px;" >
+        <h2 style="font-size: 30px; font-weight: bold;">{{bannerdata.event_name}}</h2>
+        <p class="event-description-container" [innerHTML]="bannerdata.event_description"></p> 
+          <div style="padding: 10px;" *ngIf="bannerdata.Start_date"><i class="fa fa-calendar" aria-hidden="true"></i>
+            {{ bannerdata.Start_date }}
+          </div> 
+        <button class="rsvp-button" (click)="SendEmail(bannerdata)" mat-raised-button *ngIf="ActiveUser == true">RSVP
+        </button>
+        <button class="rsvp-button" *ngIf="!ActiveUser" (click)="authService.GoogleAuth()">
+          RSVP
+        </button> 
+        
+      </div>
+  </div>
+  </div> 
+  </div>
+
+
+
+ 
   <!-- event_description -->
   
   <!-- About -->
@@ -58,9 +103,10 @@
       <h1>ABOUT</h1>
     </div>
     <div class="right-side">
-      <h2>
-        {{about}}
-      </h2>
+      <!-- <h2 [innerHTML]="about"> -->
+        <div [innerHTML]="about"></div> 
+ 
+      <!-- </h2> -->
     </div>
   </div>
   

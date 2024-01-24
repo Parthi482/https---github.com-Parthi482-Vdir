@@ -12,18 +12,18 @@
   <div class="rigt-side" *ngFor="let bannerdata of CurrentBannerData; let i = index"   > 
     <div style="margin: 10px;" >
       <h2 style="font-size: 30px; font-weight: bold;">{{bannerdata.event_name}}</h2>
-      <div class="event-description-container" [innerHTML]="bannerdata.event_description"></div> 
-        <div style="padding: 10px;"><i class="fa fa-calendar" aria-hidden="true"></i>
+      <p class="event-description-container" [innerHTML]="bannerdata.event_description"></p> 
+        <div style="margin-right: 34px;padding: 10px;"><i class="fa fa-calendar" aria-hidden="true"></i>
           {{ bannerdata.Start_date }}
         </div> 
+        <div style="margin-right: 90px;">
+          <i class="fa fa-users" aria-hidden="true" style="padding-right: 5px;padding-bottom: 5px;"></i
+          >{{ bannerdata?.event_participants?.length || 0 }}
+          </div>
       <button class="rsvp-button" (click)="SendEmail(bannerdata)" mat-raised-button *ngIf="ActiveUser == true">RSVP</button>
       <button class="rsvp-button" *ngIf="!ActiveUser" (click)="authService.GoogleAuth()">
         RSVP
-      </button>
-      <!-- <button class="btn">
-        Watch
-      </button> -->
-      
+      </button>  
     </div>
 </div>
 </div>
@@ -79,15 +79,18 @@
       </form> 
  
 </div>
-<!-- 
-<div *ngIf="!Ishomescreen">
-  <br />
-  <br />
-</div> -->
-
+ 
  
 
-<div>
+
+
+
+
+ <div style="margin: 50px;">
+
+ </div>
+   
+ <div>
   <h2 style="padding-left: 13%; margin-top: 5%;font-weight: bold;font-family: Arial, Helvetica, sans-serif;" *ngIf="!Ishomescreen">
     Current Event
   </h2>

@@ -1,119 +1,30 @@
- {
-  "pageHeading": "Profile Update",
+{
+  "pageHeading": "companies",
   "formType": "simple",
-  "addEditMode": "page", 
   "editMode": "page",
-  "screenEditMode": "page",
   "keyField": "_id",
   "form": {
-    "collectionName": "user",
-    "getDataEndPoint": "user/_id",
+    "collectionName": "companies",
     "fields": [
-     
       {
-        "type": "user",
-        "fieldGroupClassName": "display-flex",
-        "fieldGroup": [
-        {
-      
-          "fieldGroup":[
-            {
-              "type": "logo",
-              "key": "user_photo",
-              "className": "center",
-              "props": {
-                "label": "upload profile",
-                "labelProp": "Name"
-              
-              }
-            }
-          ]
-        },
-        {
-          "fieldGroupClassName": "display-flex",
-      
-          "fieldGroup": [
-            {
-                "type": "input",
-                "key": "user_name",
-                "className": "flex-1",
-                "props": {
-                  "label": "Name",
-                  "labelPropTemplate": "{{Name}",
-                
-                  "labelProp": "Name",
-                  "valueProp": "user_name"
-                }
-              },
-              {
-                "type": "input",
-                "key": "email",
-                "readonly": true,
-                "className": "flex-1",
-                "props": {
-                  "readonly": true,
-                  "label": "Email",
-                  "labelPropTemplate": "{{email}",
-                
-                  "labelProp": "Email",
-                  "valueProp": "email"
-                }
-              }
-             
-          ]
-        },
-        {
-          "fieldGroupClassName": "display-flex",
-          "fieldGroup": [
-            {
-              "type": "input",
-              "key": "mobile_number",
-              "className": "flex-1",
-              
-              "props": {
-                "label": "Mobile Number",
-                "labelPropTemplate": "{{Mobile Number}",
-              
-                "labelProp": "Mobile NUmber",
-                "valueProp": "mobile_number"
-              }
-            },
-            {
-                "type": "select",
-                "key": "user_type",
-                "className": "flex-1",
-                "props": {
-                  "label": "Choose Your Identity",
-                  "options": [
-                    {
-                      "label": "Employee/Job Seeker",
-                      "value": "Employee/Job Seeker"
-                    },
-                    {
-                      "label": "Business Owner",
-                      "value": "Business Owner"
-                    },
-                    {
-                        "label": "Voluntary",
-                        "value": "Voluntary"
-                      },
-                      {
-                        "label": "Self Employee/Skilled Labour",
-                        "value": "Self Employee//Skilled Labour"
-                      }
-      
-      
-                  ],
-                  "required": true
-                
-                }}
-          ]
-        }
-      
-      ]
-      }
+				"fieldGroupClassName": "display-flex",
+				"fieldGroup": [
+					{
+						"type": "companies-input",
+						"key": "_id",
+						"className": "flex-1",
+						"props": {
+							"label": "Device Id",
+							"placeholder": "Device Id",
+							"maxLength": 30,
+							"required": true
+						}
+					} 
+					
+				]
+			} 
+       
     ]
   },
-  "onCancelRoute": "/list/event"
-
+  "onCancelRoute": "/list/companies-input"
 }

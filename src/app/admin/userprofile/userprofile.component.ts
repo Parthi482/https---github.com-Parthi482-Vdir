@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/service/search.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'app-userprofile',
@@ -156,118 +157,123 @@ imgfalg:boolean=true;
     
     this.dataservice.getDataById('companies',this.auth._id).subscribe((res: any) => {
 
-    // this.dataservice.getDataById('companies',"654331ce4c36b5f156fc3880").subscribe((res: any) => {
- 
-      let data = res.data[0]  
-      let value =data;
-      this.value = value;
-      this.url = value?.Company_logo
-
-      this.url1 = value?.Company_banner
-      // Set values for firstFormGroup
-      if (value != null && value.update_on) {
-        console.log(value.gst_no);
-        this.val = true
-        if (value.gst_no != " ") {
-          this.GSTradio=true
-          this.GSt = true;
+      // this.dataservice.getDataById('companies',"654331ce4c36b5f156fc3880").subscribe((res: any) => {
+     
+      if(!isEmpty(res.data)){
+  
+          let data:any = res.data[0]  
+  
+  
+        let value =data;
+        this.value = value;
+        this.url = value?.Company_logo
+  
+        this.url1 = value?.Company_banner
+        // Set values for firstFormGroup
+        if (value != null && value.update_on) {
+          console.log(value.gst_no);
+          this.val = true
+          if (value.gst_no != " ") {
+            this.GSTradio=true
+            this.GSt = true;
+          }
+          else {
+            this.GSTradio=false;
+            this.GSt = false;
+          }
+          if (value.pf_no != " ") {
+            this.Help = true
+            this.imp_expt_present=true
+          } else {
+            this.imp_expt_present=false
+            this.Help = false;
+          }
+          console.log(value.iec_no);
+  
+          if (value.iec_no != "") {
+            this.exportradio=true
+            this.export = true
+          } else {
+            this.exportradio=false;
+            this.export = false;
+          }
+  
+          if (value.Corporate_Identity_Number != " ") {
+            this.registered_in_Goverment=true;
+            this.Cin = true
+          } else {
+            this.registered_in_Goverment=false;
+            this.Cin = false;
+          }
+  
+          if (value.do_you_need_help_pf) {
+            this.Help1 = true
+          } else {
+            this.Help1 = false
+          }
+  
+          if (value.is_branch_available=='true') {
+            this.branch= true
+          } else {
+            this.branch= false
+          }
+  
+          if (value.business.manufacturers) {
+            this.product=true
+          } else {
+            this.product= false
+          }
+          console.log(value.coordinate);
+          console.log(value);
+  
+          if(value.coordinate){
+            let coordiate=value.coordinate
+      this.mapdata = {
+        Latitude: coordiate.Latitude,
+        Longitude: coordiate.Longitude
+  
+      };
+      console.log(this.mapdata);
+  
+          }
+          this.firstFormGroup.controls['Company_Register_Type']?.setValue(value.Company_Register_Type);
+          this.firstFormGroup.controls['company_type']?.setValue(value.company_type);
+          this.firstFormGroup.controls['industry']?.setValue(value.industry);
+          this.firstFormGroup.controls['estd_date']?.setValue(value.estd_date);
+          console.log(typeof(value.is_branch_available));
+          this.business=value.business;
+          this.secondFormGroup.controls['is_branch_available']?.setValue(value.is_branch_available);
+          // this.firstFormGroup.controls['website']?.setValue(value.website);
+          // this.firstFormGroup.controls['email']?.setValue(value.email);
+  
+          // this.firstFormGroup.controls['phoneNo'].setValue(value.phoneNo);
+          // this.firstFormGroup.controls['Registered_with_govt'].setValue(value.Registered_with_govt);
+          this.secondFormGroup.controls['Corporate_Identity_Number']?.setValue(value.Corporate_Identity_Number);
+          // this.secondFormGroup.controls['help_Registered_PF'].setValue(value.help_Registered_PF);
+          // this.secondFormGroup.controls['gst_no_present'].setValue(value.gst_no_present);
+          this.secondFormGroup.controls['gst_no']?.setValue(value.gst_no);
+          this.firstFormGroup.controls['pan_no']?.setValue(value.pan_no);
+          this.firstFormGroup.controls['aadhaar_no']?.setValue(value.aadhaar_no);
+          // this.secondFormGroup.controls['imp_expt_present'].setValue(value.imp_expt_present);
+          this.secondFormGroup.controls['iec_no']?.setValue(value.iec_no);
+          // this.thirdFormGroup.controls['help_pf'].setValue(value.help_pf);
+          this.secondFormGroup.controls['branch']?.setValue(value.branch);
+  
+          this.secondFormGroup.controls['do_you_need_help_pf']?.setValue(value.do_you_need_help_pf);
+          this.secondFormGroup.controls['pf_no']?.setValue(value.pf_no);
+          // this.thirdFormGroup.controls['website'].setValue(value.website);
+          console.log(value.Name);
+  
+          this.basicinfo.controls['Name']?.setValue(value.Name);
+          this.basicinfo.controls['CompanyName'].setValue(value.CompanyName);
+          this.basicinfo.controls['email'].setValue(value.email);
+          this.basicinfo.controls['company_description'].setValue(value.company_description);
+          this.basicinfo.controls['Website'].setValue(value.Website);
+          this.basicinfo.controls['emp_count'].setValue(value.emp_count);
+          // this.basicinfo.controls['phone'].setValue(value.phone);
         }
-        else {
-          this.GSTradio=false;
-          this.GSt = false;
-        }
-        if (value.pf_no != " ") {
-          this.Help = true
-          this.imp_expt_present=true
-        } else {
-          this.imp_expt_present=false
-          this.Help = false;
-        }
-        console.log(value.iec_no);
-
-        if (value.iec_no != "") {
-          this.exportradio=true
-          this.export = true
-        } else {
-          this.exportradio=false;
-          this.export = false;
-        }
-
-        if (value.Corporate_Identity_Number != " ") {
-          this.registered_in_Goverment=true;
-          this.Cin = true
-        } else {
-          this.registered_in_Goverment=false;
-          this.Cin = false;
-        }
-
-        if (value.do_you_need_help_pf) {
-          this.Help1 = true
-        } else {
-          this.Help1 = false
-        }
-
-        if (value.is_branch_available=='true') {
-          this.branch= true
-        } else {
-          this.branch= false
-        }
-
-        if (value.business.manufacturers) {
-          this.product=true
-        } else {
-          this.product= false
-        }
-        console.log(value.coordinate);
-        console.log(value);
-
-        if(value.coordinate){
-          let coordiate=value.coordinate
-    this.mapdata = {
-      Latitude: coordiate.Latitude,
-      Longitude: coordiate.Longitude
-
-    };
-    console.log(this.mapdata);
-
-        }
-        this.firstFormGroup.controls['Company_Register_Type']?.setValue(value.Company_Register_Type);
-        this.firstFormGroup.controls['company_type']?.setValue(value.company_type);
-        this.firstFormGroup.controls['industry']?.setValue(value.industry);
-        this.firstFormGroup.controls['estd_date']?.setValue(value.estd_date);
-        console.log(typeof(value.is_branch_available));
-        this.business=value.business;
-        this.secondFormGroup.controls['is_branch_available']?.setValue(value.is_branch_available);
-        // this.firstFormGroup.controls['website']?.setValue(value.website);
-        // this.firstFormGroup.controls['email']?.setValue(value.email);
-
-        // this.firstFormGroup.controls['phoneNo'].setValue(value.phoneNo);
-        // this.firstFormGroup.controls['Registered_with_govt'].setValue(value.Registered_with_govt);
-        this.secondFormGroup.controls['Corporate_Identity_Number']?.setValue(value.Corporate_Identity_Number);
-        // this.secondFormGroup.controls['help_Registered_PF'].setValue(value.help_Registered_PF);
-        // this.secondFormGroup.controls['gst_no_present'].setValue(value.gst_no_present);
-        this.secondFormGroup.controls['gst_no']?.setValue(value.gst_no);
-        this.firstFormGroup.controls['pan_no']?.setValue(value.pan_no);
-        this.firstFormGroup.controls['aadhaar_no']?.setValue(value.aadhaar_no);
-        // this.secondFormGroup.controls['imp_expt_present'].setValue(value.imp_expt_present);
-        this.secondFormGroup.controls['iec_no']?.setValue(value.iec_no);
-        // this.thirdFormGroup.controls['help_pf'].setValue(value.help_pf);
-        this.secondFormGroup.controls['branch']?.setValue(value.branch);
-
-        this.secondFormGroup.controls['do_you_need_help_pf']?.setValue(value.do_you_need_help_pf);
-        this.secondFormGroup.controls['pf_no']?.setValue(value.pf_no);
-        // this.thirdFormGroup.controls['website'].setValue(value.website);
-        console.log(value.Name);
-
-        this.basicinfo.controls['Name']?.setValue(value.Name);
-        this.basicinfo.controls['CompanyName'].setValue(value.CompanyName);
-        this.basicinfo.controls['email'].setValue(value.email);
-        this.basicinfo.controls['company_description'].setValue(value.company_description);
-        this.basicinfo.controls['Website'].setValue(value.Website);
-        this.basicinfo.controls['emp_count'].setValue(value.emp_count);
-        // this.basicinfo.controls['phone'].setValue(value.phone);
-      }
-    })
+      }}
+      )
     this.productRows.push({
       productName: '',
       productDescription:''

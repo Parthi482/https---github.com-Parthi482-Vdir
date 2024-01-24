@@ -70,7 +70,8 @@ export class DynamicFormComponent {
   }
 
   frmSubmit(event: any) {
-
+     
+   
     if (!this.form.valid) {
       //   function collectInvalidLabels(controls: any, invalidLabels: string = ''): string {
       //     for (const key in controls) {
@@ -101,16 +102,38 @@ export class DynamicFormComponent {
     this.formService.saveFormData(this).then((result: any) => {
 
       console.log(result);
+ 
       if (result != undefined) {
-        this.goBack(result)
-
-        this.butonflag = true
+    
+        if (this.formName =="user"|| this.formAction == "Edit"){
+          // this.router.navigate([""])
+          let data:any  = this.form.value
+          
+          console.log(data.user_type);
+          let navigate =  this.Navigate(data.user_type)
+          this.router.navigate(["add/companies"])
+        }else{
+          this.goBack(result) 
+          this.butonflag = true
+        }
       }
-    })
-    // }
-
+    }) 
   }
 
+
+
+
+  private Navigate(user_type: any): any {
+    if (user_type === "Business Owner") {
+      return "UserCompains";
+    } 
+  }
+    
+
+
+
+
+  
   ngOnDestroy() {
     console.log("Component will be destroyed");
     this.paramsSubscription.unsubscribe();
