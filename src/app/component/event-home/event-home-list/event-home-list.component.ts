@@ -35,6 +35,7 @@ export class EventHomeListComponent implements OnInit, AfterContentChecked{
   timerSubscription!: Subscription
   @Input('minNumberOfCards') minNumberOfCards?: number;
   @Input('IsHome') Ishomescreen: any
+  userData:any
   ActiveUser:boolean = false
 CurrentBannerData:any[]=[]
   searchText = new FormControl('');
@@ -48,8 +49,8 @@ CurrentBannerData:any[]=[]
 
   constructor(public authService: AuthService,private auth:ApiService,private datePipe: DatePipe, private formBuilder: FormBuilder, private cf: ChangeDetectorRef, private router: Router, private dataService: DataService, private fb: FormBuilder, private route: ActivatedRoute) {
     this.getData()
-    let data =  this.auth.getdetails()
-    if (!isEmpty(data)){
+    this.userData =  this.auth.getdetails()
+    if (!isEmpty(this.userData)){
       this.ActiveUser =  true
     }
   }
@@ -181,9 +182,10 @@ ngOnInit(): void {
     }
   }
   //  todo Mail Api 
-  SendEmail(data?:any) {
-    
-    this.router.navigate(["event-home/register"])
+  SendEmail(data?:any) {  
+      alert("Thank Your For Register")
+      // this.dataService.SendEmailForEvent(this.userData.email).subscribe((res:any)=>{         
+      // }) 
   }
   ngAfterContentChecked(): void {
      
@@ -198,10 +200,11 @@ ngOnInit(): void {
   }
 
   showNextSlide() {
+    
+    
     if (this.currentIndex === this.imageList.length - 1) {
-      this.currentIndex = 0;
-       
-    } else {
+      this.currentIndex = 0; 
+    } else { 
       this.currentIndex++; 
       // this.GetCurrentBannerData() 
     }   
@@ -226,6 +229,27 @@ ngOnInit(): void {
 
   }
 
+  // todo remove Duplicate
+  // async GetCurrentBannerData() {
+  //   if (!isEmpty(this.imageList[this.currentIndex])) {
+  //     let image = this.imageList[this.currentIndex];
+      
+  //     var matchingObject: any = this.Data.find((res: any) => {
+  //       return res.event_banner.some((event_banner: any) => {
+  //         return image === event_banner.storage_name;
+  //       });
+  //     });
+   
+  //     let existingIndex = this.CurrentBannerData.findIndex((resa: any) => resa._id === matchingObject._id);
+  
+  //     if (existingIndex !== -1) {
+        
+  //       this.CurrentBannerData[existingIndex] = matchingObject;
+  //     } else { 
+  //       this.CurrentBannerData.push(matchingObject);
+  //     } 
+  //   }  
+  // }
 
   onEnter() {
     const searchValue = this.form.get('search')?.value;

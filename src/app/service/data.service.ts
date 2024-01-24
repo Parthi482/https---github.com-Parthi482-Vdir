@@ -386,6 +386,13 @@ public imageupload(folder:any,refId:any,data: any) {
  public getModuleFilter(collectionName: any, key: any) {
   return this.http.get(this.getWsBaseUrl() + "entities/filter/" + `${collectionName}` + "/" + `${key}`);
 }
+
+
+public SendEmailForEvent(email:any){
+  return this.http.get(this.getWsBaseUrl()+"email/"+`${email}`)
+}
+
+
 //  async makeFiltersConditions(Input_object: any): Promise<any> {
 //   return await new Promise((resolve, reject) => {
 //     let vals:any={

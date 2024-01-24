@@ -7,12 +7,10 @@
     />
   </div>
   
- 
+
     <div *ngIf="CurrentBannerData && CurrentBannerData.length > 0">
-  <div class="rigt-side" *ngFor="let bannerdata of CurrentBannerData; let i = index"  
-  >
-  <!--  *ngIf="currentIndex == i" -->
-    <div style="margin: 10px;">
+  <div class="rigt-side" *ngFor="let bannerdata of CurrentBannerData; let i = index"   > 
+    <div style="margin: 10px;" >
       <p style="font-size: 16px; font-weight: bold;">Event Name: {{bannerdata.event_name}}</p>
       <p style="font-size: 16px; font-weight: bold;">Start Date: {{bannerdata.Start_date}}</p>
       
