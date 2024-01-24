@@ -1,22 +1,54 @@
  <div>
 <div class="business-card-container">
-    <div class="business-card" *ngFor="let data of Data">
+    <div class="business-card" *ngFor="let data of Data" style="cursor: pointer">
       <div class="left-side">
         <div class="logo-container">
           <img src="{{data.Company_logo}}" alt="{{data.companyName}}" class="company-logo">
         </div>
       </div>
+
+
       <div class="right-side" style="align-self: center;justify-self: center;width: 220px;" >
         <div>
-          <h2 style="font-weight: bold; margin-bottom: 5px;">{{data.companyName}}</h2>
-          <div >{{data.industry}}</div>
+          <h2 style="font-weight: bold; margin-bottom: 5px;">{{data.title}}</h2>
+          <div >{{data.companyName}}</div>
+          <div>{{data.salary}}</div>
+          <div>
+            {{data.workmode}}
+          </div>
+          <div>
+            {{data.Skill}}
+          </div>
         </div>
  
-        <p>{{data.title}}</p>   
-        <p *ngIf="data.city"><i class="fa fa-map-marker" aria-hidden="true" style="padding-right: 5px;color: brown  ;" ></i>{{data.city}}</p>
-      </div>
-    </div> 
+        <!-- <p>{{data.title}}
 
+        </p>   
+        <p *ngIf="data.city"><i class="fa fa-map-marker" aria-hidden="true" style="padding-right: 5px;color: brown  ;" >
+        </i>{{data.city}}
+      </p> -->
+
+ 
+      <!-- <p style="cursor: pointer;"><i class="fa fa-envelope" aria-hidden="true" style="padding-right: 5px;"></i>{{data.email}}</p>
+      <a style="cursor: pointer;"><i class="fa fa-map-marker" aria-hidden="true" style="padding-right: 5px; color: brown;"></i>{{data.Address}}</a> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+
+    </div> 
   <div style="text-align: center; margin-top: 10px;">
     <a
       style="text-decoration: none; cursor: pointer; display: inline-block; padding: 10px 20px;  border-radius: 5px;"

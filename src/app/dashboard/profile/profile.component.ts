@@ -27,10 +27,10 @@ export class ProfileComponent {
     this.data=this.auth.getdetails()
     // let val = this.data;
     // console.log(this.data._id);
-    console.log(this.data);
     
     this.dataservice.getDataById("user",this.data._id).subscribe((res:any)=>{
       let val = res.data[0]
+    
       console.log(val);
 
           this.profile = {
@@ -44,39 +44,13 @@ export class ProfileComponent {
             dateofbirth: val.dateofbirth,
             profile_pic:val.profile_pic,
             resume:val.resume,
-            address:val.address
+            address:val.address,
+            user_type:val.user_type
           };
           this.url = val.user_profile
 
         })
-    // this.auth.getSeekersInfo(this.Email).
-  //   this.auth.GetByID('seekers_info','unique_id',data.unique_id).subscribe({
-
-  //       next: (data: any) => {
-  //         console.log(data);
-  //         this.id=data._id
-  //         let val = data;
-  //         this.profile = {
-  //           firstName: val.firstName,
-  //           lastName: val.lastName,
-  //           email: val.email,
-  //           password: val.password,
-  //           role: val.role,
-  //           phone: val.phone,
-  //           address: val.address,
-  //           occupation: val.occupation,
-  //           education: val.education,
-  //           dateofbirth: val.dateofbirth,
-  //           path:val.path
-  //         };
-
-  //       },
-  //       error(err) {
-  //         console.error(err)
-  //       },
-  //     });
-  // console.log(this.url);
-
+    
   }
    noSpacesValidator(control:any) {
     const value = control.value;
@@ -122,6 +96,7 @@ export class ProfileComponent {
       address: ['', Validators.required,this.noSpaceAtStartEnd()],
       dateofbirth: ['', [Validators.required,this.noSpaceAtStartEnd(),Validators.pattern(/^(?:(?:(?:0[1-9]|[12][0-9]|3[01])[\/-](?:0[1-9]|1[0-2])[\/-]\d{4})|(?:\d{4}[\/-](?:0[1-9]|1[0-2])[\/-](?:0[1-9]|[12][0-9]|3[01])))$/)]],
       education: ['', [Validators.required, this.noSpaceAtStartEnd()]],
+      user_type:['']
     });
   }
   // formData.append('file', file);
