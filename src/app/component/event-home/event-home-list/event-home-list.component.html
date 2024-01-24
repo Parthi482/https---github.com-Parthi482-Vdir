@@ -16,15 +16,21 @@
         <div style="padding: 10px;"><i class="fa fa-calendar" aria-hidden="true"></i>
           {{ bannerdata.Start_date }}
         </div> 
-      <button  (click)="SendEmail(bannerdata)" mat-raised-button *ngIf="ActiveUser == true">Join</button>
-      <button mat-raised-button *ngIf="!ActiveUser" (click)="authService.GoogleAuth()">Join</button> 
+      <button class="rsvp-button" (click)="SendEmail(bannerdata)" mat-raised-button *ngIf="ActiveUser == true">RSVP</button>
+      <button class="rsvp-button" *ngIf="!ActiveUser" (click)="authService.GoogleAuth()">
+        RSVP
+      </button>
+      <!-- <button class="btn">
+        Watch
+      </button> -->
+      
     </div>
 </div>
 </div>
- 
-  <div class="centered-div">
-    <form [formGroup]="form">
-      <mat-form-field style="width: 250px">
+  
+    <form [formGroup]="form" class="centered-div">
+      
+      <mat-form-field style="width: 250px;padding-top: 18px;">
         <input
           matInput
           type="text"
@@ -54,7 +60,7 @@
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
 
-      <mat-form-field style="width: 250px; margin: 15px">
+      <mat-form-field style="width: 250px; padding-left: 10px;padding-top: 18px;">
         <mat-label>Choose a date</mat-label>
         <input
           matInput
@@ -67,18 +73,10 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <mat-icon
-        style="
-          cursor: pointer;
-          color: honeydew;
-          height: 25px;
-          width: auto;
-          font-size: 30px;
-        "
-        (click)="onEnter()"
-        >search</mat-icon
-      >
-    </form>
-  </div>
+        style=" cursor: pointer; color: honeydew; height: 25px;padding-left: 25px;padding-bottom: 50px;padding-top: 18px; width: auto;font-size: 30px;"(click)="onEnter()" >search
+      </mat-icon>
+   
+      </form> 
  
 </div>
 <!-- 
