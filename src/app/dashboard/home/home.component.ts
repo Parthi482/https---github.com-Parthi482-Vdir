@@ -118,12 +118,9 @@ export class HomeComponent {
 
     })
 
-    let data:any[] = [
-      "https://media.istockphoto.com/id/1394701218/photo/job-search-concept-find-your-career-woman-looking-at-online-website-by-laptop-computer-people.jpg?b=1&s=170667a&w=0&k=20&c=ZFS0x2s-WrF__GiGEognB4ao-YUI68w3OKMaLGQy3PY=",
-      "https://media.istockphoto.com/id/866302266/photo/young-woman-working-from-home.jpg?s=612x612&w=0&k=20&c=WcemVbAhYT9BPUaYvt5GhvZ8PErTxk5zHQ1BDfKN0ec=",    
-      "https://media.istockphoto.com/id/1407182786/photo/coworkers-greeting-and-doing-a-handshake-at-work.jpg?b=1&s=170667a&w=0&k=20&c=eeymqUeIp57H3ECylA11o4aXMurVoTjROQhmbXGHRQE=",
-      "https://media.istockphoto.com/id/1045876492/photo/signing-a-contract.jpg?s=612x612&w=0&k=20&c=XO7Jr4UkBunpLox_e8PXSo0Fcr3T8EhwMDJ8mRsSGCA="
-
+    let data:any[] = [ 
+      '../../assets/home-images/pexels-tima-miroshnichenko-5439148.jpg', 
+      '../../assets/home-images/john-schnobrich-FlPc9_VocJ4-unsplash (1).jpg'
     ];
     data.forEach((res:any) => {
    

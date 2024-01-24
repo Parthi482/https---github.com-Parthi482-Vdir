@@ -109,6 +109,18 @@ input[type="checkbox"]:focus {
   width: 33.33%;  
 }  */
  
+.image-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 400px;
+  display: block;
+  object-fit: cover;
+}
+
 .card-container {
   display: flex;
   flex-direction: column;
