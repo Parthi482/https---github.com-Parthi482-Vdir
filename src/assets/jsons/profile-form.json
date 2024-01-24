@@ -1,12 +1,12 @@
 {
-	"pageHeading": "self-employee",
+	"pageHeading": "company",
 	"formType": "simple",
 	"editMode": "page",
   "screenEditMode": "page",
   "user":true,
 	"keyField": "_id",
 	"form": {
-		"collectionName": "self_employee",
+		"collectionName": "company",
 		"fields": [
 			{
 				"fieldGroupClassName": "display-flex",
@@ -14,11 +14,11 @@
 					 
 					{
 						"type": "input",
-						"key": "business_name",
+						"key": "company_name",
 						"className": "flex-6",
 						"props": {
-							"label": "Business Name",
-							"placeholder": "Business Name", 
+							"label": "Company Name",
+							"placeholder": "Company Name", 
 							"required": true
 						},
 						"expressions": {
@@ -28,10 +28,10 @@
 					},
 					{
 						"type": "select",
-						"key": "business_type",
+						"key": "Company_type",
 						"className": "flex-6",
 						"props": {
-							"label": "Business Type",
+							"label": "Company Type",
 							"options": [
 								{
 									"label": "Product",
@@ -46,7 +46,7 @@
 									"value": "Others"
 								}
 							],
-							"placeholder": "Business Type",
+							"placeholder": "company Type",
 							"required": true
 						}
 					}
@@ -57,11 +57,11 @@
 				"fieldGroup": [
 					{
 						"type": "input",
-						"key": "business_email",
+						"key": "email_id",
 						"className": "flex-6",
 						"props": {
-							"label": "Business Email",
-							"placeholder": "Business Email",
+							"label": "Company Email",
+							"placeholder": "Company Email",
 							
 							
 							"pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
@@ -71,14 +71,59 @@
 					  
 						   "props.readonly": "model.isEdit"
 					   }
-					} ,
+					},
+				   
+					{
+						"type": "select",
+						"key": "industry_type_name",
+						"className": "flex-6",
+						"props": {
+							"label": "Industry Type",
+							"options": [
+								{
+									"label": "Chemical Industry",
+									"value": "Chemical Industry"
+								},
+								{
+									"label": "Manufacturing Industry",
+									"value": "Manufacturing Industry"
+								},
+								{
+									"label": "Construction Industry",
+									"value": "Construction Industry"
+								},
+								{
+									"label": "Automobile Industry",
+									"value": "Automobile Industry"
+								},
+								{
+									"label": "Service Industry",
+									"value": "Service Industry"
+								},
+								{
+									"label": "Information Industry",
+									"value": "Information Industry"
+								},
+								{
+									"label": "Telecommunication Industry",
+									"value": "Telecommunication Industry"
+								},
+								{
+									"label": "Others",
+									"value": "Others"
+								}
+							],
+							"placeholder": "Industry Type",
+							"required": true
+						}
+					},
 					{
 						"type": "select",
 						"key": "status",
 						"className": "flex-6",
 						"props": {
 							"type": "input",
-							"label": "Client Status",
+							"label": "company Status",
 							"options": [
 								{
 									"label": "Active",
@@ -92,7 +137,7 @@
 								 
 							],
 							
-							"placeholder": "Client Status",
+							"placeholder": "company Status",
 							"required": true
 						},
 					
@@ -101,7 +146,7 @@
 						}
 						}
 				]
-			}, 
+			} ,
 			{
 				"type": "tab-input",
         "fieldGroupClassName": "display-flex",
@@ -481,5 +526,5 @@
 			  "value": "Active"
 			}
 		  ], 
-	"onCancelRoute": "/list/client"
+	"onCancelRoute": "/list/company"
   }

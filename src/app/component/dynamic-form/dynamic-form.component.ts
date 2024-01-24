@@ -99,19 +99,15 @@ export class DynamicFormComponent {
     }
     // if(this.form.valid){
 
-    this.formService.saveFormData(this).then((result: any) => {
-
-      console.log(result);
+    this.formService.saveFormData(this).then((result: any) => { 
  
       if (result != undefined) {
     
         if (this.formName =="user"|| this.formAction == "Edit"){ 
           let data:any  = this.form.value
           
-          let navigate =  this.Navigate(data.user_type)
-          console.log("naviga",navigate);
-          
-          this.router.navigate(["add/company"])
+          let navigate =  this.Navigate(data.user_type) 
+          this.router.navigate([navigate])
         }else{
           this.goBack(result) 
           this.butonflag = true
@@ -125,8 +121,10 @@ export class DynamicFormComponent {
 
   private Navigate(user_type: any): any {
     if (user_type === "Business Owner") {
-      return "company";
-    } 
+      return "add/company";
+    } else{
+      return "add/self-employee"
+    }
   }
     
 

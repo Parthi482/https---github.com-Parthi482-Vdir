@@ -11,7 +11,8 @@ import { FieldType } from '@ngx-formly/core';
 
 export class CompaniesInput extends FieldType<any> implements OnInit {
   ngOnInit(): void {
-    console.log(this.form.controls);
+console.log("..................");
+
 
   }
 
