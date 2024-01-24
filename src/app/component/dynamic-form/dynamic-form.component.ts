@@ -96,8 +96,7 @@ export class DynamicFormComponent {
       this.form.markAllAsTouched();
       this.butonflag = false
       return;
-    }
-    // if(this.form.valid){
+    } 
 
     this.formService.saveFormData(this).then((result: any) => { 
  

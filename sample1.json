@@ -1,12 +1,12 @@
 {
-	"pageHeading": "self-employee",
+	"pageHeading": "company",
 	"formType": "simple",
 	"editMode": "page",
   "screenEditMode": "page",
   "user":true,
 	"keyField": "_id",
 	"form": {
-		"collectionName": "self_employee",
+		"collectionName": "companies",
 		"fields": [
 			{
 				"fieldGroupClassName": "display-flex",
@@ -14,11 +14,11 @@
 					 
 					{
 						"type": "input",
-						"key": "business_name",
+						"key": "company_name",
 						"className": "flex-6",
 						"props": {
-							"label": "Business Name",
-							"placeholder": "Business Name", 
+							"label": "Company Name",
+							"placeholder": "Company Name", 
 							"required": true
 						},
 						"expressions": {
@@ -28,10 +28,10 @@
 					},
 					{
 						"type": "select",
-						"key": "business_type",
+						"key": "Company_type",
 						"className": "flex-6",
 						"props": {
-							"label": "Business Type",
+							"label": "Company Type",
 							"options": [
 								{
 									"label": "Product",
@@ -46,7 +46,7 @@
 									"value": "Others"
 								}
 							],
-							"placeholder": "Business Type",
+							"placeholder": "company Type",
 							"required": true
 						}
 					}
@@ -57,11 +57,11 @@
 				"fieldGroup": [
 					{
 						"type": "input",
-						"key": "business_email",
+						"key": "email_id",
 						"className": "flex-6",
 						"props": {
-							"label": "Business Email",
-							"placeholder": "Business Email",
+							"label": "Company Email",
+							"placeholder": "Company Email",
 							
 							
 							"pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
@@ -71,9 +71,82 @@
 					  
 						   "props.readonly": "model.isEdit"
 					   }
-					}  
+					},
+				   
+					{
+						"type": "select",
+						"key": "industry_type_name",
+						"className": "flex-6",
+						"props": {
+							"label": "Industry Type",
+							"options": [
+								{
+									"label": "Chemical Industry",
+									"value": "Chemical Industry"
+								},
+								{
+									"label": "Manufacturing Industry",
+									"value": "Manufacturing Industry"
+								},
+								{
+									"label": "Construction Industry",
+									"value": "Construction Industry"
+								},
+								{
+									"label": "Automobile Industry",
+									"value": "Automobile Industry"
+								},
+								{
+									"label": "Service Industry",
+									"value": "Service Industry"
+								},
+								{
+									"label": "Information Industry",
+									"value": "Information Industry"
+								},
+								{
+									"label": "Telecommunication Industry",
+									"value": "Telecommunication Industry"
+								},
+								{
+									"label": "Others",
+									"value": "Others"
+								}
+							],
+							"placeholder": "Industry Type",
+							"required": true
+						}
+					},
+					{
+						"type": "select",
+						"key": "status",
+						"className": "flex-6",
+						"props": {
+							"type": "input",
+							"label": "company Status",
+							"options": [
+								{
+									"label": "Active",
+									"value": "Active"
+								},
+								{
+									"label": "Inactive",
+									"value": "Inactive"
+								}
+  
+								 
+							],
+							
+							"placeholder": "company Status",
+							"required": true
+						},
+					
+						"expressions": {
+							"hide": "!model.isshow"
+						}
+						}
 				]
-			}, 
+			} ,
 			{
 				"type": "tab-input",
         "fieldGroupClassName": "display-flex",
@@ -93,9 +166,7 @@
 										"className": "flex-6",
 										"props": {
 											"label": "First Name",
-											"placeholder": "First Name",
-											"pattern": "^[a-zA-Z0-9&>/;,:-_/]+( [a-zA-Z0-9&>/;,:-_/!@-]+)*$",
-											"required": true
+											"placeholder": "First Name" 
 										}
 									},
 									{
@@ -104,9 +175,7 @@
 										"className": "flex-6",
 										"props": {
 											"label": "Last Name",
-											"placeholder": "Last Name",
-											"pattern": "^[a-zA-Z0-9&>/;,:-_/]+( [a-zA-Z0-9&>/;,:-_/!@-]+)*$",
-											"required": true
+											"placeholder": "Last Name" 
 										}
 									}
 								]
@@ -121,8 +190,7 @@
 											"label": "Email Id",
 											"placeholder": "Email Id",
 											
-											"pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
-											"required": true
+											"pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$" 
 										}
 									},
 									{
@@ -131,10 +199,10 @@
 										"className": "flex-6",
 										"props": {
 											"label": "Mobile Number",
+											"type":"number",
 											"placeholder": "Mobile Number",
 											"pattern": "[6-9]{1}[0-9]{9}",
-											"maxLength":"10",
-											"required": true
+											"maxLength":"10" 
 										}
 									}
                   
@@ -143,9 +211,7 @@
 										"key": "primary_address.address",
 										"props": {
 											"label": "Address",
-											"placeholder": "Address",
-											"pattern": "^[a-zA-Z0-9&>/;,:-_/]+( [a-zA-Z0-9&>/;,:-_/!@-]+)*$",
-											"required": true
+											"placeholder": "Address" 
 										}
 									},
 							{
@@ -165,7 +231,7 @@
 												"collectionName": "country"
 											},
 											"labelProp": "country_name",
-											"valueProp": "country_name"
+											"valueProp": "country_name" 
 										}
 									},
 									{
@@ -210,7 +276,8 @@
                         "className": "flex-6",
                         "props": {
                           "label": "City",
-                          "placeholder": "City" 
+                          "placeholder": "City",
+                          "pattern": "^[a-zA-Z0-9&>/;,:-_/]+( [a-zA-Z0-9&>/;,:-_/!@-]+)*$" 
                         }
                       },
                       {
@@ -230,8 +297,7 @@
 					},			
 					{
 						"props": {
-							"label": "Secondary Contact",
-							"required": true
+							"label": "Secondary Contact" 
 						},
 						"fieldGroup": [
               {
@@ -398,9 +464,7 @@
                                         "className": "flex-6",
                                         "props": {
                                             "label": "Website",
-                                            "placeholder": "Website",
-                                            "pattern": "(https?:\\/\\/)?(www\\.)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*\\/?"
-                                             
+                                            "placeholder": "Website" 
                                         }
                                     }
                                 ]
@@ -415,8 +479,7 @@
 						"className": "flex-6",
 						"props": {
 							"label": "LinkedIn Url",
-							"placeholder": "LinkedIn Url",
-							"pattern": "(https?:\\/\\/)?(www\\.)?linkedin\\.com\\/in\\/[a-z0-9-]+\\/?"
+							"placeholder": "LinkedIn Url" 
 							
 						}
 					},
@@ -426,8 +489,7 @@
 						"className": "flex-6",
 						"props": {
 							"label": "Twitter Url",
-							"placeholder": "Twitter Url",
-							"pattern": "(https?:\\/\\/)?(www\\.)?twitter\\.com\\/[A-Za-z0-9_]{1,15}\\/?"
+							"placeholder": "Twitter Url" 
 						  
 						}
 					}
