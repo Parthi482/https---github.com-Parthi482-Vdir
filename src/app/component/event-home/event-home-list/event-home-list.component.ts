@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterViewChecked, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, ChangeDetectorRef, Component, Inject, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
@@ -12,6 +12,8 @@ import { HelperService } from 'src/app/service/helper.service';
 import { DatePipe } from '@angular/common';
 import { ApiService } from 'src/app/service/search.service';
 import { AuthService } from 'src/app/service/auth.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DialogService } from 'src/app/service/dialog.service';
 
 
 @Component({
@@ -35,9 +37,11 @@ export class EventHomeListComponent implements OnInit, AfterContentChecked{
   timerSubscription!: Subscription
   @Input('minNumberOfCards') minNumberOfCards?: number;
   @Input('IsHome') Ishomescreen: any
-  userData:any
-  ActiveUser:boolean = false
-CurrentBannerData:any[]=[]
+  userData:any;
+  ActiveUser:boolean = false;
+  RegisterEvent:boolean = false;
+
+CurrentBannerData:any[]=[];
   searchText = new FormControl('');
   dateControl = new FormControl('');
 
@@ -45,14 +49,24 @@ CurrentBannerData:any[]=[]
     search: this.searchText,
     date: this.dateControl
   });
+ 
+  @ViewChild("confirmViewPopup")  confirmViewPopup!: TemplateRef<any>;
 
+  constructor(
+    
+    public dialogService: DialogService, 
 
-  constructor(public authService: AuthService,private auth:ApiService,private datePipe: DatePipe, private formBuilder: FormBuilder, private cf: ChangeDetectorRef, private router: Router, private dataService: DataService, private fb: FormBuilder, private route: ActivatedRoute) {
-    this.getData()
-    this.userData =  this.auth.getdetails()
+    
+    
+    
+    public authService: AuthService,private auth:ApiService,private datePipe: DatePipe, private formBuilder: FormBuilder, private cf: ChangeDetectorRef, private router: Router, private dataService: DataService, private fb: FormBuilder, private route: ActivatedRoute) {
+      this.userData =  this.auth.getdetails()
+      this.getData() 
     if (!isEmpty(this.userData)){
       this.ActiveUser =  true
     }
+  this.startCarousel()
+
   }
 
 
@@ -113,14 +127,20 @@ ngOnInit(): void {
     });
   });
   
-  this.startCarousel()
 }
- 
+
+
+
+CancelRSVP(bannerdata: any) { 
+  console.log(bannerdata);
+  
+}
  
   onSubmit(): void {
     const formData = this.searchForm.value;
   }
- async getData() {
+ async getData() { 
+
     let todayDate = new Date()
     const filterValue = {
       filter: [
@@ -131,32 +151,61 @@ ngOnInit(): void {
       ],
     }
 
-    this.dataService.getDataByFilter("event", filterValue).subscribe((res: any) => {
-      //  let data1 = res.data[0].response  
-
-      var dateTime: any
-
-      res.data[0].response.forEach((res: any) => {
-
-
-        res.event_banner.forEach((event_banner: any) => {
-
-          let data: any = event_banner.storage_name
-
-          this.imageList.push(data)
-          console.log(this.imageList);
-
+     this.dataService.getDataByFilter("event", filterValue).subscribe((res: any) => { 
+      var dateTime: any 
+      res.data[0].response.forEach((res: any) => {   
+      this.UserEventEnrolled(res._id) 
+        res.event_banner.forEach((event_banner: any) => { 
+          let data: any = event_banner.storage_name 
+          this.imageList.push(data) 
         });
-
-        dateTime = this.formatDate(res.basic_details.start_date)
-
-        res["Start_date"] = dateTime
-
+        dateTime = this.formatDate(res.basic_details.start_date) 
+        res["Start_date"] = dateTime 
         this.Data.push(res)
-
       });
+
+
+
     })
+      
+ 
   }
+
+ 
+
+   UserEventEnrolled(id?:any){
+ 
+  let email = this.userData.email  
+      
+    const User = {
+      filter: [
+        {
+          clause: "AND",
+          conditions: [
+            
+            { column: "email", operator: "EQUALS", value: email},
+            { column: "event_id", operator: "EQUALS", value: id}
+          
+          ],
+        },
+      ],
+    }
+  
+    this.dataService.getDataByFilter("event_participants",User).subscribe((res:any)=>{
+      let response = res.data[0].response[0]
+      if(!isEmpty(response)){   
+        this.RegisterEvent = true     
+        
+      }
+    })
+
+
+ 
+ 
+}
+ 
+
+
 
   clearSearch() {
     this.searchText.setValue('');
@@ -181,15 +230,26 @@ ngOnInit(): void {
       this.router.navigate(["event/" + matchingObject._id])
     }
   }
-
+ 
 
   //  todo Mail Api 
-  SendEmail(data?:any) {   
-    
-      alert("Thank Your For Register")
-      this.dataService.SendEmailForEvent(this.userData.email).subscribe((res:any)=>{         
+  SendEmail(data?:any) { 
+    console.log("send email data : ", data);
+  // first Time
+      this.dataService.SendEmailForEvent(this.userData.email).subscribe((res:any)=>{   
+        if (!isEmpty(res)){
+          this.dialogService.openDialog(this.confirmViewPopup, "280px", "200px", {});
+          this.RegisterEvent = true
+        }
       }) 
+  
   }
+
+  changetheButton(id:any){
+    console.log(id);
+    
+  }
+
   ngAfterContentChecked(): void {
      
     this.GetCurrentBannerData()
@@ -202,16 +262,27 @@ ngOnInit(): void {
     });
   }
 
-  showNextSlide() {
-    
+  showNextSlide() { 
+    const nextIndex = (this.currentIndex + 1) % this.imageList.length
+    console.log(nextIndex);
     
     if (this.currentIndex === this.imageList.length - 1) {
       this.currentIndex = 0; 
     } else { 
       this.currentIndex++; 
       // this.GetCurrentBannerData() 
-    }   
+    }    
+    // this.CurrentBannerData.forEach((res:any)=>{
+ 
+    //   this.UserEventEnrolled(res._id)
+ 
+      
+    // })
+       
   }
+
+
+
  async GetCurrentBannerData(){
  
     if (!isEmpty(this.imageList[this.currentIndex])){

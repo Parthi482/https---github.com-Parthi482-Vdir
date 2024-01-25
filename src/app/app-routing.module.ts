@@ -14,6 +14,8 @@ import { DynamicFormComponent } from "./component/dynamic-form/dynamic-form.comp
 import { EventHomeListComponent } from "./component/event-home/event-home-list/event-home-list.component";
 import { EventViewComponent } from "./component/event-home/event-view/event-view.component";
 import { JoblistHome } from "./dashboard/event-screen/joblist-home";
+import { HomeScreenInput } from "./control/home";
+import { OnBoardingComponent } from "./component/on-boarding/on-boarding.component";
 
 const routes: Routes = [
   {
@@ -43,7 +45,18 @@ const routes: Routes = [
         component: EventViewComponent,
       }
     ],
-  }, 
+  },
+  {
+    path: "onboarding",
+    component: DashLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: OnBoardingComponent,
+      } 
+    ],
+  },
+   
   //   {
   //     path: 'events',
   //     component: JoblistHome,

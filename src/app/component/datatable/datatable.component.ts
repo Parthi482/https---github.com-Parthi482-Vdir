@@ -689,7 +689,7 @@ public listData: any[] = []
         if (this.config.role) {
           var value: any = {};
 
-          let storage: any = sessionStorage.getItem("auth");
+          let storage: any = localStorage.getItem("auth");
           let role: any = JSON.parse(storage).role;
           console.log(role);
           if (role == "SA") {
@@ -728,8 +728,7 @@ public listData: any[] = []
           );
         }
       }
-    } else {
-      console.log("elese");
+    } else { 
 
       if (this.formAction == "add") {
         console.log("add");

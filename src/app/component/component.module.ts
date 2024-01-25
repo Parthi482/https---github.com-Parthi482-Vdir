@@ -59,6 +59,7 @@ import { ScreenComponent } from './screen/screen.component';
 import { EventViewComponent } from './event-home/event-view/event-view.component';
 import { EventHomeListComponent } from './event-home/event-home-list/event-home-list.component';
 import { EventAdminComponent } from './event-home/event-admin/event-admin.component';
+import { OnBoardingComponent } from './on-boarding/on-boarding.component';
 
 
 
@@ -87,7 +88,8 @@ const appearance: any = {
     ActionButtonComponent,
     MyLinkRendererComponent, 
     EventViewComponent,
-    EventAdminComponent,   
+    EventAdminComponent,
+    OnBoardingComponent,   
   ],
   imports: [
     SlickCarouselModule,

@@ -1,0 +1,85 @@
+.onboarding-container {
+    text-align: center;
+    justify-content: center;
+
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+  }
+  
+  .view-job{
+    margin: 10px; 
+    cursor: pointer;
+    /* position: relative; */
+    padding: 10px 24px;
+    font-size: 18px;
+    color: rgb(193, 163, 98);
+    border: 2px solid rgb(193, 163, 98);
+    border-radius: 34px;
+    background-color: transparent;
+    bottom: 0;
+    /* font-weight: 600; */
+    /* transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1); */
+    /* overflow: hidden; */
+  }
+
+  .view-resume{
+    margin: 10px; 
+    cursor: pointer;
+    position: relative;
+    padding: 10px 24px;
+    font-size: 18px;
+    color: rgb(193, 163, 98);
+    border: 2px solid rgb(193, 163, 98);
+    border-radius: 34px;
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+  }
+
+
+  .view-profile-data{
+    margin: 10px; 
+    cursor: pointer;
+    position: relative;
+    padding: 10px 24px;
+    font-size: 18px;
+    color: rgb(193, 163, 98);
+    border: 2px solid rgb(193, 163, 98);
+    border-radius: 34px;
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+  }
+
+  .job-card{
+    display: flex;
+    max-width: 400px;
+    height: 200px;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .right-side {
+    flex: 2;
+    padding: 20px;
+  }
+
+  .left-side {
+    flex: 1;
+    display: flex;
+    padding-left: 15px;
+    align-items: center;
+    /* height: 350px;
+    width: 500px;
+    position: relative; */
+  }
+
+  .left-side img{ 
+    height: 150px;
+    width: 250px;
+  }

@@ -51,8 +51,7 @@ export class HomeComponent {
 
     if (startIndex < this.fetchedData.length) {
       const newData = this.fetchedData.slice(startIndex, endIndex);
-      this.columnDataList.push(newData);
-      console.log(this.columnDataList);
+      this.columnDataList.push(newData); 
 
       this.currentColumn++;
     }

@@ -13,7 +13,7 @@ import { isEmpty } from "lodash";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnChanges {
+export class HeaderComponent implements OnInit {
   nav() {
     this.router.navigateByUrl("home")
   }
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   searchQuery: any;
   userImage: any;
   url: any = null;
-  email:any
+  email: any
   userName: any;
   profile_pic: any;
   jobSeekerName: any;
@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   constructor(private cf: ChangeDetectorRef, private route: ActivatedRoute, public authService: AuthService, private router: Router, private auth: ApiService, private sharedService: SharedService) {
 
   }
- 
+
 
   isSearchDropdownOpen: boolean = false;
 
@@ -69,40 +69,19 @@ export class HeaderComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    // console.log("ddd");
-
-    // let user = JSON.parse(localStorage.getItem('auth') as string);
-    // this.deatils = user;
-
-    //   if (!isEmpty(user)){
-    //     this.isLoggedIn = true; 
-    //     this.userName=this.deatils.user_name ;
-    //     this.profile_pic=this.deatils.user_profile; 
-    //   }
-
-
-    // this.auth.isLoggedIn().then((data:any)=>{
-    //   console.log(data);
-
-    // if(data==true){
-    //     this.isLoggedIn = true; 
-    //     // this.deatils=this.auth.getdetails()
-    //     let value:any=localStorage.getItem("auth")
-
-    //     console.log(this.deatils);
-    //      this.userName=this.deatils.user_name 
-    //     this.profile_pic=this.deatils.user_profile
-
-    //   } else{
-    //     this.isLoggedIn = false;
-    //     this.deatils=this.auth.getdetails()
-    //     console.log(this.deatils);
-
-    //   }
-
-    // })
-
+ 
+   
+  
   }
+
+
+  isMenuActive: boolean = false;
+Onclick(){
+  this.isMenuActive = !this.isMenuActive;
+}
+
+
+
   search = new FormGroup({
     city: new FormControl(""),
     domain: new FormControl(""),
@@ -148,53 +127,27 @@ export class HeaderComponent implements OnInit, OnChanges {
 
   ngAfterContentChecked(): void {
     let authData: any = localStorage.getItem('auth');
-      let user = JSON.parse(authData);
+    let user = JSON.parse(authData);
 
     if (!isEmpty(user)) {
       this.isLoggedIn = true;
-      this.email  = user.email
+      this.email = user.email
       this.userName = user.user_name;
-      this.profile_pic = user.user_profile; 
-    } 
+      this.profile_pic = user.user_profile;
+    }
 
 
   }
 
 
-  ngOnChanges() {
-    console.log("dddd");
+  // ngOnChanges() { 
+  //   console.log("changes");
 
-    // console.log(this.auth.decodeToken());
-    // this.auth.isLoggedIn().then((data:any)=>{
-    //   this.isLoggedIn = data;
-
-    // })
-    //     if(this.auth.decodeToken()){
-    //     } else{
-    //       this.isLoggedIn = false;
-
-    //     }
-    console.log("changes");
-
-  }
+  // }
 
   func3(parms: any, role: string) {
     let userType: string;
 
-    // if (role === "Seeker") {
-    //   userType = "Seeker";
-    // } else if (role === "Company") {
-    //   userType = "Company";
-    // }else if(role === "selfEmployer"){
-    //   userType = "selfEmployer";
-
-    // } else {
-    //   // Handle the case where role is neither "seeker" nor "employer"
-    //   console.error("Invalid role:", role);
-    //   return; // Do not proceed further
-    // }
-
-    // localStorage.setItem("userType", userType);
     this.router.navigateByUrl('auth/login');
   }
 
@@ -214,6 +167,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 
 
   }
+
   func113() {
     this.router.navigateByUrl('/list/screen')
 

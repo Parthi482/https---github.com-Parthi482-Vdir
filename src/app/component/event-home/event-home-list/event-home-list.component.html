@@ -20,14 +20,53 @@
           <i class="fa fa-users" aria-hidden="true" style="padding-right: 5px;padding-bottom: 5px;"></i
           >{{ bannerdata?.event_participants?.length || 0 }}
           </div>
-      <button class="rsvp-button" (click)="SendEmail(bannerdata)" style="background-color: rgba(31, 215, 232, 0.873);" *ngIf="ActiveUser == true">RSVP</button>
+
+
+<!-- todo RSVP BUTTON -->
+
+<!-- <button
+class="rsvp-button"
+(click)="
+  RegisterEvent ? SendEmail(bannerdata) : CancelRSVP(bannerdata)"
+[style.background-color]="
+  ActiveUser && !RegisterEvent ? 'rgba(31, 215, 232, 0.873)' : 'red'
+"
+*ngIf="ActiveUser"
+>
+{{ RegisterEvent ? "RSVP" : "Cancel" }}
+</button>
+<button
+class="rsvp-button"
+(click)="
+RegisterEvent ? SendEmail(bannerdata) : CancelRSVP(bannerdata)"
+[style.background-color]="
+ActiveUser && !RegisterEvent ? 'rgba(31, 215, 232, 0.873)' : 'red'
+"
+*ngIf="ActiveUser"
+>
+{{ RegisterEvent ? "RSVP" : "Cancel" }}
+</button> -->
+<!-- todo RSVP BUTTON -->
+<div (ngModelChange)="changetheButton(bannerdata._id)">
+
+</div>
+ 
+
+
+<button class="rsvp-button"(click)="SendEmail(bannerdata)" style="background-color: rgba(31, 215, 232, 0.873);" *ngIf="ActiveUser == true && RegisterEvent == false" >RSVP</button>
+<button class="rsvp-button"(click)="SendEmail(bannerdata)" style="background-color: rgba(31, 215, 232, 0.873);" *ngIf="ActiveUser == true && RegisterEvent == true" >Cancel</button>
+
+
+
+
+
       <button class="rsvp-button" *ngIf="!ActiveUser" (click)="authService.GoogleAuth()">
         RSVP
       </button>  
     </div>
 </div>
 </div>
-  
+  <!-- (click)="SendEmail(bannerdata)"  -->
     <form [formGroup]="form" class="centered-div">
       
       <mat-form-field style="width: 250px;padding-top: 18px;">
@@ -137,3 +176,18 @@
     view more</a
   >
 </div>
+
+
+
+
+<ng-template #confirmViewPopup>
+  <mat-dialog-content class="custom-dialog-content" style="margin-top: 15px;">
+    <h1>Thank you</h1>
+  </mat-dialog-content>
+
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" >
+    <button  mat-dialog-close tabindex="-1" class="button-okay">Close</button> 
+  </mat-dialog-actions>
+</ng-template>
+
+ 
