@@ -4,24 +4,27 @@ import { Component } from '@angular/core';
 import { NgModel, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
+import { isEmpty } from 'lodash';
 import { DataService } from 'src/app/service/data.service';
 import { ApiService } from 'src/app/service/search.service';
 
 @Component({
   selector: 'app-candidate-info',
-  standalone:true,
-  imports:[CommonModule,ReactiveFormsModule,MatIconModule ],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
   templateUrl: './candidate-info.component.html',
   styleUrls: ['./candidate-info.component.css']
 })
 export class CandidateInfoComponent {
-  userDetails:any;
-  parms:any;
-  resumeHere:boolean=false;
-  overall_data:any[]=[]
+  userDetails: any;
+  parms: any;
+  resumeHere: boolean = false;
+  overall_data: any[] = []
 
-  constructor(private http: HttpClient, private auth:ApiService,private dataservice:DataService,private route: ActivatedRoute,private router:Router) {
-    this.route.queryParamMap.subscribe((params:any)=>{ // queryparams
+  constructor(private http: HttpClient, private auth: ApiService, private dataservice: DataService, private route: ActivatedRoute, private router: Router) {
+    this.route.queryParamMap.subscribe((params: any) => { // queryparams
+      console.log(params);
+
       this.parms = params.params;
       console.log(this.parms.applied_type);
     })
@@ -29,6 +32,7 @@ export class CandidateInfoComponent {
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
+    console.log(id);
 
     const data: any[] = [];
     const data1: any[] = [];
@@ -38,46 +42,46 @@ export class CandidateInfoComponent {
       filter: [
         {
           clause: "AND",
-          conditions: [{ column: '_id', operator: "EQUALS", value:id }],
+          conditions: [{ column: '_id', operator: "EQUALS", value: id }],
         },
       ],
-    } 
+    }
 
 
 
-    this.dataservice.getDataByFilter('seekers_info',filterCondition1).subscribe((res: any) => {
-    // this.auth.GetByID('seekers_info', '_id', id,'false').subscribe((res: any) => {
- 
-      let response =  res.data[0].response
+    this.dataservice.getDataByFilter('seekers_info', filterCondition1).subscribe((res: any) => {
+      // this.auth.GetByID('seekers_info', '_id', id,'false').subscribe((res: any) => {
+
+      let response = res.data[0].response
 
       data.push(response);
       console.log(response.resume);
-      if(response.resume!=null){
-this.resumeHere=true
-      }else{
-this.resumeHere=false
+      if (response.resume != null) {
+        this.resumeHere = true
+      } else {
+        this.resumeHere = false
       }
- 
-       const filterValue = {
+
+      const filterValue = {
         filter: [
           {
             clause: "AND",
-            conditions: [{ column: '_id', operator: "EQUALS", value:id }],
+            conditions: [{ column: '_id', operator: "EQUALS", value: id }],
           },
         ],
-      } 
-  
-    this.dataservice.getDataByFilter('user_resume',filterValue).subscribe((res:any)=>{
- 
+      }
 
-    // }) 
-    let response = res.data[0].response
-       
-        if(res!=null){
+      this.dataservice.getDataByFilter('user_resume', filterValue).subscribe((res: any) => {
+
+
+        // }) 
+        let response = res.data[0].response
+
+        if (res != null) {
           data1.push(response);
           this.overall_data = this.groupData(data, data1);
 
-        }else{
+        } else {
           this.overall_data = this.groupData(data);
         }
 
@@ -93,65 +97,72 @@ this.resumeHere=false
     });
   }
 
-groupData(data: any[], data1?: any[]):any[] {
- 
+  groupData(data: any[], data1?: any[]): any[] {
 
 
-  const groupedData: any[] = [];
-  if (data1 == null) {
-    data.forEach((item) => {
-      groupedData.push({
-        candidateInfo: item,
-        resumeData: null, // You can set this to null when resume data is not available
-      });
-    });
-  } else { 
-    data.forEach((item) => {
-      const matchingData = data1.find((dataItem) => dataItem._id === item._id);
-      if (matchingData) {
+
+    const groupedData: any[] = [];
+    if (data1 == null) {
+      data.forEach((item) => {
         groupedData.push({
           candidateInfo: item,
-          resumeData: matchingData,
+          resumeData: null, // You can set this to null when resume data is not available
         });
+      });
+    } else {
+      data.forEach((item) => {
+        const matchingData = data1.find((dataItem) => dataItem._id === item._id);
+        if (matchingData) {
+          groupedData.push({
+            candidateInfo: item,
+            resumeData: matchingData,
+          });
+        }
+      });
+    }
+
+    return groupedData;
+  }
+
+  UpdateCanditeInfo(type: any) {
+    let data: any = {}
+    data['applied_type'] = type;
+    console.log(this.parms.Jobid);
+
+    let value = this.parms.Jobid
+    const filterCondition1 = {
+      filter: [
+        {
+          clause: "AND",
+          conditions: [{ column: 'Jobid', operator: "EQUALS", value: value }],
+        },
+      ],
+    }
+
+
+
+
+    this.dataservice.getDataByFilter('applied_jobs', filterCondition1).subscribe((xyz: any) => {
+      // console.log(xyz);
+      let res = xyz.data[0].response
+      if (!isEmpty(res)) {
+        let ID = res[0]._id
+
+        this.dataservice.update('applied_jobs', ID, data).subscribe((val: any) => {
+          console.log(val);
+        })
+        this.router.navigateByUrl("admin/candidates/all", value)
       }
-    });
-  } 
-
-  return groupedData;
-}
-
-UpdateCanditeInfo(type:any){ 
-let data:any={}
-data['applied_type']=type; 
-let value =this.parms.Jobid 
-const filterCondition1 = {
-  filter: [
-    {
-      clause: "AND",
-      conditions: [{ column: 'Jobid', operator: "EQUALS", value:value }],
-    },
-  ],
-} 
 
 
+    })
 
 
-this.dataservice.getDataByFilter('applied_jobs',filterCondition1).subscribe((xyz:any)=>{
-  // console.log(xyz);
-    let res = xyz.data[0].response
-let ID =res._id
-this.dataservice.update('applied_jobs',ID,data).subscribe((val:any)=>{
-console.log(val);
-})
-this.router.navigateByUrl("admin/candidates/all",value)
-})
+  }
+  routeback() {
+    console.log(this.parms);
 
-
-}
-routeback(){
-  console.log(this.parms);
-
-  this.router.navigate(["admin/candidates/"+this.parms.Jobid]);
-}
+    this.router.navigate(["admin/candidates/" + this.parms.Jobid]);
+  }
 }
 

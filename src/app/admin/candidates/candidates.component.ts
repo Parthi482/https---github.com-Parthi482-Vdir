@@ -215,14 +215,16 @@ export class CandidatesComponent {
         }
       })
     } else {
-
+      let data:any = this.params
+      console.log(data);
+      
       const filterValue = {
         filter: [
           {
             clause: "AND",
             conditions: [
 
-              { column: "companyId", operator: "EQUALS", value: this.params },
+              // { column: "companyId", operator: "EQUALS", value: data },
               { column: "applied_type", operator: "EQUALS", value: type }
 
 
@@ -231,19 +233,7 @@ export class CandidatesComponent {
         ],
       }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
       this.dataservice.getDataByFilter('applied_jobs', filterValue).subscribe((res: any) => {
      
         let xyz  = res.data[0].response

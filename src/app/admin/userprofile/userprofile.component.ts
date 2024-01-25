@@ -134,10 +134,8 @@ imgfalg:boolean=true;
     this.toggleEditMode();
     this.toggleEditMode1();
     this.toggleEditMode2();
-    this.toggleEditMode3();
-    console.log(this.auth);
+    this.toggleEditMode3();  
     
-    // console.log(this.auth.phone);
     this.basicinfo.controls['Name']?.setValue(this.auth.Name);
     this.basicinfo.controls['CompanyName'].setValue(this.auth.CompanyName);
     // this.basicinfo.controls['Address'].setValue(this.auth.area +','+' '+this.auth.districtname+','+' '+ this.auth.statename +','+' '+this.auth.pincode)
