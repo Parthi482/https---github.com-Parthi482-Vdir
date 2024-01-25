@@ -166,9 +166,10 @@ this.applyJob()
   } 
   console.log(title);
   console.log(filterValue);
-
+  
   this.dataservice.getDataByFilter('jobs',filterValue)
-  .subscribe((xyz:any)=>{
+  .subscribe((res:any)=>{
+    let xyz = res.data[0].response
     console.log(xyz);
 
     console.log(xyz[0]);
@@ -230,6 +231,8 @@ this.applyJob()
   // this.auth.GetByID("")
 }
 else if(params['business-category']&&params['company']){
+ 
+  
   interface FilterCondition {
     clause: string;
     conditions: Condition[];
@@ -240,9 +243,7 @@ else if(params['business-category']&&params['company']){
     operator: string;
     value: string;
   }
-  this.companyFilter=true;
-  console.log(this.jobFilter,this.companyFilter,this.industryFilter);
-
+  this.companyFilter=true; 
   const inputCategory = params['business-category'];
   const inputCompany = params['company'];
 
@@ -255,8 +256,8 @@ else if(params['business-category']&&params['company']){
       {
         clause: "AND",
         conditions: [
-          { column: "industry", operator: "EQUALS", value:transformedCategory},
-        { column: "CompanyName", operator: "EQUALS", value: transformedCompany }
+          { column: "industry", operator: "EQUALS", value:params['business-category']},
+        { column: "CompanyName", operator: "EQUALS", value: params['company'] }
                 
           
       ],
@@ -283,8 +284,8 @@ else if(params['business-category']&&params['company']){
  
       
     });
-  
-       
+   
+        
           let address= xyz.Address 
 
           if(xyz.Company_Register_Type!=undefined&&xyz.Company_Register_Type!=null){
@@ -307,7 +308,7 @@ else if(params['business-category']&&params['company']){
           this.companyflag=true
 
     this.companyData['fulladdress']=address;
-    console.log(this.companyData);
+ 
     const filtersValue = {
       filter: [
         {

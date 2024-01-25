@@ -1,7 +1,7 @@
-<div class="card">
+<div class="card" *ngIf="OldUser">
   <div class="card-body">
     <div class="profile-container" fxLayout fxLayout.xs="column">
-      <!-- Profile Image -->
+  
       <div class="profile-image" fxFlex fxFlex.xs="100%">
         <div class="text-center mb-5">
           <div fxLayoutAlign="center center">
@@ -14,15 +14,14 @@
           </div>
         </div>
       </div>
-
-      <!-- Profile Form -->
+ 
       <div class="profile-form" fxFlex fxFlex.xs="100%" fxLayoutAlign="start stretch">
-        <!-- <hr> -->
+ 
 
         <h3 class="card-title">Profile Information</h3>
  
           <form [formGroup]="profileForm" fxLayout fxLayoutGap="20px">
-            <!-- First Name -->
+ 
             <div class="mb-3" fxFlex="50%">
               <label for="firstName" class="form-label">First Name</label>
               <input type="text" id="firstName" class="form-control" formControlName="firstName" [(ngModel)]="profile.firstName">
@@ -31,8 +30,7 @@
               <div *ngIf="profileForm.get('firstName')?.hasError('noSpaceAtStartEnd') && profileForm.get('firstName')?.touched"
                    style="color: red;">Invalid First Name</div>
             </div>
-  
-            <!-- Last Name -->
+   
             <div class="mb-3" fxFlex="50%">
               <label for="lastName" class="form-label">Last Name</label>
               <input type="text" id="lastName" class="form-control" formControlName="lastName"  [(ngModel)]="profile.lastName">
@@ -41,8 +39,7 @@
               <div *ngIf="profileForm.get('lastName')?.hasError('noSpaceAtStartEnd') && profileForm.get('lastName')?.touched"
                    style="color: red;">Invalid Last Name</div>
             </div>
-  
-            <!-- Email -->
+   
             <div class="mb-3" fxFlex="50%">
               <label for="email" class="form-label">Email</label>
               <input type="email" id="email" class="form-control" formControlName="email"  [(ngModel)]="profile.email">
@@ -51,8 +48,7 @@
               <div *ngIf="profileForm.get('email')?.hasError('email') && profileForm.get('email')?.touched"
                    style="color: red;">Invalid email format</div>
             </div>
-  
-            <!-- Phone Number -->
+   
             <div class="mb-3" fxFlex="50%">
               <label for="phone" class="form-label">Phone Number</label>
               <input type="text" id="phone" class="form-control" formControlName="phone" [(ngModel)]="profile.phone">
@@ -61,16 +57,14 @@
               <div *ngIf="profileForm.get('phone')?.hasError('noSpaceAtStartEnd') && profileForm.get('phone')?.touched"
                    style="color: red;">Invalid Phone Number</div>
             </div>
-  
-            <!-- Address -->
+   
             <div class="mb-3" fxFlex="100%">
               <label for="address" class="form-label">Address</label>
               <input type="text" id="address" class="form-control" formControlName="address" [(ngModel)]="profile.address">
               <div *ngIf="profileForm.get('address')?.hasError('required') && profileForm.get('address')?.touched"
                    style="color: red;">Address is required</div>
             </div>
-  
-            <!-- Date of Birth -->
+   
             <div class="mb-3" fxFlex="50%">
               <label for="dateofbirth" class="form-label">Date of Birth</label>
               <input type="date" id="dateofbirth" class="form-control" formControlName="dateofbirth" [(ngModel)]="profile.dateofbirth">
@@ -81,8 +75,7 @@
               <div *ngIf="profileForm.get('dateofbirth')?.hasError('noSpaceAtStartEnd') && profileForm.get('dateofbirth')?.touched"
                    style="color: red;">No empty spaces are allowed</div>
             </div>
-  
-            <!-- Education -->
+   
             <div class="mb-3" fxFlex="50%">
               <label for="education" class="form-label">Education</label>
               <input type="text" id="education" class="form-control" formControlName="education" [(ngModel)]="profile.education">
@@ -109,13 +102,95 @@
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
+  
     </div>
   </div>
 </div>
+ 
+
+<!-- todo new  -->
+ <div class="card" *ngIf="NewUser">
+  <div class="card-body">
+    <div class="profile-container" fxLayout fxLayout.xs="column">
+  
+      <div class="profile-image" fxFlex fxFlex.xs="100%">
+        <div class="text-center mb-5">
+          <div fxLayoutAlign="center center">
+            <label class="hoverable" for="fileInput">
+              <img [src]="url ? url : profile.profile_pic ? profile.profile_pic : ''">
+              <div class="hover-text">Upload Profile</div>
+              <div class="background"></div>
+              <input id="fileInput" type='file' (change)="handleFileUpload()" (change)="onSelectFile($event)">
+            </label>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="profile-form" fxFlex fxFlex.xs="100%" fxLayoutAlign="start stretch">
+ 
+
+        <h3 class="card-title" style="font-size: 24px;font-weight: bold;" fxLayoutAlign="center center">Update Profile Information</h3>
+ 
+          <form [formGroup]="profileForm" fxLayout fxLayoutGap="20px">
+ 
+            <div class="mb-3" fxFlex="50%">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" id="firstName" class="form-control" formControlName="firstName" [(ngModel)]="profile.firstName">
+              <div *ngIf="profileForm.get('firstName')?.hasError('required') && profileForm.get('firstName')?.touched"
+                   style="color: red;">First Name is required</div>
+              <div *ngIf="profileForm.get('firstName')?.hasError('noSpaceAtStartEnd') && profileForm.get('firstName')?.touched"
+                   style="color: red;">Invalid First Name</div>
+            </div>
+   
+            <div class="mb-3" fxFlex="50%">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" id="lastName" class="form-control" formControlName="lastName"  [(ngModel)]="profile.lastName">
+              <div *ngIf="profileForm.get('lastName')?.hasError('required') && profileForm.get('lastName')?.touched"
+                   style="color: red;">Last Name is required</div>
+              <div *ngIf="profileForm.get('lastName')?.hasError('noSpaceAtStartEnd') && profileForm.get('lastName')?.touched"
+                   style="color: red;">Invalid Last Name</div>
+            </div>
+   
+            <div class="mb-3" fxFlex="50%">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" class="form-control" formControlName="email"  [(ngModel)]="profile.email">
+              <div *ngIf="profileForm.get('email')?.hasError('required') && profileForm.get('email')?.touched"
+                   style="color: red;">Email is required</div>
+              <div *ngIf="profileForm.get('email')?.hasError('email') && profileForm.get('email')?.touched"
+                   style="color: red;">Invalid email format</div>
+            </div>
+       
+            <div class="mb-3" fxFlex="50%">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="text" id="phone" class="form-control" formControlName="phone" [(ngModel)]="profile.phone">
+              <div *ngIf="profileForm.get('phone')?.hasError('required') && profileForm.get('phone')?.touched"
+                   style="color: red;">Phone Number is required</div>
+              <div *ngIf="profileForm.get('phone')?.hasError('noSpaceAtStartEnd') && profileForm.get('phone')?.touched"
+                   style="color: red;">Invalid Phone Number</div>
+            </div>
+
+            <mat-form-field>
+              <mat-label>Choose Your Identity</mat-label>
+              <mat-select name="user_type" [(ngModel)]="selectedUserType" required  formControlName="user_type">
+                <mat-option *ngFor="let option of userTypes" [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+            
+            
+ 
+          </form> 
+
+        <div class="text-end mb-3 me-3">
+          <button type="button" class="btn btn-danger"  style="background-color:var(--main-color);" (click)="UpdateProfile()">
+           update
+          </button>
+        </div>
+         
+      </div>
+  
+    </div>
+  </div>
+</div>  

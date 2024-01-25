@@ -3,10 +3,7 @@
     
  <div style="height: 50px;"></div>
 
-
-
  
-
 <div class="containers">
   <div class="section">
     <h1>Event List</h1>
@@ -15,7 +12,7 @@
 
   <div class="section">
     <h1>Business List</h1>
-    <app-business-directory></app-business-directory>
+    <app-business-directory [IsHome]="true" [minNumberOfCards]="5"></app-business-directory>
   </div> 
   <div class="section">
     <h1>Self Employee</h1>
@@ -24,7 +21,7 @@
 
   <div class="section">
     <h1>Job List</h1>
-    <app-jobs></app-jobs>
+    <app-jobs [IsHome]="true" [minNumberOfCards]="5"></app-jobs>
   </div>
 </div> 
  

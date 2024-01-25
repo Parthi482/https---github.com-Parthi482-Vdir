@@ -1,6 +1,6 @@
 <div>
   <div class="business-card-container">
-    <div class="business-card" *ngFor="let data of Data" style="cursor: pointer">
+    <div class="business-card" *ngFor="let data of Data?.slice(0, minNumberOfCards || Data.length)" style="cursor: pointer" (click)="navigate('view', data)">
       <div class="left-side">
         <div class="logo-container">
           <img src="{{data.Company_logo}}" alt="{{data.CompanyName}}" class="company-logo">
@@ -23,7 +23,7 @@
   <div style="text-align: center; margin-top: 10px;">
     <a
       style="text-decoration: none; cursor: pointer; display: inline-block; padding: 10px 20px;  border-radius: 5px;"
-      
+      routerLink="/companies"
     >
       View More
     </a>

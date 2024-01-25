@@ -15,6 +15,7 @@ const routes: Routes = [
   {path:'companies-info/:id', loadComponent:()=>import('./cvbuilder/cvbuilder.component').then(x=>x.CvbuilderComponent)},
   // {path:'job-details', loadComponent:()=>import('./job-details/job-details.component').then(x=>x.JobDetailsComponent)},
   {path:'profile', loadComponent:()=>import('./profile/profile.component').then(x=>x.ProfileComponent)},
+  {path:'user/:flag', loadComponent:()=>import('./profile/profile.component').then(x=>x.ProfileComponent)},
   // {path:'companies', loadComponent:()=>import('./companies/companies.component').then(x=>x.CompaniesComponent)},
   {path:'createcv', loadComponent:()=>import('./createcv/createcv.component').then(x=>x.CreatecvComponent)},
   {path:'viewmorejob/:id', loadComponent:()=>import('./viewmorejob/viewmorejob.component').then(x=>x.ViewmorejobComponent)},

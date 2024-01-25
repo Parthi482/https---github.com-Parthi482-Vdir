@@ -104,7 +104,9 @@ export class AuthService {
               localStorage.setItem('auth', JSON.stringify(userData));
               localStorage.setItem('token',  result.data); 
               this.userProfile = user;
-              this.router.navigate([`/edit/user/${userData._id}`]); 
+              // this.router.navigate([`/edit/user/${userData._id}`]); 
+              this.router.navigate([`/dashboard/user/true`]); 
+              
             }); 
         } 
       }); 

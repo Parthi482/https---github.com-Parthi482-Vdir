@@ -53,6 +53,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel'; // Import SlickCarouse
     MatSnackBarModule,
     AgGridModule,
     MatIconModule,
+    MatFormFieldModule,
     MatTabsModule,
     ComponentModule,
     AngularFireModule.initializeApp(env.firebase),

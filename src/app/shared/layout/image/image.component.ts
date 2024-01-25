@@ -94,7 +94,7 @@ ngOnInit() {
   // console.log('sad');
   this.width=this.width? this.width : 800;
   this.height=this.height? this.height : 900;
-  console.log(this.CompanyID);
+ 
   this.company=this.CompanyID;
 
 

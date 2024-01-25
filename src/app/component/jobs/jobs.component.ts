@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
 
 @Component({
@@ -7,10 +8,12 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./jobs.component.css']
 })
 export class JobsComponent implements OnInit{
+  @Input('IsHome') Ishomescreen: any
+  @Input('minNumberOfCards') minNumberOfCards?: number;
 
   Data:any
 
-  constructor(private dataservice:DataService){
+  constructor(private dataservice:DataService,private router: Router){
 
   }
 
@@ -18,6 +21,17 @@ export class JobsComponent implements OnInit{
 ngOnInit(): void {
     this.getData() 
     
+}
+navigate(router: string, data?: any) {
+  // if (router == "list") {
+  //   this.router.navigate(['event-home'])
+  // } else {
+  //   this.router.navigate(["event/" + id])
+
+  // } 
+  // this.router.navigate([data.industry + data])
+  this.router.navigateByUrl(data.industry+'/'+data.CompanyName)
+
 }
 
 getData(){

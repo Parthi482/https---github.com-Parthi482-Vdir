@@ -101,6 +101,7 @@ const appearance: any = {
     MatStepperModule,
     AppRoutingModule,
     CommonModule,
+    MatFormFieldModule,
     DragDropModule,
     MatChipsModule,
     FormlyMatToggleModule,

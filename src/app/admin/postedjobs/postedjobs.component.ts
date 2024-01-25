@@ -40,8 +40,8 @@ editorConfig: AngularEditorConfig = {
 
   constructor(private http: HttpClient, private auth:ApiService, private router: Router,private fb: FormBuilder,private dataservice:DataService ) {
     this.details=this.auth.getdetails()
-
-    this.dataservice.getDataById("companies",this.details._id).subscribe((res:any)=>{
+// todo hardcode
+    this.dataservice.getDataById("companies","654331ce4c36b5f156fc3880").subscribe((res:any)=>{
       let xyz:any = res.data[0]
       console.log(xyz);
 

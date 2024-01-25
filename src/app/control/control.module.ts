@@ -504,7 +504,7 @@ name:"carousel-component-input",Component:CarouselComponentInput
       NgbModule,
         BrowserModule,
         MatGridListModule,
-
+        MatFormFieldModule,
         DragDropModule,
         CommonModule,
         MatCardModule,

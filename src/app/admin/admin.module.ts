@@ -39,6 +39,8 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   imports: [
     CommonModule,
+    MatFormFieldModule,
+
     AngularEditorModule,
     MatIconModule,
     MatTabsModule,

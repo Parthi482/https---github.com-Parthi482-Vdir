@@ -1,6 +1,6 @@
  <div>
 <div class="business-card-container">
-    <div class="business-card" *ngFor="let data of Data" style="cursor: pointer">
+    <div class="business-card" *ngFor="let data of Data?.slice(0, minNumberOfCards || Data.length)" style="cursor: pointer" (click)="navigate('view', data)">
       <div class="left-side">
         <div class="logo-container">
           <img src="{{data.Company_logo}}" alt="{{data.companyName}}" class="company-logo">

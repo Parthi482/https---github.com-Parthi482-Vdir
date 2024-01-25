@@ -46,6 +46,7 @@ import { SelfEmployeeComponent } from '../component/self-employee/self-employee.
 import { JobsComponent } from '../component/jobs/jobs.component';
 import { EventHomeListComponent } from '../component/event-home/event-home-list/event-home-list.component';
 import { MatSelectModule } from '@angular/material/select';
+
 @NgModule({
   declarations: [
     HomeScreenInput,
@@ -74,7 +75,6 @@ import { MatSelectModule } from '@angular/material/select';
     LayoutModule,
     MatDatepickerModule,
     MatSelectModule,
-    MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
     MatButtonModule,
