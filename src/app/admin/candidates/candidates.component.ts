@@ -205,7 +205,8 @@ export class CandidatesComponent {
           },
         ],
       }
-      this.dataservice.getDataByFilter('applied_jobs', filterValue).subscribe((xyz: any) => {
+      this.dataservice.getDataByFilter('applied_jobs', {}).subscribe((res: any) => {
+        let xyz:any = res.data[0].response
         this.cardData = []
         if (xyz != null) {
           this.cardData = xyz.map((xyz: any) => ({
@@ -215,8 +216,7 @@ export class CandidatesComponent {
         }
       })
     } else {
-      let data:any = this.params
-      console.log(data);
+   
       
       const filterValue = {
         filter: [

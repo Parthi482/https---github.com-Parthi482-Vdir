@@ -180,7 +180,7 @@ ActiveUser && !RegisterEvent ? 'rgba(31, 215, 232, 0.873)' : 'red'
 
 
 
-<ng-template #confirmViewPopup>
+<ng-template #confirmViewPopup *ngIf="RegisterEvent">
   <mat-dialog-content class="custom-dialog-content" style="margin-top: 15px;">
     <h1>Thank you</h1>
   </mat-dialog-content>
