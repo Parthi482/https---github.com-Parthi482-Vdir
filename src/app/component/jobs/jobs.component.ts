@@ -23,13 +23,7 @@ ngOnInit(): void {
     
 }
 navigate(router: string, data?: any) {
-  // if (router == "list") {
-  //   this.router.navigate(['event-home'])
-  // } else {
-  //   this.router.navigate(["event/" + id])
 
-  // } 
-  // this.router.navigate([data.industry + data])
   this.router.navigateByUrl(data.industry+'/'+data.CompanyName)
 
 }

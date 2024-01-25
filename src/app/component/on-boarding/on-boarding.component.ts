@@ -59,10 +59,11 @@ export class OnBoardingComponent  implements OnInit{
         this.JobSeeker = true
       }else if(res.id == "company"){
         this.company = true
-      }else{
-        this.SelfEmpolyee= true
+        
       }
-      
+      // else{
+      //   this.SelfEmpolyee= true
+      // }
     })
   }
 
