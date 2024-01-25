@@ -23,7 +23,11 @@
     /* transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1); */
     /* overflow: hidden; */
   }
-
+.view-job:hover{
+  background-color:rgb(193, 163, 98);
+  color: white;
+  border: 1px;
+}
   .view-resume{
     margin: 10px; 
     cursor: pointer;
@@ -83,3 +87,4 @@
     height: 150px;
     width: 250px;
   }
+ 

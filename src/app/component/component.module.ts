@@ -60,6 +60,7 @@ import { EventViewComponent } from './event-home/event-view/event-view.component
 import { EventHomeListComponent } from './event-home/event-home-list/event-home-list.component';
 import { EventAdminComponent } from './event-home/event-admin/event-admin.component';
 import { OnBoardingComponent } from './on-boarding/on-boarding.component';
+import { ModuleRegistry } from 'ag-grid-community';
 
 
 
@@ -90,6 +91,7 @@ const appearance: any = {
     EventViewComponent,
     EventAdminComponent,
     OnBoardingComponent,   
+
   ],
   imports: [
     SlickCarouselModule,

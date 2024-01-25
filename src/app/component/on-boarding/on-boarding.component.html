@@ -1,71 +1,89 @@
-<ng-container>
+<ng-container *ngIf="JobSeeker">
 
-<div  fxLayout="row" fxLayoutAlign="center center">
+  <div style="height: 200px;">
+  </div>
+
+   
+<div  fxLayout="row" fxLayoutAlign="center center"  >
   <h1 style="font-size: 32px;font-weight: bold;" fxLayoutAlign="center center">
     Welcome to Job Seeker Onboarding
-    <img src="/assets/image/vdirectory-small-logo.png" alt="" style="background-color: brown;">
+    <img src="/assets/image/vdirectory-small-logo.png" alt="" style="background-color: brown;margin-left: 10px;">
   </h1> 
   <p></p>
 
 </div>
  
 
-<div style="height: 10px;">
+<div style="height: 25px;">
 </div>
 
  
 
 <div fxLayout="row" fxLayoutAlign="center center">
-  <button class="view-job">VIEW JOB</button>
-  <button class="view-job">update Profile</button> 
-  <button class="view-job" >Upload Resume</button> 
+  <button class="view-job" routerLink="/jobs">View Job</button>
+  <button class="view-job" routerLink="/dashboard/profile">update Profile</button> 
+  <button type='button' class="view-job" (click)="onSelectFile($event)">Upload Resume</button>
+  <input type="file" #fileInput style="display: none;" (change)="handleFileUpload()">
+ 
+
+</div>
+<div style="height: 50%;">
+</div>
+</ng-container>
+
+<ng-container *ngIf="company">
+
+  <div style="height: 200px;">
+  </div>
+
+   
+<div  fxLayout="row" fxLayoutAlign="center center"  >
+  <h1 style="font-size: 32px;font-weight: bold;" fxLayoutAlign="center center">
+    Welcome to Company Onboarding
+    <img src="/assets/image/vdirectory-small-logo.png" alt="" style="background-color: brown;margin-left: 10px;">
+  </h1> 
+  <p></p>
+
 </div>
  
+
+<div style="height: 25px;">
+</div>
+ 
+<div fxLayout="row" fxLayoutAlign="center center">
+  <button class="view-job" routerLink="/companies">View companies</button>
+  <button class="view-job" routerLink="/dashboard/profile">update Profile</button> 
+  <button   class="view-job" routerLink="/admin/preview-profile">Update Company Details</button> 
+</div>
+<div style="height: 50%;">
+</div>
 </ng-container>
 
 
-<!-- <ng-container>
+<ng-container *ngIf="SelfEmpolyee">
 
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <h1 style="font-size: 32px; margin-top: 7%;">
-      Welcome to Onboarding
-      <img src="/assets/image/vdirectory-small-logo.png" alt="" style="background-color: brown;">
-    </h1> 
+  <div style="height: 200px;">
   </div>
-   
-  
-  <div style="height: 10px;">
-  </div>
-  
-   
-  
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <button class="view-job">VIEW JOB</button>
-    <button class="view-job">update Profile</button> 
-    <button class="view-job" >Upload Resume</button> 
-  </div>
-   
-  </ng-container>
 
-  <ng-container>
+   
+<div  fxLayout="row" fxLayoutAlign="center center"  >
+  <h1 style="font-size: 32px;font-weight: bold;" fxLayoutAlign="center center">
+    Welcome to Self Employee / Voluntary Onboarding
+    <img src="/assets/image/vdirectory-small-logo.png" alt="" style="background-color: brown;margin-left: 10px;">
+  </h1> 
+  <p></p>
 
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <h1 style="font-size: 32px; margin-top: 7%;">
-        Welcome to Onboarding
-        <img src="/assets/image/vdirectory-small-logo.png" alt="" style="background-color: brown;">
-      </h1> 
-    </div>
-     
-    
-    <div style="height: 10px;">
-    </div>
-    
-     
-    
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <button class="view-job">VIEW JOB</button>
-      <button class="view-job">update Profile</button> 
-      <button class="view-job" >Upload Resume</button> 
-    </div>
-     
-    </ng-container> -->
+</div>
+ 
+
+<div style="height: 25px;">
+</div>
+ 
+<div fxLayout="row" fxLayoutAlign="center center">
+  <button class="view-job" routerLink="/companies">View companies</button>
+  <button class="view-job" routerLink="/dashboard/profile">update Profile</button> 
+  <button   class="view-job" routerLink="/admin/preview-profile">Update Company Details</button> 
+</div>
+<div style="height: 50%;">
+</div>
+</ng-container>

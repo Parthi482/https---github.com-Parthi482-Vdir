@@ -53,6 +53,10 @@ const routes: Routes = [
       {
         path: '',
         component: OnBoardingComponent,
+      } ,
+      {
+        path: ':id',
+        component: OnBoardingComponent,
       } 
     ],
   },

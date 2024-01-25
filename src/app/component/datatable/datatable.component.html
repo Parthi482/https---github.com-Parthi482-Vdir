@@ -26,11 +26,14 @@
   style="width: 100%; height: calc(100vh - 250px); flex: 1 1 auto"
   class="ag-theme-alpine"
   [defaultColDef]="defaultColDef"
-  [columnDefs]="columnDefs"
-  [rowData]="listData"  
+        [columnDefs]="columnDefs"
+  [rowData]="listData"          
   [context]="context"[paginationPageSizeSelector]='false'
+  [rowSelection]="'single'"
+  [pagination]="true"
   [components]="components" 
-  (gridReady)="onGridReady($event)" 
+  (cellClicked)='onCellClicked($event)'
+  (gridReady)="onGridReady($event)"  
 ></ag-grid-angular>
 
 

@@ -1,12 +1,12 @@
 {
-	"pageHeading": "company",
+	"pageHeading": "client",
 	"formType": "simple",
 	"editMode": "page",
   "screenEditMode": "page",
   "user":true,
 	"keyField": "_id",
 	"form": {
-		"collectionName": "companies",
+		"collectionName": "client",
 		"fields": [
 			{
 				"fieldGroupClassName": "display-flex",
@@ -14,11 +14,11 @@
 					 
 					{
 						"type": "input",
-						"key": "company_name",
+						"key": "client_name",
 						"className": "flex-6",
 						"props": {
-							"label": "Company Name",
-							"placeholder": "Company Name", 
+							"label": "client Name",
+							"placeholder": "client Name", 
 							"required": true
 						},
 						"expressions": {
@@ -28,10 +28,10 @@
 					},
 					{
 						"type": "select",
-						"key": "Company_type",
+						"key": "client_type",
 						"className": "flex-6",
 						"props": {
-							"label": "Company Type",
+							"label": "client Type",
 							"options": [
 								{
 									"label": "Product",
@@ -46,7 +46,7 @@
 									"value": "Others"
 								}
 							],
-							"placeholder": "company Type",
+							"placeholder": "client Type",
 							"required": true
 						}
 					}
@@ -60,8 +60,8 @@
 						"key": "email_id",
 						"className": "flex-6",
 						"props": {
-							"label": "Company Email",
-							"placeholder": "Company Email",
+							"label": "client Email",
+							"placeholder": "client Email",
 							
 							
 							"pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
@@ -123,7 +123,7 @@
 						"className": "flex-6",
 						"props": {
 							"type": "input",
-							"label": "company Status",
+							"label": "client Status",
 							"options": [
 								{
 									"label": "Active",
@@ -137,7 +137,7 @@
 								 
 							],
 							
-							"placeholder": "company Status",
+							"placeholder": "client Status",
 							"required": true
 						},
 					
@@ -510,5 +510,5 @@
 			  "value": "Active"
 			}
 		  ], 
-	"onCancelRoute": "/list/company"
+	"onCancelRoute": "/list/client"
   }

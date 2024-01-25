@@ -25,8 +25,7 @@ import {
   IServerSideGetRowsParams,
   KeyCreatorParams,
   MenuItemDef,
-  ProcessGroupHeaderForExportParams,
-  ProcessHeaderForExportParams,
+  
   RowModelType,
   ServerSideTransaction,
 } from "ag-grid-community";
@@ -43,12 +42,16 @@ import { async } from "rxjs";
 import { environment } from "src/environments/environment";
 import { FormArray, FormGroup, FormControl, Validators } from "@angular/forms";
 
+import { ModuleRegistry } from '@ag-grid-community/core';
+
 @Component({
   selector: "app-datatable",
   templateUrl: "./datatable.component.html",
   styleUrls: ["./datatable.component.css"],
 })
 export class DatatableComponent implements OnInit {
+  
+  
   collectionName!: string;
   listName!: string;
   config: any;
@@ -83,10 +86,9 @@ public listData: any[] = []
   @Output("onClose") onClose = new EventEmitter<any>(); //UNDO
   @Input("mode") mode: string = "page";
   public gridOptions: any = {
-    flex: 1,
-    cacheBlockSize: environment?.cacheBlockSize,
-    paginationPageSize: environment?.paginationPageSize,
-    rowModelType: environment?.rowModelType,
+    cacheBlockSize: 14,
+    paginationPageSize: 10,
+    rowModelType: "serverSide",
   };
 
   overlayNoRowsTemplate =
@@ -97,9 +99,12 @@ public listData: any[] = []
     private DataService: DataService,
     public dialogService: DialogService, 
     private arraytostring: ArrayToStringPipe,
-    private helperService: HelperService
-  ) {
+    private helperService: HelperService,
+
+     ) {
     // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // ModuleRegistry.registerModules([cliet]),
+    // ModuleRegistry.registerModules([ ServerSideRowModelModule ]);
 
     this.context = { componentParent: this };
     this.components = {
@@ -323,7 +328,7 @@ public listData: any[] = []
       }
     );
   }
-
+rowmodeltype:RowModelType = "serverSide"
   /**
    * This method Get All Data by Passing collectionName  in grid
    */
@@ -627,7 +632,8 @@ public listData: any[] = []
   onCellClicked(event:any){
     let clickCell:any=event.column.getColId()
 
- 
+    console.log(clickCell);
+    
       return; 
   }
 // Add OR Edit DATA To Change with out api request

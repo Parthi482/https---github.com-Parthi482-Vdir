@@ -120,10 +120,13 @@ export class DynamicFormComponent {
 
   private Navigate(user_type: any): any {
     if (user_type === "Business Owner") {
-      return "add/company";
-    } else{
-      return "add/self-employee"
+      return "onboarding/company";
+    } else if (user_type === "Employee/Job Seeker"){
+      return "onboarding/jobseeker"
+    } else if (user_type === "Self Employee/Skilled Labour" ||"Voluntary"){
+      return "onboarding/jobseeker"
     }
+
   }
     
 
